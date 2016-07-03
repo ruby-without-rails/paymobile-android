@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.frmichetti.carhollicsandroid.CartActivity"
+    android:background="@drawable/gradient">
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="250dp"
+        android:id="@+id/listViewCarrinho"
+        android:choiceMode="singleChoice"
+        android:layout_below="@+id/textView5"
+        android:layout_alignEnd="@+id/textView3" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Finalizar Compra"
+        android:id="@+id/buttonConfirmarCompra"
+        android:layout_alignParentBottom="true"
+        android:layout_alignEnd="@+id/listViewCarrinho" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Remover Item"
+        android:id="@+id/buttonRemoverItem"
+        android:layout_marginTop="34dp"
+        android:layout_below="@+id/textViewItemSelecionadoVar"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Item Selecionado"
+        android:id="@+id/textViewItemSelecionadoVar"
+        android:layout_below="@+id/listViewCarrinho"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="28dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Continuar Comprando"
+        android:id="@+id/buttonContinuarComprando"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/buttonConfirmarCompra" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Quantidade"
+        android:id="@+id/textViewQuantidadeVar"
+        android:layout_above="@+id/buttonRemoverItem"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Preço"
+        android:id="@+id/textViewPrecoUnit"
+        android:layout_above="@+id/buttonRemoverItem"
+        android:layout_alignEnd="@+id/listViewCarrinho" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Subtotal"
+        android:id="@+id/textViewSubtotal"
+        android:layout_alignTop="@+id/buttonRemoverItem"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Subtotal"
+        android:id="@+id/textViewSubtotalVar"
+        android:layout_alignBottom="@+id/buttonRemoverItem"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Total"
+        android:id="@+id/textViewTotal"
+        android:layout_above="@+id/textViewSubtotalVar"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Total"
+        android:id="@+id/textViewTotalVar"
+        android:layout_below="@+id/textViewSubtotal"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Serviço"
+        android:id="@+id/textView"
+        android:layout_above="@+id/textViewQuantidadeVar"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Preço"
+        android:id="@+id/textView3"
+        android:layout_alignTop="@+id/textView"
+        android:layout_alignStart="@+id/textViewTotal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Quantidade"
+        android:id="@+id/textView4"
+        android:layout_above="@+id/textViewQuantidadeVar"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Itens no Carrinho"
+        android:id="@+id/textView5"
+        android:layout_alignParentStart="true" />
+</RelativeLayout>
