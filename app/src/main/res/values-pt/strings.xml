@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="btn_back">Voltar</string>
+    <string name="btn_change">Mudar</string>
+    <string name="btn_forgot_password">Esqueceu sua senha?</string>
+    <string name="btn_link_to_login">Já está registrado? Pode Entrar!</string>
+    <string name="btn_link_to_register">Ainda não é membro? Faça seu registro no Firebase agora!</string>
+    <string name="auth_failed">Falha na autenticação, verifique seu email e sua senha ou registre-se</string>
+    <string name="action_sign_in_short">Registrar</string>
+    <string name="btn_login">ENTRAR</string>
+    <string name="btn_remove">Remover</string>
+    <string name="btn_reset_password">Resetar Senha</string>
+    <string name="btn_send">Enviar</string>
+    <string name="btn_sign_out">Sair</string>
+    <string name="change_email">Mudar Email</string>
+    <string name="change_password">Mudar Senha</string>
+    <string name="email">Email</string>
+    <string name="forgot_password_msg">Nós só precisamos do seu Email para enviar as instruções do reset. </string>
+    <string name="hint_name">Nome Completo</string>
+    <string name="hint_new_email">Novo Email</string>
+    <string name="hint_password">Senha</string>
+    <string name="lbl_forgot_password">Esqueceu a senha?</string>
+    <string name="minimum_password">Senha muito pequena, digite no mínimo 6 caracteres!</string>
+    <string name="new_pass">Nova Senha</string>
+    <string name="remove_user">Remover usuário</string>
+    <string name="send_password_reset_email">Enviar Email de reset de senha</string>
+    <string name="title_activity_login">Registrar</string>
+    <string name="app_name">Carhollics CallCenter</string>
+</resources>

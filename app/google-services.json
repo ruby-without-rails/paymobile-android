@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "347684069626",
+    "firebase_url": "https://carhollicscallcenter-976da.firebaseio.com",
+    "project_id": "carhollicscallcenter-976da",
+    "storage_bucket": "carhollicscallcenter-976da.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:347684069626:android:30fb272255007eb0",
+        "android_client_info": {
+          "package_name": "br.com.frmichetti.carhollics.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "347684069626-bp0uamjb3t88nd0kk5novpua6s53k0bd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAW7B68IzviFuuOZwj_B1ohnaPKE5i8TWo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.frmichetti.carhollicsandroid.SimpleDetailActivity"
+    tools:context="br.com.frmichetti.carhollics.android.SimpleDetailActivity"
     android:background="@drawable/gradient">
 
     <TextView
@@ -16,7 +16,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Nome Serviço"
         android:id="@+id/textViewNome"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/colorPrimary"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
@@ -69,7 +69,7 @@
         android:text="Preço"
         android:id="@+id/textViewPrecoUnit"
         android:layout_alignWithParentIfMissing="false"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/colorPrimary"
         android:layout_below="@+id/buttonAddCart"
         android:layout_centerHorizontal="true" />
 
@@ -83,6 +83,7 @@
         android:layout_centerHorizontal="true" />
 
     <Button
+        android:background="@color/colorAccent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Adicionar no Carrinho"
