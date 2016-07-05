@@ -3,22 +3,26 @@ package br.com.frmichetti.carhollics.android;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import br.com.frmichetti.carhollics.android.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SignupActivity extends AppCompatActivity implements MyPattern{
+
+    private ActionBar actionBar;
 
     private EditText inputEmail, inputPassword;
 
@@ -42,7 +46,14 @@ public class SignupActivity extends AppCompatActivity implements MyPattern{
 
         doCreateListeners();
 
+    }
 
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+
+        super.onPostCreate(savedInstanceState);
+
+        doConfigure();
     }
 
     @Override
@@ -128,7 +139,7 @@ public class SignupActivity extends AppCompatActivity implements MyPattern{
                                             Toast.LENGTH_LONG).show();
                                     Log.d("DEBUG-LOGIN","Authentication failed." + task.getException().toString());
                                 } else {
-                                    startActivity(new Intent(SignupActivity.this, MainActivity.class));
+                                    startActivity(new Intent(SignupActivity.this, OptionsActivity.class));
                                     finish();
                                 }
                             }
@@ -140,11 +151,29 @@ public class SignupActivity extends AppCompatActivity implements MyPattern{
 
     @Override
     public void doConfigure() {
+        actionBar = getSupportActionBar();
 
+        actionBar.setTitle(R.string.app_name);
+
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+        actionBar.setSubtitle(R.string.action_sign_in_short);
     }
 
     @Override
     public void getExtras(Intent intent) {
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if(id == android.R.id.home){
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

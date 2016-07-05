@@ -24,7 +24,7 @@
         </activity>
         <activity android:name="br.com.frmichetti.carhollics.android.ResetPasswordActivity" />
         <activity android:name="br.com.frmichetti.carhollics.android.SignupActivity" />
-        <activity android:name="br.com.frmichetti.carhollics.android.MainActivity" />
+        <activity android:name=".OptionsActivity" />
     </application>
 
 </manifest>

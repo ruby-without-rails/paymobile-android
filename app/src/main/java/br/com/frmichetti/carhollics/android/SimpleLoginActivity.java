@@ -84,7 +84,11 @@ public class SimpleLoginActivity extends AppCompatActivity implements MyPattern 
 
     @Override
     public void doConfigure() {
+
         context = this;
+
+        actionBar = getSupportActionBar();
+
     }
 
     @Override

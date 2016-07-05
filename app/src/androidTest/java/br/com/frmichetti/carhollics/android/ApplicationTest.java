@@ -1,4 +1,4 @@
-package com.frmichetti.carhollicsandroid.br.com.frmichetti.carhollics.android;
+package br.com.frmichetti.carhollics.android;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

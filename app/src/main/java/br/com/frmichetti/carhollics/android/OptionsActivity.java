@@ -10,13 +10,12 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import br.com.frmichetti.carhollics.android.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends AppCompatActivity implements MyPattern{
+public class OptionsActivity extends AppCompatActivity implements MyPattern{
 
     private ActionBar actionBar;
 
@@ -38,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements MyPattern{
 
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_options);
 
         actionBar = getSupportActionBar();
 
@@ -61,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements MyPattern{
                 if (user == null) {
                     // user auth state is changed - user is null
                     // launch login activity
-                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                    startActivity(new Intent(OptionsActivity.this, LoginActivity.class));
 
                     finish();
                 }
@@ -195,7 +194,7 @@ public class MainActivity extends AppCompatActivity implements MyPattern{
 
                                     if (task.isSuccessful()) {
 
-                                        Toast.makeText(MainActivity.this, "Email address is updated. Please sign in with new email id!", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(OptionsActivity.this, "Email address is updated. Please sign in with new email id!", Toast.LENGTH_LONG).show();
 
                                         signOut();
 
@@ -203,7 +202,7 @@ public class MainActivity extends AppCompatActivity implements MyPattern{
 
                                     } else {
 
-                                        Toast.makeText(MainActivity.this, "Failed to update email!", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(OptionsActivity.this, "Failed to update email!", Toast.LENGTH_LONG).show();
 
                                         progressBar.setVisibility(View.GONE);
                                     }
@@ -264,7 +263,7 @@ public class MainActivity extends AppCompatActivity implements MyPattern{
 
                                         if (task.isSuccessful()) {
 
-                                            Toast.makeText(MainActivity.this, "Password is updated, sign in with new password!", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(OptionsActivity.this, "Password is updated, sign in with new password!", Toast.LENGTH_SHORT).show();
 
                                             signOut();
 
@@ -272,7 +271,7 @@ public class MainActivity extends AppCompatActivity implements MyPattern{
 
                                         } else {
 
-                                            Toast.makeText(MainActivity.this, "Failed to update password!", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(OptionsActivity.this, "Failed to update password!", Toast.LENGTH_SHORT).show();
 
                                             progressBar.setVisibility(View.GONE);
                                         }
@@ -325,13 +324,13 @@ public class MainActivity extends AppCompatActivity implements MyPattern{
 
                                     if (task.isSuccessful()) {
 
-                                        Toast.makeText(MainActivity.this, "Reset password email is sent!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(OptionsActivity.this, "Reset password email is sent!", Toast.LENGTH_SHORT).show();
 
                                         progressBar.setVisibility(View.GONE);
 
                                     } else {
 
-                                        Toast.makeText(MainActivity.this, "Failed to send reset email!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(OptionsActivity.this, "Failed to send reset email!", Toast.LENGTH_SHORT).show();
 
                                         progressBar.setVisibility(View.GONE);
                                     }
@@ -361,9 +360,9 @@ public class MainActivity extends AppCompatActivity implements MyPattern{
 
                                     if (task.isSuccessful()) {
 
-                                        Toast.makeText(MainActivity.this, "Your profile is deleted:( Create a account now!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(OptionsActivity.this, "Your profile is deleted:( Create a account now!", Toast.LENGTH_SHORT).show();
 
-                                        startActivity(new Intent(MainActivity.this, SignupActivity.class));
+                                        startActivity(new Intent(OptionsActivity.this, SignupActivity.class));
 
                                         finish();
 
@@ -371,7 +370,7 @@ public class MainActivity extends AppCompatActivity implements MyPattern{
 
                                     } else {
 
-                                        Toast.makeText(MainActivity.this, "Failed to delete your account!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(OptionsActivity.this, "Failed to delete your account!", Toast.LENGTH_SHORT).show();
 
                                         progressBar.setVisibility(View.GONE);
                                     }

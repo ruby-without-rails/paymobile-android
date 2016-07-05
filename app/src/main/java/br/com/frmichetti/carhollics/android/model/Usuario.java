@@ -23,6 +23,10 @@ public class Usuario extends Entidade {
 	private String uuid;
 
 	@Expose
+	@SerializedName("FirebaseUUID")
+	private String firebaseUUID;
+
+	@Expose
 	@SerializedName("Login")
 	private String login;
 
@@ -48,6 +52,14 @@ public class Usuario extends Entidade {
 
 	protected void setUUID(String uuid) {
 		this.uuid = uuid;
+	}
+
+	public String getFirebaseUUID() {
+		return firebaseUUID;
+	}
+
+	public void setFirebaseUUID(String firebaseUUID) {
+		this.firebaseUUID = firebaseUUID;
 	}
 
 	public void generateUUID(){

@@ -1,14 +1,14 @@
 package br.com.frmichetti.carhollics.android;
 
+import android.content.Context;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -17,13 +17,21 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import br.com.frmichetti.carhollics.android.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
+
+import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
+import br.com.frmichetti.carhollics.android.jobs.TaskLoginFirebase;
+import br.com.frmichetti.carhollics.android.model.Cliente;
+import br.com.frmichetti.carhollics.android.model.Usuario;
 
 public class LoginActivity extends AppCompatActivity implements MyPattern{
+
+    private Context context;
 
     private ActionBar actionBar;
 
@@ -43,22 +51,19 @@ public class LoginActivity extends AppCompatActivity implements MyPattern{
         auth = FirebaseAuth.getInstance();
 
         if (auth.getCurrentUser() != null) {
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            startActivity(new Intent(LoginActivity.this, OptionsActivity.class));
             finish();
         }
 
         // set the view now
         setContentView(R.layout.activity_login);
 
-
-
         doCastComponents();
 
+        doCreateListeners();
 
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
-
-        doCreateListeners();
 
     }
 
@@ -146,15 +151,33 @@ public class LoginActivity extends AppCompatActivity implements MyPattern{
 
                                         Toast.makeText(LoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
 
-                                        Log.d("DEBUG LOGIN",String.valueOf(R.string.auth_failed));
+                                        Log.d("DEBUG-LOGIN",String.valueOf(R.string.auth_failed));
                                     }
+
                                 } else {
 
-                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    TaskLoginFirebase taskLoginFirebase = new TaskLoginFirebase(context, new AsyncResponse<Cliente>() {
 
-                                    startActivity(intent);
+                                        @Override
+                                        public void processFinish(Cliente output) {
 
-                                    finish();
+                                            if (output!=null){
+
+                                                startActivity(new Intent(LoginActivity.this, SimpleMainActivity.class).putExtra("Cliente",output));
+
+                                                finish();
+
+                                            }else{
+
+                                                Toast.makeText(context,"Não foi Possivel autorizar o Cliente, contate o desenvolvedor do sistema",Toast.LENGTH_LONG).show();
+                                            }
+                                        }
+                                    });
+
+                                    taskLoginFirebase.execute(auth.getCurrentUser().getUid());
+
+
+
                                 }
                             }
                         });
@@ -175,13 +198,14 @@ public class LoginActivity extends AppCompatActivity implements MyPattern{
 
         */
 
+        context = this;
+
         actionBar = getSupportActionBar();
 
         actionBar.setTitle(R.string.app_name);
 
-        actionBar.setSubtitle("Login");
+        actionBar.setSubtitle(R.string.action_sign_in);
 
-       // actionBar.show();
     }
 
     @Override
