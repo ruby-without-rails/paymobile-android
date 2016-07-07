@@ -7,6 +7,8 @@
  * */
 package br.com.frmichetti.carhollics.android.model;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -55,6 +57,15 @@ public abstract class Entidade implements Serializable,BaseEntity {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public String toGson(){
+        Gson out = new GsonBuilder()
+                .setPrettyPrinting()
+                .excludeFieldsWithoutExposeAnnotation()
+                .setDateFormat("dd/MM/yyyy")
+                .create();
+		return out.toJson(this);
 	}
 
 }

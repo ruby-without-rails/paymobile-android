@@ -19,9 +19,12 @@ import android.widget.Toast;
 
 import br.com.frmichetti.carhollics.android.R;
 
+import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
+import br.com.frmichetti.carhollics.android.jobs.TaskFazerPedido;
 import br.com.frmichetti.carhollics.android.model.Carrinho;
 import br.com.frmichetti.carhollics.android.model.Cliente;
 import br.com.frmichetti.carhollics.android.model.ItemCarrinho;
+import br.com.frmichetti.carhollics.android.model.Pedido;
 import br.com.frmichetti.carhollics.android.model.Servico;
 
 import java.util.ArrayList;
@@ -86,7 +89,7 @@ public class CartActivity extends AppCompatActivity implements MyPattern{
 
       //  textViewPreco.setText(String.valueOf(itemCarrinhoSelecionado.getPrice()));
 
- //       textViewQuantidade.setText(String.valueOf(carrinho.getQuantity()));
+        // textViewQuantidade.setText(String.valueOf(carrinho.getQuantity()));
     }
 
     private void doFillData() {
@@ -164,7 +167,32 @@ public class CartActivity extends AppCompatActivity implements MyPattern{
         buttonConfirmarCompra.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 //doChangeActivity();
+                //TODO FIXME Activity de Resumo de Compra
+                TaskFazerPedido taskFazerPedido = new TaskFazerPedido(context, new AsyncResponse<Boolean>() {
+
+                    @Override
+                    public void processFinish(Boolean output) {
+
+                        if(output){
+
+                            Toast.makeText(context, "Pedido Solicitado com sucesso! Entraremos em contato para Confirmar Agendamento", Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(context,SimpleMainActivity.class).putExtra("Cliente",cliente));
+                            finish();
+
+                        }else{
+
+                            Toast.makeText(context,"Não foi possível concluir o pedido, Tente Novamente ",Toast.LENGTH_LONG).show();
+
+
+                        }
+
+                    }
+                });
+
+                taskFazerPedido.execute(new Pedido(cliente,carrinho));
+
             }
         });
 

@@ -71,7 +71,8 @@
         android:layout_alignWithParentIfMissing="false"
         android:textColor="@color/colorPrimary"
         android:layout_below="@+id/buttonAddCart"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -83,13 +84,12 @@
         android:layout_centerHorizontal="true" />
 
     <Button
-        android:background="@color/colorAccent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Adicionar no Carrinho"
         android:id="@+id/buttonAddCart"
+        android:layout_marginTop="50dp"
         android:layout_below="@+id/textViewDuracaoVar"
-        android:layout_toEndOf="@+id/textViewDescricao"
-        android:layout_marginTop="50dp" />
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

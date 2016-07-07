@@ -12,46 +12,58 @@ import com.google.gson.annotations.SerializedName;
 
 public abstract class Pessoa extends Entidade{
 
-	private static final long serialVersionUID = -402022521851330710L;
+    private static final long serialVersionUID = -402022521851330710L;
 
-	@Expose
-	@SerializedName("Nome")
-	private String nome; 
+    @Expose
+    @SerializedName("Nome")
+    private String nome;
 
-	@Expose
-	@SerializedName("Endereco")
-	private Endereco endereco = new Endereco();
+    @Expose
+    @SerializedName("Telefone")
+    private Long telefone ;
 
-	@Expose
-	@SerializedName("Usuario")
-	private Usuario usuario = new Usuario();
+    @Expose
+    @SerializedName("Endereco")
+    private Endereco endereco = new Endereco();
 
-	public Pessoa() {
-		
-	}
+    @Expose
+    @SerializedName("Usuario")
+    private Usuario usuario = new Usuario();
 
-	public String getNome() {
-		return nome;
-	}
+    public Pessoa() {
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    }
 
-	public Endereco getEndereco() {
-		return endereco;
-	}
+    public String getNome() {
+        return nome;
+    }
 
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
-	}
+    public Long getTelefone() {
+        return telefone;
+    }
 
-	public Usuario getUsuario() {
-		return usuario;
-	}
+    public void setTelefone(Long telefone) {
+        this.telefone = telefone;
+    }
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}    
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 
 }

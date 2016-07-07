@@ -20,7 +20,6 @@ public class Pedido extends Entidade{
 
 	@Expose
 	@SerializedName("UUID")
-
 	private String uuid;
 
 	@Expose
@@ -46,7 +45,7 @@ public class Pedido extends Entidade{
 	public Pedido(Cliente buyer,Carrinho shoppingCart){
 		this.setCliente(buyer);
 		this.setTotal(shoppingCart.getTotal());
-		this.setCarrinho(shoppingCart.toJson());
+		this.setCarrinho(shoppingCart.toGson());
 	}
 
 	public void generateUUID(){

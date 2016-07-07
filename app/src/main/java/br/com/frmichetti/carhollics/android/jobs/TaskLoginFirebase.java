@@ -17,6 +17,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 
+import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.dao.HTTP;
 import br.com.frmichetti.carhollics.android.model.Cliente;
 import br.com.frmichetti.carhollics.android.model.Usuario;
@@ -28,7 +29,7 @@ public class TaskLoginFirebase extends AsyncTask<String,String, Cliente> {
 
     private ProgressDialog dialog;
 
-    private final String URL = "http://192.168.1.32:8080/carhollics-webservice/services/usuario/firebaselogin";
+    private final String URL = "http://callcenter-carhollics.rhcloud.com" + "/services/usuario/firebaselogin";
 
     private String json;
 

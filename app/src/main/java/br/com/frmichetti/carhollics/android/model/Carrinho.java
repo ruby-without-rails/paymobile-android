@@ -6,6 +6,11 @@
  */
 package br.com.frmichetti.carhollics.android.model;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -13,11 +18,12 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-
-public class Carrinho implements Serializable{
+public class Carrinho extends Entidade{
 	
 	private static final long serialVersionUID = -3029522377450022549L;
 
+	@Expose
+	@SerializedName("ItensCarrinho")
 	private Map<ItemCarrinho, Integer> mapItems = new LinkedHashMap<>();
 
 	public void add(ItemCarrinho shoppingItem) {
@@ -38,6 +44,7 @@ public class Carrinho implements Serializable{
 	}
 
 	public Integer getQuantity(){
+		//TODO FIXME downgrade to JAVA 6
 		//return mapItems.values().stream().reduce(0, (next,accumulator)-> next + accumulator);
 		return 0;
 	}
@@ -99,37 +106,39 @@ public class Carrinho implements Serializable{
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return mapItems.toString() ;
+	}
+
 	public String toJson() {
-/*
-		JsonArrayBuilder itens = Json.createArrayBuilder();
+
+		//JsonArrayBuilder itens = Json.createArrayBuilder();
+
+		StringBuilder sb = new StringBuilder();
 
 		for (ItemCarrinho shoppingItem : getList()){
 
-			itens.add(Json.createObjectBuilder()
+			sb.append("Nome")
+					.append(shoppingItem.getServico().getNome())
+					.append("Preco")
+					.append(shoppingItem.getServico().getPreco())
+					.append("Quantidade")
+					.append(getQuantity(shoppingItem).intValue())
+					.append("Total")
+                    .append(getTotal(shoppingItem));
+
+		/*	itens.add(Json.createObjectBuilder()
 					.add("nome", shoppingItem.getServico().getNome())
 					.add("preco", shoppingItem.getServico().getPreco())
 					.add("quantidade", getQuantity(shoppingItem).intValue())
 					.add("total", getTotal(shoppingItem))
-					);
+			);
+			*/
 		}
 
-		return itens.build().toString();
-*/
-        return "";
-	}
+        return sb.toString();
+		//return itens.build().toString();
 
-	public String toGson(){
-
-		for (ItemCarrinho shoppingItem : getList()){
-
-			System.out.println("nada nada nada nada , eu não estou fazendo nada " + shoppingItem.toString());
-		}
-
-		return "//TODO Implementar";
-	}
-
-	@Override
-	public String toString() {
-		return mapItems.toString() ;
 	}
 }

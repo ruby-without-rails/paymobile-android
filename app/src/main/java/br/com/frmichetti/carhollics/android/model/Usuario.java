@@ -30,8 +30,8 @@ public class Usuario extends Entidade {
 	@SerializedName("Login")
 	private String login;
 
-	@Expose
-	@SerializedName("Senha")
+	/*@Expose
+	@SerializedName("Senha")*/
 	private String senha;
 
 	@Expose

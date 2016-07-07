@@ -11,6 +11,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.dao.HTTP;
 import br.com.frmichetti.carhollics.android.model.Cliente;
 import br.com.frmichetti.carhollics.android.model.Usuario;
@@ -27,7 +28,7 @@ public class TaskLogin extends AsyncTask<Usuario,String, Cliente> {
 
     private ProgressDialog dialog;
 
-    private final String URL = "http://192.168.1.32:8080/carhollics-webservice/services/usuario/login";
+    private final String URL = "http://callcenter-carhollics.rhcloud.com" + "/services/usuario/login";
 
     private String json;
 

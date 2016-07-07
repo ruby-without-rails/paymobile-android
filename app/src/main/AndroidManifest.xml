@@ -10,21 +10,23 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="br.com.frmichetti.carhollics.android.SimpleLoginActivity" />
-        <activity android:name="br.com.frmichetti.carhollics.android.SimpleMainActivity" />
-        <activity android:name="br.com.frmichetti.carhollics.android.WhereActivity" />
-        <activity android:name="br.com.frmichetti.carhollics.android.WhenActivity" />
-        <activity android:name="br.com.frmichetti.carhollics.android.SimpleDetailActivity" />
-        <activity android:name="br.com.frmichetti.carhollics.android.CartActivity" />
-        <activity android:name="br.com.frmichetti.carhollics.android.LoginActivity">
+        <activity android:name=".SimpleLoginActivity" />
+        <activity android:name=".SimpleMainActivity" />
+        <activity android:name=".WhereActivity" />
+        <activity android:name=".WhenActivity" />
+        <activity android:name=".SimpleDetailActivity" />
+        <activity android:name=".CartActivity" />
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="br.com.frmichetti.carhollics.android.ResetPasswordActivity" />
-        <activity android:name="br.com.frmichetti.carhollics.android.SignupActivity" />
+        <activity android:name=".ResetPasswordActivity" />
+        <activity android:name=".SignupActivity" />
         <activity android:name=".OptionsActivity" />
+        <activity android:name=".ClientActivity"></activity>
     </application>
 
 </manifest>

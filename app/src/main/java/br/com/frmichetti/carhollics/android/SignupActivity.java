@@ -1,5 +1,6 @@
 package br.com.frmichetti.carhollics.android;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -19,10 +20,17 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
+import br.com.frmichetti.carhollics.android.jobs.TaskCreateUsuario;
+import br.com.frmichetti.carhollics.android.model.Usuario;
 
 public class SignupActivity extends AppCompatActivity implements MyPattern{
 
     private ActionBar actionBar;
+
+    private Context context;
 
     private EditText inputEmail, inputPassword;
 
@@ -58,7 +66,9 @@ public class SignupActivity extends AppCompatActivity implements MyPattern{
 
     @Override
     protected void onResume() {
+
         super.onResume();
+
         progressBar.setVisibility(View.GONE);
     }
 
@@ -124,6 +134,7 @@ public class SignupActivity extends AppCompatActivity implements MyPattern{
                 //create user
                 auth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
+
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
 
@@ -135,12 +146,39 @@ public class SignupActivity extends AppCompatActivity implements MyPattern{
                                 // the auth state listener will be notified and logic to handle the
                                 // signed in user can be handled in the listener.
                                 if (!task.isSuccessful()) {
+
                                     Toast.makeText(SignupActivity.this, "Authentication failed." + task.getException(),
                                             Toast.LENGTH_LONG).show();
+
                                     Log.d("DEBUG-LOGIN","Authentication failed." + task.getException().toString());
+
                                 } else {
-                                    startActivity(new Intent(SignupActivity.this, OptionsActivity.class));
-                                    finish();
+
+
+                                    TaskCreateUsuario taskCreateLogin = new TaskCreateUsuario(context, new AsyncResponse<Usuario>() {
+
+                                        @Override
+                                        public void processFinish(Usuario output) {
+
+                                            //TODO Logica do Login
+
+                                            startActivity(new Intent(SignupActivity.this, ClientActivity.class).putExtra("Usuario",output));
+
+                                            finish();
+                                        }
+                                    });
+
+                                    FirebaseUser firebaseUser = auth.getCurrentUser();
+
+                                    Usuario usuario = new Usuario();
+
+                                    usuario.setFirebaseUUID(firebaseUser.getUid());
+
+                                    usuario.setLogin(firebaseUser.getEmail());
+
+                                    usuario.setEmail(firebaseUser.getEmail());
+
+                                    taskCreateLogin.execute(usuario);
                                 }
                             }
                         });
@@ -151,6 +189,9 @@ public class SignupActivity extends AppCompatActivity implements MyPattern{
 
     @Override
     public void doConfigure() {
+
+        context = this;
+
         actionBar = getSupportActionBar();
 
         actionBar.setTitle(R.string.app_name);
