@@ -1,28 +1,34 @@
-package br.com.frmichetti.carhollics.android;
+package br.com.frmichetti.carhollics.android.view;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import br.com.frmichetti.carhollics.android.R;
 
-public class WhenActivity extends AppCompatActivity {
+public class WhenActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_when);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public void doCastComponents() {
 
-        int id = item.getItemId();
+    }
 
-        if(id == android.R.id.home){
-            finish();
-        }
+    @Override
+    public void doCreateListeners() {
 
-        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void getExtras(Intent intent) {
+
     }
 }

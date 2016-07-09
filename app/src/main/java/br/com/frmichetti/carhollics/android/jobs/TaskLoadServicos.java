@@ -11,7 +11,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.dao.HTTP;
 import br.com.frmichetti.carhollics.android.model.Servico;
 import com.google.gson.Gson;
@@ -21,7 +20,7 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.util.List;
 
-public class TaskLoadServices extends AsyncTask<Void,String,List<Servico>> {
+public class TaskLoadServicos extends AsyncTask<Void,String,List<Servico>> {
 
     public AsyncResponse delegate = null;
 
@@ -39,18 +38,18 @@ public class TaskLoadServices extends AsyncTask<Void,String,List<Servico>> {
 
     private Context context;
 
-    public TaskLoadServices(Context context,AsyncResponse<List<Servico>> delegate){
+    public TaskLoadServicos(Context context, AsyncResponse<List<Servico>> delegate){
         this(context);
         this.delegate = delegate;
     }
 
-    private TaskLoadServices(Context context){
+    private TaskLoadServicos(Context context){
         this();
         this.context = context;
     }
 
-    private TaskLoadServices(){
-        Log.d("DEBUG-TASK","create TaskLoadServices");
+    private TaskLoadServicos(){
+        Log.d("DEBUG-TASK","create TaskLoadServicos");
         Log.d("DEBUG-TASK","server config -> " + URL);
     }
 

@@ -7,8 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="br.com.frmichetti.carhollics.android.CartActivity"
-    android:background="@drawable/gradient">
+    tools:context=".view.CartActivity">
 
     <ListView
         android:layout_width="wrap_content"
@@ -16,7 +15,8 @@
         android:id="@+id/listViewCarrinho"
         android:choiceMode="singleChoice"
         android:layout_below="@+id/textView5"
-        android:layout_alignEnd="@+id/textView3" />
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/textView" />
 
     <Button
         android:layout_width="wrap_content"
@@ -24,14 +24,14 @@
         android:text="Finalizar Compra"
         android:id="@+id/buttonConfirmarCompra"
         android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/listViewCarrinho" />
+        android:layout_alignEnd="@+id/listViewCarrinho"
+        android:layout_alignParentRight="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Remover Item"
         android:id="@+id/buttonRemoverItem"
-        android:layout_marginTop="34dp"
         android:layout_below="@+id/textViewItemSelecionadoVar"
         android:layout_centerHorizontal="true" />
 
@@ -40,9 +40,9 @@
         android:layout_height="wrap_content"
         android:text="Item Selecionado"
         android:id="@+id/textViewItemSelecionadoVar"
-        android:layout_below="@+id/listViewCarrinho"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="28dp" />
+        android:layout_below="@+id/textView3"
+        android:layout_alignRight="@+id/buttonRemoverItem"
+        android:layout_alignEnd="@+id/buttonRemoverItem" />
 
     <Button
         android:layout_width="wrap_content"
@@ -51,14 +51,16 @@
         android:id="@+id/buttonContinuarComprando"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/buttonConfirmarCompra" />
+        android:layout_toStartOf="@+id/textView"
+        android:layout_toLeftOf="@+id/textView" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Quantidade"
         android:id="@+id/textViewQuantidadeVar"
-        android:layout_above="@+id/buttonRemoverItem"
+        android:layout_alignTop="@+id/textViewItemSelecionadoVar"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <TextView
@@ -111,7 +113,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Serviço"
         android:id="@+id/textView"
-        android:layout_above="@+id/textViewQuantidadeVar"
+        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -120,8 +122,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Preço"
         android:id="@+id/textView3"
-        android:layout_alignTop="@+id/textView"
-        android:layout_alignStart="@+id/textViewTotal" />
+        android:layout_below="@+id/listViewCarrinho"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -129,7 +132,8 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Quantidade"
         android:id="@+id/textView4"
-        android:layout_above="@+id/textViewQuantidadeVar"
+        android:layout_below="@+id/listViewCarrinho"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <TextView

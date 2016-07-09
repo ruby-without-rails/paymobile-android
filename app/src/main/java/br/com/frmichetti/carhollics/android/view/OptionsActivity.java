@@ -1,9 +1,9 @@
-package br.com.frmichetti.carhollics.android;
+package br.com.frmichetti.carhollics.android.view;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,12 +12,10 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
-public class OptionsActivity extends AppCompatActivity implements MyPattern{
+import br.com.frmichetti.carhollics.android.R;
 
-    private ActionBar actionBar;
+public class OptionsActivity extends BaseActivity {
 
     private Button btnChangeEmail, btnChangePassword, btnSendResetEmail, btnRemoveUser,
             changeEmail, changePassword, sendEmail, remove, signOut;
@@ -26,103 +24,29 @@ public class OptionsActivity extends AppCompatActivity implements MyPattern{
 
     private ProgressBar progressBar;
 
-    private FirebaseAuth.AuthStateListener authListener;
-
-    private FirebaseAuth auth;
-
-    private FirebaseUser user;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_options);
-
-        actionBar = getSupportActionBar();
-
-        actionBar.setTitle(R.string.app_name);
-
-/*        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(getString(R.string.app_name));
-        setSupportActionBar(toolbar);*/
-
-        //get firebase auth instance
-        auth = FirebaseAuth.getInstance();
-
-        //get current user
-        user = FirebaseAuth.getInstance().getCurrentUser();
-
-        authListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-
-                if (user == null) {
-                    // user auth state is changed - user is null
-                    // launch login activity
-                    startActivity(new Intent(OptionsActivity.this, LoginActivity.class));
-
-                    finish();
-                }
-            }
-        };
-
-        doCastComponents();
-
-
-        oldEmail.setVisibility(View.GONE);
-
-        newEmail.setVisibility(View.GONE);
-
-        password.setVisibility(View.GONE);
-
-        newPassword.setVisibility(View.GONE);
-
-        changeEmail.setVisibility(View.GONE);
-
-        changePassword.setVisibility(View.GONE);
-
-        sendEmail.setVisibility(View.GONE);
-
-        remove.setVisibility(View.GONE);
-
-        if (progressBar != null) {
-            progressBar.setVisibility(View.GONE);
-        }
-
-        doCreateListeners();
     }
 
-    //sign out method
-    public void signOut() {
-        auth.signOut();
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+
+        super.onPostCreate(savedInstanceState);
+
     }
 
     @Override
     protected void onResume() {
+
         super.onResume();
+
         progressBar.setVisibility(View.GONE);
     }
 
-    @Override
-    public void onStart() {
-
-        super.onStart();
-
-        auth.addAuthStateListener(authListener);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        if (authListener != null) {
-
-            auth.removeAuthStateListener(authListener);
-        }
-    }
 
     @Override
     public void doCastComponents() {
@@ -154,12 +78,33 @@ public class OptionsActivity extends AppCompatActivity implements MyPattern{
         newPassword = (EditText) findViewById(R.id.newPassword);
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
+        oldEmail.setVisibility(View.GONE);
+
+        newEmail.setVisibility(View.GONE);
+
+        password.setVisibility(View.GONE);
+
+        newPassword.setVisibility(View.GONE);
+
+        changeEmail.setVisibility(View.GONE);
+
+        changePassword.setVisibility(View.GONE);
+
+        sendEmail.setVisibility(View.GONE);
+
+        remove.setVisibility(View.GONE);
+
+        if (progressBar != null) {
+            progressBar.setVisibility(View.GONE);
+        }
     }
 
     @Override
     public void doCreateListeners() {
 
         btnChangeEmail.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
 
@@ -182,6 +127,7 @@ public class OptionsActivity extends AppCompatActivity implements MyPattern{
         });
 
         changeEmail.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
 
@@ -196,7 +142,7 @@ public class OptionsActivity extends AppCompatActivity implements MyPattern{
 
                                     if (task.isSuccessful()) {
 
-                                        Toast.makeText(OptionsActivity.this, "Email address is updated. Please sign in with new email id!", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(OptionsActivity.this, "Endereço de email foi atualizado. Por favor entre com o novo ID de e-mail! ", Toast.LENGTH_LONG).show();
 
                                         signOut();
 
@@ -204,7 +150,7 @@ public class OptionsActivity extends AppCompatActivity implements MyPattern{
 
                                     } else {
 
-                                        Toast.makeText(OptionsActivity.this, "Failed to update email!", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(OptionsActivity.this, "Falha ao Atualizar email!", Toast.LENGTH_LONG).show();
 
                                         progressBar.setVisibility(View.GONE);
                                     }
@@ -213,7 +159,7 @@ public class OptionsActivity extends AppCompatActivity implements MyPattern{
 
                 } else if (newEmail.getText().toString().trim().equals("")) {
 
-                    newEmail.setError("Enter email");
+                    newEmail.setError("Digite o email");
 
                     progressBar.setVisibility(View.GONE);
                 }
@@ -252,7 +198,7 @@ public class OptionsActivity extends AppCompatActivity implements MyPattern{
 
                     if (newPassword.getText().toString().trim().length() < 6) {
 
-                        newPassword.setError("Password too short, enter minimum 6 characters");
+                        newPassword.setError("Senha muito curta, digite no mínimo 6 caracteres !");
 
                         progressBar.setVisibility(View.GONE);
 
@@ -265,7 +211,7 @@ public class OptionsActivity extends AppCompatActivity implements MyPattern{
 
                                         if (task.isSuccessful()) {
 
-                                            Toast.makeText(OptionsActivity.this, "Password is updated, sign in with new password!", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(OptionsActivity.this, "Senha foi atualizada, entre com a nova senha !", Toast.LENGTH_SHORT).show();
 
                                             signOut();
 
@@ -273,7 +219,7 @@ public class OptionsActivity extends AppCompatActivity implements MyPattern{
 
                                         } else {
 
-                                            Toast.makeText(OptionsActivity.this, "Failed to update password!", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(OptionsActivity.this, "Falha ao atualizar a senha!", Toast.LENGTH_SHORT).show();
 
                                             progressBar.setVisibility(View.GONE);
                                         }
@@ -326,13 +272,13 @@ public class OptionsActivity extends AppCompatActivity implements MyPattern{
 
                                     if (task.isSuccessful()) {
 
-                                        Toast.makeText(OptionsActivity.this, "Reset password email is sent!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(OptionsActivity.this, "E-mail de redefinição de senha foi enviado !", Toast.LENGTH_SHORT).show();
 
                                         progressBar.setVisibility(View.GONE);
 
                                     } else {
 
-                                        Toast.makeText(OptionsActivity.this, "Failed to send reset email!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(OptionsActivity.this, "Falha ao enviar email de reset!", Toast.LENGTH_SHORT).show();
 
                                         progressBar.setVisibility(View.GONE);
                                     }
@@ -340,7 +286,7 @@ public class OptionsActivity extends AppCompatActivity implements MyPattern{
                             });
                 } else {
 
-                    oldEmail.setError("Enter email");
+                    oldEmail.setError("Digite o email");
 
                     progressBar.setVisibility(View.GONE);
                 }
@@ -362,7 +308,7 @@ public class OptionsActivity extends AppCompatActivity implements MyPattern{
 
                                     if (task.isSuccessful()) {
 
-                                        Toast.makeText(OptionsActivity.this, "Your profile is deleted:( Create a account now!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(OptionsActivity.this, "O seu perfil foi excluído :( Criar uma conta agora!", Toast.LENGTH_SHORT).show();
 
                                         startActivity(new Intent(OptionsActivity.this, SignupActivity.class));
 
@@ -372,7 +318,7 @@ public class OptionsActivity extends AppCompatActivity implements MyPattern{
 
                                     } else {
 
-                                        Toast.makeText(OptionsActivity.this, "Failed to delete your account!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(OptionsActivity.this, "Falha ao excluir a sua conta!", Toast.LENGTH_SHORT).show();
 
                                         progressBar.setVisibility(View.GONE);
                                     }
@@ -386,17 +332,15 @@ public class OptionsActivity extends AppCompatActivity implements MyPattern{
 
             @Override
             public void onClick(View v) {
+
                 signOut();
+
             }
         });
 
-
     }
 
-    @Override
-    public void doConfigure() {
 
-    }
 
     @Override
     public void getExtras(Intent intent) {

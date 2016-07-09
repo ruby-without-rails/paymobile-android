@@ -1,16 +1,13 @@
-package br.com.frmichetti.carhollics.android;
+package br.com.frmichetti.carhollics.android.view;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
+import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
 import br.com.frmichetti.carhollics.android.jobs.TaskCreateCliente;
 import br.com.frmichetti.carhollics.android.model.Cep;
@@ -18,11 +15,7 @@ import br.com.frmichetti.carhollics.android.model.Cliente;
 import br.com.frmichetti.carhollics.android.model.Endereco;
 import br.com.frmichetti.carhollics.android.model.Usuario;
 
-public class ClientActivity extends AppCompatActivity implements MyPattern{
-
-    private ActionBar actionBar;
-
-    private Context context;
+public class ClientActivity extends BaseActivity{
 
     private Button buttonConfirmar;
 
@@ -37,9 +30,6 @@ public class ClientActivity extends AppCompatActivity implements MyPattern{
 
         setContentView(R.layout.activity_client);
 
-        doCastComponents();
-
-        doCreateListeners();
     }
 
     @Override
@@ -49,7 +39,8 @@ public class ClientActivity extends AppCompatActivity implements MyPattern{
 
         doConfigure();
 
-        getExtras(getIntent());
+        //TODO FIXME Verify
+        getExtras(intent);
 
     }
 
@@ -85,6 +76,7 @@ public class ClientActivity extends AppCompatActivity implements MyPattern{
                     public void processFinish(Cliente output) {
 
                         startActivity(new Intent(context,SimpleMainActivity.class).putExtra("Cliente",output));
+
                         finish();
 
                     }
@@ -95,6 +87,8 @@ public class ClientActivity extends AppCompatActivity implements MyPattern{
                 c.setUsuario(usuario);
 
                 taskCreateCliente.execute(c);
+
+                //TODO FIXME getCliente
 
             }
         });
@@ -132,15 +126,7 @@ public class ClientActivity extends AppCompatActivity implements MyPattern{
     @Override
     public void doConfigure() {
 
-        context = this;
-
-        actionBar = getSupportActionBar();
-
-        actionBar.setTitle(R.string.app_name);
-
         actionBar.setSubtitle("Cadastro de Cliente");
-
-        actionBar.setDisplayHomeAsUpEnabled(true);
 
     }
 

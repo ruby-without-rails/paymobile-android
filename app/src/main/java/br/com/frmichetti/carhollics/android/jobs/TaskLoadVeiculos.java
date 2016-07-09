@@ -1,3 +1,9 @@
+/**
+ *
+ * @author Felipe Rodrigues Michetti
+ * @see http://portfolio-frmichetti.rhcloud.com
+ * @see mailto:frmichetti@gmail.com
+ * */
 package br.com.frmichetti.carhollics.android.jobs;
 
 import android.app.ProgressDialog;
@@ -10,49 +16,43 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
+import java.util.List;
 
-import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.dao.HTTP;
-import br.com.frmichetti.carhollics.android.model.Cliente;
-import br.com.frmichetti.carhollics.android.model.Usuario;
+import br.com.frmichetti.carhollics.android.model.Servico;
+import br.com.frmichetti.carhollics.android.model.Veiculo;
 
-/**
- * Created by Felipe on 05/07/2016.
- */
-public class TaskCreateCliente extends AsyncTask<Cliente,String,Cliente> {
+public class TaskLoadVeiculos extends AsyncTask<Void,String,List<Veiculo>> {
 
     public AsyncResponse delegate = null;
 
-    private final String URL = "http://callcenter-carhollics.rhcloud.com" + "/services/cliente/create";
+    private final String URL = "http://callcenter-carhollics.rhcloud.com" + "/services/veiculo/list";
 
-    private Gson in,out;
+    private Gson in;
 
     private java.lang.reflect.Type collectionType;
 
     private String json;
 
-    private Usuario usuario;
+    private List<Veiculo> veiculos;
 
     private ProgressDialog dialog;
 
     private Context context;
 
-
-    private TaskCreateCliente(){
-
-        Log.d("DEBUG-TASK","create TaskCreateCliente");
-        Log.d("DEBUG-TASK","server config -> " + URL);
-
+    public TaskLoadVeiculos(Context context, AsyncResponse<List<Veiculo>> delegate){
+        this(context);
+        this.delegate = delegate;
     }
 
-    private TaskCreateCliente(Context context) {
+    private TaskLoadVeiculos(Context context){
         this();
         this.context = context;
     }
 
-    public TaskCreateCliente(Context context, AsyncResponse<Cliente> delegate){
-        this(context);
-        this.delegate = delegate;
+    private TaskLoadVeiculos(){
+        Log.d("DEBUG-TASK","create TaskLoadVeiculos");
+        Log.d("DEBUG-TASK","server config -> " + URL);
     }
 
     @Override
@@ -64,7 +64,7 @@ public class TaskCreateCliente extends AsyncTask<Cliente,String,Cliente> {
                 .setPrettyPrinting()
                 .setDateFormat("dd/MM/yyyy").create();
 
-        collectionType = new TypeToken<Cliente>() {
+        collectionType = new TypeToken<List<Veiculo>>() {
         }.getType();
 
         dialog = new ProgressDialog(context);
@@ -75,28 +75,22 @@ public class TaskCreateCliente extends AsyncTask<Cliente,String,Cliente> {
 
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
-        dialog.setMessage("Iniciando a Tarefa Criar Novo Login");
+        dialog.setMessage("Iniciando a Tarefa Obter Lista de Veiculos");
 
         dialog.show();
 
+
     }
 
+
     @Override
-    protected Cliente doInBackground(Cliente ... params) {
-
-        out = new GsonBuilder()
-                .serializeNulls()
-                .setPrettyPrinting()
-                .setDateFormat("dd/MM/yyyy").create();
-
-        collectionType = new TypeToken<Cliente>() {
-        }.getType();
+    protected List<Veiculo> doInBackground(Void ... params) {
 
         try {
 
             publishProgress("Enviando Requisição para o Servidor");
 
-            json = HTTP.sendPost(URL,out.toJson(params[0]));
+            json = HTTP.sendGet(URL);
 
         } catch (IOException e) {
 
@@ -105,13 +99,13 @@ public class TaskCreateCliente extends AsyncTask<Cliente,String,Cliente> {
             Log.e("Erro", e.getMessage());
         }
 
-        publishProgress("Item recebido !");
+        publishProgress("Itens recebidos !");
 
-        Cliente c = in.fromJson(json, collectionType);
+        veiculos = in.fromJson(json, collectionType);
 
-        return c;
-
+        return veiculos;
     }
+
 
     @Override
     protected void onProgressUpdate(String ... values) {
@@ -123,7 +117,7 @@ public class TaskCreateCliente extends AsyncTask<Cliente,String,Cliente> {
 
 
     @Override
-    protected void onPostExecute(Cliente result) {
+    protected void onPostExecute(List<Veiculo> result) {
 
         dialog.setMessage("Tarefa Finalizada!");
 
@@ -132,4 +126,6 @@ public class TaskCreateCliente extends AsyncTask<Cliente,String,Cliente> {
         delegate.processFinish(result);
 
     }
+
+
 }

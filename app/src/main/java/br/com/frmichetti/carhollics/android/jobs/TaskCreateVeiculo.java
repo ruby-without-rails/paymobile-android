@@ -11,19 +11,18 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 
-import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.dao.HTTP;
-import br.com.frmichetti.carhollics.android.model.Cliente;
 import br.com.frmichetti.carhollics.android.model.Usuario;
+import br.com.frmichetti.carhollics.android.model.Veiculo;
 
 /**
  * Created by Felipe on 05/07/2016.
  */
-public class TaskCreateCliente extends AsyncTask<Cliente,String,Cliente> {
+public class TaskCreateVeiculo extends AsyncTask<Veiculo,String,Veiculo> {
 
     public AsyncResponse delegate = null;
 
-    private final String URL = "http://callcenter-carhollics.rhcloud.com" + "/services/cliente/create";
+    private final String URL = "http://callcenter-carhollics.rhcloud.com" + "/services/veiculo/create";
 
     private Gson in,out;
 
@@ -31,26 +30,26 @@ public class TaskCreateCliente extends AsyncTask<Cliente,String,Cliente> {
 
     private String json;
 
-    private Usuario usuario;
+    private Veiculo veiculo;
 
     private ProgressDialog dialog;
 
     private Context context;
 
 
-    private TaskCreateCliente(){
+    private TaskCreateVeiculo(){
 
-        Log.d("DEBUG-TASK","create TaskCreateCliente");
+        Log.d("DEBUG-TASK","create TaskCreateUsuario");
         Log.d("DEBUG-TASK","server config -> " + URL);
 
     }
 
-    private TaskCreateCliente(Context context) {
+    private TaskCreateVeiculo(Context context) {
         this();
         this.context = context;
     }
 
-    public TaskCreateCliente(Context context, AsyncResponse<Cliente> delegate){
+    public TaskCreateVeiculo(Context context, AsyncResponse<Veiculo> delegate){
         this(context);
         this.delegate = delegate;
     }
@@ -64,7 +63,7 @@ public class TaskCreateCliente extends AsyncTask<Cliente,String,Cliente> {
                 .setPrettyPrinting()
                 .setDateFormat("dd/MM/yyyy").create();
 
-        collectionType = new TypeToken<Cliente>() {
+        collectionType = new TypeToken<Veiculo>() {
         }.getType();
 
         dialog = new ProgressDialog(context);
@@ -75,21 +74,20 @@ public class TaskCreateCliente extends AsyncTask<Cliente,String,Cliente> {
 
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
-        dialog.setMessage("Iniciando a Tarefa Criar Novo Login");
+        dialog.setMessage("Iniciando a Tarefa Criar Novo Veículo");
 
         dialog.show();
 
     }
 
     @Override
-    protected Cliente doInBackground(Cliente ... params) {
+    protected Veiculo doInBackground(Veiculo ... params) {
 
         out = new GsonBuilder()
-                .serializeNulls()
                 .setPrettyPrinting()
                 .setDateFormat("dd/MM/yyyy").create();
 
-        collectionType = new TypeToken<Cliente>() {
+        collectionType = new TypeToken<Veiculo>() {
         }.getType();
 
         try {
@@ -107,9 +105,9 @@ public class TaskCreateCliente extends AsyncTask<Cliente,String,Cliente> {
 
         publishProgress("Item recebido !");
 
-        Cliente c = in.fromJson(json, collectionType);
+        Veiculo v = in.fromJson(json, collectionType);
 
-        return c;
+        return v;
 
     }
 
@@ -123,7 +121,7 @@ public class TaskCreateCliente extends AsyncTask<Cliente,String,Cliente> {
 
 
     @Override
-    protected void onPostExecute(Cliente result) {
+    protected void onPostExecute(Veiculo result) {
 
         dialog.setMessage("Tarefa Finalizada!");
 

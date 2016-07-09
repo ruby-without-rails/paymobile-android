@@ -1,8 +1,7 @@
-package br.com.frmichetti.carhollics.android;
+package br.com.frmichetti.carhollics.android.view;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,13 +20,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GetTokenResult;
 
+import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
 import br.com.frmichetti.carhollics.android.jobs.TaskLoginFirebase;
 import br.com.frmichetti.carhollics.android.model.Cliente;
-import br.com.frmichetti.carhollics.android.model.Usuario;
 
 public class LoginActivity extends AppCompatActivity implements MyPattern{
 
@@ -45,13 +42,16 @@ public class LoginActivity extends AppCompatActivity implements MyPattern{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
 
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
 
         if (auth.getCurrentUser() != null) {
-            startActivity(new Intent(LoginActivity.this, OptionsActivity.class));
+
+            startActivity(new Intent(LoginActivity.this, SimpleMainActivity.class));
+
             finish();
         }
 
@@ -62,13 +62,11 @@ public class LoginActivity extends AppCompatActivity implements MyPattern{
 
         doCreateListeners();
 
-        //Get Firebase auth instance
-        auth = FirebaseAuth.getInstance();
-
     }
 
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+
         super.onPostCreate(savedInstanceState);
 
         doConfigure();

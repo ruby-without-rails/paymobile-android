@@ -1,14 +1,8 @@
-package br.com.frmichetti.carhollics.android;
+package br.com.frmichetti.carhollics.android.view;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.KeyEvent;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,8 +11,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import br.com.frmichetti.carhollics.android.R;
+import java.util.ArrayList;
 
+import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
 import br.com.frmichetti.carhollics.android.jobs.TaskFazerPedido;
 import br.com.frmichetti.carhollics.android.model.Carrinho;
@@ -27,15 +22,7 @@ import br.com.frmichetti.carhollics.android.model.ItemCarrinho;
 import br.com.frmichetti.carhollics.android.model.Pedido;
 import br.com.frmichetti.carhollics.android.model.Servico;
 
-import java.util.ArrayList;
-
-public class CartActivity extends AppCompatActivity implements MyPattern{
-
-    private ActionBar actionBar;
-
-    private Context context;
-
-    private Intent intent;
+public class CartActivity extends BaseActivity {
 
     private Carrinho carrinho;
 
@@ -58,6 +45,10 @@ public class CartActivity extends AppCompatActivity implements MyPattern{
 
         setContentView(R.layout.activity_cart);
 
+        doCastComponents();
+
+        doCreateListeners();
+
     }
 
     @Override
@@ -65,13 +56,7 @@ public class CartActivity extends AppCompatActivity implements MyPattern{
 
         super.onPostCreate(savedInstanceState);
 
-        doConfigure();
-
         getExtras(intent);
-
-        doCastComponents();
-
-        doCreateListeners();
 
         doFillData();
 
@@ -168,7 +153,6 @@ public class CartActivity extends AppCompatActivity implements MyPattern{
             @Override
             public void onClick(View v) {
 
-                //doChangeActivity();
                 //TODO FIXME Activity de Resumo de Compra
                 TaskFazerPedido taskFazerPedido = new TaskFazerPedido(context, new AsyncResponse<Boolean>() {
 
@@ -241,41 +225,7 @@ public class CartActivity extends AppCompatActivity implements MyPattern{
         intent.putExtra("Servico",servicoSelecionado);
     }
 
-    @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
 
-        Log.i("KEY",String.valueOf(event.getKeyCode()));
-
-        if(event.getKeyCode()==KeyEvent.KEYCODE_BACK){
-
-            finish();
-
-        }
-
-        if(event.getKeyCode()==KeyEvent.KEYCODE_HOME){
-
-            Log.i("Info","apertou Home");
-        }
-
-        if(event.getKeyCode()== KeyEvent.KEYCODE_SEARCH){
-
-            Log.i("Info","apertou Search");
-        }
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        int id = item.getItemId();
-
-        if(id == android.R.id.home){
-            finish();
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     private void doChangeActivity(Class classe){
 

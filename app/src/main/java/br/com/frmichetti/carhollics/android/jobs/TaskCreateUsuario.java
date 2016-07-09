@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -60,7 +61,6 @@ public class TaskCreateUsuario extends AsyncTask<Usuario,String,Usuario> {
         super.onPreExecute();
 
         in = new GsonBuilder()
-                .serializeNulls()
                 .setPrettyPrinting()
                 .setDateFormat("dd/MM/yyyy").create();
 
@@ -85,7 +85,6 @@ public class TaskCreateUsuario extends AsyncTask<Usuario,String,Usuario> {
     protected Usuario doInBackground(Usuario ... params) {
 
         out = new GsonBuilder()
-                .serializeNulls()
                 .setPrettyPrinting()
                 .setDateFormat("dd/MM/yyyy").create();
 

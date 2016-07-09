@@ -1,4 +1,4 @@
-package br.com.frmichetti.carhollics.android;
+package br.com.frmichetti.carhollics.android.view;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,13 +12,8 @@ import android.widget.Toast;
 
 import br.com.frmichetti.carhollics.android.R;
 
-public class WhereActivity extends AppCompatActivity implements MyPattern {
+public class WhereActivity extends BaseActivity{
 
-    private Context context;
-
-    private Intent intent;
-
-    private ActionBar actionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,13 +50,7 @@ public class WhereActivity extends AppCompatActivity implements MyPattern {
     @Override
     public void doConfigure() {
 
-        context = this;
-
-        actionBar = getSupportActionBar();
-
-        actionBar.setDisplayHomeAsUpEnabled(true);
-
-        actionBar.setTitle(R.string.app_name);
+        super.doConfigure();
 
         actionBar.setSubtitle("Where Activity");
 
@@ -72,15 +61,5 @@ public class WhereActivity extends AppCompatActivity implements MyPattern {
 
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
 
-        int id = item.getItemId();
-
-        if(id == android.R.id.home){
-            finish();
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }

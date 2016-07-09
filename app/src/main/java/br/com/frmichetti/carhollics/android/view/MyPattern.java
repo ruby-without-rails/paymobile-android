@@ -1,4 +1,4 @@
-package br.com.frmichetti.carhollics.android;
+package br.com.frmichetti.carhollics.android.view;
 
 import android.content.Intent;
 

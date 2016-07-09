@@ -1,4 +1,4 @@
-package br.com.frmichetti.carhollics.android;
+package br.com.frmichetti.carhollics.android.view;
 
 import android.content.Context;
 import android.content.Intent;
@@ -22,11 +22,14 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
 import br.com.frmichetti.carhollics.android.jobs.TaskCreateUsuario;
 import br.com.frmichetti.carhollics.android.model.Usuario;
 
 public class SignupActivity extends AppCompatActivity implements MyPattern{
+
+    private FirebaseAuth auth;
 
     private ActionBar actionBar;
 
@@ -38,17 +41,15 @@ public class SignupActivity extends AppCompatActivity implements MyPattern{
 
     private ProgressBar progressBar;
 
-    private FirebaseAuth auth;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_signup);
-
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
+
+        setContentView(R.layout.activity_signup);
 
         doCastComponents();
 
@@ -70,6 +71,7 @@ public class SignupActivity extends AppCompatActivity implements MyPattern{
         super.onResume();
 
         progressBar.setVisibility(View.GONE);
+
     }
 
     @Override
@@ -92,16 +94,20 @@ public class SignupActivity extends AppCompatActivity implements MyPattern{
     public void doCreateListeners() {
 
         btnResetPassword.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(SignupActivity.this, ResetPasswordActivity.class));
+                startActivity(new Intent(context, ResetPasswordActivity.class));
             }
         });
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
+
                 finish();
+
             }
         });
 
@@ -115,17 +121,23 @@ public class SignupActivity extends AppCompatActivity implements MyPattern{
                 String password = inputPassword.getText().toString().trim();
 
                 if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
+
+                    Toast.makeText(context, "Digite um Endereço de Email !", Toast.LENGTH_SHORT).show();
+
                     return;
                 }
 
                 if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
+
+                    Toast.makeText(context, "Digite uma Senha !", Toast.LENGTH_SHORT).show();
+
                     return;
                 }
 
                 if (password.length() < 6) {
-                    Toast.makeText(getApplicationContext(), "Password too short, enter minimum 6 characters!", Toast.LENGTH_SHORT).show();
+
+                    Toast.makeText(context, "Senha muito curta, Digite pelo menos 6 caracteres!", Toast.LENGTH_SHORT).show();
+
                     return;
                 }
 
@@ -138,7 +150,7 @@ public class SignupActivity extends AppCompatActivity implements MyPattern{
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
 
-                                Toast.makeText(SignupActivity.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_LONG).show();
+                                Toast.makeText(context, "Usuário foi Registrado com Sucesso ! :" + task.isSuccessful(), Toast.LENGTH_LONG).show();
 
                                 progressBar.setVisibility(View.GONE);
 
@@ -147,22 +159,22 @@ public class SignupActivity extends AppCompatActivity implements MyPattern{
                                 // signed in user can be handled in the listener.
                                 if (!task.isSuccessful()) {
 
-                                    Toast.makeText(SignupActivity.this, "Authentication failed." + task.getException(),
+                                    Toast.makeText(context, "Ocorreu uma Falha na Autenticação." + task.getException(),
                                             Toast.LENGTH_LONG).show();
 
-                                    Log.d("DEBUG-LOGIN","Authentication failed." + task.getException().toString());
+                                    Log.d("DEBUG-LOGIN","Ocorreu uma Falha na Autenticação." + task.getException().toString());
 
                                 } else {
 
 
-                                    TaskCreateUsuario taskCreateLogin = new TaskCreateUsuario(context, new AsyncResponse<Usuario>() {
+                                    TaskCreateUsuario taskCreateUsuario = new TaskCreateUsuario(context, new AsyncResponse<Usuario>() {
 
                                         @Override
                                         public void processFinish(Usuario output) {
 
                                             //TODO Logica do Login
 
-                                            startActivity(new Intent(SignupActivity.this, ClientActivity.class).putExtra("Usuario",output));
+                                            startActivity(new Intent(context, ClientActivity.class).putExtra("Usuario",output));
 
                                             finish();
                                         }
@@ -178,7 +190,7 @@ public class SignupActivity extends AppCompatActivity implements MyPattern{
 
                                     usuario.setEmail(firebaseUser.getEmail());
 
-                                    taskCreateLogin.execute(usuario);
+                                    taskCreateUsuario.execute(usuario);
                                 }
                             }
                         });

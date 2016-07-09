@@ -1,43 +1,29 @@
-package br.com.frmichetti.carhollics.android;
+package br.com.frmichetti.carhollics.android.view;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import br.com.frmichetti.carhollics.android.R;
+import java.util.List;
 
+import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
-import br.com.frmichetti.carhollics.android.jobs.TaskLoadServices;
+import br.com.frmichetti.carhollics.android.jobs.TaskLoadServicos;
 import br.com.frmichetti.carhollics.android.model.Carrinho;
 import br.com.frmichetti.carhollics.android.model.Cliente;
 import br.com.frmichetti.carhollics.android.model.Servico;
 
-import java.util.List;
-
-public class SimpleMainActivity extends AppCompatActivity implements MyPattern{
-
-    private ActionBar actionBar;
-
-    private Context context;
-
-    private Intent intent;
+public class SimpleMainActivity extends BaseActivity{
 
     private TextView textView;
 
     private ListView listView;
-
-    private TaskLoadServices taskLoadServices;
 
     private List<Servico> servicos;
 
@@ -52,7 +38,23 @@ public class SimpleMainActivity extends AppCompatActivity implements MyPattern{
 
         super.onCreate(savedInstanceState);
 
+        if(savedInstanceState!=null){
+
+            cliente = (Cliente) savedInstanceState.getSerializable("Cliente");
+
+            carrinho = (Carrinho) savedInstanceState.getSerializable("Carrinho");
+
+            servicoSelecionado = (Servico) savedInstanceState.getSerializable("Servico");
+
+            Log.i("[INFO-SAVE-BUNDLE]","Load Saved State");
+
+        }
+
         setContentView(R.layout.activity_simple_main);
+
+        doCastComponents();
+
+        doCreateListeners();
     }
 
     @Override
@@ -60,35 +62,45 @@ public class SimpleMainActivity extends AppCompatActivity implements MyPattern{
 
         super.onPostCreate(savedInstanceState);
 
-        doConfigure();
+        if(savedInstanceState!=null){
+
+            cliente = (Cliente) savedInstanceState.getSerializable("Cliente");
+
+            carrinho = (Carrinho) savedInstanceState.getSerializable("Carrinho");
+
+            servicoSelecionado = (Servico) savedInstanceState.getSerializable("Servico");
+
+            Log.i("[INFO-SAVE-BUNDLE]","Load Saved State");
+
+        }
 
         getExtras(intent);
 
-        doCastComponents();
+        textView.setText("Bem Vindo " + cliente.getNome());
 
-        doCreateListeners();
+        Log.i("INFO","Load Servicos from webservice");
 
         doLoadServices();
 
-        textView.setText("Bem Vindo " + cliente.getNome());
+    }
 
-        Log.i("INFO","Load Services from webservice");
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
 
+        super.onSaveInstanceState(outState);
+
+        outState.putSerializable("Cliente",cliente);
+
+        outState.putSerializable("Carrinho",carrinho);
+
+        outState.putSerializable("Servico",servicoSelecionado);
 
     }
 
     @Override
     public void doConfigure() {
 
-        context = this;
-
-        intent = getIntent();
-
-        actionBar = getSupportActionBar();
-
-        actionBar.setDisplayHomeAsUpEnabled(true);
-
-        actionBar.setTitle(R.string.app_name);
+        super.doConfigure();
 
         actionBar.setSubtitle("Principal");
 
@@ -97,13 +109,27 @@ public class SimpleMainActivity extends AppCompatActivity implements MyPattern{
     @Override
     public void getExtras(Intent intent){
 
-    carrinho = (Carrinho) intent.getSerializableExtra("Carrinho");
+        carrinho = (Carrinho) intent.getSerializableExtra("Carrinho");
 
         if(carrinho == null){
+
             carrinho = new Carrinho();
+
         }
 
     cliente = (Cliente) intent.getSerializableExtra("Cliente");
+
+        if(cliente == null){
+
+            new Intent(context,LoginActivity.class);
+
+            super.signOut();
+
+            finish();
+
+            //TODO FIXME Urgent!!!
+            Log.d("DEBUG - CLIENTE", "NULL -> Redirect to Login");
+        }
 
     }
 
@@ -147,14 +173,14 @@ public class SimpleMainActivity extends AppCompatActivity implements MyPattern{
 
                 context.startActivity(intent);
 
-
             }
         });
     }
 
      public void doLoadServices(){
 
-        taskLoadServices = new TaskLoadServices(context, new AsyncResponse<List<Servico>>() {
+         TaskLoadServicos taskLoadServices = new TaskLoadServicos(context, new AsyncResponse<List<Servico>>() {
+
             @Override
             public void processFinish(List<Servico> output) {
 
@@ -173,45 +199,5 @@ public class SimpleMainActivity extends AppCompatActivity implements MyPattern{
 
         listView.setAdapter(adpItem);
     }
-
-
-
-    @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
-
-        Log.i("KEY",String.valueOf(event.getKeyCode()));
-
-        if(event.getKeyCode()==KeyEvent.KEYCODE_BACK){
-
-            finish();
-
-        }
-
-        if(event.getKeyCode()==KeyEvent.KEYCODE_HOME){
-
-            Log.i("Info","apertou Home");
-        }
-
-        if(event.getKeyCode()== KeyEvent.KEYCODE_SEARCH){
-
-            Log.i("Info","apertou Search");
-        }
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        int id = item.getItemId();
-
-        if(id == android.R.id.home){
-            finish();
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-
 
 }

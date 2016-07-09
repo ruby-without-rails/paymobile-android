@@ -7,12 +7,13 @@
  * */
 package br.com.frmichetti.carhollics.android.model;
 
-import br.com.frmichetti.carhollics.android.security.PassGenerator;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class Usuario extends Entidade {
 
@@ -30,8 +31,6 @@ public class Usuario extends Entidade {
 	@SerializedName("Login")
 	private String login;
 
-	/*@Expose
-	@SerializedName("Senha")*/
 	private String senha;
 
 	@Expose
@@ -40,7 +39,9 @@ public class Usuario extends Entidade {
 
 	@Expose
 	@SerializedName("Valido")
-	private boolean valido;
+	private boolean valido;	
+
+	private List<SystemRole> roles = new ArrayList<>();
 
 	public Usuario() {
 
@@ -48,10 +49,6 @@ public class Usuario extends Entidade {
 
 	public String getUUID() {
 		return uuid;
-	}
-
-	protected void setUUID(String uuid) {
-		this.uuid = uuid;
 	}
 
 	public String getFirebaseUUID() {
@@ -62,12 +59,23 @@ public class Usuario extends Entidade {
 		this.firebaseUUID = firebaseUUID;
 	}
 
+	protected void setUUID(String uuid) {
+		this.uuid = uuid;
+	}
+
+
+	private void doPrepare(){
+		generateUUID();
+		encode();
+	}
+
 	public void generateUUID(){
-		this.setUUID(UUID.randomUUID().toString());
+		this.setUUID(UUID.randomUUID().toString());		
 	}
 
 	public void encode(){
-		setSenha(new String(PassGenerator.gerarHash(getSenha(), "SHA-256")));
+		//TODO FIXME Hash Provisório
+//		setSenha(new String(PassGenerator.gerarHash(getSenha(), "SHA-256")));
 	}
 
 	public String getLogin() {
@@ -100,7 +108,17 @@ public class Usuario extends Entidade {
 
 	public void setValido(boolean valido) {
 		this.valido = valido;
+	}	
+
+	public List<SystemRole> getRoles() {
+		return roles;
 	}
+
+	public void setRoles(List<SystemRole> roles) {
+		this.roles = roles;
+	}
+
+
 
 	@Override
 	public int hashCode() {

@@ -1,5 +1,7 @@
 package br.com.frmichetti.carhollics.android;
 
+import android.util.Log;
+
 import org.junit.Test;
 
 import java.io.IOException;
@@ -19,10 +21,15 @@ public class TesteHTTPSend {
         String r = null;
 
         try {
-             r = HTTP.sendPost("http://localhost:8080/carhollics-webservice/services/usuario/firebaselogin","Sg6wwENmztNGHcBRljYxlaPXHMt2");
+
+            r = HTTP.sendGet("http://callcenter-carhollics.rhcloud.com/services/teste");
+
+            Log.d("TEST-CASE",r);
+
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.d("TEST-CASE",e.toString()) ;
         }
+
         assertNotNull(r);
     }
 }
