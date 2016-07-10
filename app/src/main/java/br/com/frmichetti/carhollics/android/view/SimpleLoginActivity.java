@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import br.com.frmichetti.carhollics.android.R;
-
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
 import br.com.frmichetti.carhollics.android.jobs.TaskLogin;
 import br.com.frmichetti.carhollics.android.model.Cliente;
@@ -91,10 +90,6 @@ public class SimpleLoginActivity extends AppCompatActivity implements MyPattern 
 
     }
 
-    @Override
-    public void getExtras(Intent intent) {
-
-    }
 
     //TODO Lógica de login aqui
     private void doLogin(){

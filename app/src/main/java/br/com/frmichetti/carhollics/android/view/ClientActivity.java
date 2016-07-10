@@ -30,6 +30,10 @@ public class ClientActivity extends BaseActivity{
 
         setContentView(R.layout.activity_client);
 
+        doCastComponents();
+
+        doCreateListeners();
+
     }
 
     @Override
@@ -39,8 +43,11 @@ public class ClientActivity extends BaseActivity{
 
         doConfigure();
 
-        //TODO FIXME Verify
-        getExtras(intent);
+        cliente = (Cliente) intent.getSerializableExtra("Cliente");
+
+        usuario = (Usuario) intent.getSerializableExtra("Usuario");
+
+        doFillData(cliente);
 
     }
 
@@ -75,65 +82,87 @@ public class ClientActivity extends BaseActivity{
                     @Override
                     public void processFinish(Cliente output) {
 
-                        startActivity(new Intent(context,SimpleMainActivity.class).putExtra("Cliente",output));
+                        cliente = output;
+
+                        //TODO FIXME getCliente
+
+                        startActivity(new Intent(context,MainActivity.class).putExtra("Cliente",cliente));
 
                         finish();
 
                     }
                 });
 
-                Cliente c = doFillData();
+                taskCreateCliente.execute(cliente);
 
-                c.setUsuario(usuario);
 
-                taskCreateCliente.execute(c);
-
-                //TODO FIXME getCliente
 
             }
         });
 
     }
 
-    private Cliente doFillData() {
+    private Cliente doFillData(Cliente cliente) {
 
-        Cliente c = new Cliente();
+       if (cliente != null) {
 
-        Endereco e = new Endereco();
+           editTextNome.setText(cliente.getNome());
 
-        Cep cep = new Cep();
+           editTextCPF.setText(String.valueOf(cliente.getCpf()));
 
-        e.setCep(cep);
+           editTextCEP.setText(String.valueOf(cliente.getEndereco().getCep().getCep()));
 
-        e.setComplemento(editTextComplemento.getText().toString());
+           editTextComplemento.setText(String.valueOf(cliente.getEndereco().getComplemento()));
 
-        e.setNumero(editTextNumero.getText().toString());
+           editTextNumero.setText(String.valueOf(cliente.getEndereco().getNumero()));
 
-        c.setNome(editTextNome.getText().toString());
+           editTextTelefone.setText(String.valueOf(cliente.getTelefone()));
 
-        c.setCpf(Long.valueOf(editTextCPF.getText().toString()));
+       }else{
 
-        cep.setCep(Long.valueOf(editTextCEP.getText().toString()));
+           editTextNome.setText(user.getDisplayName());
 
-        c.setEndereco(e);
+           cliente = new Cliente();
 
-        c.setTelefone(Long.valueOf(editTextTelefone.getText().toString()));
+           Endereco e  = new Endereco();
 
-        return c;
+           Cep cep  = new Cep();
+
+           e.setCep(cep);
+
+           e.setComplemento(editTextComplemento.getText().toString());
+
+           e.setNumero(editTextNumero.getText().toString());
+
+           cliente.setNome(editTextNome.getText().toString());
+
+           cliente.setCpf(Long.valueOf(editTextCPF.getText().toString()));
+
+           cep.setCep(Long.valueOf(editTextCEP.getText().toString()));
+
+           cliente.setEndereco(e);
+
+           cliente.setTelefone(Long.valueOf(editTextTelefone.getText().toString()));
+
+           if(cliente.getUsuario()==null){
+
+               cliente.setUsuario(usuario);
+
+           }
+
+       }
+
+        return cliente;
 
     }
 
     @Override
     public void doConfigure() {
 
+        super.doConfigure();
+
         actionBar.setSubtitle("Cadastro de Cliente");
 
     }
 
-    @Override
-    public void getExtras(Intent intent) {
-
-        usuario = (Usuario) intent.getSerializableExtra("Usuario");
-
-    }
 }

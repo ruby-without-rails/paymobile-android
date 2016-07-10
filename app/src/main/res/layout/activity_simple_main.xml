@@ -35,25 +35,23 @@
         tools:listitem="@android:layout/simple_list_item_checked"
         android:choiceMode="singleChoice"
         android:layout_below="@+id/textView2"
-        android:layout_above="@+id/buttonConfirmarCompra" />
+        android:layout_above="@+id/buttonCadastro" />
 
     <Button
-        android:background="@null"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Solicitar Agora"
-        android:id="@+id/buttonConfirmarCompra"
+        android:text="Meu Cadastro"
+        android:id="@+id/buttonCadastro"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
     <Button
-        android:background="@null"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Agendar Atendimento"
-        android:id="@+id/button2"
-        android:layout_alignTop="@+id/buttonConfirmarCompra"
+        android:text="Selecionar Veículo"
+        android:id="@+id/buttonVeiculos"
+        android:layout_alignTop="@+id/buttonCadastro"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true" />

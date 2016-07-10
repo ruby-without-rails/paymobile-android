@@ -7,22 +7,22 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".view.VeiculoActivity">
+    tools:context=".view.VeiculoActivity"
+    android:background="@color/colorPrimaryDark">
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/listViewVeiculo"
         android:layout_alignParentLeft="false"
-        android:layout_alignParentStart="false"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="false"
-        android:layout_centerHorizontal="true"
         android:layout_above="@+id/buttonAdicionarVeiculo" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Não está na Lista ?"
+        android:text="Não está na Lista ? Cadastre o Seu !"
         android:id="@+id/buttonAdicionarVeiculo"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/listViewVeiculo"

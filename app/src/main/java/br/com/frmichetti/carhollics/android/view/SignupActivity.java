@@ -203,7 +203,7 @@ public class SignupActivity extends AppCompatActivity implements MyPattern{
     public void doConfigure() {
 
         context = this;
-
+/*
         actionBar = getSupportActionBar();
 
         actionBar.setTitle(R.string.app_name);
@@ -211,11 +211,8 @@ public class SignupActivity extends AppCompatActivity implements MyPattern{
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         actionBar.setSubtitle(R.string.action_sign_in_short);
-    }
 
-    @Override
-    public void getExtras(Intent intent) {
-
+        */
     }
 
     @Override

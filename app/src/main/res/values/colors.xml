@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<!-- Material Design Color -->
     <color name="colorPrimary">#E8C835</color>
     <color name="colorPrimaryDark">#DF9A2E</color>
     <color name="colorAccent">#b71c1c</color>
+    <color name="textColorPrimary">#FFFFFF</color>
+    <color name="windowBackground">#FFFFFF</color>
+    <color name="navigationBarColor">#000000</color>
+    <!-- Material Design Color -->
 
     <color name="bg_login">#26ae90</color>
     <color name="bg_register">#2e3237</color>

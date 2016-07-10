@@ -21,22 +21,17 @@ import br.com.frmichetti.carhollics.android.model.Cliente;
 import br.com.frmichetti.carhollics.android.model.ItemCarrinho;
 import br.com.frmichetti.carhollics.android.model.Pedido;
 import br.com.frmichetti.carhollics.android.model.Servico;
+import br.com.frmichetti.carhollics.android.model.Veiculo;
 
 public class CartActivity extends BaseActivity {
-
-    private Carrinho carrinho;
-
-    private Cliente cliente;
-
-    private Servico servicoSelecionado;
-
-    private ItemCarrinho itemCarrinhoSelecionado;
 
     private Button buttonRemoverItem, buttonConfirmarCompra,buttonContinuarComprando;
 
     private TextView textViewItemSelecionado,textViewQuantidade,textViewPreco,textViewSubTotal,textViewTotal;
 
     private ListView listViewCarrinho;
+
+    private ItemCarrinho itemCarrinhoSelecionado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +51,12 @@ public class CartActivity extends BaseActivity {
 
         super.onPostCreate(savedInstanceState);
 
-        getExtras(intent);
+        doConfigure();
+
+        cliente = (Cliente) intent.getSerializableExtra("Cliente");
+        carrinho = (Carrinho) intent.getSerializableExtra("Carrinho");
+        servicoSelecionado = (Servico) intent.getSerializableExtra("Servico");
+        veiculoSelecionado = (Veiculo) intent.getSerializableExtra("Veiculo");
 
         doFillData();
 
@@ -92,7 +92,7 @@ public class CartActivity extends BaseActivity {
 
         buttonRemoverItem = (Button) findViewById(R.id.buttonRemoverItem);
 
-        buttonConfirmarCompra = (Button) findViewById(R.id.buttonConfirmarCompra);
+        buttonConfirmarCompra = (Button) findViewById(R.id.buttonCadastro);
 
         buttonContinuarComprando = (Button) findViewById(R.id.buttonContinuarComprando);
 
@@ -162,7 +162,9 @@ public class CartActivity extends BaseActivity {
                         if(output){
 
                             Toast.makeText(context, "Pedido Solicitado com sucesso! Entraremos em contato para Confirmar Agendamento", Toast.LENGTH_LONG).show();
-                            startActivity(new Intent(context,SimpleMainActivity.class).putExtra("Cliente",cliente));
+
+                            startActivity(new Intent(context,SimpleMainActivity.class).putExtra("Bundle",doSaveState()));
+
                             finish();
 
                         }else{
@@ -181,9 +183,13 @@ public class CartActivity extends BaseActivity {
         });
 
         buttonContinuarComprando.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                doChangeActivity(SimpleMainActivity.class);
+
+                new Intent(context,SimpleMainActivity.class).putExtra("Bundle",doSaveState());
+
+                finish();
             }
         });
     }
@@ -191,52 +197,12 @@ public class CartActivity extends BaseActivity {
     @Override
     public void doConfigure() {
 
-        context = this;
-
-        intent = getIntent();
-
-        actionBar = getSupportActionBar();
-
-        actionBar.setDisplayHomeAsUpEnabled(true);
-
-        actionBar.setTitle(R.string.app_name);
+        super.doConfigure();
 
         actionBar.setSubtitle("Carrinho");
 
     }
 
-    @Override
-    public void getExtras(Intent intent) {
-
-        cliente = (Cliente) intent.getSerializableExtra("Cliente");
-
-        carrinho = (Carrinho) intent.getSerializableExtra("Carrinho");
-
-        servicoSelecionado = (Servico) intent.getSerializableExtra("Servico");
-
-    }
-
-    public void putExtras(Intent intent){
-
-        intent.putExtra("Cliente",cliente);
-
-        intent.putExtra("Carrinho",carrinho);
-
-        intent.putExtra("Servico",servicoSelecionado);
-    }
-
-
-
-    private void doChangeActivity(Class classe){
-
-        intent = new Intent();
-
-        putExtras(intent);
-
-        intent.setClass(context,classe);
-
-        context.startActivity(intent);
-    }
 
 
 }

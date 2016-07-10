@@ -1,13 +1,8 @@
 package br.com.frmichetti.carhollics.android.view;
 
-import android.content.Context;
-import android.content.Intent;
-import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.util.Log;
-import android.view.MenuItem;
 import android.widget.Toast;
 
 import br.com.frmichetti.carhollics.android.R;
@@ -22,7 +17,9 @@ public class WhereActivity extends BaseActivity{
 
         setContentView(R.layout.activity_where);
 
-        doConfigure();
+        doCastComponents();
+
+        doCreateListeners();
 
     }
 
@@ -30,6 +27,8 @@ public class WhereActivity extends BaseActivity{
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
 
         super.onPostCreate(savedInstanceState);
+
+        doConfigure();
 
         Toast.makeText(context,"Load Map from webservice",Toast.LENGTH_LONG).show();
 
@@ -56,10 +55,6 @@ public class WhereActivity extends BaseActivity{
 
     }
 
-    @Override
-    public void getExtras(Intent intent) {
-
-    }
 
 
 }

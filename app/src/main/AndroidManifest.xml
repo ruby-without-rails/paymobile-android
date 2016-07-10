@@ -3,13 +3,14 @@
     package="br.com.frmichetti.carhollics.android">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/MyMaterialTheme">
         <activity android:name=".view.SimpleLoginActivity" />
         <activity android:name=".view.SimpleMainActivity" />
         <activity android:name=".view.WhereActivity" />
@@ -29,6 +30,7 @@
         <activity android:name=".view.ClientActivity" />
         <activity android:name=".view.VeiculoCreateActivity" />
         <activity android:name=".view.VeiculoActivity" />
+        <activity android:name=".view.MainActivity"></activity>
     </application>
 
 </manifest>

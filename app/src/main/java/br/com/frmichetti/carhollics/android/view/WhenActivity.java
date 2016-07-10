@@ -1,9 +1,6 @@
 package br.com.frmichetti.carhollics.android.view;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MenuItem;
 
 import br.com.frmichetti.carhollics.android.R;
 
@@ -15,6 +12,12 @@ public class WhenActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_when);
+
+        doCastComponents();
+
+        doCreateListeners();
+
+
     }
 
     @Override
@@ -27,8 +30,4 @@ public class WhenActivity extends BaseActivity {
 
     }
 
-    @Override
-    public void getExtras(Intent intent) {
-
-    }
 }

@@ -1,5 +1,6 @@
 package br.com.frmichetti.carhollics.android.view;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,10 +15,11 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import br.com.frmichetti.carhollics.android.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+
+import br.com.frmichetti.carhollics.android.R;
 
 public class ResetPasswordActivity extends AppCompatActivity implements MyPattern {
 
@@ -117,19 +119,14 @@ public class ResetPasswordActivity extends AppCompatActivity implements MyPatter
     @Override
     public void doConfigure() {
 
-        actionBar = getSupportActionBar();
+  /*      actionBar = getSupportActionBar();
 
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         actionBar.setTitle(R.string.app_name);
 
         actionBar.setSubtitle(R.string.btn_reset_password);
-
-    }
-
-    @Override
-    public void getExtras(Intent intent) {
-
+*/
     }
 
     @Override
@@ -138,6 +135,7 @@ public class ResetPasswordActivity extends AppCompatActivity implements MyPatter
         int id = item.getItemId();
 
         if(id == android.R.id.home){
+
             finish();
         }
 

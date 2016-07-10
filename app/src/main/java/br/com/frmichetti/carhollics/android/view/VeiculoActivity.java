@@ -15,6 +15,7 @@ import java.util.List;
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
 import br.com.frmichetti.carhollics.android.jobs.TaskLoadVeiculos;
+import br.com.frmichetti.carhollics.android.model.Cliente;
 import br.com.frmichetti.carhollics.android.model.Veiculo;
 
 public class VeiculoActivity extends BaseActivity{
@@ -22,8 +23,6 @@ public class VeiculoActivity extends BaseActivity{
     private ListView listView;
 
     private Button button;
-
-    private Veiculo veiculoSelecionado;
 
     private List<Veiculo> veiculos;
 
@@ -47,7 +46,15 @@ public class VeiculoActivity extends BaseActivity{
 
         doConfigure();
 
-        doLoadServices();
+        cliente = (Cliente) intent.getSerializableExtra("Cliente");
+
+        if(savedInstanceState == null){
+
+            doLoadServices();
+
+        }
+
+
 
     }
 
@@ -85,7 +92,9 @@ public class VeiculoActivity extends BaseActivity{
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(context,VeiculoCreateActivity.class));
+                startActivity(new Intent(context,VeiculoCreateActivity.class).putExtra("Cliente",cliente));
+
+                finish();
 
             }
         });
@@ -95,22 +104,11 @@ public class VeiculoActivity extends BaseActivity{
     @Override
     public void doConfigure() {
 
-        context = this;
+        super.doConfigure();
 
-        actionBar = getSupportActionBar();
-
-        actionBar.setTitle(R.string.app_name);
-
-        actionBar.setSubtitle("Lista de Veículo");
-
-        actionBar.setDisplayHomeAsUpEnabled(true);
-
+        actionBar.setSubtitle("Lista de Veículos");
     }
 
-    @Override
-    public void getExtras(Intent intent) {
-
-    }
 
     public void doLoadServices(){
 

@@ -10,6 +10,7 @@ import android.widget.EditText;
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
 import br.com.frmichetti.carhollics.android.jobs.TaskCreateVeiculo;
+import br.com.frmichetti.carhollics.android.model.Cliente;
 import br.com.frmichetti.carhollics.android.model.Veiculo;
 
 public class VeiculoCreateActivity extends BaseActivity {
@@ -27,12 +28,20 @@ public class VeiculoCreateActivity extends BaseActivity {
 
         setContentView(R.layout.activity_veiculo_create);
 
+        doCastComponents();
+
+        doCreateListeners();
+
     }
 
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
 
         super.onPostCreate(savedInstanceState);
+
+        cliente = (Cliente) intent.getSerializableExtra("Cliente");
+
+        doConfigure();
 
     }
 
@@ -55,15 +64,28 @@ public class VeiculoCreateActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
+
+
                 TaskCreateVeiculo taskCreateVeiculo = new TaskCreateVeiculo(context, new AsyncResponse<Veiculo>() {
+
                     @Override
                     public void processFinish(Veiculo output) {
 
-                        //TODO FIXME Logic Here
+                        veiculoSelecionado = output;
+
+                        startActivity(new Intent(context,MainActivity.class)
+                                .putExtra("Veiculo",veiculoSelecionado)
+                                .putExtra("Cliente",cliente)
+                        );
+
+                        finish();
 
 
                     }
                 });
+
+
+                veiculo = doFillData();
 
                 taskCreateVeiculo.execute(veiculo);
 
@@ -84,15 +106,16 @@ public class VeiculoCreateActivity extends BaseActivity {
 
     }
 
-    @Override
-    public void getExtras(Intent intent) {
-
-    }
 
     private Veiculo doFillData(){
 
-        //TODO FIXME Logic Here
-        return null;
+        Veiculo v = new Veiculo();
+
+        v.setNome(editTextNomeVeiculo.getText().toString());
+
+        v.setMarca(editTextMarcaVeiculo.getText().toString());
+
+        return v;
 
     }
 }

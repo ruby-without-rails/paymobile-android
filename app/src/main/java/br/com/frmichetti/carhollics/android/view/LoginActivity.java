@@ -1,13 +1,12 @@
 package br.com.frmichetti.carhollics.android.view;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
-import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -45,17 +44,8 @@ public class LoginActivity extends AppCompatActivity implements MyPattern{
 
         super.onCreate(savedInstanceState);
 
-        //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
 
-        if (auth.getCurrentUser() != null) {
-
-            startActivity(new Intent(LoginActivity.this, SimpleMainActivity.class));
-
-            finish();
-        }
-
-        // set the view now
         setContentView(R.layout.activity_login);
 
         doCastComponents();
@@ -93,22 +83,25 @@ public class LoginActivity extends AppCompatActivity implements MyPattern{
     public void doCreateListeners() {
 
         btnSignup.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(LoginActivity.this, SignupActivity.class));
+                startActivity(new Intent(context, SignupActivity.class));
             }
         });
 
         btnReset.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(LoginActivity.this, ResetPasswordActivity.class));
+                startActivity(new Intent(context, ResetPasswordActivity.class));
             }
         });
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
 
@@ -117,12 +110,16 @@ public class LoginActivity extends AppCompatActivity implements MyPattern{
                 final String password = inputPassword.getText().toString();
 
                 if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
+
+                    Toast.makeText(context, "Enter email address!", Toast.LENGTH_SHORT).show();
+
                     return;
                 }
 
                 if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
+
+                    Toast.makeText(context, "Enter password!", Toast.LENGTH_SHORT).show();
+
                     return;
                 }
 
@@ -131,6 +128,7 @@ public class LoginActivity extends AppCompatActivity implements MyPattern{
                 //authenticate user
                 auth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
 
@@ -147,7 +145,7 @@ public class LoginActivity extends AppCompatActivity implements MyPattern{
 
                                     } else {
 
-                                        Toast.makeText(LoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
+                                        Toast.makeText(context, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
 
                                         Log.d("DEBUG-LOGIN",String.valueOf(R.string.auth_failed));
                                     }
@@ -159,9 +157,9 @@ public class LoginActivity extends AppCompatActivity implements MyPattern{
                                         @Override
                                         public void processFinish(Cliente output) {
 
-                                            if (output!=null){
+                                            if (output != null){
 
-                                                startActivity(new Intent(LoginActivity.this, SimpleMainActivity.class).putExtra("Cliente",output));
+                                                startActivity(new Intent(context, MainActivity.class).putExtra("Cliente",output));
 
                                                 finish();
 
@@ -198,16 +196,14 @@ public class LoginActivity extends AppCompatActivity implements MyPattern{
 
         context = this;
 
-        actionBar = getSupportActionBar();
+//        actionBar = getSupportActionBar();
 
-        actionBar.setTitle(R.string.app_name);
+//        actionBar.setTitle(R.string.app_name);
 
-        actionBar.setSubtitle(R.string.action_sign_in);
-
-    }
-
-    @Override
-    public void getExtras(Intent intent) {
+//        actionBar.setSubtitle(R.string.action_sign_in);
 
     }
+
+
+
 }

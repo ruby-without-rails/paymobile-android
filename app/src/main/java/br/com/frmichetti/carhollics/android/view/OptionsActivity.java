@@ -14,6 +14,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import br.com.frmichetti.carhollics.android.R;
+import br.com.frmichetti.carhollics.android.model.Cliente;
+import br.com.frmichetti.carhollics.android.model.Veiculo;
 
 public class OptionsActivity extends BaseActivity {
 
@@ -30,12 +32,22 @@ public class OptionsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_options);
+
+        doCastComponents();
+
+        doCreateListeners();
     }
 
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
 
         super.onPostCreate(savedInstanceState);
+
+        doConfigure();
+
+        cliente = (Cliente) intent.getSerializableExtra("Cliente");
+
+        veiculoSelecionado = (Veiculo) intent.getSerializableExtra("Veiculo");
 
     }
 
@@ -340,10 +352,4 @@ public class OptionsActivity extends BaseActivity {
 
     }
 
-
-
-    @Override
-    public void getExtras(Intent intent) {
-
-    }
 }

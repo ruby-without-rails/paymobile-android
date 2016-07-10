@@ -7,7 +7,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".view.CartActivity">
+    tools:context=".view.CartActivity"
+    android:background="@color/colorPrimaryDark">
 
     <ListView
         android:layout_width="wrap_content"
@@ -16,13 +17,13 @@
         android:choiceMode="singleChoice"
         android:layout_below="@+id/textView5"
         android:layout_alignParentStart="true"
-        android:layout_above="@+id/textView" />
+        android:layout_above="@+id/textViewBemVindo" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Finalizar Compra"
-        android:id="@+id/buttonConfirmarCompra"
+        android:id="@+id/buttonCadastro"
         android:layout_alignParentBottom="true"
         android:layout_alignEnd="@+id/listViewCarrinho"
         android:layout_alignParentRight="true" />
@@ -51,8 +52,8 @@
         android:id="@+id/buttonContinuarComprando"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/textView"
-        android:layout_toLeftOf="@+id/textView" />
+        android:layout_toStartOf="@+id/textViewBemVindo"
+        android:layout_toLeftOf="@+id/textViewBemVindo" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -112,7 +113,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Serviço"
-        android:id="@+id/textView"
+        android:id="@+id/textViewBemVindo"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 

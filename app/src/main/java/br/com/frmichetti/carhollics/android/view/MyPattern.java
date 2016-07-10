@@ -1,5 +1,6 @@
 package br.com.frmichetti.carhollics.android.view;
 
+import android.content.Context;
 import android.content.Intent;
 
 /**
@@ -12,7 +13,5 @@ public interface MyPattern {
     void doCreateListeners();
 
     void doConfigure();
-
-    void getExtras(Intent intent);
 
 }
