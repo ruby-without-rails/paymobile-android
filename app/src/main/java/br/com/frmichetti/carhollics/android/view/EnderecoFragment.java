@@ -10,22 +10,24 @@ import android.view.ViewGroup;
 import br.com.frmichetti.carhollics.android.R;
 
 
-public class MessagesFragment extends Fragment {
+public class EnderecoFragment extends Fragment {
 
-    public MessagesFragment() {
+    public EnderecoFragment() {
         // Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_messages, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_enderecos, container, false);
 
 
         // Inflate the layout for this fragment

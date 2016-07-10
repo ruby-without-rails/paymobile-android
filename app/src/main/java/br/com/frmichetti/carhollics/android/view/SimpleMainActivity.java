@@ -2,6 +2,7 @@ package br.com.frmichetti.carhollics.android.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.DimenRes;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +22,7 @@ import br.com.frmichetti.carhollics.android.model.Cliente;
 import br.com.frmichetti.carhollics.android.model.Servico;
 import br.com.frmichetti.carhollics.android.model.Veiculo;
 
+@Deprecated
 public class SimpleMainActivity extends BaseActivity{
 
     private TextView textView;
@@ -77,7 +79,7 @@ public class SimpleMainActivity extends BaseActivity{
 
         textView = (TextView) findViewById(R.id.textViewItemSelecionadoVar);
 
-        listView = (ListView) findViewById(R.id.listViewCarrinho);
+        listView = (ListView) findViewById(R.id.listViewServicos);
 
         buttonCadastro = (Button) findViewById(R.id.buttonCadastro);
 

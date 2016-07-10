@@ -42,4 +42,14 @@
     <string name="title_activity_maps">Mapa</string>
     <string name="title_activity_profile">Firebase</string>
     <string name="title_activity_reset_password">Atividade de Reset de Senha</string>
+    <string name="action_cart">Carrinho</string>
+    <string name="action_search">Localizar</string>
+    <string name="drawer_close">Fechar</string>
+    <string name="drawer_open">Abrir</string>
+    <string name="nav_item_address">Endereços</string>
+    <string name="nav_item_services">Serviços</string>
+    <string name="nav_item_vehicles">Veículos</string>
+    <string name="title_address">Endereço</string>
+    <string name="title_services">Serviço</string>
+    <string name="title_vehicles">Veículos</string>
 </resources>

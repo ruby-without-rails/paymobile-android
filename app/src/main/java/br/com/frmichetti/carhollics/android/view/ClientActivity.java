@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
@@ -17,7 +18,7 @@ import br.com.frmichetti.carhollics.android.model.Usuario;
 
 public class ClientActivity extends BaseActivity{
 
-    private Button buttonConfirmar;
+    private Button buttonConfirmar,buttonPular;
 
     private EditText editTextNome,editTextCPF,editTextTelefone,editTextCEP,editTextComplemento,editTextNumero;
 
@@ -47,7 +48,7 @@ public class ClientActivity extends BaseActivity{
 
         usuario = (Usuario) intent.getSerializableExtra("Usuario");
 
-        doFillData(cliente);
+        doLoadCliente(cliente);
 
     }
 
@@ -68,10 +69,22 @@ public class ClientActivity extends BaseActivity{
 
         buttonConfirmar = (Button) findViewById(R.id.buttonConfirmar);
 
+        buttonPular = (Button) findViewById(R.id.buttonPreencherDepois);
+
     }
 
     @Override
     public void doCreateListeners() {
+
+        buttonPular.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(context,"Implementar",Toast.LENGTH_SHORT).show();
+
+            }
+        });
 
         buttonConfirmar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,6 +106,10 @@ public class ClientActivity extends BaseActivity{
                     }
                 });
 
+                cliente = doLoadFilds();
+
+                cliente.setUsuario(usuario);
+
                 taskCreateCliente.execute(cliente);
 
 
@@ -102,7 +119,7 @@ public class ClientActivity extends BaseActivity{
 
     }
 
-    private Cliente doFillData(Cliente cliente) {
+    private Cliente doLoadCliente(Cliente cliente) {
 
        if (cliente != null) {
 
@@ -122,37 +139,36 @@ public class ClientActivity extends BaseActivity{
 
            editTextNome.setText(user.getDisplayName());
 
-           cliente = new Cliente();
-
-           Endereco e  = new Endereco();
-
-           Cep cep  = new Cep();
-
-           e.setCep(cep);
-
-           e.setComplemento(editTextComplemento.getText().toString());
-
-           e.setNumero(editTextNumero.getText().toString());
-
-           cliente.setNome(editTextNome.getText().toString());
-
-           cliente.setCpf(Long.valueOf(editTextCPF.getText().toString()));
-
-           cep.setCep(Long.valueOf(editTextCEP.getText().toString()));
-
-           cliente.setEndereco(e);
-
-           cliente.setTelefone(Long.valueOf(editTextTelefone.getText().toString()));
-
-           if(cliente.getUsuario()==null){
-
-               cliente.setUsuario(usuario);
-
-           }
-
        }
 
         return cliente;
+    }
+
+    private Cliente doLoadFilds(){
+
+        Cliente c = new Cliente();
+
+        Endereco e  = new Endereco();
+
+        Cep cep  = new Cep();
+
+        c.setEndereco(e);
+
+        e.setCep(cep);
+
+        c.setNome(editTextNome.getText().toString());
+
+        c.setCpf(Long.valueOf(editTextCPF.getText().toString()));
+
+        c.setTelefone(Long.valueOf(editTextTelefone.getText().toString()));
+
+        e.setNumero(editTextNumero.getText().toString());
+
+        e.setComplemento(editTextComplemento.getText().toString());
+
+        cep.setCep(Long.valueOf(editTextCPF.getText().toString()));
+
+        return  c;
 
     }
 
@@ -161,7 +177,11 @@ public class ClientActivity extends BaseActivity{
 
         super.doConfigure();
 
+        actionBar.setDisplayHomeAsUpEnabled(false);
+
         actionBar.setSubtitle("Cadastro de Cliente");
+
+
 
     }
 

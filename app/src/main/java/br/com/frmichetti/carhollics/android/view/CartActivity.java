@@ -96,7 +96,7 @@ public class CartActivity extends BaseActivity {
 
         buttonContinuarComprando = (Button) findViewById(R.id.buttonContinuarComprando);
 
-        listViewCarrinho = (ListView) findViewById(R.id.listViewCarrinho);
+        listViewCarrinho = (ListView) findViewById(R.id.listViewServicos);
 
         textViewItemSelecionado = (TextView) findViewById(R.id.textViewItemSelecionadoVar);
 
@@ -136,14 +136,16 @@ public class CartActivity extends BaseActivity {
 
             @Override
             public void onClick(View v) {
-
+/*
                 carrinho.remove(itemCarrinhoSelecionado);
 
                 Toast.makeText(context,"Removido " + itemCarrinhoSelecionado.toString(),Toast.LENGTH_SHORT).show();
 
                 doFillData();
 
-                textViewItemSelecionado.setText("");
+                textViewItemSelecionado.setText("");*/
+
+                Toast.makeText(context,"Implementar",Toast.LENGTH_SHORT).show();
 
 
             }
@@ -163,7 +165,12 @@ public class CartActivity extends BaseActivity {
 
                             Toast.makeText(context, "Pedido Solicitado com sucesso! Entraremos em contato para Confirmar Agendamento", Toast.LENGTH_LONG).show();
 
-                            startActivity(new Intent(context,SimpleMainActivity.class).putExtra("Bundle",doSaveState()));
+                            startActivity(new Intent(context,MainActivity.class)
+                                    .putExtra("Cliente",cliente)
+                                    .putExtra("Carrinho",carrinho)
+                                    .putExtra("Servico",servicoSelecionado)
+                                    .putExtra("Veiculo",veiculoSelecionado)
+                            );
 
                             finish();
 
@@ -186,12 +193,18 @@ public class CartActivity extends BaseActivity {
 
             @Override
             public void onClick(View v) {
-
-                new Intent(context,SimpleMainActivity.class).putExtra("Bundle",doSaveState());
-
-                finish();
+/*
+                new Intent(context,MainActivity.class)
+                        .putExtra("Cliente",cliente)
+                        .putExtra("Carrinho",carrinho)
+                        .putExtra("Servico",servicoSelecionado)
+                        .putExtra("Veiculo",veiculoSelecionado) ;
+*/
+                Toast.makeText(context,"Implementar",Toast.LENGTH_SHORT).show();
             }
         });
+
+
     }
 
     @Override

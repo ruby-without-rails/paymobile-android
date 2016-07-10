@@ -46,7 +46,6 @@ public class SignupActivity extends AppCompatActivity implements MyPattern{
 
         super.onCreate(savedInstanceState);
 
-        //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
 
         setContentView(R.layout.activity_signup);
@@ -150,7 +149,7 @@ public class SignupActivity extends AppCompatActivity implements MyPattern{
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
 
-                                Toast.makeText(context, "Usuário foi Registrado com Sucesso ! :" + task.isSuccessful(), Toast.LENGTH_LONG).show();
+                                Toast.makeText(context, "Usuário foi Registrado ? " + task.isSuccessful(), Toast.LENGTH_LONG).show();
 
                                 progressBar.setVisibility(View.GONE);
 
@@ -203,16 +202,7 @@ public class SignupActivity extends AppCompatActivity implements MyPattern{
     public void doConfigure() {
 
         context = this;
-/*
-        actionBar = getSupportActionBar();
 
-        actionBar.setTitle(R.string.app_name);
-
-        actionBar.setDisplayHomeAsUpEnabled(true);
-
-        actionBar.setSubtitle(R.string.action_sign_in_short);
-
-        */
     }
 
     @Override

@@ -18,6 +18,7 @@ import br.com.frmichetti.carhollics.android.jobs.TaskLogin;
 import br.com.frmichetti.carhollics.android.model.Cliente;
 import br.com.frmichetti.carhollics.android.model.Usuario;
 
+@Deprecated
 public class SimpleLoginActivity extends AppCompatActivity implements MyPattern {
 
     private ActionBar actionBar;

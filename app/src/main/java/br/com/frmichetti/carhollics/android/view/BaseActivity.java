@@ -140,6 +140,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
         }
 
         if (id == R.id.action_settings) {
+
             return true;
         }
 
@@ -156,6 +157,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
             Log.i("Info","KeyUp Back Button");
 
             Toast.makeText(context,"KeyUp Back Button Pressed",Toast.LENGTH_SHORT).show();
+
         }
 
         if(event.getKeyCode() == KeyEvent.KEYCODE_HOME){
@@ -204,20 +206,13 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         intent = getIntent();
 
-    //    actionBar = getSupportActionBar();
-
-//        actionBar.setTitle(R.string.app_name);
-
-//        actionBar.setDisplayHomeAsUpEnabled(true);
-
-
-    mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(mToolbar);
 
-        mToolbar.setTitle(getString(R.string.app_name));
-
         actionBar = getSupportActionBar();
+
+        actionBar.setTitle(getString(R.string.app_name));
 
         actionBar.setDisplayHomeAsUpEnabled(true);
 
@@ -226,8 +221,10 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
         return true;
     }
 

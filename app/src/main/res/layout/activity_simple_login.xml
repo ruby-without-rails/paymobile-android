@@ -15,8 +15,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/editTextLogin"
         android:layout_marginTop="45dp"
-        android:layout_alignStart="@+id/editTextPassword"
-        android:layout_alignEnd="@+id/editTextPassword" />
+   />
 
     <EditText
         android:layout_width="wrap_content"
@@ -32,9 +31,7 @@
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:id="@+id/imageViewBackground"
-        android:src="@mipmap/bg"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="false"
         android:layout_alignParentBottom="true" />
 
     <Button

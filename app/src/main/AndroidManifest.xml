@@ -15,7 +15,7 @@
         <activity android:name=".view.SimpleMainActivity" />
         <activity android:name=".view.WhereActivity" />
         <activity android:name=".view.WhenActivity" />
-        <activity android:name=".view.SimpleDetailActivity" />
+        <activity android:name=".view.ServicoDetailActivity" />
         <activity android:name=".view.CartActivity" />
         <activity android:name=".view.LoginActivity">
             <intent-filter>

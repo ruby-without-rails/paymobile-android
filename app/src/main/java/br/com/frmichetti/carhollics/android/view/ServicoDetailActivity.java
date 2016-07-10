@@ -4,14 +4,21 @@ package br.com.frmichetti.carhollics.android.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import br.com.frmichetti.carhollics.android.R;
+import br.com.frmichetti.carhollics.android.model.Carrinho;
+import br.com.frmichetti.carhollics.android.model.Cliente;
 import br.com.frmichetti.carhollics.android.model.ItemCarrinho;
+import br.com.frmichetti.carhollics.android.model.Servico;
 
-public class SimpleDetailActivity extends BaseActivity{
+public class ServicoDetailActivity extends BaseActivity{
 
     private TextView textViewNome,textViewDescricao,textViewDuracao,textViewPreço;
 
@@ -22,11 +29,12 @@ public class SimpleDetailActivity extends BaseActivity{
 
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_simple_detail);
+        setContentView(R.layout.activity_servico_detail);
 
         doCastComponents();
 
         doCreateListeners();
+
 
     }
 
@@ -36,6 +44,12 @@ public class SimpleDetailActivity extends BaseActivity{
         super.onPostCreate(savedInstanceState);
 
         doConfigure();
+
+        cliente = (Cliente) intent.getSerializableExtra("Cliente");
+
+        servicoSelecionado = (Servico) intent.getSerializableExtra("Servico");
+
+        carrinho = (Carrinho) intent.getSerializableExtra("Carrinho");
 
         doFillData();
 
@@ -99,6 +113,50 @@ public class SimpleDetailActivity extends BaseActivity{
         textViewPreço.setText(String.valueOf(servicoSelecionado.getPreco()));
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        super.onOptionsItemSelected(item);
+
+        int id = item.getItemId();
+
+        if(id == android.R.id.home){
+
+
+            return true;
+        }
+
+        if (id == R.id.action_settings) {
+
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+
+        super.onKeyUp(keyCode,event);
+
+        if(event.getKeyCode() == KeyEvent.KEYCODE_BACK){
+
+
+
+        }
+
+        if(event.getKeyCode() == KeyEvent.KEYCODE_HOME){
+
+
+        }
+
+        if(event.getKeyCode() == KeyEvent.KEYCODE_SEARCH){
+
+
+        }
+
+        return true;
+    }
 
 
 
