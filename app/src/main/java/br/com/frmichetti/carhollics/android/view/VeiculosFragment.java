@@ -122,6 +122,14 @@ public class VeiculosFragment extends Fragment {
             }
         });
 
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context,"Implementar",Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     private void doCastComponents(View rootView) {
@@ -129,6 +137,8 @@ public class VeiculosFragment extends Fragment {
         textView = (TextView) rootView.findViewById(R.id.textView14);
 
         listView = (ListView) rootView.findViewById(R.id.listViewVeiculos);
+
+        button = (Button) rootView.findViewById(R.id.buttonCadastrarVeiculo);
 
 
     }

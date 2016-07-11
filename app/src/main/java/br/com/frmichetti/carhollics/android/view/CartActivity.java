@@ -19,6 +19,7 @@ import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
 import br.com.frmichetti.carhollics.android.jobs.TaskFazerPedido;
 import br.com.frmichetti.carhollics.android.model.ItemCarrinho;
 import br.com.frmichetti.carhollics.android.model.Pedido;
+import br.com.frmichetti.carhollics.android.model.Servico;
 
 public class CartActivity extends BaseActivity {
 
@@ -60,15 +61,20 @@ public class CartActivity extends BaseActivity {
 
     private void doRefresh() {
 
-        textViewItemSelecionado.setText(itemCarrinhoSelecionado.toString());
+        if(!carrinho.isEmpty()){
 
-        textViewSubTotal.setText(String.valueOf(carrinho.getTotal(itemCarrinhoSelecionado)));
+            textViewItemSelecionado.setText(itemCarrinhoSelecionado.toString());
 
-        textViewTotal.setText(String.valueOf(carrinho.getTotal()));
+            textViewSubTotal.setText(String.valueOf(carrinho.getTotal(itemCarrinhoSelecionado)));
 
-        //  textViewPreco.setText(String.valueOf(itemCarrinhoSelecionado.getPrice()));
+            textViewTotal.setText(String.valueOf(carrinho.getTotal()));
 
-        // textViewQuantidade.setText(String.valueOf(carrinho.getQuantity()));
+            //  textViewPreco.setText(String.valueOf(itemCarrinhoSelecionado.getPrice()));
+
+            // textViewQuantidade.setText(String.valueOf(carrinho.getQuantity()));
+        }
+
+
     }
 
     private void doFillData() {
@@ -141,6 +147,8 @@ public class CartActivity extends BaseActivity {
 
                 textViewItemSelecionado.setText("");
 
+                servicoSelecionado = new Servico();
+
             }
         });
 
@@ -177,7 +185,16 @@ public class CartActivity extends BaseActivity {
                     }
                 });
 
-                taskFazerPedido.execute(new Pedido(cliente,carrinho));
+                if(!carrinho.isEmpty()){
+
+                    taskFazerPedido.execute(new Pedido(cliente,carrinho));
+
+                }else {
+
+                    Toast.makeText(context,"Carrinho Vazio",Toast.LENGTH_SHORT).show();
+                }
+
+
 
             }
         });

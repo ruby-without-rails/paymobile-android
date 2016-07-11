@@ -21,6 +21,7 @@ import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.model.Carrinho;
 import br.com.frmichetti.carhollics.android.model.Cliente;
 import br.com.frmichetti.carhollics.android.model.Servico;
+import br.com.frmichetti.carhollics.android.model.Usuario;
 import br.com.frmichetti.carhollics.android.model.Veiculo;
 
 /**
@@ -169,6 +170,13 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
         if(id == R.id.action_contact_developer){
 
             Toast.makeText(context,"Click on Contact Developer Button ",Toast.LENGTH_SHORT).show();
+
+            return true;
+        }
+
+        if(id == R.id.action_personal_data){
+
+            Toast.makeText(context,"Click on Personal Data Button ",Toast.LENGTH_SHORT).show();
 
             return true;
         }

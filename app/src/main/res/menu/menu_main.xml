@@ -20,6 +20,13 @@
         app:showAsAction="always" />
 
     <item
+        android:id="@+id/action_personal_data"
+        android:title="@string/action_personal_data"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_action_account"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/action_settings"
         android:title="@string/action_settings"
         android:icon="@drawable/ic_action_settings"
@@ -33,7 +40,9 @@
         android:orderInCategory="100"
         app:showAsAction="never" />
 
-    <item
+
+
+  <item
         android:id="@+id/action_search"
         android:title="@string/action_search"
         android:orderInCategory="100"

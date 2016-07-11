@@ -3,6 +3,7 @@ package br.com.frmichetti.carhollics.android.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -44,9 +45,7 @@ public class ClientActivity extends BaseActivity{
 
         doConfigure();
 
-        cliente = (Cliente) intent.getSerializableExtra("Cliente");
-
-        usuario = (Usuario) intent.getSerializableExtra("Usuario");
+        doLoadExtras(intent);
 
         doLoadCliente(cliente);
 
@@ -54,6 +53,8 @@ public class ClientActivity extends BaseActivity{
 
     @Override
     public void doCastComponents() {
+
+        super.doCastComponents();
 
         editTextNome = (EditText) findViewById(R.id.editTextNome);
 
@@ -87,6 +88,8 @@ public class ClientActivity extends BaseActivity{
         });
 
         buttonConfirmar.setOnClickListener(new View.OnClickListener() {
+
+
             @Override
             public void onClick(View v) {
 
@@ -99,18 +102,34 @@ public class ClientActivity extends BaseActivity{
 
                         //TODO FIXME getCliente
 
-                        startActivity(new Intent(context,MainActivity.class).putExtra("Cliente",cliente));
+                        startActivity(new Intent(context,MainActivity.class)
+                                        .putExtra("Carrinho",carrinho)
+                                        .putExtra("Cliente",cliente)
+                                        .putExtra("Veiculo",veiculoSelecionado)
+                                        .putExtra("Servico",servicoSelecionado));
 
                         finish();
+
+
 
                     }
                 });
 
-                cliente = doLoadFilds();
+                cliente = doLoadFields();
 
                 cliente.setUsuario(usuario);
 
-                taskCreateCliente.execute(cliente);
+                if(usuario != null){
+
+                    taskCreateCliente.execute(cliente);
+
+                }else{
+
+                    Toast.makeText(context,"Implementar Atualização do Cliente",Toast.LENGTH_SHORT).show();
+
+                }
+
+
 
 
 
@@ -144,7 +163,7 @@ public class ClientActivity extends BaseActivity{
         return cliente;
     }
 
-    private Cliente doLoadFilds(){
+    private Cliente doLoadFields(){
 
         Cliente c = new Cliente();
 
@@ -177,12 +196,79 @@ public class ClientActivity extends BaseActivity{
 
         super.doConfigure();
 
-        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         actionBar.setSubtitle("Cadastro de Cliente");
 
-
-
     }
 
+    @Override
+    public void doLoadExtras(Intent intent) {
+
+        super.doLoadExtras(intent);
+
+        usuario = (Usuario) intent.getSerializableExtra("Usuario");
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        super.onOptionsItemSelected(item);
+
+        int id = item.getItemId();
+
+        if(id == android.R.id.home){
+
+            Toast.makeText(context,"Click on Back Button ",Toast.LENGTH_SHORT).show();
+
+            if(usuario == null){
+                finish();
+            }
+
+            return true;
+
+        }
+
+        if (id == R.id.action_settings) {
+
+            Toast.makeText(context,"Click on Settings Button ",Toast.LENGTH_SHORT).show();
+
+            return true;
+        }
+
+        if(id == R.id.action_car){
+
+            Toast.makeText(context,"Click on Car Button ",Toast.LENGTH_SHORT).show();
+
+            return true;
+
+        }
+
+        if(id == R.id.action_search){
+
+            Toast.makeText(context,"Click on Search Button ",Toast.LENGTH_SHORT).show();
+
+            return true;
+        }
+
+        if(id == R.id.action_contact_developer){
+
+            Toast.makeText(context,"Click on Contact Developer Button ",Toast.LENGTH_SHORT).show();
+
+            return true;
+        }
+
+        if(id == R.id.action_personal_data){
+
+            Toast.makeText(context,"Click on Personal Data Button ",Toast.LENGTH_SHORT).show();
+
+            return true;
+        }
+
+
+
+
+
+        return super.onOptionsItemSelected(item);
+    }
 }

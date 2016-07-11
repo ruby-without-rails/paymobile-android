@@ -6,7 +6,6 @@
  * */
 package br.com.frmichetti.carhollics.android.jobs;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -20,7 +19,6 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 
-import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.dao.HTTP;
 import br.com.frmichetti.carhollics.android.model.Cliente;
 import br.com.frmichetti.carhollics.android.model.Pessoa;

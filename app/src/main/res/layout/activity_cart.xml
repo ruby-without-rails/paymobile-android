@@ -24,7 +24,8 @@
         android:choiceMode="singleChoice"
         android:layout_below="@+id/textView5"
         android:layout_alignRight="@+id/textViewTotal"
-        android:layout_alignEnd="@+id/textViewTotal" />
+        android:layout_alignEnd="@+id/textViewTotal"
+        android:layout_above="@+id/textViewBemVindo" />
 
     <Button
         android:layout_width="wrap_content"
@@ -123,7 +124,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Serviço"
         android:id="@+id/textViewBemVindo"
-        android:layout_below="@+id/listViewServicos"
+        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
     <TextView

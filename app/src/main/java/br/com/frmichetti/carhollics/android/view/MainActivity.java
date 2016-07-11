@@ -1,6 +1,8 @@
 package br.com.frmichetti.carhollics.android.view;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Icon;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,13 +10,20 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
-import android.view.MenuItem;
+import android .view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import br.com.frmichetti.carhollics.android.R;
+import br.com.frmichetti.carhollics.android.jobs.DownloadImageTask;
 import br.com.frmichetti.carhollics.android.model.Carrinho;
 import br.com.frmichetti.carhollics.android.model.Servico;
+import br.com.frmichetti.carhollics.android.model.Usuario;
 import br.com.frmichetti.carhollics.android.model.Veiculo;
 
 public class MainActivity extends BaseActivity implements FragmentDrawer.FragmentDrawerListener {
@@ -22,6 +31,10 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
     private static String TAG = MainActivity.class.getSimpleName();
 
     private FragmentDrawer drawerFragment;
+
+    private ImageView imageView;
+
+    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +74,30 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
 
         doSetFragment();
 
+        doShowInfo();
+
+    }
+
+    //TODO FIXME show info personal data
+    private void doShowInfo() {
+/*
+        if(user.getPhotoUrl() != null){
+            try {
+
+                new DownloadImageTask(imageView).execute(new URL(user.getPhotoUrl().toString()));
+
+            } catch (MalformedURLException e) {
+
+                e.printStackTrace();
+
+            }
+
+
+        }
+*/
+
+
+        textView.setText(user.getDisplayName());
     }
 
     @Override
@@ -78,7 +115,6 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
         super.onOptionsItemSelected(item);
 
         int id = item.getItemId();
-
 
         if (id == R.id.action_settings) {
 
@@ -113,6 +149,19 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
                 );
 
             return true;
+        }
+
+        if(id == R.id.action_personal_data){
+
+            startActivity(new Intent(context,ClientActivity.class)
+                    .putExtra("Carrinho",carrinho)
+                    .putExtra("Cliente",cliente)
+                    .putExtra("Veiculo",veiculoSelecionado)
+                    .putExtra("Servico",servicoSelecionado)
+            );
+
+            return true;
+
         }
 
         return super.onOptionsItemSelected(item);
@@ -164,9 +213,7 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
 
             fragmentTransaction.commit();
 
-            getSupportActionBar().setTitle(R.string.app_name);
-
-            getSupportActionBar().setSubtitle(title);
+            actionBar.setSubtitle(title);
         }
     }
 
@@ -189,6 +236,18 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
         // display the first navigation drawer view on app launch
         displayView(0);
     }
+
+    @Override
+    public void doCastComponents() {
+
+        super.doCastComponents();
+
+        imageView = (ImageView) findViewById(R.id.imageViewAccountImage);
+
+        textView = (TextView) findViewById(R.id.textViewNome);
+    }
+
+
 }
 
 

@@ -55,6 +55,7 @@
     <string name="contact_developer">Contate o Desenvolvedor</string>
     <string name="title_reserves">Reservas</string>
     <string name="nav_item_reserves">Reservas</string>
-    <string name="action_car">action_car</string>
+    <string name="action_car">Carro</string>
     <string name="action_vehicle">Veículo</string>
+    <string name="action_personal_data">Dados Pessoais</string>
 </resources>

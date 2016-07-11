@@ -76,6 +76,8 @@
     <string name="title_address">Address</string>
     <string name="title_reserves">Reserves</string>
     <string name="contact_developer">Contact Developer</string>
+    <string name="action_personal_data">Personal Data</string>
+    <string name="action_car">Car</string>
 </resources>
 
 
