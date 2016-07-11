@@ -30,7 +30,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
     protected ActionBar actionBar;
 
-    private Toolbar mToolbar;
+    protected Toolbar toolbar;
 
     protected Context context;
 
@@ -52,7 +52,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
     protected BaseActivity(){
 
-        Log.i("[INFO-INSTANCE]","Create instance of " + this.getClass().getSimpleName());
+        Log.d("[INFO-INSTANCE]","Create instance of " + this.getClass().getSimpleName());
 
     }
 
@@ -69,6 +69,8 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         doCreateFirebaseListener();
 
+        Log.d("DEBUG-ON-CREATE","Super On Create");
+
     }
 
     @Override
@@ -80,6 +82,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         doConfigure();
 
+        Log.d("DEBUG-ON-POST-CREATE","Super On Post Create");
 
     }
 
@@ -124,7 +127,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         outState.putSerializable("Veiculo",veiculoSelecionado);
 
-        Log.i("[INFO-SAVE-BUNDLE]","Save State");
+        Log.d("[INFO-SAVE-BUNDLE]","Save State");
 
     }
 
@@ -137,9 +140,35 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
             Toast.makeText(context,"Click on Back Button ",Toast.LENGTH_SHORT).show();
 
+            return true;
+
         }
 
         if (id == R.id.action_settings) {
+
+            Toast.makeText(context,"Click on Settings Button ",Toast.LENGTH_SHORT).show();
+
+            return true;
+        }
+
+        if(id == R.id.action_car){
+
+            Toast.makeText(context,"Click on Car Button ",Toast.LENGTH_SHORT).show();
+
+            return true;
+
+        }
+
+        if(id == R.id.action_search){
+
+            Toast.makeText(context,"Click on Search Button ",Toast.LENGTH_SHORT).show();
+
+            return true;
+        }
+
+        if(id == R.id.action_contact_developer){
+
+            Toast.makeText(context,"Click on Contact Developer Button ",Toast.LENGTH_SHORT).show();
 
             return true;
         }
@@ -150,11 +179,11 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
 
-        Log.i("[INFO-KEY-UP]","KeyUp " + String.valueOf(event.getKeyCode()));
+        //Log.d("[INFO-KEY-UP]","KeyUp " + String.valueOf(event.getKeyCode()));
 
         if(event.getKeyCode() == KeyEvent.KEYCODE_BACK){
 
-            Log.i("Info","KeyUp Back Button");
+            Log.d("Info","KeyUp Back Button");
 
             Toast.makeText(context,"KeyUp Back Button Pressed",Toast.LENGTH_SHORT).show();
 
@@ -162,14 +191,14 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         if(event.getKeyCode() == KeyEvent.KEYCODE_HOME){
 
-            Log.i("Info","KeyUp Home Button");
+            Log.d("Info","KeyUp Home Button");
 
             Toast.makeText(context,"KeyUp Home Button Pressed",Toast.LENGTH_SHORT).show();
         }
 
         if(event.getKeyCode() == KeyEvent.KEYCODE_SEARCH){
 
-            Log.i("Info","KeyUp Search Button");
+            Log.d("Info","KeyUp Search Button");
 
             Toast.makeText(context,"KeyUp Search Button Pressed",Toast.LENGTH_SHORT).show();
         }
@@ -200,22 +229,29 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
     }
 
     @Override
+    public void doCastComponents() {
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        setSupportActionBar(toolbar);
+
+        actionBar = getSupportActionBar();
+
+        Log.d("DEBUG-DO-CAST-COMP","Super Do Cast Components");
+    }
+
+    @Override
     public void doConfigure() {
 
         context = this;
 
         intent = getIntent();
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-
-        setSupportActionBar(mToolbar);
-
-        actionBar = getSupportActionBar();
-
         actionBar.setTitle(getString(R.string.app_name));
 
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        Log.d("DEBUG-DO-CONFIGURE","Super Do Configure");
 
     }
 
@@ -232,7 +268,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         auth.signOut();
 
-        Log.i("[INFO-SIGNOUT]","SignOut");
+        Log.d("[INFO-SIGNOUT]","SignOut");
 
     }
 
@@ -248,7 +284,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
             veiculoSelecionado = (Veiculo) bundle.getSerializable("Veiculo");
 
-            Log.i("[INFO-LOAD-BUNDLE]","Load Saved State");
+            Log.d("[INFO-LOAD-BUNDLE]","Load Saved State");
 
         }
 
@@ -267,12 +303,20 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         bundle.putSerializable("Veiculo",veiculoSelecionado);
 
-        Log.i("[INFO-SAVE-BUNDLE]","Saved State");
+        Log.d("[INFO-SAVE-BUNDLE]","Saved State");
 
         return bundle;
     }
 
     public void doLoadExtras(Intent intent) {
+
+        cliente = (Cliente) intent.getSerializableExtra("Cliente");
+
+        carrinho = (Carrinho) intent.getSerializableExtra("Carrinho");
+
+        servicoSelecionado = (Servico) intent.getSerializableExtra("Servico");
+
+        veiculoSelecionado = (Veiculo) intent.getSerializableExtra("Veiculo");
 
         Log.d("DEBUG-LOAD-EXTRAS","Load Extras");
     }

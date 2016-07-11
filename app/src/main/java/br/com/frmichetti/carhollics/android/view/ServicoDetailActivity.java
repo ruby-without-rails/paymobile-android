@@ -4,7 +4,6 @@ package br.com.frmichetti.carhollics.android.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,16 +12,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import br.com.frmichetti.carhollics.android.R;
-import br.com.frmichetti.carhollics.android.model.Carrinho;
-import br.com.frmichetti.carhollics.android.model.Cliente;
 import br.com.frmichetti.carhollics.android.model.ItemCarrinho;
-import br.com.frmichetti.carhollics.android.model.Servico;
 
 public class ServicoDetailActivity extends BaseActivity{
 
     private TextView textViewNome,textViewDescricao,textViewDuracao,textViewPreço;
 
     private Button buttonAddCart;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,17 +42,13 @@ public class ServicoDetailActivity extends BaseActivity{
 
         doConfigure();
 
-        cliente = (Cliente) intent.getSerializableExtra("Cliente");
-
-        servicoSelecionado = (Servico) intent.getSerializableExtra("Servico");
-
-        carrinho = (Carrinho) intent.getSerializableExtra("Carrinho");
+        doLoadExtras(intent);
 
         doFillData();
 
     }
 
-    @Override
+
     public void doConfigure() {
 
         super.doConfigure();
@@ -64,8 +57,10 @@ public class ServicoDetailActivity extends BaseActivity{
 
     }
 
-    @Override
+
     public void doCastComponents() {
+
+        super.doCastComponents();
 
         textViewNome = (TextView) findViewById(R.id.textViewNome);
 
@@ -77,16 +72,16 @@ public class ServicoDetailActivity extends BaseActivity{
 
         buttonAddCart = (Button) findViewById(R.id.buttonAddCart);
 
+
     }
 
-    @Override
     public void doCreateListeners() {
 
         buttonAddCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                carrinho.add(new ItemCarrinho(servicoSelecionado));
+              carrinho.add(new ItemCarrinho(servicoSelecionado));
 
                startActivity(new Intent(context,CartActivity.class)
                        .putExtra("Cliente",cliente)
@@ -95,6 +90,8 @@ public class ServicoDetailActivity extends BaseActivity{
                        .putExtra("Veiculo",veiculoSelecionado)
 
                );
+
+                finish();
 
 
             }
@@ -122,8 +119,12 @@ public class ServicoDetailActivity extends BaseActivity{
 
         if(id == android.R.id.home){
 
+            Toast.makeText(context,"Click on Back Button ",Toast.LENGTH_SHORT).show();
+
+            finish();
 
             return true;
+
         }
 
         if (id == R.id.action_settings) {

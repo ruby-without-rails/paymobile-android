@@ -7,15 +7,18 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".view.SimpleLoginActivity"
-    android:background="@color/colorPrimaryDark">
+    tools:context=".view.SimpleLoginActivity">
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/editTextLogin"
-        android:layout_marginTop="45dp"
-   />
+        android:layout_marginTop="53dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/editTextPassword"
+        android:layout_alignEnd="@+id/editTextPassword"
+        android:layout_alignLeft="@+id/editTextPassword"
+        android:layout_alignStart="@+id/editTextPassword" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -27,21 +30,13 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="34dp" />
 
-    <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/imageViewBackground"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true" />
-
     <Button
         android:background="@null"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/action_sign_in"
         android:id="@+id/buttonSignin"
-        android:layout_marginBottom="81dp"
-        android:layout_alignBottom="@+id/imageViewBackground"
+        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

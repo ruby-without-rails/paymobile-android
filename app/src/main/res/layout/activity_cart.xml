@@ -42,7 +42,7 @@
         android:id="@+id/buttonRemoverItem"
         android:layout_below="@+id/textViewItemSelecionadoVar"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="73dp" />
+        android:layout_marginTop="40dp" />
 
     <TextView
         android:layout_width="wrap_content"

@@ -4,7 +4,7 @@
     <string name="btn_change">Mudar</string>
     <string name="btn_forgot_password">Esqueceu sua senha?</string>
     <string name="btn_link_to_login">Já está registrado? Pode Entrar!</string>
-    <string name="btn_link_to_register">Ainda não é membro? Faça seu registro no Firebase agora!</string>
+    <string name="btn_link_to_register">Ainda não é membro? Faça seu registro na Carhollics agora!</string>
     <string name="auth_failed">Falha na autenticação, verifique seu email e sua senha ou registre-se</string>
     <string name="action_sign_in_short">Registrar</string>
     <string name="btn_login">ENTRAR</string>
@@ -52,4 +52,9 @@
     <string name="title_address">Endereço</string>
     <string name="title_services">Serviço</string>
     <string name="title_vehicles">Veículos</string>
+    <string name="contact_developer">Contate o Desenvolvedor</string>
+    <string name="title_reserves">Reservas</string>
+    <string name="nav_item_reserves">Reservas</string>
+    <string name="action_car">action_car</string>
+    <string name="action_vehicle">Veículo</string>
 </resources>

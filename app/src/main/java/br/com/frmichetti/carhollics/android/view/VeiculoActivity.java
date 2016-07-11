@@ -18,6 +18,7 @@ import br.com.frmichetti.carhollics.android.jobs.TaskLoadVeiculos;
 import br.com.frmichetti.carhollics.android.model.Cliente;
 import br.com.frmichetti.carhollics.android.model.Veiculo;
 
+@Deprecated
 public class VeiculoActivity extends BaseActivity{
 
     private ListView listView;

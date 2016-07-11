@@ -5,11 +5,12 @@
     tools:context=".MainActivity">
 
     <item
-        android:id="@+id/action_search"
-        android:title="@string/action_search"
+        android:id="@+id/action_car"
+        android:title="@string/action_vehicle"
         android:orderInCategory="100"
-        android:icon="@drawable/ic_action_find"
-        app:showAsAction="ifRoom" />
+        android:icon="@drawable/ic_action_car"
+        app:showAsAction="always" />
+
 
     <item
         android:id="@+id/action_cart"
@@ -23,5 +24,19 @@
         android:title="@string/action_settings"
         android:icon="@drawable/ic_action_settings"
         android:orderInCategory="100"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_contact_developer"
+        android:title="@string/contact_developer"
+        android:icon="@drawable/ic_action_contact_code"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_search"
+        android:title="@string/action_search"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_action_find"
         app:showAsAction="never" />
 </menu>

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,7 +15,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import br.com.frmichetti.carhollics.android.R;
+import br.com.frmichetti.carhollics.android.model.Carrinho;
 import br.com.frmichetti.carhollics.android.model.Cliente;
+import br.com.frmichetti.carhollics.android.model.Servico;
 import br.com.frmichetti.carhollics.android.model.Veiculo;
 
 public class OptionsActivity extends BaseActivity {
@@ -45,10 +48,28 @@ public class OptionsActivity extends BaseActivity {
 
         doConfigure();
 
+        doLoadExtras();
+
+    }
+
+    private void doLoadExtras() {
+
         cliente = (Cliente) intent.getSerializableExtra("Cliente");
+
+        carrinho = (Carrinho) intent.getSerializableExtra("Carrinho");
+
+        servicoSelecionado = (Servico) intent.getSerializableExtra("Servico");
 
         veiculoSelecionado = (Veiculo) intent.getSerializableExtra("Veiculo");
 
+    }
+
+    @Override
+    public void doConfigure() {
+
+        super.doConfigure();
+
+        actionBar.setSubtitle(R.string.action_settings);
     }
 
     @Override
@@ -60,8 +81,10 @@ public class OptionsActivity extends BaseActivity {
     }
 
 
-    @Override
+
     public void doCastComponents() {
+
+        super.doCastComponents();
 
         btnChangeEmail = (Button) findViewById(R.id.change_email_button);
 
@@ -112,7 +135,7 @@ public class OptionsActivity extends BaseActivity {
         }
     }
 
-    @Override
+
     public void doCreateListeners() {
 
         btnChangeEmail.setOnClickListener(new View.OnClickListener() {
@@ -149,12 +172,13 @@ public class OptionsActivity extends BaseActivity {
 
                     user.updateEmail(newEmail.getText().toString().trim())
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
+
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
 
                                     if (task.isSuccessful()) {
 
-                                        Toast.makeText(OptionsActivity.this, "Endereço de email foi atualizado. Por favor entre com o novo ID de e-mail! ", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(context, "Endereço de email foi atualizado. Por favor entre com o novo ID de e-mail! ", Toast.LENGTH_LONG).show();
 
                                         signOut();
 
@@ -162,7 +186,7 @@ public class OptionsActivity extends BaseActivity {
 
                                     } else {
 
-                                        Toast.makeText(OptionsActivity.this, "Falha ao Atualizar email!", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(context, "Falha ao Atualizar email!", Toast.LENGTH_LONG).show();
 
                                         progressBar.setVisibility(View.GONE);
                                     }
@@ -179,6 +203,7 @@ public class OptionsActivity extends BaseActivity {
         });
 
         btnChangePassword.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
 
@@ -201,6 +226,7 @@ public class OptionsActivity extends BaseActivity {
         });
 
         changePassword.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
 
@@ -223,7 +249,7 @@ public class OptionsActivity extends BaseActivity {
 
                                         if (task.isSuccessful()) {
 
-                                            Toast.makeText(OptionsActivity.this, "Senha foi atualizada, entre com a nova senha !", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(context, "Senha foi atualizada, entre com a nova senha !", Toast.LENGTH_SHORT).show();
 
                                             signOut();
 
@@ -231,7 +257,7 @@ public class OptionsActivity extends BaseActivity {
 
                                         } else {
 
-                                            Toast.makeText(OptionsActivity.this, "Falha ao atualizar a senha!", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(context, "Falha ao atualizar a senha!", Toast.LENGTH_SHORT).show();
 
                                             progressBar.setVisibility(View.GONE);
                                         }
@@ -284,13 +310,13 @@ public class OptionsActivity extends BaseActivity {
 
                                     if (task.isSuccessful()) {
 
-                                        Toast.makeText(OptionsActivity.this, "E-mail de redefinição de senha foi enviado !", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(context, "E-mail de redefinição de senha foi enviado !", Toast.LENGTH_SHORT).show();
 
                                         progressBar.setVisibility(View.GONE);
 
                                     } else {
 
-                                        Toast.makeText(OptionsActivity.this, "Falha ao enviar email de reset!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(context, "Falha ao enviar email de reset!", Toast.LENGTH_SHORT).show();
 
                                         progressBar.setVisibility(View.GONE);
                                     }
@@ -350,6 +376,70 @@ public class OptionsActivity extends BaseActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        super.onOptionsItemSelected(item);
+
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+
+            Toast.makeText(context, "Click on Back Button ", Toast.LENGTH_SHORT).show();
+
+            finish();
+
+            return true;
+
+        }
+
+        if (id == R.id.action_settings) {
+
+            Toast.makeText(context, "Click on Settings Button ", Toast.LENGTH_SHORT).show();
+
+            return true;
+        }
+
+        if (id == R.id.action_car){
+
+            Toast.makeText(context, "Click on Car Button ", Toast.LENGTH_SHORT).show();
+
+            return true;
+
+        }
+
+        if (id == R.id.action_cart) {
+
+            Toast.makeText(context, "Click on Car Button ", Toast.LENGTH_SHORT).show();
+
+            startActivity(new Intent(context,CartActivity.class)
+                    .putExtra("Carrinho",carrinho)
+                    .putExtra("Cliente",cliente)
+                    .putExtra("Veiculo",veiculoSelecionado)
+                    .putExtra("Servico",servicoSelecionado)
+            );
+
+            return true;
+
+        }
+
+        if (id == R.id.action_search) {
+
+            Toast.makeText(context, "Click on Search Button ", Toast.LENGTH_SHORT).show();
+
+            return true;
+        }
+
+        if (id == R.id.action_contact_developer) {
+
+            Toast.makeText(context, "Click on Contact Developer Button ", Toast.LENGTH_SHORT).show();
+
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 }

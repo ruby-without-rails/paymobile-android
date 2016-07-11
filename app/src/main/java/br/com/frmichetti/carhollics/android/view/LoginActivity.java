@@ -67,6 +67,10 @@ public class LoginActivity extends AppCompatActivity implements MyPattern{
     @Override
     public void doCastComponents() {
 
+      /*  Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        setSupportActionBar(toolbar);*/
+
         inputEmail = (EditText) findViewById(R.id.email);
 
         inputPassword = (EditText) findViewById(R.id.password);
@@ -139,6 +143,7 @@ public class LoginActivity extends AppCompatActivity implements MyPattern{
                                 progressBar.setVisibility(View.GONE);
 
                                 if (!task.isSuccessful()) {
+
                                     // there was an error
                                     if (password.length() < 6) {
 
@@ -186,15 +191,16 @@ public class LoginActivity extends AppCompatActivity implements MyPattern{
     @Override
     public void doConfigure() {
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        setSupportActionBar(toolbar);
-
-        actionBar = getSupportActionBar();
+   /*     actionBar = getSupportActionBar();
 
         actionBar.setTitle(R.string.app_name);
 
         actionBar.setSubtitle(R.string.action_sign_in);
+
+        actionBar.setDisplayHomeAsUpEnabled(false);
+
+     */
 
         context = this;
 

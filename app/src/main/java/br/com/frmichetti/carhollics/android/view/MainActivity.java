@@ -1,5 +1,5 @@
 package br.com.frmichetti.carhollics.android.view;
-import android.content.Context;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,8 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,26 +14,14 @@ import android.widget.Toast;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.model.Carrinho;
-import br.com.frmichetti.carhollics.android.model.Cliente;
 import br.com.frmichetti.carhollics.android.model.Servico;
+import br.com.frmichetti.carhollics.android.model.Veiculo;
 
-public class MainActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
+public class MainActivity extends BaseActivity implements FragmentDrawer.FragmentDrawerListener {
 
     private static String TAG = MainActivity.class.getSimpleName();
 
-    private Toolbar mToolbar;
-
-    private Context context;
-
-    private Intent intent;
-
     private FragmentDrawer drawerFragment;
-
-    private Cliente cliente;
-
-    private Carrinho carrinho;
-
-    private Servico servicoSelecionado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,44 +30,36 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
         setContentView(R.layout.activity_main);
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-
-        setSupportActionBar(mToolbar);
-
-        getSupportActionBar().setDisplayShowHomeEnabled(false);
-
-        drawerFragment = (FragmentDrawer)
-                getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
-
-        drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
-
-        drawerFragment.setDrawerListener(this);
-
-        // display the first navigation drawer view on app launch
-        displayView(0);
+        doCastComponents();
 
     }
+
 
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
 
         super.onPostCreate(savedInstanceState);
 
-        context = this;
+        doConfigure();
 
-        intent = getIntent();
+        doLoadExtras(intent);
 
-        carrinho = (Carrinho) intent.getSerializableExtra("Carrinho");
-
-        cliente = (Cliente) intent.getSerializableExtra("Cliente");
-
-        servicoSelecionado = (Servico) intent.getSerializableExtra("Servico");
-
-        if (carrinho == null){
+        if(carrinho == null){
 
             carrinho = new Carrinho();
         }
 
+        if(servicoSelecionado == null){
+
+            servicoSelecionado = new Servico();
+        }
+
+        if(veiculoSelecionado == null){
+
+            veiculoSelecionado = new Veiculo();
+        }
+
+        doSetFragment();
 
     }
 
@@ -97,12 +75,11 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+        super.onOptionsItemSelected(item);
+
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+
         if (id == R.id.action_settings) {
 
             Toast.makeText(context, "Opções foi selecionado !", Toast.LENGTH_SHORT).show();
@@ -110,9 +87,9 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             startActivity(new Intent(context,OptionsActivity.class)
                     .putExtra("Carrinho",carrinho)
                     .putExtra("Cliente",cliente)
+                    .putExtra("Veiculo",veiculoSelecionado)
+                    .putExtra("Servico",servicoSelecionado)
             );
-
-
 
             return true;
         }
@@ -121,8 +98,6 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
             Toast.makeText(context, "Localizar foi selecionado !", Toast.LENGTH_SHORT).show();
 
-
-
             return true;
         }
 
@@ -130,19 +105,13 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
             Toast.makeText(context, "Carrinho foi selecionado !", Toast.LENGTH_SHORT).show();
 
-            if(servicoSelecionado == null){
-
-                Toast.makeText(context, "Item Selecionado Nulo !", Toast.LENGTH_SHORT).show();
-
-            }else{
-
                 startActivity(new Intent(context,CartActivity.class)
                         .putExtra("Carrinho",carrinho)
                         .putExtra("Cliente",cliente)
+                        .putExtra("Veiculo",veiculoSelecionado)
+                        .putExtra("Servico",servicoSelecionado)
                 );
 
-
-            }
             return true;
         }
 
@@ -151,7 +120,9 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
     @Override
     public void onDrawerItemSelected(View view, int position) {
+
         displayView(position);
+
     }
 
     private void displayView(int position) {
@@ -174,6 +145,11 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 fragment = new VeiculosFragment();
                 title = getString(R.string.title_vehicles);
                 break;
+
+            case 3:
+                fragment = new ReservasFragment();
+                title = getString(R.string.title_reserves);
+                break;
             default:
                 break;
         }
@@ -188,13 +164,31 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
             fragmentTransaction.commit();
 
-            // set the toolbar title
-            getSupportActionBar().setTitle(title);
+            getSupportActionBar().setTitle(R.string.app_name);
+
+            getSupportActionBar().setSubtitle(title);
         }
     }
 
 
+    @Override
+    public void doCreateListeners() {
 
+    }
+
+
+    private void doSetFragment() {
+
+        drawerFragment = (FragmentDrawer)
+                getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
+
+        drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
+
+        drawerFragment.setDrawerListener(this);
+
+        // display the first navigation drawer view on app launch
+        displayView(0);
+    }
 }
 
 

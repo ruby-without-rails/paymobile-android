@@ -22,10 +22,15 @@ import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
 import br.com.frmichetti.carhollics.android.jobs.TaskLoadVeiculos;
 import br.com.frmichetti.carhollics.android.model.Carrinho;
 import br.com.frmichetti.carhollics.android.model.Cliente;
+import br.com.frmichetti.carhollics.android.model.Servico;
 import br.com.frmichetti.carhollics.android.model.Veiculo;
 
 
 public class VeiculosFragment extends Fragment {
+
+    private Context context;
+
+    private Intent intent;
 
     private TextView textView;
 
@@ -35,11 +40,9 @@ public class VeiculosFragment extends Fragment {
 
     private List<Veiculo> veiculos;
 
+    private Servico servicoSelecionado;
+
     private Veiculo veiculoSelecionado;
-
-    private Context context;
-
-    private Intent intent;
 
     private Cliente cliente;
 
@@ -54,20 +57,28 @@ public class VeiculosFragment extends Fragment {
 
         super.onCreate(savedInstanceState);
 
+        doConfigure();
+
+        doLoadExtras();
+
+    }
+
+    private void doLoadExtras() {
+
+        cliente = (Cliente) intent.getSerializableExtra("Cliente");
+
+        carrinho = (Carrinho) intent.getSerializableExtra("Carrinho");
+
+        servicoSelecionado = (Servico) intent.getSerializableExtra("Servico");
+
+        veiculoSelecionado = (Veiculo) intent.getSerializableExtra("Veiculo");
+    }
+
+    private void doConfigure() {
 
         context = getContext();
 
         intent = getActivity().getIntent();
-
-        carrinho = (Carrinho) intent.getSerializableExtra("Carrinho");
-
-        cliente = (Cliente) intent.getSerializableExtra("Cliente");
-
-        if (carrinho == null){
-
-            carrinho = new Carrinho();
-        }
-
     }
 
     @Override
@@ -76,9 +87,17 @@ public class VeiculosFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_veiculos, container, false);
 
-        textView = (TextView) rootView.findViewById(R.id.textView14);
+        doCastComponents(rootView);
 
-        listView = (ListView) rootView.findViewById(R.id.listViewVeiculos);
+        doCreateListeners();
+
+        doLoadVeiculos();
+
+        // Inflate the layout for this fragment
+        return rootView;
+    }
+
+    private void doCreateListeners() {
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -93,30 +112,30 @@ public class VeiculosFragment extends Fragment {
 
                 Toast.makeText(context, "Veículo Selecionado " + veiculoSelecionado, Toast.LENGTH_SHORT).show();
 
-                //TODO INTENT
-
-                context.startActivity(new Intent(context, ServicoDetailActivity.class)
-                        .putExtra("Veiculo", veiculoSelecionado)
-                        .putExtra("Carrinho", carrinho)
-                        .putExtra("Cliente", cliente)
+                startActivity(new Intent(context, ServicoDetailActivity.class)
+                        .putExtra("Carrinho",carrinho)
+                        .putExtra("Cliente",cliente)
+                        .putExtra("Veiculo",veiculoSelecionado)
+                        .putExtra("Servico",servicoSelecionado)
                 );
-
-                getActivity().finish();
 
             }
         });
 
+    }
 
-        doLoadVeiculos();
+    private void doCastComponents(View rootView) {
+
+        textView = (TextView) rootView.findViewById(R.id.textView14);
+
+        listView = (ListView) rootView.findViewById(R.id.listViewVeiculos);
 
 
-        // Inflate the layout for this fragment
-        return rootView;
     }
 
     public void doLoadVeiculos(){
 
-        Log.i("INFO","Load Servicos from webservice");
+        Log.d("INFO","Load Servicos from webservice");
 
         TaskLoadVeiculos taskLoadVeiculos = new TaskLoadVeiculos(context, new AsyncResponse<List<Veiculo>>() {
 

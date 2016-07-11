@@ -3,6 +3,7 @@ package br.com.frmichetti.carhollics.android.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,12 +17,8 @@ import java.util.ArrayList;
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
 import br.com.frmichetti.carhollics.android.jobs.TaskFazerPedido;
-import br.com.frmichetti.carhollics.android.model.Carrinho;
-import br.com.frmichetti.carhollics.android.model.Cliente;
 import br.com.frmichetti.carhollics.android.model.ItemCarrinho;
 import br.com.frmichetti.carhollics.android.model.Pedido;
-import br.com.frmichetti.carhollics.android.model.Servico;
-import br.com.frmichetti.carhollics.android.model.Veiculo;
 
 public class CartActivity extends BaseActivity {
 
@@ -53,10 +50,7 @@ public class CartActivity extends BaseActivity {
 
         doConfigure();
 
-        cliente = (Cliente) intent.getSerializableExtra("Cliente");
-        carrinho = (Carrinho) intent.getSerializableExtra("Carrinho");
-        servicoSelecionado = (Servico) intent.getSerializableExtra("Servico");
-        veiculoSelecionado = (Veiculo) intent.getSerializableExtra("Veiculo");
+        doLoadExtras(intent);
 
         doFillData();
 
@@ -72,7 +66,7 @@ public class CartActivity extends BaseActivity {
 
         textViewTotal.setText(String.valueOf(carrinho.getTotal()));
 
-      //  textViewPreco.setText(String.valueOf(itemCarrinhoSelecionado.getPrice()));
+        //  textViewPreco.setText(String.valueOf(itemCarrinhoSelecionado.getPrice()));
 
         // textViewQuantidade.setText(String.valueOf(carrinho.getQuantity()));
     }
@@ -87,8 +81,10 @@ public class CartActivity extends BaseActivity {
 
     }
 
-    @Override
+
     public void doCastComponents() {
+
+        super.doCastComponents();
 
         buttonRemoverItem = (Button) findViewById(R.id.buttonRemoverItem);
 
@@ -111,7 +107,7 @@ public class CartActivity extends BaseActivity {
 
     }
 
-    @Override
+
     public void doCreateListeners() {
 
         listViewCarrinho.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -136,22 +132,20 @@ public class CartActivity extends BaseActivity {
 
             @Override
             public void onClick(View v) {
-/*
+
                 carrinho.remove(itemCarrinhoSelecionado);
 
                 Toast.makeText(context,"Removido " + itemCarrinhoSelecionado.toString(),Toast.LENGTH_SHORT).show();
 
                 doFillData();
 
-                textViewItemSelecionado.setText("");*/
-
-                Toast.makeText(context,"Implementar",Toast.LENGTH_SHORT).show();
-
+                textViewItemSelecionado.setText("");
 
             }
         });
 
         buttonConfirmarCompra.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
 
@@ -178,7 +172,6 @@ public class CartActivity extends BaseActivity {
 
                             Toast.makeText(context,"Não foi possível concluir o pedido, Tente Novamente ",Toast.LENGTH_LONG).show();
 
-
                         }
 
                     }
@@ -193,21 +186,23 @@ public class CartActivity extends BaseActivity {
 
             @Override
             public void onClick(View v) {
-/*
-                new Intent(context,MainActivity.class)
+
+                startActivity(new Intent(context,MainActivity.class)
                         .putExtra("Cliente",cliente)
                         .putExtra("Carrinho",carrinho)
                         .putExtra("Servico",servicoSelecionado)
-                        .putExtra("Veiculo",veiculoSelecionado) ;
-*/
-                Toast.makeText(context,"Implementar",Toast.LENGTH_SHORT).show();
+                        .putExtra("Veiculo",veiculoSelecionado) );
+
+                finish();
+
+
             }
         });
 
 
     }
 
-    @Override
+
     public void doConfigure() {
 
         super.doConfigure();
@@ -216,6 +211,28 @@ public class CartActivity extends BaseActivity {
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if(id == android.R.id.home){
+
+            Toast.makeText(context,"Click on Back Button ",Toast.LENGTH_SHORT).show();
+
+            finish();
+
+            return true;
+
+        }
+
+        if (id == R.id.action_settings) {
+
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
 
 }
