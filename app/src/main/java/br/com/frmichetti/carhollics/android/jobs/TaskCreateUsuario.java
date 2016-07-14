@@ -5,7 +5,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -23,7 +22,7 @@ public class TaskCreateUsuario extends AsyncTask<Usuario,String,Usuario> {
 
     public AsyncResponse delegate = null;
 
-    private final String URL = "http://callcenter-carhollics.rhcloud.com" + "/services/usuario/create";
+    private String url ;
 
     private Gson in,out;
 
@@ -41,7 +40,7 @@ public class TaskCreateUsuario extends AsyncTask<Usuario,String,Usuario> {
     private TaskCreateUsuario(){
 
         Log.d("DEBUG-TASK","create TaskCreateUsuario");
-        Log.d("DEBUG-TASK","server config -> " + URL);
+
 
     }
 
@@ -60,7 +59,12 @@ public class TaskCreateUsuario extends AsyncTask<Usuario,String,Usuario> {
 
         super.onPreExecute();
 
+        url = context.getResources().getString(R.string.remote_server) + "/services/usuario/create";
+
+        Log.d("DEBUG-TASK","server config -> " + url);
+
         in = new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
                 .setPrettyPrinting()
                 .setDateFormat("dd/MM/yyyy").create();
 
@@ -95,7 +99,7 @@ public class TaskCreateUsuario extends AsyncTask<Usuario,String,Usuario> {
 
             publishProgress("Enviando Requisição para o Servidor");
 
-            json = HTTP.sendPost(URL,out.toJson(params[0]));
+            json = HTTP.sendPost(url,out.toJson(params[0]));
 
         } catch (IOException e) {
 

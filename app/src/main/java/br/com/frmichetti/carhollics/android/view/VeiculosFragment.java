@@ -112,12 +112,12 @@ public class VeiculosFragment extends Fragment {
 
                 Toast.makeText(context, "Veículo Selecionado " + veiculoSelecionado, Toast.LENGTH_SHORT).show();
 
-                startActivity(new Intent(context, ServicoDetailActivity.class)
+            /*    startActivity(new Intent(context, ServicoDetailActivity.class)
                         .putExtra("Carrinho",carrinho)
                         .putExtra("Cliente",cliente)
                         .putExtra("Veiculo",veiculoSelecionado)
                         .putExtra("Servico",servicoSelecionado)
-                );
+                );*/
 
             }
         });

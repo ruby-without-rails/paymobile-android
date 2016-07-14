@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
@@ -75,6 +76,10 @@ public class SignupActivity extends AppCompatActivity implements MyPattern{
 
     @Override
     public void doCastComponents() {
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        setSupportActionBar(toolbar);
 
         btnSignIn = (Button) findViewById(R.id.sign_in_button);
 
@@ -202,6 +207,16 @@ public class SignupActivity extends AppCompatActivity implements MyPattern{
     public void doConfigure() {
 
         context = this;
+
+        actionBar = getSupportActionBar();
+
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+        actionBar.setTitle(R.string.app_name);
+
+        actionBar.setSubtitle("Registre-se");
+
+
 
     }
 

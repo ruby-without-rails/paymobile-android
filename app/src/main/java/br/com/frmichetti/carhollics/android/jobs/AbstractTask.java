@@ -12,7 +12,6 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import br.com.frmichetti.carhollics.android.model.Cliente;
-import br.com.frmichetti.carhollics.android.model.Pessoa;
 
 
 public abstract class AbstractTask<T> extends AsyncTask<T, Object , T>{

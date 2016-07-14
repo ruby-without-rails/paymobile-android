@@ -1,8 +1,6 @@
 package br.com.frmichetti.carhollics.android.view;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Icon;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,20 +8,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
-import android .view.MenuItem;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import br.com.frmichetti.carhollics.android.R;
-import br.com.frmichetti.carhollics.android.jobs.DownloadImageTask;
 import br.com.frmichetti.carhollics.android.model.Carrinho;
 import br.com.frmichetti.carhollics.android.model.Servico;
-import br.com.frmichetti.carhollics.android.model.Usuario;
 import br.com.frmichetti.carhollics.android.model.Veiculo;
 
 public class MainActivity extends BaseActivity implements FragmentDrawer.FragmentDrawerListener {
@@ -162,6 +155,30 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
 
             return true;
 
+        }
+
+        if(id == R.id.action_contact_developer){
+
+            Intent i = new Intent(Intent.ACTION_SEND);
+
+            i.setType("message/rfc822");
+
+            i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"frmichetti@gmail.com"});
+            i.putExtra(Intent.EXTRA_SUBJECT, "App Carhollics");
+            i.putExtra(Intent.EXTRA_TEXT   , "App Carhollics");
+
+            try {
+
+                startActivity(Intent.createChooser(i, "Enviar email para o desenvolvedor..."));
+
+            } catch (android.content.ActivityNotFoundException ex) {
+
+                Toast.makeText(context, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+            }
+
+
+
+            return true;
         }
 
         return super.onOptionsItemSelected(item);

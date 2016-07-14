@@ -1,12 +1,11 @@
 package br.com.frmichetti.carhollics.android.view;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
@@ -59,6 +58,10 @@ public class ResetPasswordActivity extends AppCompatActivity implements MyPatter
 
     @Override
     public void doCastComponents() {
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        setSupportActionBar(toolbar);
 
         inputEmail = (EditText) findViewById(R.id.email);
 
@@ -119,14 +122,14 @@ public class ResetPasswordActivity extends AppCompatActivity implements MyPatter
     @Override
     public void doConfigure() {
 
-  /*      actionBar = getSupportActionBar();
+        actionBar = getSupportActionBar();
 
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         actionBar.setTitle(R.string.app_name);
 
         actionBar.setSubtitle(R.string.btn_reset_password);
-*/
+
     }
 
     @Override

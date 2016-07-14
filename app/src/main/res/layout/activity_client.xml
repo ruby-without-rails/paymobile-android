@@ -47,6 +47,28 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Telefone"
+                android:id="@+id/textView10"
+                android:textColor="@color/colorPrimary"
+                android:layout_below="@+id/editTextCPF"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="phone"
+                android:ems="10"
+                android:id="@+id/editTextTelefone"
+                android:layout_below="@+id/textView10"
+                android:layout_alignRight="@+id/buttonConfirmar"
+                android:layout_alignEnd="@+id/buttonConfirmar"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="CPF"
                 android:id="@+id/textView7"
                 android:textColor="@color/colorPrimary"
@@ -105,27 +127,7 @@
                 android:layout_alignRight="@+id/buttonConfirmar"
                 android:layout_alignEnd="@+id/buttonConfirmar" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Telefone"
-                android:id="@+id/textView10"
-                android:textColor="@color/colorPrimary"
-                android:layout_below="@+id/editTextCPF"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="phone"
-                android:ems="10"
-                android:id="@+id/editTextTelefone"
-                android:layout_below="@+id/textView10"
-                android:layout_alignRight="@+id/buttonConfirmar"
-                android:layout_alignEnd="@+id/buttonConfirmar"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -174,24 +176,19 @@
     </LinearLayout>
 
 
-    <Button
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_action_done"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Confirmar"
-        android:id="@+id/buttonConfirmar"
+        android:layout_gravity="bottom|end"
+        android:elevation="6dp"
+        android:src="@drawable/ic_action_done"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Preencher Depois"
-        android:id="@+id/buttonPreencherDepois"
-        android:layout_above="@+id/buttonConfirmar"
-        android:layout_alignRight="@+id/buttonConfirmar"
-        android:layout_alignEnd="@+id/buttonConfirmar" />
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="34dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginBottom="32dp" />
 
 
 </RelativeLayout>

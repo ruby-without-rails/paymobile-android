@@ -11,15 +11,16 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import br.com.frmichetti.carhollics.android.R;
-import br.com.frmichetti.carhollics.android.dao.HTTP;
-import br.com.frmichetti.carhollics.android.model.Cliente;
-import br.com.frmichetti.carhollics.android.model.Usuario;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
+
+import br.com.frmichetti.carhollics.android.R;
+import br.com.frmichetti.carhollics.android.dao.HTTP;
+import br.com.frmichetti.carhollics.android.model.Cliente;
+import br.com.frmichetti.carhollics.android.model.Usuario;
 
 
 public class TaskLogin extends AsyncTask<Usuario,String, Cliente> {
@@ -28,7 +29,7 @@ public class TaskLogin extends AsyncTask<Usuario,String, Cliente> {
 
     private ProgressDialog dialog;
 
-    private final String URL = "http://callcenter-carhollics.rhcloud.com" + "/services/usuario/login";
+    private String url;
 
     private String json;
 
@@ -51,6 +52,9 @@ public class TaskLogin extends AsyncTask<Usuario,String, Cliente> {
 
     private TaskLogin(){
 
+        Log.d("DEBUG-TASK","create TaskLogin");
+
+
     }
 
 
@@ -59,10 +63,14 @@ public class TaskLogin extends AsyncTask<Usuario,String, Cliente> {
 
         super.onPreExecute();
 
+        url = context.getResources().getString(R.string.remote_server) + "/services/usuario/login";
+
+        Log.d("DEBUG-TASK","server config -> " + url);
+
         out = new Gson();
 
         in = new GsonBuilder()
-                .serializeNulls()
+                .excludeFieldsWithoutExposeAnnotation()
                 .setPrettyPrinting()
                 .setDateFormat("dd/MM/yyyy").create();
 
@@ -90,7 +98,7 @@ public class TaskLogin extends AsyncTask<Usuario,String, Cliente> {
 
             publishProgress("Enviando Objeto para o Servidor");
 
-            json = HTTP.sendPost(URL, out.toJson(params[0]));
+            json = HTTP.sendPost(url, out.toJson(params[0]));
 
 
             publishProgress("Objeto recebido");

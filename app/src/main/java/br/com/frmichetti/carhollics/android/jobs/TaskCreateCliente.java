@@ -23,7 +23,7 @@ public class TaskCreateCliente extends AsyncTask<Cliente,String,Cliente> {
 
     public AsyncResponse delegate = null;
 
-    private final String URL = "http://callcenter-carhollics.rhcloud.com" + "/services/cliente/create";
+    private String url;
 
     private Gson in,out;
 
@@ -41,7 +41,7 @@ public class TaskCreateCliente extends AsyncTask<Cliente,String,Cliente> {
     private TaskCreateCliente(){
 
         Log.d("DEBUG-TASK","create TaskCreateCliente");
-        Log.d("DEBUG-TASK","server config -> " + URL);
+
 
     }
 
@@ -60,7 +60,12 @@ public class TaskCreateCliente extends AsyncTask<Cliente,String,Cliente> {
 
         super.onPreExecute();
 
+        url = context.getResources().getString(R.string.remote_server) + "/services/cliente/create";
+
+        Log.d("DEBUG-TASK","server config -> " + url);
+
         in = new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
                 .setPrettyPrinting()
                 .setDateFormat("dd/MM/yyyy").create();
 
@@ -96,7 +101,7 @@ public class TaskCreateCliente extends AsyncTask<Cliente,String,Cliente> {
 
             publishProgress("Enviando Requisição para o Servidor");
 
-            json = HTTP.sendPost(URL,out.toJson(params[0]));
+            json = HTTP.sendPost(url,out.toJson(params[0]));
 
         } catch (IOException e) {
 

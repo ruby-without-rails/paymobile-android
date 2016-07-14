@@ -3,6 +3,7 @@ package br.com.frmichetti.carhollics.android.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,7 +24,7 @@ import br.com.frmichetti.carhollics.android.model.Servico;
 
 public class CartActivity extends BaseActivity {
 
-    private Button buttonRemoverItem, buttonConfirmarCompra,buttonContinuarComprando;
+    private FloatingActionButton fabRemoverItem , fabConfirmarCompra;
 
     private TextView textViewItemSelecionado,textViewQuantidade,textViewPreco,textViewSubTotal,textViewTotal;
 
@@ -92,11 +93,9 @@ public class CartActivity extends BaseActivity {
 
         super.doCastComponents();
 
-        buttonRemoverItem = (Button) findViewById(R.id.buttonRemoverItem);
+        fabRemoverItem = (FloatingActionButton) findViewById(R.id.fab_remove_item_from_cart);
 
-        buttonConfirmarCompra = (Button) findViewById(R.id.buttonCadastro);
-
-        buttonContinuarComprando = (Button) findViewById(R.id.buttonContinuarComprando);
+        fabConfirmarCompra = (FloatingActionButton) findViewById(R.id.fab_buy);
 
         listViewCarrinho = (ListView) findViewById(R.id.listViewServicos);
 
@@ -134,7 +133,7 @@ public class CartActivity extends BaseActivity {
             }
         });
 
-        buttonRemoverItem.setOnClickListener(new View.OnClickListener() {
+        fabRemoverItem.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -152,7 +151,7 @@ public class CartActivity extends BaseActivity {
             }
         });
 
-        buttonConfirmarCompra.setOnClickListener(new View.OnClickListener() {
+        fabConfirmarCompra.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -198,24 +197,6 @@ public class CartActivity extends BaseActivity {
 
             }
         });
-
-        buttonContinuarComprando.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                startActivity(new Intent(context,MainActivity.class)
-                        .putExtra("Cliente",cliente)
-                        .putExtra("Carrinho",carrinho)
-                        .putExtra("Servico",servicoSelecionado)
-                        .putExtra("Veiculo",veiculoSelecionado) );
-
-                finish();
-
-
-            }
-        });
-
 
     }
 

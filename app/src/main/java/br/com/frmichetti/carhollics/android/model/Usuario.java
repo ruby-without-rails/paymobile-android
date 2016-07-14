@@ -7,13 +7,12 @@
  * */
 package br.com.frmichetti.carhollics.android.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
-
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 
 public class Usuario extends Entidade {
 

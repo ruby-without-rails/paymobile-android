@@ -21,7 +21,6 @@ import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.model.Carrinho;
 import br.com.frmichetti.carhollics.android.model.Cliente;
 import br.com.frmichetti.carhollics.android.model.Servico;
-import br.com.frmichetti.carhollics.android.model.Usuario;
 import br.com.frmichetti.carhollics.android.model.Veiculo;
 
 /**

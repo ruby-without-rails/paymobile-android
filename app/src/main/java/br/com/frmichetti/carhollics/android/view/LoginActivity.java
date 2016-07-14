@@ -67,9 +67,9 @@ public class LoginActivity extends AppCompatActivity implements MyPattern{
     @Override
     public void doCastComponents() {
 
-      /*  Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        setSupportActionBar(toolbar);*/
+        setSupportActionBar(toolbar);
 
         inputEmail = (EditText) findViewById(R.id.email);
 
@@ -191,8 +191,9 @@ public class LoginActivity extends AppCompatActivity implements MyPattern{
     @Override
     public void doConfigure() {
 
+        context = this;
 
-   /*     actionBar = getSupportActionBar();
+        actionBar = getSupportActionBar();
 
         actionBar.setTitle(R.string.app_name);
 
@@ -200,9 +201,9 @@ public class LoginActivity extends AppCompatActivity implements MyPattern{
 
         actionBar.setDisplayHomeAsUpEnabled(false);
 
-     */
+        actionBar.setDisplayUseLogoEnabled(true);
 
-        context = this;
+
 
     }
 

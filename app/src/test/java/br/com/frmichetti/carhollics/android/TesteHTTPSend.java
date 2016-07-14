@@ -8,7 +8,7 @@ import java.io.IOException;
 
 import br.com.frmichetti.carhollics.android.dao.HTTP;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Created by Felipe on 04/07/2016.

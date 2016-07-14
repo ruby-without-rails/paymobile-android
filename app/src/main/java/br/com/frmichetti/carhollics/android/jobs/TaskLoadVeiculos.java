@@ -18,15 +18,15 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.util.List;
 
+import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.dao.HTTP;
-import br.com.frmichetti.carhollics.android.model.Servico;
 import br.com.frmichetti.carhollics.android.model.Veiculo;
 
 public class TaskLoadVeiculos extends AsyncTask<Void,String,List<Veiculo>> {
 
     public AsyncResponse delegate = null;
 
-    private final String URL = "http://callcenter-carhollics.rhcloud.com" + "/services/veiculo/list";
+    private String url ;
 
     private Gson in;
 
@@ -52,7 +52,7 @@ public class TaskLoadVeiculos extends AsyncTask<Void,String,List<Veiculo>> {
 
     private TaskLoadVeiculos(){
         Log.d("DEBUG-TASK","create TaskLoadVeiculos");
-        Log.d("DEBUG-TASK","server config -> " + URL);
+
     }
 
     @Override
@@ -60,7 +60,12 @@ public class TaskLoadVeiculos extends AsyncTask<Void,String,List<Veiculo>> {
 
         super.onPreExecute();
 
+        url = context.getResources().getString(R.string.remote_server) + "/services/veiculo/list";
+
+        Log.d("DEBUG-TASK","server config -> " + url);
+
         in = new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
                 .setPrettyPrinting()
                 .setDateFormat("dd/MM/yyyy").create();
 
@@ -90,7 +95,7 @@ public class TaskLoadVeiculos extends AsyncTask<Void,String,List<Veiculo>> {
 
             publishProgress("Enviando Requisição para o Servidor");
 
-            json = HTTP.sendGet(URL);
+            json = HTTP.sendGet(url);
 
         } catch (IOException e) {
 

@@ -4,6 +4,7 @@ package br.com.frmichetti.carhollics.android.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,7 +19,7 @@ public class ServicoDetailActivity extends BaseActivity{
 
     private TextView textViewNome,textViewDescricao,textViewDuracao,textViewPreço;
 
-    private Button buttonAddCart;
+    private FloatingActionButton floatButtonAddCart;
 
 
     @Override
@@ -70,30 +71,29 @@ public class ServicoDetailActivity extends BaseActivity{
 
         textViewPreço = (TextView) findViewById(R.id.textViewPrecoUnitVar);
 
-        buttonAddCart = (Button) findViewById(R.id.buttonAddCart);
+        floatButtonAddCart = (FloatingActionButton) findViewById(R.id.fab_add_to_cart);
 
 
     }
 
     public void doCreateListeners() {
 
-        buttonAddCart.setOnClickListener(new View.OnClickListener() {
+        floatButtonAddCart.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
 
-              carrinho.add(new ItemCarrinho(servicoSelecionado));
+                carrinho.add(new ItemCarrinho(servicoSelecionado));
 
-               startActivity(new Intent(context,CartActivity.class)
-                       .putExtra("Cliente",cliente)
-                       .putExtra("Carrinho",carrinho)
-                       .putExtra("Servico",servicoSelecionado)
-                       .putExtra("Veiculo",veiculoSelecionado)
+                startActivity(new Intent(context,CartActivity.class)
+                        .putExtra("Cliente",cliente)
+                        .putExtra("Carrinho",carrinho)
+                        .putExtra("Servico",servicoSelecionado)
+                        .putExtra("Veiculo",veiculoSelecionado)
 
-               );
+                );
 
                 finish();
-
-
             }
         });
 

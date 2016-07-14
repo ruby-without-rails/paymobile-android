@@ -20,7 +20,6 @@ import java.io.IOException;
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.dao.HTTP;
 import br.com.frmichetti.carhollics.android.model.Cliente;
-import br.com.frmichetti.carhollics.android.model.Usuario;
 
 
 public class TaskLoginFirebase extends AsyncTask<String,String, Cliente> {
@@ -29,7 +28,7 @@ public class TaskLoginFirebase extends AsyncTask<String,String, Cliente> {
 
     private ProgressDialog dialog;
 
-    private final String URL = "http://callcenter-carhollics.rhcloud.com" + "/services/usuario/firebaselogin";
+    private String url ;
 
     private String json;
 
@@ -52,6 +51,8 @@ public class TaskLoginFirebase extends AsyncTask<String,String, Cliente> {
 
     private TaskLoginFirebase(){
 
+        Log.d("DEBUG-TASK","create TaskLoginFirebase");
+
     }
 
 
@@ -60,10 +61,14 @@ public class TaskLoginFirebase extends AsyncTask<String,String, Cliente> {
 
         super.onPreExecute();
 
+        url = context.getResources().getString(R.string.remote_server) + "/services/usuario/firebaselogin";
+
+        Log.d("DEBUG-TASK","server config -> " + url);
+
         out = new Gson();
 
         in = new GsonBuilder()
-                .serializeNulls()
+                .excludeFieldsWithoutExposeAnnotation()
                 .setPrettyPrinting()
                 .setDateFormat("dd/MM/yyyy").create();
 
@@ -91,7 +96,7 @@ public class TaskLoginFirebase extends AsyncTask<String,String, Cliente> {
 
             publishProgress("Enviando Objeto para o Servidor");
 
-            json = HTTP.sendPost(URL, out.toJson(params[0]));
+            json = HTTP.sendPost(url, out.toJson(params[0]));
 
 
             publishProgress("Objeto recebido");

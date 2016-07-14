@@ -3,6 +3,7 @@ package br.com.frmichetti.carhollics.android.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -19,7 +20,7 @@ import br.com.frmichetti.carhollics.android.model.Usuario;
 
 public class ClientActivity extends BaseActivity{
 
-    private Button buttonConfirmar,buttonPular;
+    private FloatingActionButton fabConfirmar;
 
     private EditText editTextNome,editTextCPF,editTextTelefone,editTextCEP,editTextComplemento,editTextNumero;
 
@@ -68,26 +69,16 @@ public class ClientActivity extends BaseActivity{
 
         editTextNumero = (EditText) findViewById(R.id.editTextNumero);
 
-        buttonConfirmar = (Button) findViewById(R.id.buttonConfirmar);
+        fabConfirmar = (FloatingActionButton) findViewById(R.id.fab_action_done);
 
-        buttonPular = (Button) findViewById(R.id.buttonPreencherDepois);
+
 
     }
 
     @Override
     public void doCreateListeners() {
 
-        buttonPular.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                Toast.makeText(context,"Implementar",Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-        buttonConfirmar.setOnClickListener(new View.OnClickListener() {
+        fabConfirmar.setOnClickListener(new View.OnClickListener() {
 
 
             @Override
@@ -119,18 +110,7 @@ public class ClientActivity extends BaseActivity{
 
                 cliente.setUsuario(usuario);
 
-                if(usuario != null){
-
                     taskCreateCliente.execute(cliente);
-
-                }else{
-
-                    Toast.makeText(context,"Implementar Atualização do Cliente",Toast.LENGTH_SHORT).show();
-
-                }
-
-
-
 
 
             }

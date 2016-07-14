@@ -11,8 +11,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import br.com.frmichetti.carhollics.android.dao.HTTP;
-import br.com.frmichetti.carhollics.android.model.Servico;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -20,11 +18,15 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.util.List;
 
+import br.com.frmichetti.carhollics.android.R;
+import br.com.frmichetti.carhollics.android.dao.HTTP;
+import br.com.frmichetti.carhollics.android.model.Servico;
+
 public class TaskLoadServicos extends AsyncTask<Void,String,List<Servico>> {
 
     public AsyncResponse delegate = null;
 
-    private final String URL = "http://callcenter-carhollics.rhcloud.com" + "/services/servico/list";
+    private String url ;
 
     private Gson in;
 
@@ -50,7 +52,7 @@ public class TaskLoadServicos extends AsyncTask<Void,String,List<Servico>> {
 
     private TaskLoadServicos(){
         Log.d("DEBUG-TASK","create TaskLoadServicos");
-        Log.d("DEBUG-TASK","server config -> " + URL);
+
     }
 
     @Override
@@ -58,8 +60,12 @@ public class TaskLoadServicos extends AsyncTask<Void,String,List<Servico>> {
 
         super.onPreExecute();
 
+        url = context.getResources().getString(R.string.remote_server) + "/services/servico/list";
+
+        Log.d("DEBUG-TASK","server config -> " + url);
+
         in = new GsonBuilder()
-                .serializeNulls()
+                .excludeFieldsWithoutExposeAnnotation()
                 .setPrettyPrinting()
                 .setDateFormat("dd/MM/yyyy").create();
 
@@ -89,7 +95,7 @@ public class TaskLoadServicos extends AsyncTask<Void,String,List<Servico>> {
 
             publishProgress("Enviando Requisição para o Servidor");
 
-            json = HTTP.sendGet(URL);
+            json = HTTP.sendGet(url);
 
         } catch (IOException e) {
 

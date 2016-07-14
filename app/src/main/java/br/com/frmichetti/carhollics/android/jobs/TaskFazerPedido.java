@@ -17,6 +17,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 
+import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.dao.HTTP;
 import br.com.frmichetti.carhollics.android.model.Pedido;
 
@@ -25,7 +26,7 @@ public class TaskFazerPedido extends AsyncTask<Pedido,String, Boolean>  {
 
     public AsyncResponse delegate = null;
 
-    private final String URL = "http://callcenter-carhollics.rhcloud.com" + "/services/pedido/create";
+    private String url ;
 
     private Gson in,out;
 
@@ -38,7 +39,7 @@ public class TaskFazerPedido extends AsyncTask<Pedido,String, Boolean>  {
     private TaskFazerPedido(){
 
         Log.d("DEBUG-TASK","create TaskFazerPedido");
-        Log.d("DEBUG-TASK","server config -> " + URL);
+
     }
 
     private TaskFazerPedido(Context context){
@@ -55,9 +56,15 @@ public class TaskFazerPedido extends AsyncTask<Pedido,String, Boolean>  {
 
     @Override
     protected void onPreExecute() {
+
         super.onPreExecute();
 
+        url = context.getResources().getString(R.string.remote_server) + "/services/pedido/create";
+
+        Log.d("DEBUG-TASK","server config -> " + url);
+
         out = new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
                 .setPrettyPrinting()
                 .setDateFormat("dd/MM/yyyy").create();
 
@@ -88,7 +95,7 @@ public class TaskFazerPedido extends AsyncTask<Pedido,String, Boolean>  {
 
             publishProgress("Enviando Objeto para o Servidor");
 
-            json = HTTP.sendPost(URL, out.toJson(pedido));
+            json = HTTP.sendPost(url, out.toJson(pedido));
 
         } catch (IOException e) {
 

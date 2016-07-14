@@ -47,7 +47,7 @@ public class TaskAtualizarLogin extends AsyncTask<Pessoa,String, String> {
         super.onPreExecute();
         u = new Usuario();
         out = new GsonBuilder()
-                .serializeNulls()
+                .excludeFieldsWithoutExposeAnnotation()
                 .setPrettyPrinting()
                 .setDateFormat("dd/MM/yyyy").create();
 

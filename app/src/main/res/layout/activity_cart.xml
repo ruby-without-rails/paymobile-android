@@ -27,23 +27,16 @@
         android:layout_alignEnd="@+id/textViewTotal"
         android:layout_above="@+id/textViewBemVindo" />
 
-    <Button
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_remove_item_from_cart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Finalizar Compra"
-        android:id="@+id/buttonCadastro"
-        android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/listViewServicos"
-        android:layout_alignParentRight="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Remover Item"
-        android:id="@+id/buttonRemoverItem"
+        android:layout_gravity="bottom|end"
+        android:elevation="6dp"
+        android:src="@drawable/ic_action_remove_from_cart"
         android:layout_below="@+id/textViewItemSelecionadoVar"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp" />
+        android:layout_alignRight="@+id/textViewBemVindo"
+        android:layout_alignEnd="@+id/textViewBemVindo" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -51,18 +44,7 @@
         android:text="Item Selecionado"
         android:id="@+id/textViewItemSelecionadoVar"
         android:layout_below="@+id/textView3"
-        android:layout_alignRight="@+id/buttonRemoverItem"
-        android:layout_alignEnd="@+id/buttonRemoverItem" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Continuar Comprando"
-        android:id="@+id/buttonContinuarComprando"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/textViewBemVindo"
-        android:layout_toLeftOf="@+id/textViewBemVindo" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -78,8 +60,9 @@
         android:layout_height="wrap_content"
         android:text="Preço"
         android:id="@+id/textViewPrecoUnit"
-        android:layout_above="@+id/buttonRemoverItem"
-        android:layout_alignEnd="@+id/listViewServicos" />
+        android:layout_below="@+id/textView3"
+        android:layout_alignLeft="@+id/textViewTotalVar"
+        android:layout_alignStart="@+id/textViewTotalVar" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -87,7 +70,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Subtotal"
         android:id="@+id/textViewSubtotal"
-        android:layout_alignTop="@+id/buttonRemoverItem"
+        android:layout_below="@+id/textViewQuantidadeVar"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <TextView
@@ -96,7 +80,8 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Subtotal"
         android:id="@+id/textViewSubtotalVar"
-        android:layout_alignBottom="@+id/buttonRemoverItem"
+        android:layout_below="@+id/textViewSubtotal"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <TextView
@@ -105,7 +90,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Total"
         android:id="@+id/textViewTotal"
-        android:layout_above="@+id/textViewSubtotalVar"
+        android:layout_alignTop="@+id/textViewSubtotal"
+        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
     <TextView
@@ -156,4 +142,17 @@
         android:layout_below="@+id/linearLayout2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_buy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:src="@drawable/ic_action_buy"
+        android:elevation="6dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/textViewTotalVar"
+        android:layout_toStartOf="@+id/textViewTotalVar"
+        android:layout_marginBottom="32dp" />
+
 </RelativeLayout>
