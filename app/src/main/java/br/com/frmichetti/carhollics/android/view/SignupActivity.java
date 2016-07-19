@@ -22,6 +22,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
@@ -193,6 +194,8 @@ public class SignupActivity extends AppCompatActivity implements MyPattern{
                                     usuario.setLogin(firebaseUser.getEmail());
 
                                     usuario.setEmail(firebaseUser.getEmail());
+
+                                    usuario.setFirebaseMessageToken(FirebaseInstanceId.getInstance().getToken());
 
                                     taskCreateUsuario.execute(usuario);
                                 }

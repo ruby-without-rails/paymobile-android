@@ -41,7 +41,6 @@ public class TaskCreateUsuario extends AsyncTask<Usuario,String,Usuario> {
 
         Log.d("DEBUG-TASK","create TaskCreateUsuario");
 
-
     }
 
     private TaskCreateUsuario(Context context) {
@@ -59,7 +58,7 @@ public class TaskCreateUsuario extends AsyncTask<Usuario,String,Usuario> {
 
         super.onPreExecute();
 
-        url = context.getResources().getString(R.string.remote_server) + "/services/usuario/create";
+        url = context.getResources().getString(R.string.local_server) + "/services/usuario/create";
 
         Log.d("DEBUG-TASK","server config -> " + url);
 

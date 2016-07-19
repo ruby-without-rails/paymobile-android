@@ -2,6 +2,8 @@ package br.com.frmichetti.carhollics.android.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.model.Carrinho;
@@ -70,6 +73,8 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
         doCreateFirebaseListener();
 
         Log.d("DEBUG-ON-CREATE","Super On Create");
+
+        Log.d("Firebase-ID ",  FirebaseInstanceId.getInstance().getToken());
 
     }
 
@@ -176,6 +181,37 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
         if(id == R.id.action_personal_data){
 
             Toast.makeText(context,"Click on Personal Data Button ",Toast.LENGTH_SHORT).show();
+
+            return true;
+        }
+
+        if(id == R.id.action_about){
+
+            PackageInfo pinfo = null;
+
+            try {
+
+                pinfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+
+            } catch (PackageManager.NameNotFoundException e) {
+
+                e.printStackTrace();
+            }
+
+            int versionNumber = pinfo.versionCode;
+
+            String versionName = pinfo.versionName;
+
+            Toast.makeText(context,"Versão deste App : " + versionName,Toast.LENGTH_LONG).show();
+
+            return true;
+        }
+
+        if(id == R.id.action_map){
+
+            Toast.makeText(context,"Click on Map Button ",Toast.LENGTH_SHORT).show();
+
+            startActivity(new Intent(context,MapActivity.class));
 
             return true;
         }

@@ -10,13 +10,14 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
 import java.util.Date;
 import java.util.UUID;
 
 
 public class Pedido extends Entidade{	
 
-	private static final long serialVersionUID = -439111737464114445L;	
+	private static final long serialVersionUID = -439111737464114445L;
 
 	@Expose
 	@SerializedName("UUID")
@@ -93,5 +94,8 @@ public class Pedido extends Entidade{
 		this.dataCompra = dataCompra;
 	}
 
-
+	@Override
+	public String toString() {
+		return "uuid='" + uuid + "' dataCompra=" + dataCompra +	", total=" + total ;
+	}
 }

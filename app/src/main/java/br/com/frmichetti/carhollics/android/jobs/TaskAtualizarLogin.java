@@ -44,8 +44,11 @@ public class TaskAtualizarLogin extends AsyncTask<Pessoa,String, String> {
 
     @Override
     protected void onPreExecute() {
+
         super.onPreExecute();
+
         u = new Usuario();
+
         out = new GsonBuilder()
                 .excludeFieldsWithoutExposeAnnotation()
                 .setPrettyPrinting()
@@ -58,10 +61,6 @@ public class TaskAtualizarLogin extends AsyncTask<Pessoa,String, String> {
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialog.setMessage("Iniciando a Tarefa de Atualização");
         dialog.show();
-
-
-
-
     }
 
     @Override

@@ -53,9 +53,15 @@
     <string name="title_services">Serviço</string>
     <string name="title_vehicles">Veículos</string>
     <string name="contact_developer">Contate o Desenvolvedor</string>
-    <string name="title_reserves">Reservas</string>
-    <string name="nav_item_reserves">Reservas</string>
+    <string name="title_checkouts">Pedidos</string>
+    <string name="nav_item_checkouts">Pedidos</string>
     <string name="action_car">Carro</string>
     <string name="action_vehicle">Veículo</string>
     <string name="action_personal_data">Dados Pessoais</string>
+    <string name="about">Sobre</string>
+    <string name="map">Mapa</string>
+    <string name="btn_get_location">Obter Minha Localização</string>
+    <string name="lbl_you_are_at">Você está Aqui</string>
+    <string name="btn_start_location_updates">Começar Atualização de Localização</string>
+    <string name="btn_stop_location_updates">Parar Atualização de Localização</string>
 </resources>

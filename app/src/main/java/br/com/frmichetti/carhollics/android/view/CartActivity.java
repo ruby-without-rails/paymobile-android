@@ -8,7 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -97,7 +96,7 @@ public class CartActivity extends BaseActivity {
 
         fabConfirmarCompra = (FloatingActionButton) findViewById(R.id.fab_buy);
 
-        listViewCarrinho = (ListView) findViewById(R.id.listViewServicos);
+        listViewCarrinho = (ListView) findViewById(R.id.listViewPedidos);
 
         textViewItemSelecionado = (TextView) findViewById(R.id.textViewItemSelecionadoVar);
 
@@ -217,6 +216,13 @@ public class CartActivity extends BaseActivity {
         if(id == android.R.id.home){
 
             Toast.makeText(context,"Click on Back Button ",Toast.LENGTH_SHORT).show();
+
+            startActivity(new Intent(context,MainActivity.class)
+                    .putExtra("Cliente",cliente)
+                    .putExtra("Carrinho",carrinho)
+                    .putExtra("Servico",servicoSelecionado)
+                    .putExtra("Veiculo",veiculoSelecionado)
+            );
 
             finish();
 

@@ -213,8 +213,8 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
                 break;
 
             case 3:
-                fragment = new ReservasFragment();
-                title = getString(R.string.title_reserves);
+                fragment = new PedidosFragment();
+                title = getString(R.string.title_checkouts);
                 break;
             default:
                 break;

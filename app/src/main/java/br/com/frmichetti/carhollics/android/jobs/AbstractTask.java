@@ -49,6 +49,7 @@ public abstract class AbstractTask<T> extends AsyncTask<T, Object , T>{
 
     @Override
     protected void onPostExecute(T output) {
+
         super.onPostExecute(output);
 
         delegate.processFinish(output);
@@ -69,12 +70,18 @@ public abstract class AbstractTask<T> extends AsyncTask<T, Object , T>{
     }
 
     private AbstractTask(Context context) {
+
         this();
+
         this.context = context;
+
     }
 
     public AbstractTask(Context context, AsyncResponse<Cliente> delegate){
+
         this(context);
+
         this.delegate = delegate;
+
     }
 }

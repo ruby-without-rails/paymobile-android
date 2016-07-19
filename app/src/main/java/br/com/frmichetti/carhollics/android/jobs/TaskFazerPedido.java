@@ -59,7 +59,7 @@ public class TaskFazerPedido extends AsyncTask<Pedido,String, Boolean>  {
 
         super.onPreExecute();
 
-        url = context.getResources().getString(R.string.remote_server) + "/services/pedido/create";
+        url = context.getResources().getString(R.string.local_server) + "/services/pedido/create";
 
         Log.d("DEBUG-TASK","server config -> " + url);
 

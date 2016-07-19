@@ -60,7 +60,7 @@ public class TaskCreateCliente extends AsyncTask<Cliente,String,Cliente> {
 
         super.onPreExecute();
 
-        url = context.getResources().getString(R.string.remote_server) + "/services/cliente/create";
+        url = context.getResources().getString(R.string.local_server) + "/services/cliente/create";
 
         Log.d("DEBUG-TASK","server config -> " + url);
 

@@ -10,6 +10,9 @@ package br.com.frmichetti.carhollics.android.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Pessoa extends Entidade{
 
     private static final long serialVersionUID = -402022521851330710L;
@@ -25,6 +28,10 @@ public abstract class Pessoa extends Entidade{
     @Expose
     @SerializedName("Endereco")
     private Endereco endereco = new Endereco();
+
+    @Expose
+    @SerializedName("Veiculo")
+    private List<Veiculo> veiculo = new ArrayList<>();
 
     @Expose
     @SerializedName("Usuario")
@@ -66,4 +73,11 @@ public abstract class Pessoa extends Entidade{
         this.usuario = usuario;
     }
 
+    public List<Veiculo> getVeiculo() {
+        return veiculo;
+    }
+
+    public void setVeiculo(List<Veiculo> veiculo) {
+        this.veiculo = veiculo;
+    }
 }

@@ -27,6 +27,10 @@ public class Usuario extends Entidade {
 	private String firebaseUUID;
 
 	@Expose
+	@SerializedName("FirebaseMessageToken")
+	private String firebaseMessageToken;
+
+	@Expose
 	@SerializedName("Login")
 	private String login;
 
@@ -58,7 +62,15 @@ public class Usuario extends Entidade {
 		this.firebaseUUID = firebaseUUID;
 	}
 
-	protected void setUUID(String uuid) {
+    public String getFirebaseMessageToken() {
+        return firebaseMessageToken;
+    }
+
+    public void setFirebaseMessageToken(String firebaseMessageToken) {
+        this.firebaseMessageToken = firebaseMessageToken;
+    }
+
+    protected void setUUID(String uuid) {
 		this.uuid = uuid;
 	}
 

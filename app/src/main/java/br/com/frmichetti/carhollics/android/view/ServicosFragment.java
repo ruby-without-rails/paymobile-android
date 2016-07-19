@@ -114,7 +114,7 @@ public class ServicosFragment extends Fragment {
 
         textView = (TextView) rootView.findViewById(R.id.textViewBemVindo);
 
-        listView = (ListView) rootView.findViewById(R.id.listViewServicos);
+        listView = (ListView) rootView.findViewById(R.id.listViewPedidos);
 
     }
 
