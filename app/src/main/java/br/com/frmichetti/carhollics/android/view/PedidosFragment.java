@@ -18,8 +18,9 @@ import java.util.List;
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
 import br.com.frmichetti.carhollics.android.jobs.TaskLoadPedidos;
-import br.com.frmichetti.carhollics.android.model.Cliente;
-import br.com.frmichetti.carhollics.android.model.Pedido;
+import br.com.frmichetti.carhollics.json.model.Cliente;
+import br.com.frmichetti.carhollics.json.model.Pedido;
+
 
 /**
  * Created by Felipe on 10/07/2016.

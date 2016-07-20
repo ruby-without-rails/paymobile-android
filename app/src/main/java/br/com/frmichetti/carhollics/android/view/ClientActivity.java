@@ -13,10 +13,11 @@ import android.widget.Toast;
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
 import br.com.frmichetti.carhollics.android.jobs.TaskCreateCliente;
-import br.com.frmichetti.carhollics.android.model.Cep;
-import br.com.frmichetti.carhollics.android.model.Cliente;
-import br.com.frmichetti.carhollics.android.model.Endereco;
-import br.com.frmichetti.carhollics.android.model.Usuario;
+import br.com.frmichetti.carhollics.json.model.Cep;
+import br.com.frmichetti.carhollics.json.model.Cliente;
+import br.com.frmichetti.carhollics.json.model.Endereco;
+import br.com.frmichetti.carhollics.json.model.Usuario;
+
 
 public class ClientActivity extends BaseActivity{
 

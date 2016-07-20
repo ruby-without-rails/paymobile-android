@@ -20,9 +20,9 @@ import java.util.List;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.dao.HTTP;
-import br.com.frmichetti.carhollics.android.model.Cliente;
-import br.com.frmichetti.carhollics.android.model.Pedido;
-import br.com.frmichetti.carhollics.android.model.Servico;
+import br.com.frmichetti.carhollics.json.model.Cliente;
+import br.com.frmichetti.carhollics.json.model.Pedido;
+
 
 public class TaskLoadPedidos extends AsyncTask<Cliente,String,List<Pedido>> {
 

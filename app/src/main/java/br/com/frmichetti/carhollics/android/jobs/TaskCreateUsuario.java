@@ -13,7 +13,8 @@ import java.io.IOException;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.dao.HTTP;
-import br.com.frmichetti.carhollics.android.model.Usuario;
+import br.com.frmichetti.carhollics.json.model.Usuario;
+
 
 /**
  * Created by Felipe on 05/07/2016.

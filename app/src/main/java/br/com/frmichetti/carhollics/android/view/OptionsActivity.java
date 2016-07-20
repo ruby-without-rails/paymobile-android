@@ -15,10 +15,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import br.com.frmichetti.carhollics.android.R;
-import br.com.frmichetti.carhollics.android.model.Carrinho;
-import br.com.frmichetti.carhollics.android.model.Cliente;
-import br.com.frmichetti.carhollics.android.model.Servico;
-import br.com.frmichetti.carhollics.android.model.Veiculo;
+import br.com.frmichetti.carhollics.json.model.Carrinho;
+import br.com.frmichetti.carhollics.json.model.Cliente;
+import br.com.frmichetti.carhollics.json.model.Servico;
+import br.com.frmichetti.carhollics.json.model.Veiculo;
+
 
 public class OptionsActivity extends BaseActivity {
 

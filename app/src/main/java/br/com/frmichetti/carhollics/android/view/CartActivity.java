@@ -12,14 +12,19 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.List;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
 import br.com.frmichetti.carhollics.android.jobs.TaskFazerPedido;
-import br.com.frmichetti.carhollics.android.model.ItemCarrinho;
-import br.com.frmichetti.carhollics.android.model.Pedido;
-import br.com.frmichetti.carhollics.android.model.Servico;
+import br.com.frmichetti.carhollics.json.model.Endereco;
+import br.com.frmichetti.carhollics.json.model.ItemCarrinho;
+import br.com.frmichetti.carhollics.json.model.Pedido;
+import br.com.frmichetti.carhollics.json.model.Servico;
+import br.com.frmichetti.carhollics.json.model.Veiculo;
+
 
 public class CartActivity extends BaseActivity {
 
@@ -161,7 +166,7 @@ public class CartActivity extends BaseActivity {
                     @Override
                     public void processFinish(Boolean output) {
 
-                        if(output){
+                        if(output != null && output == true){
 
                             Toast.makeText(context, "Pedido Solicitado com sucesso! Entraremos em contato para Confirmar Agendamento", Toast.LENGTH_LONG).show();
 
@@ -176,7 +181,7 @@ public class CartActivity extends BaseActivity {
 
                         }else{
 
-                            Toast.makeText(context,"Não foi possível concluir o pedido, Tente Novamente ",Toast.LENGTH_LONG).show();
+                            Toast.makeText(context,"Não foi possível concluir o pedido, Tente Novamente mais tarde ",Toast.LENGTH_LONG).show();
 
                         }
 
@@ -185,7 +190,9 @@ public class CartActivity extends BaseActivity {
 
                 if(!carrinho.isEmpty()){
 
-                    taskFazerPedido.execute(new Pedido(cliente,carrinho));
+                    //TODO FIXME
+
+                    taskFazerPedido.execute(new Pedido(cliente,carrinho.toGson()));
 
                 }else {
 

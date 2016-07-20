@@ -21,10 +21,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import br.com.frmichetti.carhollics.android.R;
-import br.com.frmichetti.carhollics.android.model.Carrinho;
-import br.com.frmichetti.carhollics.android.model.Cliente;
-import br.com.frmichetti.carhollics.android.model.Servico;
-import br.com.frmichetti.carhollics.android.model.Veiculo;
+import br.com.frmichetti.carhollics.json.model.Carrinho;
+import br.com.frmichetti.carhollics.json.model.Cliente;
+import br.com.frmichetti.carhollics.json.model.Servico;
+import br.com.frmichetti.carhollics.json.model.Veiculo;
+
 
 /**
  * Created by Felipe on 08/07/2016.

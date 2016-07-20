@@ -6,7 +6,7 @@
 
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
@@ -22,30 +22,34 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
-
         <service
             android:name=".fcm.MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>
         </service>
-
-
-        <activity android:name=".view.LoginActivity">
+        <receiver
+            android:name=".util.ConnectivityReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+        <activity android:name=".view.LoginActivity" android:launchMode="singleTop" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.ServicoDetailActivity" />
-        <activity android:name=".view.CartActivity" />
-        <activity android:name=".view.ResetPasswordActivity" />
-        <activity android:name=".view.SignupActivity" />
-        <activity android:name=".view.OptionsActivity" />
-        <activity android:name=".view.ClientActivity" />
-        <activity android:name=".view.VeiculoCreateActivity" />
-        <activity android:name=".view.MainActivity" />
-        <activity android:name=".view.MapActivity" />
+        <activity android:name=".view.ServicoDetailActivity" android:launchMode="singleTop" />
+        <activity android:name=".view.CartActivity" android:launchMode="singleTop" />
+        <activity android:name=".view.ResetPasswordActivity" android:launchMode="singleTop" />
+        <activity android:name=".view.SignupActivity" android:launchMode="singleTop" />
+        <activity android:name=".view.OptionsActivity" android:launchMode="singleTop" />
+        <activity android:name=".view.ClientActivity" android:launchMode="singleTop" />
+        <activity android:name=".view.VeiculoCreateActivity" android:launchMode="singleTop" />
+        <activity android:name=".view.MainActivity" android:launchMode="singleTop" />
+        <activity android:name=".view.MapActivity" android:launchMode="singleTop" />
     </application>
 
 </manifest>

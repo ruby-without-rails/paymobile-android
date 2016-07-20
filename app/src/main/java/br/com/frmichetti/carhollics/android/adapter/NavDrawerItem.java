@@ -1,9 +1,10 @@
-package br.com.frmichetti.carhollics.android.model;
+package br.com.frmichetti.carhollics.android.adapter;
 
 public class NavDrawerItem {
-    private boolean showNotify;
-    private String title;
 
+    private boolean showNotify;
+
+    private String title;
 
     public NavDrawerItem() {
 

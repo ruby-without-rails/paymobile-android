@@ -13,7 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import br.com.frmichetti.carhollics.android.R;
-import br.com.frmichetti.carhollics.android.model.ItemCarrinho;
+import br.com.frmichetti.carhollics.json.model.ItemCarrinho;
+
 
 public class ServicoDetailActivity extends BaseActivity{
 

@@ -17,8 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.frmichetti.carhollics.android.R;
+import br.com.frmichetti.carhollics.android.adapter.NavDrawerItem;
 import br.com.frmichetti.carhollics.android.adapter.NavigationDrawerAdapter;
-import br.com.frmichetti.carhollics.android.model.NavDrawerItem;
+
 
 
 public class FragmentDrawer extends Fragment {
@@ -42,7 +43,7 @@ public class FragmentDrawer extends Fragment {
     }
 
     public static List<NavDrawerItem> getData() {
-        List<NavDrawerItem> data = new ArrayList<>();
+        List<NavDrawerItem> data = new ArrayList<NavDrawerItem>();
 
 
         // preparing navigation drawer items

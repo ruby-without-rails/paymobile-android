@@ -11,8 +11,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import br.com.frmichetti.carhollics.android.model.Cliente;
-
 
 public abstract class AbstractTask<T> extends AsyncTask<T, Object , T>{
 
@@ -77,7 +75,7 @@ public abstract class AbstractTask<T> extends AsyncTask<T, Object , T>{
 
     }
 
-    public AbstractTask(Context context, AsyncResponse<Cliente> delegate){
+    public AbstractTask(Context context, AsyncResponse<T> delegate){
 
         this(context);
 

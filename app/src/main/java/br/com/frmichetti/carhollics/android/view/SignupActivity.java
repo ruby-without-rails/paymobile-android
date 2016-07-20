@@ -2,9 +2,11 @@ package br.com.frmichetti.carhollics.android.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -15,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,9 +30,11 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
 import br.com.frmichetti.carhollics.android.jobs.TaskCreateUsuario;
-import br.com.frmichetti.carhollics.android.model.Usuario;
+import br.com.frmichetti.carhollics.android.util.ConnectivityReceiver;
+import br.com.frmichetti.carhollics.json.model.Usuario;
 
-public class SignupActivity extends AppCompatActivity implements MyPattern{
+
+public class SignupActivity extends AppCompatActivity implements MyPattern,ConnectivityReceiver.ConnectivityReceiverListener{
 
     private FirebaseAuth auth;
 
@@ -64,6 +69,8 @@ public class SignupActivity extends AppCompatActivity implements MyPattern{
         super.onPostCreate(savedInstanceState);
 
         doConfigure();
+
+        doCheckConnection();
     }
 
     @Override
@@ -72,6 +79,9 @@ public class SignupActivity extends AppCompatActivity implements MyPattern{
         super.onResume();
 
         progressBar.setVisibility(View.GONE);
+
+        // register connection status listener
+        this.setConnectivityListener(this);
 
     }
 
@@ -146,61 +156,72 @@ public class SignupActivity extends AppCompatActivity implements MyPattern{
                     return;
                 }
 
-                progressBar.setVisibility(View.VISIBLE);
+                if(doCheckConnection()){
 
-                //create user
-                auth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
+                    progressBar.setVisibility(View.VISIBLE);
 
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
+                    //create user
+                    auth.createUserWithEmailAndPassword(email, password)
+                            .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
 
-                                Toast.makeText(context, "Usuário foi Registrado ? " + task.isSuccessful(), Toast.LENGTH_LONG).show();
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
 
-                                progressBar.setVisibility(View.GONE);
+                                    Toast.makeText(context, "Usuário foi Registrado ? " + task.isSuccessful(), Toast.LENGTH_LONG).show();
 
-                                // If sign in fails, display a message to the user. If sign in succeeds
-                                // the auth state listener will be notified and logic to handle the
-                                // signed in user can be handled in the listener.
-                                if (!task.isSuccessful()) {
+                                    progressBar.setVisibility(View.GONE);
 
-                                    Toast.makeText(context, "Ocorreu uma Falha na Autenticação." + task.getException(),
-                                            Toast.LENGTH_LONG).show();
+                                    // If sign in fails, display a message to the user. If sign in succeeds
+                                    // the auth state listener will be notified and logic to handle the
+                                    // signed in user can be handled in the listener.
+                                    if (!task.isSuccessful()) {
 
-                                    Log.d("DEBUG-LOGIN","Ocorreu uma Falha na Autenticação." + task.getException().toString());
+                                        Toast.makeText(context, "Ocorreu uma Falha na Autenticação." + task.getException(),
+                                                Toast.LENGTH_LONG).show();
 
-                                } else {
+                                        Log.d("DEBUG-LOGIN","Ocorreu uma Falha na Autenticação." + task.getException().toString());
+
+                                    } else {
 
 
-                                    TaskCreateUsuario taskCreateUsuario = new TaskCreateUsuario(context, new AsyncResponse<Usuario>() {
+                                        TaskCreateUsuario taskCreateUsuario = new TaskCreateUsuario(context, new AsyncResponse<Usuario>() {
 
-                                        @Override
-                                        public void processFinish(Usuario output) {
+                                            @Override
+                                            public void processFinish(Usuario output) {
 
-                                            //TODO Logica do Login
+                                                //TODO Implementar Logica do Login
 
-                                            startActivity(new Intent(context, ClientActivity.class).putExtra("Usuario",output));
+                                                startActivity(new Intent(context, ClientActivity.class)
+                                                        .putExtra("Usuario",output));
 
-                                            finish();
-                                        }
-                                    });
+                                                finish();
+                                            }
+                                        });
 
-                                    FirebaseUser firebaseUser = auth.getCurrentUser();
+                                        FirebaseUser firebaseUser = auth.getCurrentUser();
 
-                                    Usuario usuario = new Usuario();
+                                        Usuario usuario = new Usuario();
 
-                                    usuario.setFirebaseUUID(firebaseUser.getUid());
+                                        usuario.setFirebaseUUID(firebaseUser.getUid());
 
-                                    usuario.setLogin(firebaseUser.getEmail());
+                                        usuario.setLogin(firebaseUser.getEmail());
 
-                                    usuario.setEmail(firebaseUser.getEmail());
+                                        usuario.setEmail(firebaseUser.getEmail());
 
-                                    usuario.setFirebaseMessageToken(FirebaseInstanceId.getInstance().getToken());
+                                        usuario.setFirebaseMessageToken(FirebaseInstanceId.getInstance().getToken());
 
-                                    taskCreateUsuario.execute(usuario);
+                                        taskCreateUsuario.execute(usuario);
+                                    }
                                 }
-                            }
-                        });
+                            });
+
+                }else{
+
+                    showSnack(doCheckConnection());
+
+                }
+
+
 
             }
         });
@@ -219,8 +240,6 @@ public class SignupActivity extends AppCompatActivity implements MyPattern{
 
         actionBar.setSubtitle("Registre-se");
 
-
-
     }
 
     @Override
@@ -233,5 +252,58 @@ public class SignupActivity extends AppCompatActivity implements MyPattern{
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    // Method to manually check connection status
+    private boolean doCheckConnection() {
+
+        boolean isConnected = ConnectivityReceiver.isConnected(context);
+
+        return isConnected;
+    }
+
+    // Showing the status in Snackbar
+    private void showSnack(boolean isConnected) {
+
+        String message;
+
+        int color;
+
+        if (isConnected) {
+            message = "Connected to Internet";
+            color = Color.GREEN;
+        } else {
+            message = "Not connected to internet";
+            color = Color.RED;
+        }
+
+        Snackbar snackbar = Snackbar
+                .make(findViewById(R.id.coordlayoutsignup), message, Snackbar.LENGTH_LONG);
+
+        View sbView = snackbar.getView();
+
+        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+
+        textView.setTextColor(color);
+
+        snackbar.show();
+
+    }
+
+
+    /**
+     * Callback will be triggered when there is change in
+     * network connection
+     */
+    @Override
+    public void onNetworkConnectionChanged(boolean isConnected) {
+
+        showSnack(isConnected);
+    }
+
+
+    public void setConnectivityListener(ConnectivityReceiver.ConnectivityReceiverListener listener) {
+
+        ConnectivityReceiver.connectivityReceiverListener = listener;
     }
 }

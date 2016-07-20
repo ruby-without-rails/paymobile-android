@@ -20,9 +20,9 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 
 import br.com.frmichetti.carhollics.android.dao.HTTP;
-import br.com.frmichetti.carhollics.android.model.Cliente;
-import br.com.frmichetti.carhollics.android.model.Pessoa;
-import br.com.frmichetti.carhollics.android.model.Usuario;
+import br.com.frmichetti.carhollics.json.model.Cliente;
+import br.com.frmichetti.carhollics.json.model.Pessoa;
+import br.com.frmichetti.carhollics.json.model.Usuario;
 
 
 public class TaskAtualizarLogin extends AsyncTask<Pessoa,String, String> {
