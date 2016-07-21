@@ -61,7 +61,7 @@ public class TaskLoadPedidos extends AsyncTask<Cliente,String,List<Pedido>> {
 
         super.onPreExecute();
 
-        url = context.getResources().getString(R.string.local_server) + "/services/pedido/list";
+        url = context.getResources().getString(R.string.remote_server) + "/services/pedido/list";
 
         Log.d("DEBUG-TASK","server config -> " + url);
 

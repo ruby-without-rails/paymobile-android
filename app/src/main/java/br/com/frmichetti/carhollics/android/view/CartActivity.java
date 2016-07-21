@@ -1,9 +1,11 @@
 package br.com.frmichetti.carhollics.android.view;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,6 +21,7 @@ import java.util.List;
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
 import br.com.frmichetti.carhollics.android.jobs.TaskFazerPedido;
+import br.com.frmichetti.carhollics.android.util.ConnectivityReceiver;
 import br.com.frmichetti.carhollics.json.model.Endereco;
 import br.com.frmichetti.carhollics.json.model.ItemCarrinho;
 import br.com.frmichetti.carhollics.json.model.Pedido;
@@ -62,6 +65,8 @@ public class CartActivity extends BaseActivity {
 
         doRefresh();
 
+        doCheckConnection();
+
     }
 
     private void doRefresh() {
@@ -73,10 +78,10 @@ public class CartActivity extends BaseActivity {
             textViewSubTotal.setText(String.valueOf(carrinho.getTotal(itemCarrinhoSelecionado)));
 
             textViewTotal.setText(String.valueOf(carrinho.getTotal()));
+/*
+            textViewPreco.setText(String.valueOf(itemCarrinhoSelecionado.getPrice()));
 
-            //  textViewPreco.setText(String.valueOf(itemCarrinhoSelecionado.getPrice()));
-
-            // textViewQuantidade.setText(String.valueOf(carrinho.getQuantity()));
+            textViewQuantidade.setText(String.valueOf(carrinho.getQuantity()));*/
         }
 
 
@@ -190,9 +195,16 @@ public class CartActivity extends BaseActivity {
 
                 if(!carrinho.isEmpty()){
 
-                    //TODO FIXME
+                    if(doCheckConnection()){
 
-                    taskFazerPedido.execute(new Pedido(cliente,carrinho.toGson()));
+                        taskFazerPedido.execute(new Pedido(cliente,carrinho.toGson()));
+
+                    }else{
+
+                        showSnack(doCheckConnection());
+                    }
+
+
 
                 }else {
 
@@ -243,6 +255,67 @@ public class CartActivity extends BaseActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    // Method to manually check connection status
+    private boolean doCheckConnection() {
+
+        boolean isConnected = ConnectivityReceiver.isConnected(context);
+
+        return isConnected;
+    }
+
+    // Showing the status in Snackbar
+    private void showSnack(boolean isConnected) {
+
+        String message;
+
+        int color;
+
+        if (isConnected) {
+            message = "Connected to Internet";
+            color = Color.GREEN;
+        } else {
+            message = "Not connected to internet";
+            color = Color.RED;
+        }
+
+        Snackbar snackbar = Snackbar
+                .make(findViewById(R.id.coordlayoutcart), message, Snackbar.LENGTH_LONG);
+
+        View sbView = snackbar.getView();
+
+        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+
+        textView.setTextColor(color);
+
+        snackbar.show();
+
+    }
+
+    @Override
+    protected void onResume() {
+
+        super.onResume();
+
+        // register connection status listener
+        this.setConnectivityListener(this);
+    }
+
+    /**
+     * Callback will be triggered when there is change in
+     * network connection
+     */
+    @Override
+    public void onNetworkConnectionChanged(boolean isConnected) {
+
+        showSnack(isConnected);
+    }
+
+
+    public void setConnectivityListener(ConnectivityReceiver.ConnectivityReceiverListener listener) {
+
+        ConnectivityReceiver.connectivityReceiverListener = listener;
     }
 
 

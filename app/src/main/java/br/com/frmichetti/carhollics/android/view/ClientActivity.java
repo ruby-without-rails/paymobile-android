@@ -4,18 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
 import br.com.frmichetti.carhollics.android.jobs.TaskCreateCliente;
-import br.com.frmichetti.carhollics.json.model.Cep;
 import br.com.frmichetti.carhollics.json.model.Cliente;
-import br.com.frmichetti.carhollics.json.model.Endereco;
 import br.com.frmichetti.carhollics.json.model.Usuario;
 
 
@@ -23,7 +21,7 @@ public class ClientActivity extends BaseActivity{
 
     private FloatingActionButton fabConfirmar;
 
-    private EditText editTextNome,editTextCPF,editTextTelefone,editTextCEP,editTextComplemento,editTextNumero;
+    private EditText editTextNome,editTextCPF,editTextTelefone;
 
     private Usuario usuario;
 
@@ -64,14 +62,7 @@ public class ClientActivity extends BaseActivity{
 
         editTextTelefone = (EditText) findViewById(R.id.editTextTelefone);
 
-        editTextCEP = (EditText) findViewById(R.id.editTextCEP);
-
-        editTextComplemento = (EditText) findViewById(R.id.editTextComplemento);
-
-        editTextNumero = (EditText) findViewById(R.id.editTextNumero);
-
         fabConfirmar = (FloatingActionButton) findViewById(R.id.fab_action_done);
-
 
 
     }
@@ -95,23 +86,18 @@ public class ClientActivity extends BaseActivity{
                         //TODO FIXME getCliente
 
                         startActivity(new Intent(context,MainActivity.class)
-                                        .putExtra("Carrinho",carrinho)
-                                        .putExtra("Cliente",cliente)
-                                        .putExtra("Veiculo",veiculoSelecionado)
-                                        .putExtra("Servico",servicoSelecionado));
+                                .putExtra("Carrinho",carrinho)
+                                .putExtra("Cliente",cliente)
+                                .putExtra("Veiculo",veiculoSelecionado)
+                                .putExtra("Servico",servicoSelecionado));
 
                         finish();
-
-
-
                     }
                 });
 
                 cliente = doLoadFields();
 
-                cliente.setUsuario(usuario);
-
-                    taskCreateCliente.execute(cliente);
+                taskCreateCliente.execute(cliente);
 
 
             }
@@ -121,52 +107,49 @@ public class ClientActivity extends BaseActivity{
 
     private Cliente doLoadCliente(Cliente cliente) {
 
-       if (cliente != null) {
+        if (cliente != null) {
 
-           editTextNome.setText(cliente.getNome());
+            editTextNome.setText(cliente.getNome());
 
-           editTextCPF.setText(String.valueOf(cliente.getCpf()));
+            editTextCPF.setText(String.valueOf(cliente.getCpf()));
 
-           editTextCEP.setText(String.valueOf(cliente.getEndereco().getCep().getCep()));
+            editTextTelefone.setText(String.valueOf(cliente.getTelefone()));
 
-           editTextComplemento.setText(String.valueOf(cliente.getEndereco().getComplemento()));
+        }else{
 
-           editTextNumero.setText(String.valueOf(cliente.getEndereco().getNumero()));
+            try{
 
-           editTextTelefone.setText(String.valueOf(cliente.getTelefone()));
+                editTextNome.setText(user.getDisplayName());
 
-       }else{
+            }catch (NullPointerException e){
+                
+                Log.d("DEBUG-USER", "Usuario sem Valores na conta");
+            }
 
-           editTextNome.setText(user.getDisplayName());
-
-       }
+        }
 
         return cliente;
     }
 
     private Cliente doLoadFields(){
 
-        Cliente c = new Cliente();
+        Cliente c;
 
-        Endereco e  = new Endereco();
+        if(cliente != null){
 
-        Cep cep  = new Cep();
+            c = cliente;
 
-        c.setEndereco(e);
+        }else {
 
-        e.setCep(cep);
+            c = new Cliente();
+            c.setUsuario(usuario);
+        }
 
         c.setNome(editTextNome.getText().toString());
 
         c.setCpf(Long.valueOf(editTextCPF.getText().toString()));
 
         c.setTelefone(Long.valueOf(editTextTelefone.getText().toString()));
-
-        e.setNumero(editTextNumero.getText().toString());
-
-        e.setComplemento(editTextComplemento.getText().toString());
-
-        cep.setCep(Long.valueOf(editTextCPF.getText().toString()));
 
         return  c;
 
@@ -189,6 +172,8 @@ public class ClientActivity extends BaseActivity{
         super.doLoadExtras(intent);
 
         usuario = (Usuario) intent.getSerializableExtra("Usuario");
+
+        cliente = (Cliente) intent.getSerializableExtra("Cliente");
     }
 
     @Override
@@ -245,9 +230,6 @@ public class ClientActivity extends BaseActivity{
 
             return true;
         }
-
-
-
 
 
         return super.onOptionsItemSelected(item);

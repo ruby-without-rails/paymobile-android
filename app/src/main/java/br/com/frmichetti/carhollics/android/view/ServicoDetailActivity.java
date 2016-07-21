@@ -2,9 +2,11 @@ package br.com.frmichetti.carhollics.android.view;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import br.com.frmichetti.carhollics.android.R;
+import br.com.frmichetti.carhollics.android.util.ConnectivityReceiver;
 import br.com.frmichetti.carhollics.json.model.ItemCarrinho;
 
 
@@ -47,6 +50,8 @@ public class ServicoDetailActivity extends BaseActivity{
         doLoadExtras(intent);
 
         doFillData();
+
+        doCheckConnection();
 
     }
 
@@ -160,6 +165,68 @@ public class ServicoDetailActivity extends BaseActivity{
         return true;
     }
 
+
+    // Method to manually check connection status
+    private boolean doCheckConnection() {
+
+        boolean isConnected = ConnectivityReceiver.isConnected(context);
+
+        return isConnected;
+    }
+
+    // Showing the status in Snackbar
+    private void showSnack(boolean isConnected) {
+
+        String message;
+
+        int color;
+
+        if (isConnected) {
+            message = "Connected to Internet";
+            color = Color.GREEN;
+        } else {
+            message = "Not connected to internet";
+            color = Color.RED;
+        }
+
+        Snackbar snackbar = Snackbar
+                .make(findViewById(R.id.coordlayoutservicodetail), message, Snackbar.LENGTH_LONG);
+
+        View sbView = snackbar.getView();
+
+        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+
+        textView.setTextColor(color);
+
+        snackbar.show();
+
+    }
+
+    @Override
+    protected void onResume() {
+
+        super.onResume();
+
+        // register connection status listener
+        this.setConnectivityListener(this);
+
+    }
+
+    /**
+     * Callback will be triggered when there is change in
+     * network connection
+     */
+    @Override
+    public void onNetworkConnectionChanged(boolean isConnected) {
+
+        showSnack(isConnected);
+    }
+
+
+    public void setConnectivityListener(ConnectivityReceiver.ConnectivityReceiverListener listener) {
+
+        ConnectivityReceiver.connectivityReceiverListener = listener;
+    }
 
 
 

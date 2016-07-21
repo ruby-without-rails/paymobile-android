@@ -4,9 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,6 +16,8 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,16 +25,18 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import br.com.frmichetti.carhollics.android.R;
+import br.com.frmichetti.carhollics.android.util.ConnectivityReceiver;
 import br.com.frmichetti.carhollics.json.model.Carrinho;
 import br.com.frmichetti.carhollics.json.model.Cliente;
 import br.com.frmichetti.carhollics.json.model.Servico;
+import br.com.frmichetti.carhollics.json.model.Usuario;
 import br.com.frmichetti.carhollics.json.model.Veiculo;
 
 
 /**
  * Created by Felipe on 08/07/2016.
  */
-public abstract class BaseActivity extends AppCompatActivity implements MyPattern {
+public abstract class BaseActivity extends AppCompatActivity implements MyPattern, ConnectivityReceiver.ConnectivityReceiverListener{
 
     protected ActionBar actionBar;
 
@@ -75,7 +81,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         Log.d("DEBUG-ON-CREATE","Super On Create");
 
-        Log.d("Firebase-ID ",  FirebaseInstanceId.getInstance().getToken());
+        Log.d("Firebase-ID ", FirebaseInstanceId.getInstance().getToken());
 
     }
 
@@ -90,6 +96,14 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         Log.d("DEBUG-ON-POST-CREATE","Super On Post Create");
 
+    }
+
+    @Override
+    protected void onResume() {
+
+        super.onResume();
+
+        this.setConnectivityListener(this);
     }
 
     @Override
@@ -363,5 +377,29 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
         veiculoSelecionado = (Veiculo) intent.getSerializableExtra("Veiculo");
 
         Log.d("DEBUG-LOAD-EXTRAS","Load Extras");
+    }
+
+    // Method to manually check connection status
+    private boolean doCheckConnection() {
+
+        boolean isConnected = ConnectivityReceiver.isConnected(context);
+
+        return isConnected;
+    }
+
+    // Showing the status in Snackbar
+    private void showSnack(boolean isConnected) {
+
+    }
+
+    @Override
+    public void onNetworkConnectionChanged(boolean isConnected) {
+
+    }
+
+
+    public void setConnectivityListener(ConnectivityReceiver.ConnectivityReceiverListener listener) {
+
+        ConnectivityReceiver.connectivityReceiverListener = listener;
     }
 }

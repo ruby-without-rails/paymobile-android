@@ -8,7 +8,9 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -114,6 +116,25 @@ public class MapActivity extends AppCompatActivity implements ConnectionCallback
             }
         });
 
+
+
+    }
+
+    private void checkPermissions() {
+
+        if(ContextCompat.checkSelfPermission(MapActivity.this,  Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+
+            if(ActivityCompat.shouldShowRequestPermissionRationale(MapActivity.this,Manifest.permission.ACCESS_FINE_LOCATION)){
+
+            }else{
+
+                ActivityCompat.requestPermissions(MapActivity.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},0);
+            }
+        }else{
+
+            Toast.makeText(context,"Permissões Concedidas",Toast.LENGTH_LONG).show();
+        }
+
     }
 
     @Override
@@ -125,6 +146,7 @@ public class MapActivity extends AppCompatActivity implements ConnectionCallback
 
             mGoogleApiClient.connect();
         }
+        checkPermissions();
     }
 
     @Override
@@ -165,39 +187,33 @@ public class MapActivity extends AppCompatActivity implements ConnectionCallback
      * */
     private void displayLocation() {
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+        boolean ok = ContextCompat.checkSelfPermission(MapActivity.this,
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
 
-            Toast.makeText(getApplicationContext(),"Entrei no if",Toast.LENGTH_LONG).show();
+        if(ok){
 
-            return;
+            mLastLocation = LocationServices.FusedLocationApi
+                    .getLastLocation(mGoogleApiClient);
 
+            if (mLastLocation != null) {
 
+                double latitude = mLastLocation.getLatitude();
 
+                double longitude = mLastLocation.getLongitude();
+
+                lblLocation.setText(latitude + ", " + longitude);
+
+            } else {
+
+                lblLocation
+                        .setText("(Couldn't get the location. Make sure location is enabled on the device)");
+            }
+
+        }else{
+            Toast.makeText(context,"Sem Permissão de Execução",Toast.LENGTH_LONG).show();
         }
 
-        mLastLocation = LocationServices.FusedLocationApi
-                .getLastLocation(mGoogleApiClient);
 
-        if (mLastLocation != null) {
-
-            double latitude = mLastLocation.getLatitude();
-
-            double longitude = mLastLocation.getLongitude();
-
-            lblLocation.setText(latitude + ", " + longitude);
-
-        } else {
-
-            lblLocation
-                    .setText("(Couldn't get the location. Make sure location is enabled on the device)");
-        }
     }
 
     /**
@@ -277,20 +293,17 @@ public class MapActivity extends AppCompatActivity implements ConnectionCallback
      * */
     protected void startLocationUpdates() {
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
+        boolean ok = ContextCompat.checkSelfPermission(MapActivity.this,
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+
+        if(ok){
+
+            LocationServices.FusedLocationApi.requestLocationUpdates(
+                    mGoogleApiClient, mLocationRequest, this);
+
+        }else{
+            Toast.makeText(context,"Sem Permissão de Execução",Toast.LENGTH_LONG).show();
         }
-
-        LocationServices.FusedLocationApi.requestLocationUpdates(
-                mGoogleApiClient, mLocationRequest, this);
-
     }
 
     /**
@@ -456,4 +469,20 @@ public class MapActivity extends AppCompatActivity implements ConnectionCallback
         return true;
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode){
+            case 0: {
+                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    //aceitou
+                }else{
+                    //negou
+                }
+                return;
+            }
+        }
+    }
 }

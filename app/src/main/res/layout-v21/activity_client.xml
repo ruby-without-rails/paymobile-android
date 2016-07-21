@@ -1,24 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@android:color/background_light"
-    android:fitsSystemWindows="true"
-    android:id="@+id/coordlayoutclient"    >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
     <include
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         layout="@layout/toolbar" />
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/toolbar">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-
-            >
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/linearLayout6"
+            android:layout_below="@+id/linearLayout5"
+            android:layout_above="@+id/buttonConfirmar">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -26,8 +38,7 @@
                 android:text="Nome"
                 android:id="@+id/textView6"
                 android:textColor="@color/colorPrimary"
-                android:layout_marginTop="57dp"
-                android:layout_alignParentTop="true"
+                android:layout_below="@+id/linearLayout5"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
 
@@ -37,7 +48,9 @@
                 android:id="@+id/editTextNome"
                 android:layout_below="@+id/textView6"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:layout_alignRight="@+id/buttonConfirmar"
+                android:layout_alignEnd="@+id/buttonConfirmar" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -47,10 +60,7 @@
                 android:textColor="@color/colorPrimary"
                 android:layout_below="@+id/editTextCPF"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginLeft="0dp"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="118dp" />
+                android:layout_alignParentStart="true" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -59,6 +69,8 @@
                 android:ems="10"
                 android:id="@+id/editTextTelefone"
                 android:layout_below="@+id/textView10"
+                android:layout_alignRight="@+id/buttonConfirmar"
+                android:layout_alignEnd="@+id/buttonConfirmar"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
 
@@ -68,7 +80,6 @@
                 android:text="CPF"
                 android:id="@+id/textView7"
                 android:textColor="@color/colorPrimary"
-                android:layout_marginTop="61dp"
                 android:layout_below="@+id/editTextNome"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
@@ -78,11 +89,15 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/editTextCPF"
                 android:layout_below="@+id/textView7"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignRight="@+id/buttonConfirmar"
+                android:layout_alignEnd="@+id/buttonConfirmar"
+                android:layout_toRightOf="@+id/scrollView2"
+                android:layout_toEndOf="@+id/scrollView2" />
 
 
-        </RelativeLayout>
+        </LinearLayout>
+
+    </ScrollView>
 
 
     <android.support.design.widget.FloatingActionButton
@@ -99,4 +114,4 @@
         android:layout_marginBottom="32dp" />
 
 
-</android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>

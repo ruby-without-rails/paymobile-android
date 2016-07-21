@@ -63,7 +63,7 @@ public class TaskLogin extends AsyncTask<Usuario,String, Cliente> {
 
         super.onPreExecute();
 
-        url = context.getResources().getString(R.string.local_server) + "/services/usuario/login";
+        url = context.getResources().getString(R.string.remote_server) + "/services/usuario/login";
 
         Log.d("DEBUG-TASK","server config -> " + url);
 

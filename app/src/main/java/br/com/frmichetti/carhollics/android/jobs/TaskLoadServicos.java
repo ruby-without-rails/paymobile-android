@@ -61,7 +61,7 @@ public class TaskLoadServicos extends AsyncTask<Void,String,List<Servico>> {
 
         super.onPreExecute();
 
-        url = context.getResources().getString(R.string.local_server) + "/services/servico/list";
+        url = context.getResources().getString(R.string.remote_server) + "/services/servico/list";
 
         Log.d("DEBUG-TASK","server config -> " + url);
 

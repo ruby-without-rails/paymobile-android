@@ -9,10 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import br.com.frmichetti.carhollics.android.util.ConnectivityReceiver;
+
 /**
  * Created by Felipe on 10/07/2016.
  */
-public abstract class BaseFragment extends Fragment implements MyPattern {
+public abstract class BaseFragment extends Fragment implements MyPattern, ConnectivityReceiver.ConnectivityReceiverListener {
 
     private Context context;
 
