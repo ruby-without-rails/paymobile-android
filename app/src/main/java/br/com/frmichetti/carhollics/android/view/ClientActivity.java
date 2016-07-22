@@ -179,13 +179,9 @@ public class ClientActivity extends BaseActivity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        super.onOptionsItemSelected(item);
-
         int id = item.getItemId();
 
         if(id == android.R.id.home){
-
-            Toast.makeText(context,"Click on Back Button ",Toast.LENGTH_SHORT).show();
 
             if(usuario == null){
                 finish();
@@ -193,42 +189,6 @@ public class ClientActivity extends BaseActivity{
 
             return true;
 
-        }
-
-        if (id == R.id.action_settings) {
-
-            Toast.makeText(context,"Click on Settings Button ",Toast.LENGTH_SHORT).show();
-
-            return true;
-        }
-
-        if(id == R.id.action_car){
-
-            Toast.makeText(context,"Click on Car Button ",Toast.LENGTH_SHORT).show();
-
-            return true;
-
-        }
-
-        if(id == R.id.action_search){
-
-            Toast.makeText(context,"Click on Search Button ",Toast.LENGTH_SHORT).show();
-
-            return true;
-        }
-
-        if(id == R.id.action_contact_developer){
-
-            Toast.makeText(context,"Click on Contact Developer Button ",Toast.LENGTH_SHORT).show();
-
-            return true;
-        }
-
-        if(id == R.id.action_personal_data){
-
-            Toast.makeText(context,"Click on Personal Data Button ",Toast.LENGTH_SHORT).show();
-
-            return true;
         }
 
 

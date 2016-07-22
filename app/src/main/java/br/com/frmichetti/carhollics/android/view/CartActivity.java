@@ -1,11 +1,10 @@
 package br.com.frmichetti.carhollics.android.view;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,19 +13,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.List;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
 import br.com.frmichetti.carhollics.android.jobs.TaskFazerPedido;
 import br.com.frmichetti.carhollics.android.util.ConnectivityReceiver;
-import br.com.frmichetti.carhollics.json.model.Endereco;
 import br.com.frmichetti.carhollics.json.model.ItemCarrinho;
 import br.com.frmichetti.carhollics.json.model.Pedido;
 import br.com.frmichetti.carhollics.json.model.Servico;
-import br.com.frmichetti.carhollics.json.model.Veiculo;
 
 
 public class CartActivity extends BaseActivity {
@@ -65,7 +60,7 @@ public class CartActivity extends BaseActivity {
 
         doRefresh();
 
-        doCheckConnection();
+        doCheckConnection(context);
 
     }
 
@@ -78,6 +73,8 @@ public class CartActivity extends BaseActivity {
             textViewSubTotal.setText(String.valueOf(carrinho.getTotal(itemCarrinhoSelecionado)));
 
             textViewTotal.setText(String.valueOf(carrinho.getTotal()));
+
+            //TODO FIXME valores individuais
 /*
             textViewPreco.setText(String.valueOf(itemCarrinhoSelecionado.getPrice()));
 
@@ -135,7 +132,7 @@ public class CartActivity extends BaseActivity {
 
                 itemCarrinhoSelecionado = (ItemCarrinho) itemValue;
 
-                Toast.makeText(context,"Servico Selecionado " + itemCarrinhoSelecionado.toString(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,getString(R.string.service_selected) + itemCarrinhoSelecionado.toString(),Toast.LENGTH_SHORT).show();
 
                 doRefresh();
 
@@ -147,15 +144,25 @@ public class CartActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
-                carrinho.remove(itemCarrinhoSelecionado);
+                if(!carrinho.isEmpty()){
 
-                Toast.makeText(context,"Removido " + itemCarrinhoSelecionado.toString(),Toast.LENGTH_SHORT).show();
+                    carrinho.remove(itemCarrinhoSelecionado);
 
-                doFillData();
+                    Toast.makeText(context,getString(R.string.remove) + itemCarrinhoSelecionado.toString(),Toast.LENGTH_SHORT).show();
 
-                textViewItemSelecionado.setText("");
+                    doFillData();
 
-                servicoSelecionado = new Servico();
+                    textViewItemSelecionado.setText("");
+
+                    servicoSelecionado = new Servico();
+
+                }else{
+
+                    Toast.makeText(context,getString(R.string.cart_is_empty),Toast.LENGTH_SHORT).show();
+
+                }
+
+
 
             }
         });
@@ -173,7 +180,7 @@ public class CartActivity extends BaseActivity {
 
                         if(output != null && output == true){
 
-                            Toast.makeText(context, "Pedido Solicitado com sucesso! Entraremos em contato para Confirmar Agendamento", Toast.LENGTH_LONG).show();
+                            Toast.makeText(context, getString(R.string.checkout_sucess), Toast.LENGTH_LONG).show();
 
                             startActivity(new Intent(context,MainActivity.class)
                                     .putExtra("Cliente",cliente)
@@ -186,7 +193,7 @@ public class CartActivity extends BaseActivity {
 
                         }else{
 
-                            Toast.makeText(context,"Não foi possível concluir o pedido, Tente Novamente mais tarde ",Toast.LENGTH_LONG).show();
+                            Toast.makeText(context,getString(R.string.checkout_failed),Toast.LENGTH_LONG).show();
 
                         }
 
@@ -195,20 +202,21 @@ public class CartActivity extends BaseActivity {
 
                 if(!carrinho.isEmpty()){
 
-                    if(doCheckConnection()){
+                    if(doCheckConnection(context)){
 
                         taskFazerPedido.execute(new Pedido(cliente,carrinho.toGson()));
 
                     }else{
 
-                        showSnack(doCheckConnection());
+                        showSnack((CoordinatorLayout) findViewById(R.id.coordlayoutcart),doCheckConnection(context));
                     }
 
 
 
                 }else {
 
-                    Toast.makeText(context,"Carrinho Vazio",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,getString(R.string.cart_is_empty),Toast.LENGTH_SHORT).show();
+
                 }
 
 
@@ -223,7 +231,7 @@ public class CartActivity extends BaseActivity {
 
         super.doConfigure();
 
-        actionBar.setSubtitle("Carrinho");
+        actionBar.setSubtitle(getString(R.string.action_cart));
 
     }
 
@@ -233,8 +241,6 @@ public class CartActivity extends BaseActivity {
         int id = item.getItemId();
 
         if(id == android.R.id.home){
-
-            Toast.makeText(context,"Click on Back Button ",Toast.LENGTH_SHORT).show();
 
             startActivity(new Intent(context,MainActivity.class)
                     .putExtra("Cliente",cliente)
@@ -249,58 +255,9 @@ public class CartActivity extends BaseActivity {
 
         }
 
-        if (id == R.id.action_settings) {
-
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
-    // Method to manually check connection status
-    private boolean doCheckConnection() {
-
-        boolean isConnected = ConnectivityReceiver.isConnected(context);
-
-        return isConnected;
-    }
-
-    // Showing the status in Snackbar
-    private void showSnack(boolean isConnected) {
-
-        String message;
-
-        int color;
-
-        if (isConnected) {
-            message = "Connected to Internet";
-            color = Color.GREEN;
-        } else {
-            message = "Not connected to internet";
-            color = Color.RED;
-        }
-
-        Snackbar snackbar = Snackbar
-                .make(findViewById(R.id.coordlayoutcart), message, Snackbar.LENGTH_LONG);
-
-        View sbView = snackbar.getView();
-
-        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
-
-        textView.setTextColor(color);
-
-        snackbar.show();
-
-    }
-
-    @Override
-    protected void onResume() {
-
-        super.onResume();
-
-        // register connection status listener
-        this.setConnectivityListener(this);
-    }
 
     /**
      * Callback will be triggered when there is change in
@@ -309,14 +266,7 @@ public class CartActivity extends BaseActivity {
     @Override
     public void onNetworkConnectionChanged(boolean isConnected) {
 
-        showSnack(isConnected);
+        showSnack((CoordinatorLayout) findViewById(R.id.coordlayoutcart),isConnected);
     }
-
-
-    public void setConnectivityListener(ConnectivityReceiver.ConnectivityReceiverListener listener) {
-
-        ConnectivityReceiver.connectivityReceiverListener = listener;
-    }
-
 
 }

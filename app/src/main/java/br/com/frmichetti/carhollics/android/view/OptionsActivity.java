@@ -1,24 +1,21 @@
 package br.com.frmichetti.carhollics.android.view;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.CoordinatorLayout;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import br.com.frmichetti.carhollics.android.R;
-import br.com.frmichetti.carhollics.android.util.ConnectivityReceiver;
 import br.com.frmichetti.carhollics.json.model.Carrinho;
 import br.com.frmichetti.carhollics.json.model.Cliente;
 import br.com.frmichetti.carhollics.json.model.Servico;
@@ -55,7 +52,7 @@ public class OptionsActivity extends BaseActivity {
 
         doLoadExtras();
 
-        doCheckConnection();
+        doCheckConnection(context);
 
     }
 
@@ -178,7 +175,7 @@ public class OptionsActivity extends BaseActivity {
 
                                     if (task.isSuccessful()) {
 
-                                        Toast.makeText(context, "Endereço de email foi atualizado. Por favor entre com o novo ID de e-mail! ", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(context, getString(R.string.update_email_sucess), Toast.LENGTH_LONG).show();
 
                                         signOut();
 
@@ -186,7 +183,7 @@ public class OptionsActivity extends BaseActivity {
 
                                     } else {
 
-                                        Toast.makeText(context, "Falha ao Atualizar email!", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(context, getString(R.string.update_email_failed), Toast.LENGTH_LONG).show();
 
                                         progressBar.setVisibility(View.GONE);
                                     }
@@ -195,7 +192,7 @@ public class OptionsActivity extends BaseActivity {
 
                 } else if (newEmail.getText().toString().trim().equals("")) {
 
-                    newEmail.setError("Digite o email");
+                    newEmail.setError(getString(R.string.enter_email_address));
 
                     progressBar.setVisibility(View.GONE);
                 }
@@ -236,7 +233,7 @@ public class OptionsActivity extends BaseActivity {
 
                     if (newPassword.getText().toString().trim().length() < 6) {
 
-                        newPassword.setError("Senha muito curta, digite no mínimo 6 caracteres !");
+                        newPassword.setError(getString(R.string.minimum_password));
 
                         progressBar.setVisibility(View.GONE);
 
@@ -249,7 +246,7 @@ public class OptionsActivity extends BaseActivity {
 
                                         if (task.isSuccessful()) {
 
-                                            Toast.makeText(context, "Senha foi atualizada, entre com a nova senha !", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(context, getString(R.string.password_update_sucess), Toast.LENGTH_SHORT).show();
 
                                             signOut();
 
@@ -257,7 +254,7 @@ public class OptionsActivity extends BaseActivity {
 
                                         } else {
 
-                                            Toast.makeText(context, "Falha ao atualizar a senha!", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(context, getString(R.string.password_update_failed), Toast.LENGTH_SHORT).show();
 
                                             progressBar.setVisibility(View.GONE);
                                         }
@@ -310,13 +307,13 @@ public class OptionsActivity extends BaseActivity {
 
                                     if (task.isSuccessful()) {
 
-                                        Toast.makeText(context, "E-mail de redefinição de senha foi enviado !", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(context, getString(R.string.reset_email_sucess), Toast.LENGTH_SHORT).show();
 
                                         progressBar.setVisibility(View.GONE);
 
                                     } else {
 
-                                        Toast.makeText(context, "Falha ao enviar email de reset!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(context, getString(R.string.reset_email_failed), Toast.LENGTH_SHORT).show();
 
                                         progressBar.setVisibility(View.GONE);
                                     }
@@ -324,7 +321,7 @@ public class OptionsActivity extends BaseActivity {
                             });
                 } else {
 
-                    oldEmail.setError("Digite o email");
+                    oldEmail.setError(getString(R.string.enter_email_address));
 
                     progressBar.setVisibility(View.GONE);
                 }
@@ -346,7 +343,7 @@ public class OptionsActivity extends BaseActivity {
 
                                     if (task.isSuccessful()) {
 
-                                        Toast.makeText(OptionsActivity.this, "O seu perfil foi excluído :( Criar uma conta agora!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(OptionsActivity.this, getString(R.string.delete_account_success), Toast.LENGTH_SHORT).show();
 
                                         startActivity(new Intent(OptionsActivity.this, SignupActivity.class));
 
@@ -356,7 +353,7 @@ public class OptionsActivity extends BaseActivity {
 
                                     } else {
 
-                                        Toast.makeText(OptionsActivity.this, "Falha ao excluir a sua conta!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(OptionsActivity.this, getString(R.string.delete_account_failed), Toast.LENGTH_SHORT).show();
 
                                         progressBar.setVisibility(View.GONE);
                                     }
@@ -381,13 +378,9 @@ public class OptionsActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        super.onOptionsItemSelected(item);
-
         int id = item.getItemId();
 
         if (id == android.R.id.home) {
-
-            Toast.makeText(context, "Click on Back Button ", Toast.LENGTH_SHORT).show();
 
             finish();
 
@@ -395,24 +388,7 @@ public class OptionsActivity extends BaseActivity {
 
         }
 
-        if (id == R.id.action_settings) {
-
-            Toast.makeText(context, "Click on Settings Button ", Toast.LENGTH_SHORT).show();
-
-            return true;
-        }
-
-        if (id == R.id.action_car){
-
-            Toast.makeText(context, "Click on Car Button ", Toast.LENGTH_SHORT).show();
-
-            return true;
-
-        }
-
         if (id == R.id.action_cart) {
-
-            Toast.makeText(context, "Click on Car Button ", Toast.LENGTH_SHORT).show();
 
             startActivity(new Intent(context,CartActivity.class)
                     .putExtra("Carrinho",carrinho)
@@ -425,66 +401,13 @@ public class OptionsActivity extends BaseActivity {
 
         }
 
-        if (id == R.id.action_search) {
-
-            Toast.makeText(context, "Click on Search Button ", Toast.LENGTH_SHORT).show();
-
-            return true;
-        }
-
-        if (id == R.id.action_contact_developer) {
-
-            Toast.makeText(context, "Click on Contact Developer Button ", Toast.LENGTH_SHORT).show();
-
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
-    }
-
-    // Method to manually check connection status
-    private boolean doCheckConnection() {
-
-        boolean isConnected = ConnectivityReceiver.isConnected(context);
-
-        return isConnected;
-    }
-
-    // Showing the status in Snackbar
-    private void showSnack(boolean isConnected) {
-
-        String message;
-
-        int color;
-
-        if (isConnected) {
-            message = "Connected to Internet";
-            color = Color.GREEN;
-        } else {
-            message = "Not connected to internet";
-            color = Color.RED;
-        }
-
-        Snackbar snackbar = Snackbar
-                .make(findViewById(R.id.coordlayoutoptions), message, Snackbar.LENGTH_LONG);
-
-        View sbView = snackbar.getView();
-
-        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
-
-        textView.setTextColor(color);
-
-        snackbar.show();
-
     }
 
     @Override
     protected void onResume() {
 
         super.onResume();
-
-        // register connection status listener
-        this.setConnectivityListener(this);
 
         progressBar.setVisibility(View.GONE);
     }
@@ -496,13 +419,8 @@ public class OptionsActivity extends BaseActivity {
     @Override
     public void onNetworkConnectionChanged(boolean isConnected) {
 
-        showSnack(isConnected);
+        showSnack((CoordinatorLayout) findViewById(R.id.coordlayoutoptions), isConnected);
     }
 
-
-    public void setConnectivityListener(ConnectivityReceiver.ConnectivityReceiverListener listener) {
-
-        ConnectivityReceiver.connectivityReceiverListener = listener;
-    }
 
 }

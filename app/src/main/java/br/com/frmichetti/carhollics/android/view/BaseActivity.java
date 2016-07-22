@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -29,7 +30,6 @@ import br.com.frmichetti.carhollics.android.util.ConnectivityReceiver;
 import br.com.frmichetti.carhollics.json.model.Carrinho;
 import br.com.frmichetti.carhollics.json.model.Cliente;
 import br.com.frmichetti.carhollics.json.model.Servico;
-import br.com.frmichetti.carhollics.json.model.Usuario;
 import br.com.frmichetti.carhollics.json.model.Veiculo;
 
 
@@ -158,7 +158,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         if(id == android.R.id.home){
 
-            Toast.makeText(context,"Click on Back Button ",Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,getString(R.string.click_on_back_button) ,Toast.LENGTH_SHORT).show();
 
             return true;
 
@@ -166,14 +166,14 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         if (id == R.id.action_settings) {
 
-            Toast.makeText(context,"Click on Settings Button ",Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,getString(R.string.click_on_settings_button),Toast.LENGTH_SHORT).show();
 
             return true;
         }
 
-        if(id == R.id.action_car){
+        if(id == R.id.action_vehicle){
 
-            Toast.makeText(context,"Click on Car Button ",Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,getString(R.string.click_on_vehicle_button) ,Toast.LENGTH_SHORT).show();
 
             return true;
 
@@ -181,24 +181,39 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         if(id == R.id.action_search){
 
-            Toast.makeText(context,"Click on Search Button ",Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,getString(R.string.click_on_search_button) ,Toast.LENGTH_SHORT).show();
 
             return true;
         }
 
         if(id == R.id.action_contact_developer){
 
-            Toast.makeText(context,"Click on Contact Developer Button ",Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,getString(R.string.click_on_developer_button) ,Toast.LENGTH_SHORT).show();
 
             return true;
         }
 
         if(id == R.id.action_personal_data){
 
-            Toast.makeText(context,"Click on Personal Data Button ",Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,getString(R.string.click_on_personalData_button) ,Toast.LENGTH_SHORT).show();
 
             return true;
         }
+
+        if(id == R.id.action_map){
+
+            Toast.makeText(context,getString(R.string.click_on_map_button),Toast.LENGTH_SHORT).show();
+
+            return true;
+        }
+
+        if(id == R.id.action_cart){
+
+            Toast.makeText(context,getString(R.string.click_on_cart_button),Toast.LENGTH_SHORT).show();
+
+            return true;
+        }
+
 
         if(id == R.id.action_about){
 
@@ -217,19 +232,11 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
             String versionName = pinfo.versionName;
 
-            Toast.makeText(context,"Versão deste App : " + versionName,Toast.LENGTH_LONG).show();
+            Toast.makeText(context,getString(R.string.version_of_app) + versionName,Toast.LENGTH_LONG).show();
 
             return true;
         }
 
-        if(id == R.id.action_map){
-
-            Toast.makeText(context,"Click on Map Button ",Toast.LENGTH_SHORT).show();
-
-            startActivity(new Intent(context,MapActivity.class));
-
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -237,28 +244,20 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
 
-        //Log.d("[INFO-KEY-UP]","KeyUp " + String.valueOf(event.getKeyCode()));
-
         if(event.getKeyCode() == KeyEvent.KEYCODE_BACK){
 
-            Log.d("Info","KeyUp Back Button");
-
-            Toast.makeText(context,"KeyUp Back Button Pressed",Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,getString(R.string.keyUp_back_button),Toast.LENGTH_SHORT).show();
 
         }
 
         if(event.getKeyCode() == KeyEvent.KEYCODE_HOME){
 
-            Log.d("Info","KeyUp Home Button");
-
-            Toast.makeText(context,"KeyUp Home Button Pressed",Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,getString(R.string.keyUp_home_button),Toast.LENGTH_SHORT).show();
         }
 
         if(event.getKeyCode() == KeyEvent.KEYCODE_SEARCH){
 
-            Log.d("Info","KeyUp Search Button");
-
-            Toast.makeText(context,"KeyUp Search Button Pressed",Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,getString(R.string.keyUp_search_button),Toast.LENGTH_SHORT).show();
         }
 
         return true;
@@ -380,7 +379,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
     }
 
     // Method to manually check connection status
-    private boolean doCheckConnection() {
+    protected boolean doCheckConnection(Context context) {
 
         boolean isConnected = ConnectivityReceiver.isConnected(context);
 
@@ -388,7 +387,35 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
     }
 
     // Showing the status in Snackbar
-    private void showSnack(boolean isConnected) {
+    protected void showSnack(CoordinatorLayout coordinatorLayout, boolean isConnected) {
+
+        String message;
+
+        int color;
+
+        if (isConnected) {
+
+            message = getString(R.string.connected_on_internet);
+
+            color = Color.GREEN;
+
+        } else {
+
+            message = getString(R.string.not_connected_on_internet);
+
+            color = Color.RED;
+        }
+
+        Snackbar snackbar = Snackbar
+                .make(coordinatorLayout, message, Snackbar.LENGTH_LONG);
+
+        View sbView = snackbar.getView();
+
+        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+
+        textView.setTextColor(color);
+
+        snackbar.show();
 
     }
 
@@ -398,7 +425,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
     }
 
 
-    public void setConnectivityListener(ConnectivityReceiver.ConnectivityReceiverListener listener) {
+    private void setConnectivityListener(ConnectivityReceiver.ConnectivityReceiverListener listener) {
 
         ConnectivityReceiver.connectivityReceiverListener = listener;
     }

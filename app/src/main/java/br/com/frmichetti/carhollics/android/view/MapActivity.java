@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -85,7 +86,7 @@ public class MapActivity extends AppCompatActivity implements ConnectionCallback
 
         getSupportActionBar().setTitle(R.string.app_name);
 
-        getSupportActionBar().setSubtitle("Mapa");
+        getSupportActionBar().setSubtitle(getString(R.string.map));
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -103,7 +104,9 @@ public class MapActivity extends AppCompatActivity implements ConnectionCallback
 
             @Override
             public void onClick(View v) {
+
                 displayLocation();
+
             }
         });
 
@@ -112,7 +115,9 @@ public class MapActivity extends AppCompatActivity implements ConnectionCallback
 
             @Override
             public void onClick(View v) {
+
                 togglePeriodicLocationUpdates();
+
             }
         });
 
@@ -120,19 +125,30 @@ public class MapActivity extends AppCompatActivity implements ConnectionCallback
 
     }
 
-    private void checkPermissions() {
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
 
-        if(ContextCompat.checkSelfPermission(MapActivity.this,  Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+        super.onPostCreate(savedInstanceState);
 
-            if(ActivityCompat.shouldShowRequestPermissionRationale(MapActivity.this,Manifest.permission.ACCESS_FINE_LOCATION)){
+        checkPermissions(context,this);
+
+        checkPlayServices();
+
+    }
+
+    private void checkPermissions(Context context, Activity activity) {
+
+        if(ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+
+            if(ActivityCompat.shouldShowRequestPermissionRationale(activity,Manifest.permission.ACCESS_FINE_LOCATION)){
 
             }else{
 
-                ActivityCompat.requestPermissions(MapActivity.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},0);
+                ActivityCompat.requestPermissions(activity,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},0);
             }
         }else{
 
-            Toast.makeText(context,"Permissões Concedidas",Toast.LENGTH_LONG).show();
+            Toast.makeText(context,getString(R.string.permission_granted),Toast.LENGTH_LONG).show();
         }
 
     }
@@ -146,15 +162,13 @@ public class MapActivity extends AppCompatActivity implements ConnectionCallback
 
             mGoogleApiClient.connect();
         }
-        checkPermissions();
+
     }
 
     @Override
     protected void onResume() {
 
         super.onResume();
-
-        checkPlayServices();
 
         // Resuming the periodic location updates
         if (mGoogleApiClient.isConnected() && mRequestingLocationUpdates) {
@@ -187,10 +201,10 @@ public class MapActivity extends AppCompatActivity implements ConnectionCallback
      * */
     private void displayLocation() {
 
-        boolean ok = ContextCompat.checkSelfPermission(MapActivity.this,
+        boolean permission = ContextCompat.checkSelfPermission(MapActivity.this,
                 Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
 
-        if(ok){
+        if(permission){
 
             mLastLocation = LocationServices.FusedLocationApi
                     .getLastLocation(mGoogleApiClient);
@@ -206,11 +220,12 @@ public class MapActivity extends AppCompatActivity implements ConnectionCallback
             } else {
 
                 lblLocation
-                        .setText("(Couldn't get the location. Make sure location is enabled on the device)");
+                        .setText(getString(R.string.could_get_location));
             }
 
         }else{
-            Toast.makeText(context,"Sem Permissão de Execução",Toast.LENGTH_LONG).show();
+
+            Toast.makeText(context,getString(R.string.not_authorized_yet),Toast.LENGTH_LONG).show();
         }
 
 
@@ -230,7 +245,7 @@ public class MapActivity extends AppCompatActivity implements ConnectionCallback
             // Starting the location updates
             startLocationUpdates();
 
-            Log.d(TAG, "Periodic location updates started!");
+            Toast.makeText(context,getString(R.string.periodic_location_update_started),Toast.LENGTH_SHORT);
 
         } else {
             // Changing the button text
@@ -242,7 +257,7 @@ public class MapActivity extends AppCompatActivity implements ConnectionCallback
             // Stopping the location updates
             stopLocationUpdates();
 
-            Log.d(TAG, "Periodic location updates stopped!");
+            Toast.makeText(context,getString(R.string.periodic_location_update_stoped),Toast.LENGTH_SHORT);
         }
     }
 
@@ -250,6 +265,7 @@ public class MapActivity extends AppCompatActivity implements ConnectionCallback
      * Creating google api client object
      * */
     protected synchronized void buildGoogleApiClient() {
+
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -279,7 +295,7 @@ public class MapActivity extends AppCompatActivity implements ConnectionCallback
                         PLAY_SERVICES_RESOLUTION_REQUEST).show();
             } else {
                 Toast.makeText(getApplicationContext(),
-                        "This device is not supported.", Toast.LENGTH_LONG)
+                        getString(R.string.device_is_not_supported), Toast.LENGTH_LONG)
                         .show();
                 finish();
             }
@@ -293,16 +309,17 @@ public class MapActivity extends AppCompatActivity implements ConnectionCallback
      * */
     protected void startLocationUpdates() {
 
-        boolean ok = ContextCompat.checkSelfPermission(MapActivity.this,
+        boolean permission = ContextCompat.checkSelfPermission(MapActivity.this,
                 Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
 
-        if(ok){
+        if(permission){
 
             LocationServices.FusedLocationApi.requestLocationUpdates(
                     mGoogleApiClient, mLocationRequest, this);
 
         }else{
-            Toast.makeText(context,"Sem Permissão de Execução",Toast.LENGTH_LONG).show();
+
+            Toast.makeText(context,getString(R.string.not_authorized_yet),Toast.LENGTH_LONG).show();
         }
     }
 
@@ -344,7 +361,7 @@ public class MapActivity extends AppCompatActivity implements ConnectionCallback
         // Assign the new location
         mLastLocation = location;
 
-        Toast.makeText(getApplicationContext(), "Location changed!",
+        Toast.makeText(getApplicationContext(), getString(R.string.location_changed),
                 Toast.LENGTH_SHORT).show();
 
         // Displaying the new location on UI
@@ -355,134 +372,27 @@ public class MapActivity extends AppCompatActivity implements ConnectionCallback
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
+        super.onOptionsItemSelected(item);
+
         int id = item.getItemId();
 
         if(id == android.R.id.home){
 
-            Toast.makeText(context,"Click on Back Button ",Toast.LENGTH_SHORT).show();
-
-            finish();
-
-            return true;
-
-        }
-
-        if (id == R.id.action_settings) {
-
-            Toast.makeText(context,"Click on Settings Button ",Toast.LENGTH_SHORT).show();
-
-            return true;
-        }
-
-        if(id == R.id.action_car){
-
-            Toast.makeText(context,"Click on Car Button ",Toast.LENGTH_SHORT).show();
-
-            return true;
-
-        }
-
-        if(id == R.id.action_search){
-
-            Toast.makeText(context,"Click on Search Button ",Toast.LENGTH_SHORT).show();
-
-            return true;
-        }
-
-        if(id == R.id.action_contact_developer){
-
-            Toast.makeText(context,"Click on Contact Developer Button ",Toast.LENGTH_SHORT).show();
-
-            return true;
-        }
-
-        if(id == R.id.action_personal_data){
-
-            Toast.makeText(context,"Click on Personal Data Button ",Toast.LENGTH_SHORT).show();
-
-            return true;
-        }
-
-        if(id == R.id.action_about){
-
-            PackageInfo pinfo = null;
-
-            try {
-
-                pinfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-
-            } catch (PackageManager.NameNotFoundException e) {
-
-                e.printStackTrace();
-            }
-
-            int versionNumber = pinfo.versionCode;
-
-            String versionName = pinfo.versionName;
-
-            Toast.makeText(context,"Versão deste App : " + versionName,Toast.LENGTH_LONG).show();
-
-            return true;
-        }
-
-        if(id == R.id.action_map){
-
-            Toast.makeText(context,"Click on Map Button ",Toast.LENGTH_SHORT).show();
-
-            startActivity(new Intent(context,MapActivity.class));
-
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
-
-        //Log.d("[INFO-KEY-UP]","KeyUp " + String.valueOf(event.getKeyCode()));
-
-        if(event.getKeyCode() == KeyEvent.KEYCODE_BACK){
-
-            Log.d("Info","KeyUp Back Button");
-
-            Toast.makeText(context,"KeyUp Back Button Pressed",Toast.LENGTH_SHORT).show();
-
             finish();
 
         }
 
-        if(event.getKeyCode() == KeyEvent.KEYCODE_HOME){
-
-            Log.d("Info","KeyUp Home Button");
-
-            Toast.makeText(context,"KeyUp Home Button Pressed",Toast.LENGTH_SHORT).show();
-        }
-
-        if(event.getKeyCode() == KeyEvent.KEYCODE_SEARCH){
-
-            Log.d("Info","KeyUp Search Button");
-
-            Toast.makeText(context,"KeyUp Search Button Pressed",Toast.LENGTH_SHORT).show();
-        }
 
         return true;
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
 
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        super.onKeyUp(keyCode,event);
 
-        switch (requestCode){
-            case 0: {
-                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                    //aceitou
-                }else{
-                    //negou
-                }
-                return;
-            }
-        }
+        return true;
     }
+
+
 }

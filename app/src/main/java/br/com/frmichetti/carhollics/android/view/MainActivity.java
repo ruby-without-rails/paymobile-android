@@ -1,11 +1,18 @@
 package br.com.frmichetti.carhollics.android.view;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,6 +36,8 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
     private ImageView imageView;
 
     private TextView textView;
+
+    private boolean permission;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,8 +121,6 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
 
         if (id == R.id.action_settings) {
 
-            Toast.makeText(context, "Opções foi selecionado !", Toast.LENGTH_SHORT).show();
-
             startActivity(new Intent(context,OptionsActivity.class)
                     .putExtra("Carrinho",carrinho)
                     .putExtra("Cliente",cliente)
@@ -121,14 +128,6 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
                     .putExtra("Servico",servicoSelecionado)
             );
 
-            return true;
-        }
-
-        if(id == R.id.action_search){
-
-            Toast.makeText(context, "Localizar foi selecionado !", Toast.LENGTH_SHORT).show();
-
-            return true;
         }
 
         if(id == R.id.action_cart){
@@ -142,7 +141,6 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
                         .putExtra("Servico",servicoSelecionado)
                 );
 
-            return true;
         }
 
         if(id == R.id.action_personal_data){
@@ -153,9 +151,6 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
                     .putExtra("Veiculo",veiculoSelecionado)
                     .putExtra("Servico",servicoSelecionado)
             );
-
-            return true;
-
         }
 
         if(id == R.id.action_contact_developer){
@@ -165,24 +160,54 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
             i.setType("message/rfc822");
 
             i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"frmichetti@gmail.com"});
-            i.putExtra(Intent.EXTRA_SUBJECT, "App Carhollics");
-            i.putExtra(Intent.EXTRA_TEXT   , "App Carhollics");
+            i.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
+            i.putExtra(Intent.EXTRA_TEXT   , "Contato App Carhollics");
 
             try {
 
-                startActivity(Intent.createChooser(i, "Enviar email para o desenvolvedor..."));
+                startActivity(Intent.createChooser(i, getString(R.string.send_mail_to_developer)));
 
             } catch (android.content.ActivityNotFoundException ex) {
 
-                Toast.makeText(context, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, getString(R.string.no_email_client_installed), Toast.LENGTH_SHORT).show();
             }
 
-
-
-            return true;
         }
 
-        return super.onOptionsItemSelected(item);
+        if(id == R.id.action_map){
+
+            checkPermissions(context,this);
+        }
+
+        return true;
+    }
+
+    private void checkPermissions(Context context, Activity activity) {
+
+        if(ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+
+            if(ActivityCompat.shouldShowRequestPermissionRationale(activity,Manifest.permission.ACCESS_FINE_LOCATION)){
+
+
+            }else{
+
+                ActivityCompat.requestPermissions(activity,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},0);
+            }
+
+        }else{
+
+            Toast.makeText(context,getString(R.string.permission_granted),Toast.LENGTH_LONG).show();
+
+            permission = true;
+
+        }
+
+        if(permission){
+
+            //TODO FIXME Verificar Permissoes antes
+            startActivity(new Intent(context,MapActivity.class));
+        }
+
     }
 
     @Override
@@ -263,6 +288,33 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
         imageView = (ImageView) findViewById(R.id.imageViewAccountImage);
 
         textView = (TextView) findViewById(R.id.textViewNome);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode){
+
+            case 0: {
+
+                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+
+                    Toast.makeText(context,getString(R.string.permission_accepted),Toast.LENGTH_LONG).show();
+
+                    permission = true;
+
+                }else{
+
+                    Toast.makeText(context,getString(R.string.permission_not_accepted),Toast.LENGTH_LONG).show();
+
+                    permission = false;
+
+                }
+                return;
+            }
+        }
     }
 
 

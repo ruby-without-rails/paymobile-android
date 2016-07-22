@@ -12,8 +12,7 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."
-    </string>
+    <string name="permission_rationale">Contacts permissions are needed for providing email completions.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -31,12 +30,11 @@
     <string name="remove_user">Remove user</string>
     <string name="new_pass">New Password</string>
     <string name="title_activity_profile">Firebase</string>
-
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
     <string name="hint_name">Fullname</string>
-    <string name="btn_login">LOGIN</string>
-    <string name="btn_link_to_register">Not a member? Get registered in Firebase now!</string>
+    <string name="btn_login">Login</string>
+    <string name="btn_link_to_register">Not a member? Get registered in Carhollics now!</string>
     <string name="btn_link_to_login">Already registered. Login Me!</string>
     <string name="title_activity_reset_password">ResetPasswordActivity</string>
     <string name="btn_forgot_password">Forgot your password?</string>
@@ -62,13 +60,7 @@
     <string name="nav_item_vehicles">Vehicles</string>
     <string name="nav_item_checkouts">Checkouts</string>
 
-    <!-- navigation drawer item labels  -->
-    <string-array name="nav_drawer_labels">
-        <item>@string/nav_item_services</item>
-        <item>@string/nav_item_address</item>
-        <item>@string/nav_item_vehicles</item>
-        <item>@string/nav_item_checkouts</item>
-    </string-array>
+
 
     <string name="title_vehicles">Vehicle</string>
     <string name="title_services">Service</string>
@@ -80,11 +72,63 @@
     <string name="about">About</string>
 
 
-    <string name="lbl_you_are_at">YOU ARE AT</string>
+    <string name="lbl_you_are_at">You are at</string>
     <string name="btn_get_location">Get My Location</string>
     <string name="btn_start_location_updates">Start Location Updates</string>
     <string name="btn_stop_location_updates">Stop Location Updates</string>
     <string name="map">Map</string>
+    <string name="click_on_back_button">Click on Back Button</string>
+    <string name="click_on_settings_button">Click on Settings Button</string>
+    <string name="click_on_vehicle_button">Click on Car Button</string>
+    <string name="click_on_search_button">Click on Search Button</string>
+    <string name="click_on_developer_button" >Click on Contact Developer Button</string>
+    <string name="click_on_personalData_button" >Click on Personal Data Button</string>
+    <string name="version_of_app">Version of App:</string>
+    <string name="click_on_map_button">Click on Map Button</string>
+    <string name="keyUp_back_button">KeyUp Back Button Pressed</string>
+    <string name="keyUp_home_button">KeyUp Home Button Pressed</string>
+    <string name="keyUp_search_button">KeyUp Search Button Pressed</string>
+    <string name="enter_email_address">Enter email address!</string>
+    <string name="enter_password">Enter password!</string>
+    <string name="could_not_authorize" >Could not authorize the Customer, contact the system developer</string>
+    <string name="connected_on_internet">Connected to Internet</string>
+    <string name="not_connected_on_internet">Not connected to internet</string>
+    <string name="auth_error" >There was a failed authentication.</string>
+    <string name="register">Register</string>
+    <string name="click_on_cart_button" >Click on Cart Button</string>
+
+    <!-- navigation drawer item labels  -->
+    <string-array name="nav_drawer_labels">
+        <item>@string/nav_item_services</item>
+        <item>@string/nav_item_address</item>
+        <item>@string/nav_item_vehicles</item>
+        <item>@string/nav_item_checkouts</item>
+    </string-array>
+    <string name="checkout_sucess">Order successfully Requested! We will contact you to confirm scheduling.</string>
+    <string name="checkout_failed">Could not complete your request, try again later.</string>
+    <string name="cart_is_empty">Empty Cart</string>
+    <string name="service_details">Details of Service</string>
+    <string name="update_email_sucess">Email address has been updated. Please enter the new email id!</string>
+    <string name="update_email_failed">Failed to update Email!</string>
+    <string name="password_update_sucess">Password Updated, Enter new Password!</string>
+    <string name="password_update_failed">Failed to update the password!</string>
+    <string name="reset_email_sucess">Email password reset was sent!</string>
+    <string name="reset_email_failed">Failed to send reset email!</string>
+    <string name="delete_account_success">Your profile has been deleted :( Create an account now!</string>
+    <string name="delete_account_failed">Failed to delete your account!</string>
+    <string name="no_email_client_installed">There are no email clients installed.</string>
+    <string name="permission_granted">Permissions Granted!</string>
+    <string name="permission_accepted">Accepted the permission.</string>
+    <string name="permission_not_accepted">Not accepted permission.</string>
+    <string name="location_changed">Location changed!</string>
+    <string name="could_get_location">(Couldn\'t get the location. Make sure location is enabled on the device)</string>
+    <string name="periodic_location_update_started">Periodic location updates started!</string>
+    <string name="periodic_location_update_stoped">Periodic location updates stopped!</string>
+    <string name="device_is_not_supported">This device is not supported.</string>
+    <string name="send_mail_to_developer">Send an email to the developer ...</string>
+    <string name="service_selected">Service Selected</string>
+    <string name="remove">Removed</string>
+    <string name="not_authorized_yet">Still No Execution Permission.</string>
 </resources>
 
 

@@ -5,7 +5,7 @@
     tools:context=".MainActivity">
 
     <item
-        android:id="@+id/action_car"
+        android:id="@+id/action_vehicle"
         android:title="@string/action_vehicle"
         android:orderInCategory="100"
         android:icon="@drawable/ic_action_car"

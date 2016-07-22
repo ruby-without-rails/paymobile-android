@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.KeyEvent;
@@ -51,7 +52,7 @@ public class ServicoDetailActivity extends BaseActivity{
 
         doFillData();
 
-        doCheckConnection();
+        doCheckConnection(context);
 
     }
 
@@ -60,7 +61,7 @@ public class ServicoDetailActivity extends BaseActivity{
 
         super.doConfigure();
 
-        actionBar.setSubtitle("Detalhes do Serviço");
+        actionBar.setSubtitle(getString(R.string.service_details));
 
     }
 
@@ -119,13 +120,9 @@ public class ServicoDetailActivity extends BaseActivity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        super.onOptionsItemSelected(item);
-
         int id = item.getItemId();
 
         if(id == android.R.id.home){
-
-            Toast.makeText(context,"Click on Back Button ",Toast.LENGTH_SHORT).show();
 
             finish();
 
@@ -133,10 +130,6 @@ public class ServicoDetailActivity extends BaseActivity{
 
         }
 
-        if (id == R.id.action_settings) {
-
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -147,8 +140,6 @@ public class ServicoDetailActivity extends BaseActivity{
         super.onKeyUp(keyCode,event);
 
         if(event.getKeyCode() == KeyEvent.KEYCODE_BACK){
-
-
 
         }
 
@@ -165,53 +156,6 @@ public class ServicoDetailActivity extends BaseActivity{
         return true;
     }
 
-
-    // Method to manually check connection status
-    private boolean doCheckConnection() {
-
-        boolean isConnected = ConnectivityReceiver.isConnected(context);
-
-        return isConnected;
-    }
-
-    // Showing the status in Snackbar
-    private void showSnack(boolean isConnected) {
-
-        String message;
-
-        int color;
-
-        if (isConnected) {
-            message = "Connected to Internet";
-            color = Color.GREEN;
-        } else {
-            message = "Not connected to internet";
-            color = Color.RED;
-        }
-
-        Snackbar snackbar = Snackbar
-                .make(findViewById(R.id.coordlayoutservicodetail), message, Snackbar.LENGTH_LONG);
-
-        View sbView = snackbar.getView();
-
-        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
-
-        textView.setTextColor(color);
-
-        snackbar.show();
-
-    }
-
-    @Override
-    protected void onResume() {
-
-        super.onResume();
-
-        // register connection status listener
-        this.setConnectivityListener(this);
-
-    }
-
     /**
      * Callback will be triggered when there is change in
      * network connection
@@ -219,15 +163,8 @@ public class ServicoDetailActivity extends BaseActivity{
     @Override
     public void onNetworkConnectionChanged(boolean isConnected) {
 
-        showSnack(isConnected);
+        showSnack((CoordinatorLayout) findViewById(R.id.coordlayoutservicodetail),isConnected);
     }
-
-
-    public void setConnectivityListener(ConnectivityReceiver.ConnectivityReceiverListener listener) {
-
-        ConnectivityReceiver.connectivityReceiverListener = listener;
-    }
-
 
 
 }

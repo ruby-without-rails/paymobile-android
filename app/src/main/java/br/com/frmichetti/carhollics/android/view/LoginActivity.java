@@ -123,14 +123,14 @@ public class LoginActivity extends AppCompatActivity implements MyPattern, Conne
 
                 if (TextUtils.isEmpty(email)) {
 
-                    Toast.makeText(context, "Enter email address!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, getString(R.string.enter_email_address) , Toast.LENGTH_SHORT).show();
 
                     return;
                 }
 
                 if (TextUtils.isEmpty(password)) {
 
-                    Toast.makeText(context, "Enter password!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, getString(R.string.enter_password) , Toast.LENGTH_SHORT).show();
 
                     return;
                 }
@@ -182,7 +182,7 @@ public class LoginActivity extends AppCompatActivity implements MyPattern, Conne
 
                                                 }else{
 
-                                                    Toast.makeText(context,"Não foi Possivel autorizar o Cliente, contate o desenvolvedor do sistema",Toast.LENGTH_LONG).show();
+                                                    Toast.makeText(context, getString(R.string.could_not_authorize) ,Toast.LENGTH_LONG).show();
                                                 }
                                             }
                                         });
@@ -195,6 +195,7 @@ public class LoginActivity extends AppCompatActivity implements MyPattern, Conne
                 }else{
 
                     showSnack(doCheckConnection());
+
                 }
 
                 }
@@ -216,7 +217,6 @@ public class LoginActivity extends AppCompatActivity implements MyPattern, Conne
 
         actionBar.setDisplayHomeAsUpEnabled(false);
 
-        actionBar.setDisplayUseLogoEnabled(true);
 
     }
 
@@ -236,11 +236,17 @@ public class LoginActivity extends AppCompatActivity implements MyPattern, Conne
         int color;
 
         if (isConnected) {
-            message = "Connected to Internet";
+
+            message = getString(R.string.connected_on_internet);
+
             color = Color.GREEN;
+
         } else {
-            message = "Not connected to internet";
+
+            message = getString(R.string.not_connected_on_internet);
+
             color = Color.RED;
+
         }
 
         Snackbar snackbar = Snackbar

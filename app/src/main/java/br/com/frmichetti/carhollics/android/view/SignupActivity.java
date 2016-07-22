@@ -137,21 +137,21 @@ public class SignupActivity extends AppCompatActivity implements MyPattern,Conne
 
                 if (TextUtils.isEmpty(email)) {
 
-                    Toast.makeText(context, "Digite um Endereço de Email !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, getString(R.string.enter_email_address) , Toast.LENGTH_SHORT).show();
 
                     return;
                 }
 
                 if (TextUtils.isEmpty(password)) {
 
-                    Toast.makeText(context, "Digite uma Senha !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, getString(R.string.enter_password) , Toast.LENGTH_SHORT).show();
 
                     return;
                 }
 
                 if (password.length() < 6) {
 
-                    Toast.makeText(context, "Senha muito curta, Digite pelo menos 6 caracteres!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, getString(R.string.minimum_password) , Toast.LENGTH_SHORT).show();
 
                     return;
                 }
@@ -167,8 +167,6 @@ public class SignupActivity extends AppCompatActivity implements MyPattern,Conne
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
 
-                                    Toast.makeText(context, "Usuário foi Registrado ? " + task.isSuccessful(), Toast.LENGTH_LONG).show();
-
                                     progressBar.setVisibility(View.GONE);
 
                                     // If sign in fails, display a message to the user. If sign in succeeds
@@ -176,13 +174,12 @@ public class SignupActivity extends AppCompatActivity implements MyPattern,Conne
                                     // signed in user can be handled in the listener.
                                     if (!task.isSuccessful()) {
 
-                                        Toast.makeText(context, "Ocorreu uma Falha na Autenticação." + task.getException(),
+                                        Toast.makeText(context, getString(R.string.auth_error) + task.getException(),
                                                 Toast.LENGTH_LONG).show();
 
-                                        Log.d("DEBUG-LOGIN","Ocorreu uma Falha na Autenticação." + task.getException().toString());
+                                        Log.d("DEBUG-LOGIN",getString(R.string.auth_error) + task.getException().toString());
 
                                     } else {
-
 
                                         TaskCreateUsuario taskCreateUsuario = new TaskCreateUsuario(context, new AsyncResponse<Usuario>() {
 
@@ -238,7 +235,7 @@ public class SignupActivity extends AppCompatActivity implements MyPattern,Conne
 
         actionBar.setTitle(R.string.app_name);
 
-        actionBar.setSubtitle("Registre-se");
+        actionBar.setSubtitle(R.string.register);
 
     }
 
@@ -248,7 +245,9 @@ public class SignupActivity extends AppCompatActivity implements MyPattern,Conne
         int id = item.getItemId();
 
         if(id == android.R.id.home){
+
             finish();
+
         }
 
         return super.onOptionsItemSelected(item);
@@ -270,10 +269,15 @@ public class SignupActivity extends AppCompatActivity implements MyPattern,Conne
         int color;
 
         if (isConnected) {
-            message = "Connected to Internet";
+
+            message = getString(R.string.connected_on_internet);
+
             color = Color.GREEN;
+
         } else {
-            message = "Not connected to internet";
+
+            message = getString(R.string.not_connected_on_internet);
+
             color = Color.RED;
         }
 
