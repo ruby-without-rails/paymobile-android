@@ -1,3 +1,10 @@
+/**
+ *
+ * @author Felipe Rodrigues Michetti
+ * @see http://portfolio-frmichetti.rhcloud.com
+ * @see http://www.codecode.com.br
+ * @see mailto:frmichetti@gmail.com
+ * */
 package br.com.frmichetti.carhollics.android.view;
 
 import android.content.Context;
@@ -13,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.List;
 
 import br.com.frmichetti.carhollics.android.R;
@@ -53,6 +61,12 @@ public class ServicosFragment extends Fragment {
 
         super.onCreate(savedInstanceState);
 
+        if(savedInstanceState != null){
+
+            servicos = (List<Servico>) savedInstanceState.getSerializable("Servicos");
+
+        }
+
         doConfigure();
 
         doLoadExtras();
@@ -73,6 +87,18 @@ public class ServicosFragment extends Fragment {
         }
 
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+
+        super.onSaveInstanceState(outState);
+
+        outState.putSerializable("Servicos", (Serializable) servicos);
+
+        Log.d("DEBUG - Save State","Salvando Estado");
+
+    }
+
 
     private void doConfigure() {
 
@@ -97,6 +123,13 @@ public class ServicosFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
 
+
+        if(savedInstanceState != null){
+
+            servicos = (List<Servico>) savedInstanceState.getSerializable("Servicos");
+
+        }
+
         View rootView = inflater.inflate(R.layout.fragment_servicos, container, false);
 
         doCastComponents(rootView);
@@ -108,6 +141,8 @@ public class ServicosFragment extends Fragment {
         // Inflate the layout for this fragment
         return rootView;
     }
+
+
 
 
     private void doCastComponents(View rootView) {
@@ -145,20 +180,26 @@ public class ServicosFragment extends Fragment {
 
     private void doLoadServicos(){
 
-        Log.d("INFO","Load Servicos from webservice");
+        if(servicos == null){
 
-        TaskLoadServicos taskLoadServices = new TaskLoadServicos(context, new AsyncResponse<List<Servico>>() {
+            Log.d("INFO","Load Servicos from webservice");
 
-            @Override
-            public void processFinish(List<Servico> output) {
+            TaskLoadServicos taskLoadServices = new TaskLoadServicos(context, new AsyncResponse<List<Servico>>() {
 
-                servicos = output;
+                @Override
+                public void processFinish(List<Servico> output) {
 
-                doFillData(servicos);
-            }
-        });
+                    servicos = output;
 
-        taskLoadServices.execute();
+                    doFillData(servicos);
+                }
+            });
+
+            taskLoadServices.execute();
+
+        }
+
+
     }
 
     private void doFillData(List<Servico> servicos){

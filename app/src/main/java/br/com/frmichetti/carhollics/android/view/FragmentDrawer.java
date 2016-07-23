@@ -1,3 +1,10 @@
+/**
+ *
+ * @author Felipe Rodrigues Michetti
+ * @see http://portfolio-frmichetti.rhcloud.com
+ * @see http://www.codecode.com.br
+ * @see mailto:frmichetti@gmail.com
+ * */
 package br.com.frmichetti.carhollics.android.view;
 import android.content.Context;
 import android.os.Bundle;
@@ -43,6 +50,7 @@ public class FragmentDrawer extends Fragment {
     }
 
     public static List<NavDrawerItem> getData() {
+
         List<NavDrawerItem> data = new ArrayList<NavDrawerItem>();
 
 
@@ -115,6 +123,7 @@ public class FragmentDrawer extends Fragment {
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerLayout.post(new Runnable() {
+
             @Override
             public void run() {
                 mDrawerToggle.syncState();
@@ -132,6 +141,7 @@ public class FragmentDrawer extends Fragment {
     static class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
 
         private GestureDetector gestureDetector;
+
         private ClickListener clickListener;
 
         public RecyclerTouchListener(Context context, final RecyclerView recyclerView, final ClickListener clickListener) {

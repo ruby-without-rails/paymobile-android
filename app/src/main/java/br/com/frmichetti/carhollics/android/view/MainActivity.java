@@ -1,3 +1,10 @@
+/**
+ *
+ * @author Felipe Rodrigues Michetti
+ * @see http://portfolio-frmichetti.rhcloud.com
+ * @see http://www.codecode.com.br
+ * @see mailto:frmichetti@gmail.com
+ * */
 package br.com.frmichetti.carhollics.android.view;
 
 import android.Manifest;
@@ -14,6 +21,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,7 +29,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import br.com.frmichetti.carhollics.android.R;
+import br.com.frmichetti.carhollics.android.jobs.DownloadImageTask;
 import br.com.frmichetti.carhollics.json.model.Carrinho;
 import br.com.frmichetti.carhollics.json.model.Servico;
 import br.com.frmichetti.carhollics.json.model.Veiculo;
@@ -49,7 +61,6 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
         doCastComponents();
 
     }
-
 
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
@@ -83,24 +94,43 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
 
     //TODO FIXME show info personal data
     private void doShowInfo() {
-/*
+        if(user != null){
+
+            Log.i("INFO - USER",((user.getDisplayName() != null) ? user.getDisplayName() : "" ));
+
+            Log.i("INFO - USER",((user.getEmail() != null ) ? user.getEmail() : ""));
+
+            Log.i("INFO - USER",((user.getProviderId() != null) ? user.getProviderId() : ""));
+
+            Log.i("INFO - USER",((user.getPhotoUrl() != null) ? user.getPhotoUrl().toString() : ""));
+        }
+
+
         if(user.getPhotoUrl() != null){
+
             try {
 
                 new DownloadImageTask(imageView).execute(new URL(user.getPhotoUrl().toString()));
 
             } catch (MalformedURLException e) {
 
-                e.printStackTrace();
+                Log.d("DEBUG", "Não foi possivel alcançar a URL " + e);
 
+            } catch (NullPointerException e){
+
+                Log.d("DEBUG","Não foi possível obter a foto " + e);
             }
 
 
         }
-*/
+
+        if(user.getEmail() != null){
+
+            textView.append(user.getEmail());
+
+        }
 
 
-        textView.setText(user.getDisplayName());
     }
 
     @Override
@@ -132,14 +162,12 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
 
         if(id == R.id.action_cart){
 
-            Toast.makeText(context, "Carrinho foi selecionado !", Toast.LENGTH_SHORT).show();
-
-                startActivity(new Intent(context,CartActivity.class)
-                        .putExtra("Carrinho",carrinho)
-                        .putExtra("Cliente",cliente)
-                        .putExtra("Veiculo",veiculoSelecionado)
-                        .putExtra("Servico",servicoSelecionado)
-                );
+            startActivity(new Intent(context,CartActivity.class)
+                    .putExtra("Carrinho",carrinho)
+                    .putExtra("Cliente",cliente)
+                    .putExtra("Veiculo",veiculoSelecionado)
+                    .putExtra("Servico",servicoSelecionado)
+            );
 
         }
 
@@ -204,7 +232,6 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
 
         if(permission){
 
-            //TODO FIXME Verificar Permissoes antes
             startActivity(new Intent(context,MapActivity.class));
         }
 

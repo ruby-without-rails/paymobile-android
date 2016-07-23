@@ -1,3 +1,10 @@
+/**
+ *
+ * @author Felipe Rodrigues Michetti
+ * @see http://portfolio-frmichetti.rhcloud.com
+ * @see http://www.codecode.com.br
+ * @see mailto:frmichetti@gmail.com
+ * */
 package br.com.frmichetti.carhollics.android.view;
 
 import android.content.Context;
@@ -15,6 +22,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.List;
 
 import br.com.frmichetti.carhollics.android.R;
@@ -57,10 +65,22 @@ public class VeiculosFragment extends Fragment {
 
         super.onCreate(savedInstanceState);
 
+        if(savedInstanceState != null){
+            veiculos = (List<Veiculo>) savedInstanceState.getSerializable("Veiculos");
+        }
+
         doConfigure();
 
         doLoadExtras();
 
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+
+        super.onSaveInstanceState(outState);
+
+        outState.putSerializable("Veiculos", (Serializable) veiculos);
     }
 
     private void doLoadExtras() {
@@ -84,6 +104,11 @@ public class VeiculosFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        if(savedInstanceState != null){
+            veiculos = (List<Veiculo>) savedInstanceState.getSerializable("Veiculos");
+        }
+
 
         View rootView = inflater.inflate(R.layout.fragment_veiculos, container, false);
 
@@ -112,13 +137,6 @@ public class VeiculosFragment extends Fragment {
 
                 Toast.makeText(context, "Veículo Selecionado " + veiculoSelecionado, Toast.LENGTH_SHORT).show();
 
-            /*    startActivity(new Intent(context, ServicoDetailActivity.class)
-                        .putExtra("Carrinho",carrinho)
-                        .putExtra("Cliente",cliente)
-                        .putExtra("Veiculo",veiculoSelecionado)
-                        .putExtra("Servico",servicoSelecionado)
-                );*/
-
             }
         });
 
@@ -126,6 +144,7 @@ public class VeiculosFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
+
                 Toast.makeText(context,"Implementar",Toast.LENGTH_SHORT).show();
             }
         });
@@ -145,20 +164,25 @@ public class VeiculosFragment extends Fragment {
 
     public void doLoadVeiculos(){
 
-        Log.d("INFO","Load Servicos from webservice");
+        if(veiculos == null){
 
-        TaskLoadVeiculos taskLoadVeiculos = new TaskLoadVeiculos(context, new AsyncResponse<List<Veiculo>>() {
+            Log.d("INFO","Load Servicos from webservice");
 
-            @Override
-            public void processFinish(List<Veiculo> output) {
+            TaskLoadVeiculos taskLoadVeiculos = new TaskLoadVeiculos(context, new AsyncResponse<List<Veiculo>>() {
 
-                veiculos = output;
+                @Override
+                public void processFinish(List<Veiculo> output) {
 
-                doFillData(veiculos);
-            }
-        });
+                    veiculos = output;
 
-        taskLoadVeiculos.execute();
+                    doFillData(veiculos);
+                }
+            });
+
+            taskLoadVeiculos.execute();
+        }
+
+
     }
 
     private void doFillData(List<Veiculo> veiculos){

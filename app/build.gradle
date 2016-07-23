@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 
+
 android {
+
     compileSdkVersion 24
     buildToolsVersion "23.0.3"
 
@@ -8,9 +10,8 @@ android {
         applicationId "br.com.frmichetti.carhollics.android"
         minSdkVersion 11
         targetSdkVersion 24
-        versionCode 11
-        versionName "0.1.9"
-
+        versionCode 12
+        versionName "0.2.0"
         // Enabling multidex support.
         multiDexEnabled true
     }
@@ -30,6 +31,7 @@ android {
     dexOptions {
         javaMaxHeapSize "4g"
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_6
         targetCompatibility JavaVersion.VERSION_1_6
@@ -48,6 +50,7 @@ dependencies {
     compile 'com.google.firebase:firebase-auth:9.0.2'
     compile 'com.google.firebase:firebase-messaging:9.0.2'
     compile 'com.android.support:multidex:1.0.1'
-    compile 'br.com.frmichetti:carhollics.json:0.0.6'
+    compile 'br.com.frmichetti:carhollics.json:0.0.7'
+
 }
 apply plugin: 'com.google.gms.google-services'

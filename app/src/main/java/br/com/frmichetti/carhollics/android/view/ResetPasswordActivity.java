@@ -1,3 +1,10 @@
+/**
+ *
+ * @author Felipe Rodrigues Michetti
+ * @see http://portfolio-frmichetti.rhcloud.com
+ * @see http://www.codecode.com.br
+ * @see mailto:frmichetti@gmail.com
+ * */
 package br.com.frmichetti.carhollics.android.view;
 
 import android.content.Context;
@@ -25,7 +32,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.util.ConnectivityReceiver;
 
-public class ResetPasswordActivity extends AppCompatActivity implements MyPattern,ConnectivityReceiver.ConnectivityReceiverListener  {
+public class ResetPasswordActivity extends AppCompatActivity implements MyPattern,
+        ConnectivityReceiver.ConnectivityReceiverListener  {
 
     private ActionBar actionBar;
 
@@ -102,7 +110,7 @@ public class ResetPasswordActivity extends AppCompatActivity implements MyPatter
                 String email = inputEmail.getText().toString().trim();
 
                 if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(getApplication(), "Enter your registered email id", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, getString(R.string.enter_email_address_id), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -117,9 +125,9 @@ public class ResetPasswordActivity extends AppCompatActivity implements MyPatter
                                 public void onComplete(@NonNull Task<Void> task) {
 
                                     if (task.isSuccessful()) {
-                                        Toast.makeText(ResetPasswordActivity.this, "We have sent you instructions to reset your password!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(context, getString(R.string.reset_password_success), Toast.LENGTH_SHORT).show();
                                     } else {
-                                        Toast.makeText(ResetPasswordActivity.this, "Failed to send reset email!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(context, getString(R.string.reset_password_failed), Toast.LENGTH_SHORT).show();
                                     }
 
                                     progressBar.setVisibility(View.GONE);

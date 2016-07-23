@@ -1,3 +1,10 @@
+/**
+ *
+ * @author Felipe Rodrigues Michetti
+ * @see http://portfolio-frmichetti.rhcloud.com
+ * @see http://www.codecode.com.br
+ * @see mailto:frmichetti@gmail.com
+ * */
 package br.com.frmichetti.carhollics.android.view;
 
 import android.content.Context;
@@ -11,9 +18,6 @@ import android.view.ViewGroup;
 
 import br.com.frmichetti.carhollics.android.util.ConnectivityReceiver;
 
-/**
- * Created by Felipe on 10/07/2016.
- */
 public abstract class BaseFragment extends Fragment implements MyPattern, ConnectivityReceiver.ConnectivityReceiverListener {
 
     private Context context;

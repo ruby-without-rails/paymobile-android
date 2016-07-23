@@ -1,3 +1,10 @@
+/**
+ *
+ * @author Felipe Rodrigues Michetti
+ * @see http://portfolio-frmichetti.rhcloud.com
+ * @see http://www.codecode.com.br
+ * @see mailto:frmichetti@gmail.com
+ * */
 package br.com.frmichetti.carhollics.android.jobs;
 
 import android.app.ProgressDialog;
@@ -5,27 +12,17 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-
 import java.io.IOException;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.dao.HTTP;
 import br.com.frmichetti.carhollics.json.model.Veiculo;
 
-
-/**
- * Created by Felipe on 05/07/2016.
- */
 public class TaskCreateVeiculo extends AsyncTask<Veiculo,String,Veiculo> {
 
     public AsyncResponse delegate = null;
 
     private String url ;
-
-    private Gson in,out;
 
     private java.lang.reflect.Type collectionType;
 
@@ -60,17 +57,9 @@ public class TaskCreateVeiculo extends AsyncTask<Veiculo,String,Veiculo> {
 
         super.onPreExecute();
 
-        url = context.getResources().getString(R.string.remote_server) + "/services/veiculo/save";
+        url = context.getResources().getString(R.string.local_server) + "/services/veiculo/save";
 
         Log.d("DEBUG-TASK","server config -> " + url);
-
-        in = new GsonBuilder()
-                .excludeFieldsWithoutExposeAnnotation()
-                .setPrettyPrinting()
-                .setDateFormat("dd/MM/yyyy").create();
-
-        collectionType = new TypeToken<Veiculo>() {
-        }.getType();
 
         dialog = new ProgressDialog(context);
 
@@ -89,18 +78,11 @@ public class TaskCreateVeiculo extends AsyncTask<Veiculo,String,Veiculo> {
     @Override
     protected Veiculo doInBackground(Veiculo ... params) {
 
-        out = new GsonBuilder()
-                .setPrettyPrinting()
-                .setDateFormat("dd/MM/yyyy").create();
-
-        collectionType = new TypeToken<Veiculo>() {
-        }.getType();
-
         try {
 
             publishProgress("Enviando Requisição para o Servidor");
 
-            json = HTTP.sendPost(url,out.toJson(params[0]));
+            json = HTTP.sendPost(url,params[0].toGson());
 
         } catch (IOException e) {
 
@@ -111,7 +93,7 @@ public class TaskCreateVeiculo extends AsyncTask<Veiculo,String,Veiculo> {
 
         publishProgress("Item recebido !");
 
-        Veiculo v = in.fromJson(json, collectionType);
+        Veiculo v = Veiculo.fromGson(json);
 
         return v;
 

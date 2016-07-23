@@ -1,3 +1,10 @@
+/**
+ *
+ * @author Felipe Rodrigues Michetti
+ * @see http://portfolio-frmichetti.rhcloud.com
+ * @see http://www.codecode.com.br
+ * @see mailto:frmichetti@gmail.com
+ * */
 package br.com.frmichetti.carhollics.android.view;
 
 import android.content.Context;
@@ -32,11 +39,8 @@ import br.com.frmichetti.carhollics.json.model.Cliente;
 import br.com.frmichetti.carhollics.json.model.Servico;
 import br.com.frmichetti.carhollics.json.model.Veiculo;
 
-
-/**
- * Created by Felipe on 08/07/2016.
- */
-public abstract class BaseActivity extends AppCompatActivity implements MyPattern, ConnectivityReceiver.ConnectivityReceiverListener{
+public abstract class BaseActivity extends AppCompatActivity implements MyPattern,
+        ConnectivityReceiver.ConnectivityReceiverListener{
 
     protected ActionBar actionBar;
 

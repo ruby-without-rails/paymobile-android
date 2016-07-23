@@ -108,4 +108,10 @@
     <string name="remove">Removido</string>
     <string name="periodic_location_update_stoped">Atualizações Periódicas de Localização foi Parado!</string>
     <string name="periodic_location_update_started">Atualizações Periódicas de Localização foi Iniciado!</string>
+    <string name="processing">Processando</string>
+    <string name="process_finish">Tarefa Finalizada!</string>
+    <string name="enter_email_address_id">Digite seu e-mail cadastrado.</string>
+    <string name="reset_password_failed">Falha ao enviar email de reset!</string>
+    <string name="reset_password_success">Enviamos instruções para redefinir sua senha!</string>
+    <string name="repeat_register_operation">Repita a Operação de Registro</string>
 </resources>

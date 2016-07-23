@@ -1,3 +1,10 @@
+/**
+ *
+ * @author Felipe Rodrigues Michetti
+ * @see http://portfolio-frmichetti.rhcloud.com
+ * @see http://www.codecode.com.br
+ * @see mailto:frmichetti@gmail.com
+ * */
 package br.com.frmichetti.carhollics.android.view;
 
 import android.content.Context;
@@ -13,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.List;
 
 import br.com.frmichetti.carhollics.android.R;
@@ -21,10 +29,6 @@ import br.com.frmichetti.carhollics.android.jobs.TaskLoadPedidos;
 import br.com.frmichetti.carhollics.json.model.Cliente;
 import br.com.frmichetti.carhollics.json.model.Pedido;
 
-
-/**
- * Created by Felipe on 10/07/2016.
- */
 public class PedidosFragment extends Fragment {
 
     private Context context;
@@ -49,6 +53,10 @@ public class PedidosFragment extends Fragment {
 
         super.onCreate(savedInstanceState);
 
+        if(savedInstanceState != null){
+            pedidos = (List<Pedido>) savedInstanceState.getSerializable("Pedidos");
+        }
+
         doConfigure();
 
     }
@@ -62,8 +70,22 @@ public class PedidosFragment extends Fragment {
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+
+        super.onSaveInstanceState(outState);
+
+        outState.putSerializable("Pedidos", (Serializable) pedidos);
+
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        if(savedInstanceState != null){
+            pedidos = (List<Pedido>) savedInstanceState.getSerializable("Pedidos");
+        }
+
         View rootView = inflater.inflate(R.layout.fragment_pedidos, container, false);
 
         doCastComponents(rootView);
@@ -92,20 +114,24 @@ public class PedidosFragment extends Fragment {
 
     private void doLoadPedidos() {
 
-        Log.d("INFO","Load Pedidos from webservice");
+        if(pedidos == null){
+            Log.d("INFO","Load Pedidos from webservice");
 
-        TaskLoadPedidos taskLoadPedidos = new TaskLoadPedidos(context, new AsyncResponse<List<Pedido>>() {
+            TaskLoadPedidos taskLoadPedidos = new TaskLoadPedidos(context, new AsyncResponse<List<Pedido>>() {
 
-            @Override
-            public void processFinish(List<Pedido> output) {
+                @Override
+                public void processFinish(List<Pedido> output) {
 
-                pedidos = output;
+                    pedidos = output;
 
-                doFillData(pedidos);
-            }
-        });
+                    doFillData(pedidos);
+                }
+            });
 
-        taskLoadPedidos.execute(cliente);
+            taskLoadPedidos.execute(cliente);
+        }
+
+
 
 
     }

@@ -1,3 +1,10 @@
+/**
+ *
+ * @author Felipe Rodrigues Michetti
+ * @see http://portfolio-frmichetti.rhcloud.com
+ * @see http://www.codecode.com.br
+ * @see mailto:frmichetti@gmail.com
+ * */
 package br.com.frmichetti.carhollics.android.jobs;
 
 import android.app.ProgressDialog;
@@ -5,34 +12,21 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-
 import java.io.IOException;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.dao.HTTP;
 import br.com.frmichetti.carhollics.json.model.Cliente;
-import br.com.frmichetti.carhollics.json.model.Usuario;
 
-
-/**
- * Created by Felipe on 05/07/2016.
- */
 public class TaskCreateCliente extends AsyncTask<Cliente,String,Cliente> {
 
     public AsyncResponse delegate = null;
 
     private String url;
 
-    private Gson in,out;
-
     private java.lang.reflect.Type collectionType;
 
     private String json;
-
-    private Usuario usuario;
 
     private ProgressDialog dialog;
 
@@ -42,7 +36,6 @@ public class TaskCreateCliente extends AsyncTask<Cliente,String,Cliente> {
     private TaskCreateCliente(){
 
         Log.d("DEBUG-TASK","create TaskCreateCliente");
-
 
     }
 
@@ -61,17 +54,9 @@ public class TaskCreateCliente extends AsyncTask<Cliente,String,Cliente> {
 
         super.onPreExecute();
 
-        url = context.getResources().getString(R.string.remote_server) + "/services/cliente/save";
+        url = context.getResources().getString(R.string.local_server) + "/services/cliente/save";
 
         Log.d("DEBUG-TASK","server config -> " + url);
-
-        in = new GsonBuilder()
-                .excludeFieldsWithoutExposeAnnotation()
-                .setPrettyPrinting()
-                .setDateFormat("dd/MM/yyyy").create();
-
-        collectionType = new TypeToken<Cliente>() {
-        }.getType();
 
         dialog = new ProgressDialog(context);
 
@@ -90,19 +75,11 @@ public class TaskCreateCliente extends AsyncTask<Cliente,String,Cliente> {
     @Override
     protected Cliente doInBackground(Cliente ... params) {
 
-        out = new GsonBuilder()
-                .serializeNulls()
-                .setPrettyPrinting()
-                .setDateFormat("dd/MM/yyyy").create();
-
-        collectionType = new TypeToken<Cliente>() {
-        }.getType();
-
         try {
 
             publishProgress("Enviando Requisição para o Servidor");
 
-            json = HTTP.sendPost(url,out.toJson(params[0]));
+            json = HTTP.sendPost(url,params[0].toGson());
 
         } catch (IOException e) {
 
@@ -113,7 +90,7 @@ public class TaskCreateCliente extends AsyncTask<Cliente,String,Cliente> {
 
         publishProgress("Item recebido !");
 
-        Cliente c = in.fromJson(json, collectionType);
+        Cliente c = Cliente.fromGson(json);
 
         return c;
 

@@ -2,6 +2,7 @@
  *
  * @author Felipe Rodrigues Michetti
  * @see http://portfolio-frmichetti.rhcloud.com
+ * @see http://www.codecode.com.br
  * @see mailto:frmichetti@gmail.com
  * */
 package br.com.frmichetti.carhollics.android.jobs;
@@ -61,7 +62,7 @@ public class TaskLoadVeiculos extends AsyncTask<Void,String,List<Veiculo>> {
 
         super.onPreExecute();
 
-        url = context.getResources().getString(R.string.remote_server) + "/services/veiculo/list";
+        url = context.getResources().getString(R.string.local_server) + "/services/veiculo/list";
 
         Log.d("DEBUG-TASK","server config -> " + url);
 

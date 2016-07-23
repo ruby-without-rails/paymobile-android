@@ -2,6 +2,7 @@
  *
  * @author Felipe Rodrigues Michetti
  * @see http://portfolio-frmichetti.rhcloud.com
+ * @see http://www.codecode.com.br
  * @see mailto:frmichetti@gmail.com
  * */
 package br.com.frmichetti.carhollics.android.jobs;
@@ -11,10 +12,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-
 import java.io.IOException;
 
 import br.com.frmichetti.carhollics.android.R;
@@ -22,7 +19,7 @@ import br.com.frmichetti.carhollics.android.dao.HTTP;
 import br.com.frmichetti.carhollics.json.model.Cliente;
 import br.com.frmichetti.carhollics.json.model.Usuario;
 
-
+@Deprecated
 public class TaskLogin extends AsyncTask<Usuario,String, Cliente> {
 
     public AsyncResponse delegate = null;
@@ -34,8 +31,6 @@ public class TaskLogin extends AsyncTask<Usuario,String, Cliente> {
     private String json;
 
     private Cliente cliente;
-
-    private Gson in,out ;
 
     private java.lang.reflect.Type collectionType;
 
@@ -54,7 +49,6 @@ public class TaskLogin extends AsyncTask<Usuario,String, Cliente> {
 
         Log.d("DEBUG-TASK","create TaskLogin");
 
-
     }
 
 
@@ -63,18 +57,9 @@ public class TaskLogin extends AsyncTask<Usuario,String, Cliente> {
 
         super.onPreExecute();
 
-        url = context.getResources().getString(R.string.remote_server) + "/services/usuario/login";
+        url = context.getResources().getString(R.string.local_server) + "/services/usuario/login";
 
         Log.d("DEBUG-TASK","server config -> " + url);
-
-        out = new Gson();
-
-        in = new GsonBuilder()
-                .excludeFieldsWithoutExposeAnnotation()
-                .setPrettyPrinting()
-                .setDateFormat("dd/MM/yyyy").create();
-
-        collectionType = new TypeToken<Cliente>() {}.getType();
 
         dialog = new ProgressDialog(context);
 
@@ -98,21 +83,22 @@ public class TaskLogin extends AsyncTask<Usuario,String, Cliente> {
 
             publishProgress("Enviando Objeto para o Servidor");
 
-            json = HTTP.sendPost(url, out.toJson(params[0]));
-
+            json = HTTP.sendPost(url, params[0].toGson());
 
             publishProgress("Objeto recebido");
 
-            if (in==null || in.equals("")){
+            if (json == null || json.equals("")){
 
                 publishProgress("Servidor Respondeu Null");
+
+                throw new RuntimeException("Servidor Respondeu Null");
 
             }else
 
             {
                 publishProgress("Criando Objeto Cliente");
 
-                cliente = in.fromJson(json, collectionType);
+                cliente = Cliente.fromGson(json);
             }
 
 
@@ -132,7 +118,7 @@ public class TaskLogin extends AsyncTask<Usuario,String, Cliente> {
 
 
     @Override
-    protected void onProgressUpdate(String... values) {
+    protected void onProgressUpdate(String ... values) {
 
         super.onProgressUpdate(values);
 

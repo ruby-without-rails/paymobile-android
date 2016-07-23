@@ -129,6 +129,9 @@
     <string name="service_selected">Service Selected</string>
     <string name="remove">Removed</string>
     <string name="not_authorized_yet">Still No Execution Permission.</string>
+    <string name="enter_email_address_id">Enter your registered email id</string>
+    <string name="reset_password_success">We have sent you instructions to reset your password!</string>
+    <string name="reset_password_failed">Failed to send reset email!</string>
 </resources>
 
 

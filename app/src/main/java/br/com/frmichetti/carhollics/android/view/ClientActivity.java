@@ -1,3 +1,10 @@
+/**
+ *
+ * @author Felipe Rodrigues Michetti
+ * @see http://portfolio-frmichetti.rhcloud.com
+ * @see http://www.codecode.com.br
+ * @see mailto:frmichetti@gmail.com
+ * */
 package br.com.frmichetti.carhollics.android.view;
 
 import android.content.Intent;
@@ -9,6 +16,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
@@ -139,10 +149,17 @@ public class ClientActivity extends BaseActivity{
 
             c = cliente;
 
+            c.getUsuario().setFirebaseMessageToken(FirebaseInstanceId.getInstance().getToken());
+
+            c.getUsuario().setFirebaseUUID(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+
         }else {
 
             c = new Cliente();
+
             c.setUsuario(usuario);
+
         }
 
         c.setNome(editTextNome.getText().toString());
@@ -179,6 +196,8 @@ public class ClientActivity extends BaseActivity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
+        super.onOptionsItemSelected(item);
+
         int id = item.getItemId();
 
         if(id == android.R.id.home){
@@ -187,11 +206,10 @@ public class ClientActivity extends BaseActivity{
                 finish();
             }
 
-            return true;
-
         }
 
+        return true;
 
-        return super.onOptionsItemSelected(item);
+
     }
 }

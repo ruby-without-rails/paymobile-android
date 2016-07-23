@@ -1,3 +1,10 @@
+/**
+ *
+ * @author Felipe Rodrigues Michetti
+ * @see http://portfolio-frmichetti.rhcloud.com
+ * @see http://www.codecode.com.br
+ * @see mailto:frmichetti@gmail.com
+ * */
 package br.com.frmichetti.carhollics.android.view;
 
 import android.content.Intent;
@@ -241,6 +248,7 @@ public class OptionsActivity extends BaseActivity {
 
                         user.updatePassword(newPassword.getText().toString().trim())
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
+
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
 
@@ -261,9 +269,10 @@ public class OptionsActivity extends BaseActivity {
                                     }
                                 });
                     }
+
                 } else if (newPassword.getText().toString().trim().equals("")) {
 
-                    newPassword.setError("Enter password");
+                    newPassword.setError(getString(R.string.enter_password));
 
                     progressBar.setVisibility(View.GONE);
                 }
@@ -271,6 +280,7 @@ public class OptionsActivity extends BaseActivity {
         });
 
         btnSendResetEmail.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
 
@@ -343,9 +353,9 @@ public class OptionsActivity extends BaseActivity {
 
                                     if (task.isSuccessful()) {
 
-                                        Toast.makeText(OptionsActivity.this, getString(R.string.delete_account_success), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(context, getString(R.string.delete_account_success), Toast.LENGTH_SHORT).show();
 
-                                        startActivity(new Intent(OptionsActivity.this, SignupActivity.class));
+                                        startActivity(new Intent(context, SignupActivity.class));
 
                                         finish();
 
@@ -353,7 +363,7 @@ public class OptionsActivity extends BaseActivity {
 
                                     } else {
 
-                                        Toast.makeText(OptionsActivity.this, getString(R.string.delete_account_failed), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(context, getString(R.string.delete_account_failed), Toast.LENGTH_SHORT).show();
 
                                         progressBar.setVisibility(View.GONE);
                                     }

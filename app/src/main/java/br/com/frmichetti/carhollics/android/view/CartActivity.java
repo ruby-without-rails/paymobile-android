@@ -1,3 +1,10 @@
+/**
+ *
+ * @author Felipe Rodrigues Michetti
+ * @see http://portfolio-frmichetti.rhcloud.com
+ * @see http://www.codecode.com.br
+ * @see mailto:frmichetti@gmail.com
+ * */
 package br.com.frmichetti.carhollics.android.view;
 
 import android.content.Intent;
@@ -19,6 +26,7 @@ import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
 import br.com.frmichetti.carhollics.android.jobs.TaskFazerPedido;
 import br.com.frmichetti.carhollics.android.util.ConnectivityReceiver;
+import br.com.frmichetti.carhollics.json.model.Carrinho;
 import br.com.frmichetti.carhollics.json.model.ItemCarrinho;
 import br.com.frmichetti.carhollics.json.model.Pedido;
 import br.com.frmichetti.carhollics.json.model.Servico;
@@ -75,10 +83,10 @@ public class CartActivity extends BaseActivity {
             textViewTotal.setText(String.valueOf(carrinho.getTotal()));
 
             //TODO FIXME valores individuais
-/*
-            textViewPreco.setText(String.valueOf(itemCarrinhoSelecionado.getPrice()));
 
-            textViewQuantidade.setText(String.valueOf(carrinho.getQuantity()));*/
+           // textViewPreco.setText(String.valueOf(itemCarrinhoSelecionado.getServico().getPreco()));
+
+            textViewQuantidade.setText(String.valueOf(carrinho.getQuantity(itemCarrinhoSelecionado)));
         }
 
 
@@ -88,7 +96,8 @@ public class CartActivity extends BaseActivity {
 
         itemCarrinhoSelecionado = new ItemCarrinho(servicoSelecionado);
 
-        ArrayAdapter<ItemCarrinho> adpItem = new ArrayAdapter<ItemCarrinho>(this, android.R.layout.simple_list_item_1, new ArrayList<ItemCarrinho>(carrinho.getList()));
+        ArrayAdapter<ItemCarrinho> adpItem = new ArrayAdapter<ItemCarrinho>(this, android.R.layout.simple_list_item_1,
+                new ArrayList<ItemCarrinho>(carrinho.getList()));
 
         listViewCarrinho.setAdapter(adpItem);
 
@@ -182,6 +191,8 @@ public class CartActivity extends BaseActivity {
 
                             Toast.makeText(context, getString(R.string.checkout_sucess), Toast.LENGTH_LONG).show();
 
+                            carrinho = new Carrinho();
+
                             startActivity(new Intent(context,MainActivity.class)
                                     .putExtra("Cliente",cliente)
                                     .putExtra("Carrinho",carrinho)
@@ -238,6 +249,8 @@ public class CartActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
+        super.onOptionsItemSelected(item);
+
         int id = item.getItemId();
 
         if(id == android.R.id.home){
@@ -251,11 +264,11 @@ public class CartActivity extends BaseActivity {
 
             finish();
 
-            return true;
+
 
         }
 
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 
 

@@ -2,6 +2,7 @@
  *
  * @author Felipe Rodrigues Michetti
  * @see http://portfolio-frmichetti.rhcloud.com
+ * @see http://www.codecode.com.br
  * @see mailto:frmichetti@gmail.com
  * */
 package br.com.frmichetti.carhollics.android.jobs;
@@ -13,7 +14,6 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 
@@ -27,8 +27,6 @@ public class TaskFazerPedido extends AsyncTask<Pedido,String, Boolean>  {
     public AsyncResponse delegate = null;
 
     private String url ;
-
-    private Gson in,out;
 
     private java.lang.reflect.Type collectionType;
 
@@ -59,16 +57,9 @@ public class TaskFazerPedido extends AsyncTask<Pedido,String, Boolean>  {
 
         super.onPreExecute();
 
-        url = context.getResources().getString(R.string.remote_server) + "/services/pedido/save";
+        url = context.getResources().getString(R.string.local_server) + "/services/pedido/save";
 
         Log.d("DEBUG-TASK","server config -> " + url);
-
-        out = new GsonBuilder()
-                .excludeFieldsWithoutExposeAnnotation()
-                .setPrettyPrinting()
-                .setDateFormat("dd/MM/yyyy").create();
-
-        collectionType = new TypeToken<Boolean>() {}.getType();
 
         dialog = new ProgressDialog(context);
 
@@ -86,16 +77,11 @@ public class TaskFazerPedido extends AsyncTask<Pedido,String, Boolean>  {
     @Override
     protected Boolean doInBackground(Pedido ... param) {
 
-        publishProgress("Criando Pedido");
-
-        Pedido pedido = param[0];
-
-
         try {
 
             publishProgress("Enviando Objeto para o Servidor");
 
-            json = HTTP.sendPost(url, out.toJson(pedido));
+            json = HTTP.sendPost(url, param[0].toGson());
 
         } catch (IOException e) {
 
@@ -109,7 +95,7 @@ public class TaskFazerPedido extends AsyncTask<Pedido,String, Boolean>  {
 
         Log.i("Resposta",json);
 
-        in = new GsonBuilder()
+        Gson in = new GsonBuilder()
                 .setPrettyPrinting()
                 .setDateFormat("dd/MM/yyyy").create();
 

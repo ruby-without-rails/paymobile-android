@@ -9,8 +9,12 @@ import java.io.InputStream;
 import java.net.URL;
 
 /**
- * Created by Felipe on 11/07/2016.
+ * @author Felipe Rodrigues Michetti
+ * @see http://portfolio-frmichetti.rhcloud.com
+ * @see http://www.codecode.com.br
+ * @see mailto:frmichetti@gmail.com
  */
+
 public class DownloadImageTask extends AsyncTask<URL,Void,Bitmap> {
 
     private ImageView imageView;

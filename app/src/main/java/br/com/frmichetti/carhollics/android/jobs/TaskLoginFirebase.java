@@ -9,8 +9,14 @@ package br.com.frmichetti.carhollics.android.jobs;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -20,6 +26,7 @@ import java.io.IOException;
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.dao.HTTP;
 import br.com.frmichetti.carhollics.json.model.Cliente;
+import br.com.frmichetti.carhollics.json.model.Usuario;
 
 
 public class TaskLoginFirebase extends AsyncTask<String,String, Cliente> {
@@ -61,7 +68,7 @@ public class TaskLoginFirebase extends AsyncTask<String,String, Cliente> {
 
         super.onPreExecute();
 
-        url = context.getResources().getString(R.string.remote_server) + "/services/usuario/firebaselogin";
+        url = context.getResources().getString(R.string.local_server) + "/services/usuario/firebaselogin";
 
         Log.d("DEBUG-TASK","server config -> " + url);
 
@@ -76,7 +83,7 @@ public class TaskLoginFirebase extends AsyncTask<String,String, Cliente> {
 
         dialog = new ProgressDialog(context);
 
-        dialog.setTitle("Processando");
+        dialog.setTitle(context.getString(R.string.processing));
 
         dialog.setIndeterminate(true);
 
@@ -98,16 +105,43 @@ public class TaskLoginFirebase extends AsyncTask<String,String, Cliente> {
 
             json = HTTP.sendPost(url, out.toJson(params[0]));
 
-
             publishProgress("Objeto recebido");
 
-            if (in==null || in.equals("")){
+            if ((json == null) || (json.equals(""))){
 
                 publishProgress("Servidor Respondeu Null");
 
-            }else
 
-            {
+            }else if (json.equals("{}")){
+
+                Log.d("DEBUG","ID Existente no Firebase");
+
+                Log.d("DEBUG","Cliente Vazio");
+
+                FirebaseAuth.getInstance().getCurrentUser().delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+                        if(!(task.isSuccessful())){
+
+                            Toast.makeText(context, context.getString(R.string.delete_account_failed), Toast.LENGTH_LONG).show();
+
+                            Toast.makeText(context, context.getString(R.string.could_not_authorize), Toast.LENGTH_LONG).show();
+
+                        }else{
+
+                            Toast.makeText(context, context.getString(R.string.delete_account_success), Toast.LENGTH_LONG).show();
+
+                            Toast.makeText(context, context.getString(R.string.repeat_register_operation), Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+                });
+
+
+            }else{
+
                 publishProgress("Criando Objeto Cliente");
 
                 cliente = in.fromJson(json, collectionType);
@@ -130,7 +164,7 @@ public class TaskLoginFirebase extends AsyncTask<String,String, Cliente> {
 
 
     @Override
-    protected void onProgressUpdate(String... values) {
+    protected void onProgressUpdate(String ... values) {
 
         super.onProgressUpdate(values);
 
@@ -141,7 +175,7 @@ public class TaskLoginFirebase extends AsyncTask<String,String, Cliente> {
     @Override
     protected void onPostExecute(Cliente result) {
 
-        dialog.setMessage("Tarefa Finalizada!");
+        dialog.setMessage(context.getString(R.string.process_finish));
 
         dialog.dismiss();
 
