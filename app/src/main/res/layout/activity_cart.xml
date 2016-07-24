@@ -19,7 +19,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".view.CartActivity"
-        android:layout_below="@+id/toolbar">
+        android:layout_below="@+id/toolbar"
+        android:animateLayoutChanges="true">
 
 
         <TextView
@@ -50,9 +51,11 @@
             android:layout_gravity="bottom|end"
             android:elevation="6dp"
             android:src="@drawable/ic_action_remove_from_cart"
-            android:layout_above="@+id/textViewSubtotalVar"
-            android:layout_alignRight="@+id/textViewBemVindo"
-            android:layout_alignEnd="@+id/textViewBemVindo" />
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/textViewItemSelecionadoVar"
+            app:backgroundTint="@color/colorPrimaryDark"
+            app:fabSize="normal"
+            />
 
         <TextView
             android:layout_width="wrap_content"
@@ -67,7 +70,7 @@
             android:layout_height="wrap_content"
             android:text="Quantidade"
             android:id="@+id/textViewQuantidadeVar"
-            android:layout_alignTop="@+id/textViewItemSelecionadoVar"
+            android:layout_below="@+id/textView4"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 
@@ -76,9 +79,9 @@
             android:layout_height="wrap_content"
             android:text="Preço"
             android:id="@+id/textViewPrecoUnit"
-            android:layout_below="@+id/textView3"
-            android:layout_alignLeft="@+id/textViewTotalVar"
-            android:layout_alignStart="@+id/textViewTotalVar" />
+            android:layout_above="@+id/textViewTotal"
+            android:layout_alignRight="@+id/textViewTotalVar"
+            android:layout_alignEnd="@+id/textViewTotalVar" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -88,8 +91,7 @@
             android:id="@+id/textViewSubtotal"
             android:layout_below="@+id/textViewQuantidadeVar"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="32dp" />
+            android:layout_alignParentStart="true" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -107,19 +109,19 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Total"
             android:id="@+id/textViewTotal"
-            android:layout_alignTop="@+id/textViewSubtotal"
+            android:layout_above="@+id/textViewTotalVar"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Total"
             android:id="@+id/textViewTotalVar"
-            android:layout_below="@+id/textViewTotal"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_above="@+id/fab_buy"
+            android:layout_alignLeft="@+id/textView3"
+            android:layout_alignStart="@+id/textView3" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -127,7 +129,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Serviço"
             android:id="@+id/textViewBemVindo"
-            android:layout_centerVertical="true"
+            android:layout_above="@+id/textViewItemSelecionadoVar"
             android:layout_centerHorizontal="true" />
 
         <TextView
@@ -136,9 +138,9 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Preço"
             android:id="@+id/textView3"
-            android:layout_alignTop="@+id/textViewBemVindo"
-            android:layout_alignRight="@+id/textViewTotal"
-            android:layout_alignEnd="@+id/textViewTotal" />
+            android:layout_above="@+id/textViewPrecoUnit"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -154,12 +156,15 @@
             android:id="@+id/fab_buy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
+            android:layout_gravity="right|bottom|end"
             android:src="@drawable/ic_action_buy"
             android:elevation="6dp"
-            android:layout_below="@+id/textViewTotalVar"
-            android:layout_toLeftOf="@+id/textViewTotalVar"
-            android:layout_toStartOf="@+id/textViewTotalVar" />
+            app:fabSize="normal"
+            android:layout_alignParentBottom="true"
+            android:layout_alignRight="@+id/textViewTotalVar"
+            android:layout_alignEnd="@+id/textViewTotalVar"
+            android:layout_marginBottom="16dp"
+            android:layout_marginRight="16dp" />
 
     </RelativeLayout>
 

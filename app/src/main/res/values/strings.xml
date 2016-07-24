@@ -61,7 +61,6 @@
     <string name="nav_item_checkouts">Checkouts</string>
 
 
-
     <string name="title_vehicles">Vehicle</string>
     <string name="title_services">Service</string>
     <string name="title_address">Address</string>
@@ -81,8 +80,8 @@
     <string name="click_on_settings_button">Click on Settings Button</string>
     <string name="click_on_vehicle_button">Click on Car Button</string>
     <string name="click_on_search_button">Click on Search Button</string>
-    <string name="click_on_developer_button" >Click on Contact Developer Button</string>
-    <string name="click_on_personalData_button" >Click on Personal Data Button</string>
+    <string name="click_on_developer_button">Click on Contact Developer Button</string>
+    <string name="click_on_personalData_button">Click on Personal Data Button</string>
     <string name="version_of_app">Version of App:</string>
     <string name="click_on_map_button">Click on Map Button</string>
     <string name="keyUp_back_button">KeyUp Back Button Pressed</string>
@@ -90,12 +89,12 @@
     <string name="keyUp_search_button">KeyUp Search Button Pressed</string>
     <string name="enter_email_address">Enter email address!</string>
     <string name="enter_password">Enter password!</string>
-    <string name="could_not_authorize" >Could not authorize the Customer, contact the system developer</string>
+    <string name="could_not_authorize">Could not authorize the Customer, contact the system developer</string>
     <string name="connected_on_internet">Connected to Internet</string>
     <string name="not_connected_on_internet">Not connected to internet</string>
-    <string name="auth_error" >There was a failed authentication.</string>
+    <string name="auth_error">There was a failed authentication.</string>
     <string name="register">Register</string>
-    <string name="click_on_cart_button" >Click on Cart Button</string>
+    <string name="click_on_cart_button">Click on Cart Button</string>
 
     <!-- navigation drawer item labels  -->
     <string-array name="nav_drawer_labels">
@@ -104,6 +103,16 @@
         <item>@string/nav_item_vehicles</item>
         <item>@string/nav_item_checkouts</item>
     </string-array>
+
+    <!-- Nav Drawer List Item Icons -->
+    <!-- Keep them in order as the titles are in -->
+    <array name="nav_drawer_icons">
+        <item>@drawable/ic_action_done</item>
+        <item>@drawable/ic_action_done</item>
+        <item>@drawable/ic_action_done</item>
+        <item>@drawable/ic_action_done</item>
+    </array>
+
     <string name="checkout_sucess">Order successfully Requested! We will contact you to confirm scheduling.</string>
     <string name="checkout_failed">Could not complete your request, try again later.</string>
     <string name="cart_is_empty">Empty Cart</string>
@@ -132,6 +141,8 @@
     <string name="enter_email_address_id">Enter your registered email id</string>
     <string name="reset_password_success">We have sent you instructions to reset your password!</string>
     <string name="reset_password_failed">Failed to send reset email!</string>
+    <string name="action_add_to_cart">Add to Cart</string>
+    <string name="action_see_more">See More</string>
 </resources>
 
 

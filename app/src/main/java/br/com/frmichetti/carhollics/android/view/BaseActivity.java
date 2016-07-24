@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -25,6 +26,8 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,10 +37,10 @@ import com.google.firebase.iid.FirebaseInstanceId;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.util.ConnectivityReceiver;
-import br.com.frmichetti.carhollics.json.model.Carrinho;
-import br.com.frmichetti.carhollics.json.model.Cliente;
-import br.com.frmichetti.carhollics.json.model.Servico;
-import br.com.frmichetti.carhollics.json.model.Veiculo;
+import br.com.frmichetti.carhollics.android.model.Carrinho;
+import br.com.frmichetti.carhollics.android.model.Cliente;
+import br.com.frmichetti.carhollics.android.model.Servico;
+import br.com.frmichetti.carhollics.android.model.Veiculo;
 
 public abstract class BaseActivity extends AppCompatActivity implements MyPattern,
         ConnectivityReceiver.ConnectivityReceiverListener{
@@ -433,4 +436,5 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         ConnectivityReceiver.connectivityReceiverListener = listener;
     }
+
 }

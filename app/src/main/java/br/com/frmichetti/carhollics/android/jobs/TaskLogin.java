@@ -16,8 +16,8 @@ import java.io.IOException;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.dao.HTTP;
-import br.com.frmichetti.carhollics.json.model.Cliente;
-import br.com.frmichetti.carhollics.json.model.Usuario;
+import br.com.frmichetti.carhollics.android.model.Cliente;
+import br.com.frmichetti.carhollics.android.model.Usuario;
 
 @Deprecated
 public class TaskLogin extends AsyncTask<Usuario,String, Cliente> {

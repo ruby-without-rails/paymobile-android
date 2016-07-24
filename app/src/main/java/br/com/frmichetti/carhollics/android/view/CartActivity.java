@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -26,10 +27,10 @@ import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
 import br.com.frmichetti.carhollics.android.jobs.TaskFazerPedido;
 import br.com.frmichetti.carhollics.android.util.ConnectivityReceiver;
-import br.com.frmichetti.carhollics.json.model.Carrinho;
-import br.com.frmichetti.carhollics.json.model.ItemCarrinho;
-import br.com.frmichetti.carhollics.json.model.Pedido;
-import br.com.frmichetti.carhollics.json.model.Servico;
+import br.com.frmichetti.carhollics.android.model.Carrinho;
+import br.com.frmichetti.carhollics.android.model.ItemCarrinho;
+import br.com.frmichetti.carhollics.android.model.Pedido;
+import br.com.frmichetti.carhollics.android.model.Servico;
 
 
 public class CartActivity extends BaseActivity {
@@ -86,7 +87,7 @@ public class CartActivity extends BaseActivity {
 
            // textViewPreco.setText(String.valueOf(itemCarrinhoSelecionado.getServico().getPreco()));
 
-            textViewQuantidade.setText(String.valueOf(carrinho.getQuantity(itemCarrinhoSelecionado)));
+            textViewQuantidade.setText(String.valueOf(carrinho.getQuantidade(itemCarrinhoSelecionado)));
         }
 
 
@@ -215,7 +216,7 @@ public class CartActivity extends BaseActivity {
 
                     if(doCheckConnection(context)){
 
-                        taskFazerPedido.execute(new Pedido(cliente,carrinho.toGson()));
+                        taskFazerPedido.execute(new Pedido(cliente,carrinho));
 
                     }else{
 

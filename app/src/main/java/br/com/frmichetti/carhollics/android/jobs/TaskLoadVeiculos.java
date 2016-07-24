@@ -21,7 +21,7 @@ import java.util.List;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.dao.HTTP;
-import br.com.frmichetti.carhollics.json.model.Veiculo;
+import br.com.frmichetti.carhollics.android.model.Veiculo;
 
 
 public class TaskLoadVeiculos extends AsyncTask<Void,String,List<Veiculo>> {

@@ -38,7 +38,7 @@ import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
 import br.com.frmichetti.carhollics.android.jobs.TaskCreateUsuario;
 import br.com.frmichetti.carhollics.android.util.ConnectivityReceiver;
-import br.com.frmichetti.carhollics.json.model.Usuario;
+import br.com.frmichetti.carhollics.android.model.Usuario;
 
 
 public class SignupActivity extends AppCompatActivity implements MyPattern,ConnectivityReceiver.ConnectivityReceiverListener{

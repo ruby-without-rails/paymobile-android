@@ -26,4 +26,7 @@
 
     <color name="view_bg">#b20e0f</color>
     <color name="btn_bg">#3e4a56</color>
+
+    <color name="viewBg">#f1f5f8</color>
+    <color name="card_title">#4c4c4c</color>
 </resources>

@@ -24,7 +24,7 @@ import android.widget.Toast;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.util.ConnectivityReceiver;
-import br.com.frmichetti.carhollics.json.model.ItemCarrinho;
+import br.com.frmichetti.carhollics.android.model.ItemCarrinho;
 
 
 public class ServicoDetailActivity extends BaseActivity{

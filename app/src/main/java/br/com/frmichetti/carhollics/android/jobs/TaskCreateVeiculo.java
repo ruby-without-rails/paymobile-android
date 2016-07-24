@@ -16,7 +16,7 @@ import java.io.IOException;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.dao.HTTP;
-import br.com.frmichetti.carhollics.json.model.Veiculo;
+import br.com.frmichetti.carhollics.android.model.Veiculo;
 
 public class TaskCreateVeiculo extends AsyncTask<Veiculo,String,Veiculo> {
 

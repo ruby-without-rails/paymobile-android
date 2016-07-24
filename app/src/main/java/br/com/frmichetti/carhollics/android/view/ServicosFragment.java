@@ -26,10 +26,10 @@ import java.util.List;
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
 import br.com.frmichetti.carhollics.android.jobs.TaskLoadServicos;
-import br.com.frmichetti.carhollics.json.model.Carrinho;
-import br.com.frmichetti.carhollics.json.model.Cliente;
-import br.com.frmichetti.carhollics.json.model.Servico;
-import br.com.frmichetti.carhollics.json.model.Veiculo;
+import br.com.frmichetti.carhollics.android.model.Carrinho;
+import br.com.frmichetti.carhollics.android.model.Cliente;
+import br.com.frmichetti.carhollics.android.model.Servico;
+import br.com.frmichetti.carhollics.android.model.Veiculo;
 
 
 public class ServicosFragment extends Fragment {

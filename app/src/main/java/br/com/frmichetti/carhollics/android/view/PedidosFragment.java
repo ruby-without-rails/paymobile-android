@@ -26,8 +26,8 @@ import java.util.List;
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
 import br.com.frmichetti.carhollics.android.jobs.TaskLoadPedidos;
-import br.com.frmichetti.carhollics.json.model.Cliente;
-import br.com.frmichetti.carhollics.json.model.Pedido;
+import br.com.frmichetti.carhollics.android.model.Cliente;
+import br.com.frmichetti.carhollics.android.model.Pedido;
 
 public class PedidosFragment extends Fragment {
 
@@ -115,6 +115,7 @@ public class PedidosFragment extends Fragment {
     private void doLoadPedidos() {
 
         if(pedidos == null){
+
             Log.d("INFO","Load Pedidos from webservice");
 
             TaskLoadPedidos taskLoadPedidos = new TaskLoadPedidos(context, new AsyncResponse<List<Pedido>>() {

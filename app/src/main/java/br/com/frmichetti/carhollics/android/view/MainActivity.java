@@ -34,9 +34,9 @@ import java.net.URL;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.DownloadImageTask;
-import br.com.frmichetti.carhollics.json.model.Carrinho;
-import br.com.frmichetti.carhollics.json.model.Servico;
-import br.com.frmichetti.carhollics.json.model.Veiculo;
+import br.com.frmichetti.carhollics.android.model.Carrinho;
+import br.com.frmichetti.carhollics.android.model.Servico;
+import br.com.frmichetti.carhollics.android.model.Veiculo;
 
 
 public class MainActivity extends BaseActivity implements FragmentDrawer.FragmentDrawerListener {

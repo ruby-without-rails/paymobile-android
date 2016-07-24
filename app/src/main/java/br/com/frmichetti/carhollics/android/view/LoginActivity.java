@@ -35,7 +35,7 @@ import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
 import br.com.frmichetti.carhollics.android.jobs.TaskLoginFirebase;
 import br.com.frmichetti.carhollics.android.util.ConnectivityReceiver;
-import br.com.frmichetti.carhollics.json.model.Cliente;
+import br.com.frmichetti.carhollics.android.model.Cliente;
 
 
 public class LoginActivity extends AppCompatActivity implements MyPattern, ConnectivityReceiver.ConnectivityReceiverListener {

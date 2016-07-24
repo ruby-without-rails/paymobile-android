@@ -23,8 +23,8 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
 import br.com.frmichetti.carhollics.android.jobs.TaskCreateCliente;
-import br.com.frmichetti.carhollics.json.model.Cliente;
-import br.com.frmichetti.carhollics.json.model.Usuario;
+import br.com.frmichetti.carhollics.android.model.Cliente;
+import br.com.frmichetti.carhollics.android.model.Usuario;
 
 
 public class ClientActivity extends BaseActivity{

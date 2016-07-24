@@ -19,7 +19,7 @@ import java.io.IOException;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.dao.HTTP;
-import br.com.frmichetti.carhollics.json.model.Pedido;
+import br.com.frmichetti.carhollics.android.model.Pedido;
 
 
 public class TaskFazerPedido extends AsyncTask<Pedido,String, Boolean>  {

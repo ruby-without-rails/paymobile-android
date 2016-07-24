@@ -21,8 +21,8 @@ import java.util.List;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.dao.HTTP;
-import br.com.frmichetti.carhollics.json.model.Cliente;
-import br.com.frmichetti.carhollics.json.model.Pedido;
+import br.com.frmichetti.carhollics.android.model.Cliente;
+import br.com.frmichetti.carhollics.android.model.Pedido;
 
 
 public class TaskLoadPedidos extends AsyncTask<Cliente,String,List<Pedido>> {
@@ -67,6 +67,8 @@ public class TaskLoadPedidos extends AsyncTask<Cliente,String,List<Pedido>> {
         Log.d("DEBUG-TASK","server config -> " + url);
 
         in = new GsonBuilder()
+                .serializeSpecialFloatingPointValues()
+                .enableComplexMapKeySerialization()
                 .excludeFieldsWithoutExposeAnnotation()
                 .setPrettyPrinting()
                 .setDateFormat("dd/MM/yyyy").create();
@@ -97,6 +99,8 @@ public class TaskLoadPedidos extends AsyncTask<Cliente,String,List<Pedido>> {
             publishProgress("Enviando Requisição para o Servidor");
 
             out = new GsonBuilder()
+                    .serializeSpecialFloatingPointValues()
+                    .enableComplexMapKeySerialization()
                     .excludeFieldsWithoutExposeAnnotation()
                     .setPrettyPrinting()
                     .setDateFormat("dd/MM/yyyy").create();

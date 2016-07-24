@@ -35,6 +35,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/editTextNome"
+                android:inputType="text"
+                android:singleLine="true"
                 android:layout_below="@+id/textView6"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
@@ -50,12 +52,14 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginLeft="0dp"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="118dp" />
+                android:layout_marginTop="118dp"
+                />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="phone"
+                android:singleLine="true"
                 android:ems="10"
                 android:id="@+id/editTextTelefone"
                 android:layout_below="@+id/textView10"
@@ -77,6 +81,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/editTextCPF"
+                android:inputType="number"
+                android:singleLine="true"
                 android:layout_below="@+id/textView7"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />

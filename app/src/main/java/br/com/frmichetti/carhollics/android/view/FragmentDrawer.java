@@ -75,7 +75,7 @@ public class FragmentDrawer extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflating view layout
-        View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+        View layout = inflater.inflate(R.layout.navigation_drawer, container, false);
         recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
 
         adapter = new NavigationDrawerAdapter(getActivity(), getData());

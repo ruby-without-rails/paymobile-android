@@ -21,7 +21,7 @@ import java.util.List;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.dao.HTTP;
-import br.com.frmichetti.carhollics.json.model.Servico;
+import br.com.frmichetti.carhollics.android.model.Servico;
 
 
 public class TaskLoadServicos extends AsyncTask<Void,String,List<Servico>> {
