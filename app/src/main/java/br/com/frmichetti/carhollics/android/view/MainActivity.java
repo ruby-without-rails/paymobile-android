@@ -34,9 +34,9 @@ import java.net.URL;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.DownloadImageTask;
-import br.com.frmichetti.carhollics.android.model.Carrinho;
-import br.com.frmichetti.carhollics.android.model.Servico;
-import br.com.frmichetti.carhollics.android.model.Veiculo;
+import br.com.frmichetti.carhollics.android.model.Service;
+import br.com.frmichetti.carhollics.android.model.ShoppingCart;
+import br.com.frmichetti.carhollics.android.model.Vehicle;
 
 
 public class MainActivity extends BaseActivity implements FragmentDrawer.FragmentDrawerListener {
@@ -71,19 +71,19 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
 
         doLoadExtras(intent);
 
-        if(carrinho == null){
+        if(shoppingCart == null){
 
-            carrinho = new Carrinho();
+            shoppingCart = new ShoppingCart();
         }
 
-        if(servicoSelecionado == null){
+        if(selectedService == null){
 
-            servicoSelecionado = new Servico();
+            selectedService = new Service();
         }
 
-        if(veiculoSelecionado == null){
+        if(selectedVehicle == null){
 
-            veiculoSelecionado = new Veiculo();
+            selectedVehicle = new Vehicle();
         }
 
         doSetFragment();
@@ -94,23 +94,23 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
 
     //TODO FIXME show info personal data
     private void doShowInfo() {
-        if(user != null){
+        if(firebaseUser != null){
 
-            Log.i("INFO - USER",((user.getDisplayName() != null) ? user.getDisplayName() : "" ));
+            Log.i("INFO - USER",((firebaseUser.getDisplayName() != null) ? firebaseUser.getDisplayName() : "" ));
 
-            Log.i("INFO - USER",((user.getEmail() != null ) ? user.getEmail() : ""));
+            Log.i("INFO - USER",((firebaseUser.getEmail() != null ) ? firebaseUser.getEmail() : ""));
 
-            Log.i("INFO - USER",((user.getProviderId() != null) ? user.getProviderId() : ""));
+            Log.i("INFO - USER",((firebaseUser.getProviderId() != null) ? firebaseUser.getProviderId() : ""));
 
-            Log.i("INFO - USER",((user.getPhotoUrl() != null) ? user.getPhotoUrl().toString() : ""));
+            Log.i("INFO - USER",((firebaseUser.getPhotoUrl() != null) ? firebaseUser.getPhotoUrl().toString() : ""));
         }
 
 
-        if(user.getPhotoUrl() != null){
+        if(firebaseUser.getPhotoUrl() != null){
 
             try {
 
-                new DownloadImageTask(imageView).execute(new URL(user.getPhotoUrl().toString()));
+                new DownloadImageTask(imageView).execute(new URL(firebaseUser.getPhotoUrl().toString()));
 
             } catch (MalformedURLException e) {
 
@@ -124,9 +124,9 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
 
         }
 
-        if(user.getEmail() != null){
+        if(firebaseUser.getEmail() != null){
 
-            textView.append(user.getEmail());
+            textView.append(firebaseUser.getEmail());
 
         }
 
@@ -152,32 +152,32 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
         if (id == R.id.action_settings) {
 
             startActivity(new Intent(context,OptionsActivity.class)
-                    .putExtra("Carrinho",carrinho)
-                    .putExtra("Cliente",cliente)
-                    .putExtra("Veiculo",veiculoSelecionado)
-                    .putExtra("Servico",servicoSelecionado)
+                    .putExtra("Carrinho", shoppingCart)
+                    .putExtra("Cliente", customer)
+                    .putExtra("Veiculo", selectedVehicle)
+                    .putExtra("Servico", selectedService)
             );
 
         }
 
         if(id == R.id.action_cart){
 
-            startActivity(new Intent(context,CartActivity.class)
-                    .putExtra("Carrinho",carrinho)
-                    .putExtra("Cliente",cliente)
-                    .putExtra("Veiculo",veiculoSelecionado)
-                    .putExtra("Servico",servicoSelecionado)
+            startActivity(new Intent(context,ShoppingCartActivity.class)
+                    .putExtra("Carrinho", shoppingCart)
+                    .putExtra("Cliente", customer)
+                    .putExtra("Veiculo", selectedVehicle)
+                    .putExtra("Servico", selectedService)
             );
 
         }
 
         if(id == R.id.action_personal_data){
 
-            startActivity(new Intent(context,ClientActivity.class)
-                    .putExtra("Carrinho",carrinho)
-                    .putExtra("Cliente",cliente)
-                    .putExtra("Veiculo",veiculoSelecionado)
-                    .putExtra("Servico",servicoSelecionado)
+            startActivity(new Intent(context,CustomerActivity.class)
+                    .putExtra("Carrinho", shoppingCart)
+                    .putExtra("Cliente", customer)
+                    .putExtra("Veiculo", selectedVehicle)
+                    .putExtra("Servico", selectedService)
             );
         }
 
@@ -253,20 +253,20 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
         switch (position) {
 
             case 0:
-                fragment = new ServicosFragment();
+                fragment = new ServicesFragment();
                 title = getString(R.string.title_services);
                 break;
             case 1:
-                fragment = new EnderecoFragment();
+                fragment = new AddressFragment();
                 title = getString(R.string.title_address);
                 break;
             case 2:
-                fragment = new VeiculosFragment();
+                fragment = new VehiclesFragment();
                 title = getString(R.string.title_vehicles);
                 break;
 
             case 3:
-                fragment = new PedidosFragment();
+                fragment = new CustomerFragment();
                 title = getString(R.string.title_checkouts);
                 break;
             default:

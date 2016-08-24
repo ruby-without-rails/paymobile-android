@@ -1,3 +1,9 @@
+/**
+ * @author Felipe Rodrigues Michetti
+ * @see http://portfolio-frmichetti.rhcloud.com
+ * @see http://www.codecode.com.br
+ * @see mailto:frmichetti@gmail.com
+ */
 package br.com.frmichetti.carhollics.android.jobs;
 
 import android.graphics.Bitmap;
@@ -8,12 +14,6 @@ import android.widget.ImageView;
 import java.io.InputStream;
 import java.net.URL;
 
-/**
- * @author Felipe Rodrigues Michetti
- * @see http://portfolio-frmichetti.rhcloud.com
- * @see http://www.codecode.com.br
- * @see mailto:frmichetti@gmail.com
- */
 
 public class DownloadImageTask extends AsyncTask<URL,Void,Bitmap> {
 

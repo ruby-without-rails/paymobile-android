@@ -16,20 +16,15 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.dao.HTTP;
-import br.com.frmichetti.carhollics.android.model.Cliente;
-import br.com.frmichetti.carhollics.android.model.Usuario;
+import br.com.frmichetti.carhollics.android.model.Customer;
 
 
-public class TaskLoginFirebase extends AsyncTask<String,String, Cliente> {
+public class TaskLoginFirebase extends AsyncTask<String,String, Customer> {
 
     public AsyncResponse delegate = null;
 
@@ -37,17 +32,11 @@ public class TaskLoginFirebase extends AsyncTask<String,String, Cliente> {
 
     private String url ;
 
-    private String json;
-
-    private Cliente cliente;
-
-    private Gson in,out ;
-
-    private java.lang.reflect.Type collectionType;
+    private Customer cliente;
 
     private Context context;
 
-    public TaskLoginFirebase(Context context, AsyncResponse<Cliente> delegate){
+    public TaskLoginFirebase(Context context, AsyncResponse<Customer> delegate){
         this(context);
         this.delegate = delegate;
     }
@@ -68,18 +57,18 @@ public class TaskLoginFirebase extends AsyncTask<String,String, Cliente> {
 
         super.onPreExecute();
 
-        url = context.getResources().getString(R.string.local_server) + "/services/usuario/firebaselogin";
+        url = context.getResources().getString(R.string.remote_server) + "/services/usuario/firebaselogin";
 
         Log.d("DEBUG-TASK","server config -> " + url);
 
-        out = new Gson();
+      /*  out = new Gson();
 
         in = new GsonBuilder()
                 .excludeFieldsWithoutExposeAnnotation()
                 .setPrettyPrinting()
                 .setDateFormat("dd/MM/yyyy").create();
 
-        collectionType = new TypeToken<Cliente>() {}.getType();
+        collectionType = new TypeToken<Cliente>() {}.getType();*/
 
         dialog = new ProgressDialog(context);
 
@@ -97,22 +86,26 @@ public class TaskLoginFirebase extends AsyncTask<String,String, Cliente> {
     }
 
     @Override
-    protected Cliente doInBackground(String ... params) {
+    protected Customer doInBackground(String ... params) {
+
+        String response = "";
 
         try {
 
             publishProgress("Enviando Objeto para o Servidor");
 
-            json = HTTP.sendPost(url, out.toJson(params[0]));
+            //Todo FIXME Send a Json to Login
+
+            response = HTTP.sendPost(url, params[0].toString());
 
             publishProgress("Objeto recebido");
 
-            if ((json == null) || (json.equals(""))){
+            if ((response == null) || (response.equals(""))){
 
                 publishProgress("Servidor Respondeu Null");
 
 
-            }else if (json.equals("{}")){
+            }else if (response.equals("{}")){
 
                 Log.d("DEBUG","ID Existente no Firebase");
 
@@ -144,7 +137,9 @@ public class TaskLoginFirebase extends AsyncTask<String,String, Cliente> {
 
                 publishProgress("Criando Objeto Cliente");
 
-                cliente = in.fromJson(json, collectionType);
+                //TODO FIXME Receibe a json
+
+                //customer = in.fromJson(response, collectionType);
             }
 
 
@@ -173,7 +168,7 @@ public class TaskLoginFirebase extends AsyncTask<String,String, Cliente> {
 
 
     @Override
-    protected void onPostExecute(Cliente result) {
+    protected void onPostExecute(Customer result) {
 
         dialog.setMessage(context.getString(R.string.process_finish));
 

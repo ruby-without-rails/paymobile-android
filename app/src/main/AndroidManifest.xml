@@ -45,10 +45,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.ServicoDetailActivity"
+            android:name=".view.ServiceDetailActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".view.CartActivity"
+            android:name=".view.ShoppingCartActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".view.ResetPasswordActivity"
@@ -60,10 +60,10 @@
             android:name=".view.OptionsActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".view.ClientActivity"
+            android:name=".view.CustomerActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".view.VeiculoCreateActivity"
+            android:name=".view.VehicleCreateActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".view.MainActivity"
@@ -72,7 +72,7 @@
             android:name=".view.MapActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".view.CardsMain"
+            android:name=".CardsMain"
             android:launchMode="singleTop" />
 
         <!--
@@ -88,7 +88,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".view.MapsActivity"
+            android:name=".MapsActivity"
             android:label="@string/title_activity_maps"></activity>
     </application>
 

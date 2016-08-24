@@ -12,37 +12,27 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-
 import java.io.IOException;
 import java.util.List;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.dao.HTTP;
-import br.com.frmichetti.carhollics.android.model.Servico;
+import br.com.frmichetti.carhollics.android.model.Service;
 
 
-public class TaskLoadServicos extends AsyncTask<Void,String,List<Servico>> {
+public class TaskLoadServicos extends AsyncTask<Void,String,List<Service>> {
 
     public AsyncResponse delegate = null;
 
     private String url ;
 
-    private Gson in;
-
-    private java.lang.reflect.Type collectionType;
-
-    private String json;
-
-    private List<Servico> servicos;
+    private List<Service> servicos;
 
     private ProgressDialog dialog;
 
     private Context context;
 
-    public TaskLoadServicos(Context context, AsyncResponse<List<Servico>> delegate){
+    public TaskLoadServicos(Context context, AsyncResponse<List<Service>> delegate){
         this(context);
         this.delegate = delegate;
     }
@@ -62,17 +52,9 @@ public class TaskLoadServicos extends AsyncTask<Void,String,List<Servico>> {
 
         super.onPreExecute();
 
-        url = context.getResources().getString(R.string.local_server) + "/services/servico/list";
+        url = context.getResources().getString(R.string.remote_server) + "/services/servico/list";
 
         Log.d("DEBUG-TASK","server config -> " + url);
-
-        in = new GsonBuilder()
-                .excludeFieldsWithoutExposeAnnotation()
-                .setPrettyPrinting()
-                .setDateFormat("dd/MM/yyyy").create();
-
-        collectionType = new TypeToken<List<Servico>>() {
-        }.getType();
 
         dialog = new ProgressDialog(context);
 
@@ -91,13 +73,17 @@ public class TaskLoadServicos extends AsyncTask<Void,String,List<Servico>> {
 
 
     @Override
-    protected List<Servico> doInBackground(Void... params) {
+    protected List<Service> doInBackground(Void... params) {
+
+        String response = "";
 
         try {
 
             publishProgress("Enviando Requisição para o Servidor");
 
-            json = HTTP.sendGet(url);
+            //TODO FIXME Receive JSON
+
+            response = HTTP.sendGet(url);
 
         } catch (IOException e) {
 
@@ -108,7 +94,9 @@ public class TaskLoadServicos extends AsyncTask<Void,String,List<Servico>> {
 
         publishProgress("Itens recebidos !");
 
-        servicos = in.fromJson(json, collectionType);
+        //TODO FIXME Response Json
+
+        servicos = null;
 
         return servicos;
     }
@@ -124,7 +112,7 @@ public class TaskLoadServicos extends AsyncTask<Void,String,List<Servico>> {
 
 
     @Override
-    protected void onPostExecute(List<Servico> result) {
+    protected void onPostExecute(List<Service> result) {
 
         dialog.setMessage("Tarefa Finalizada!");
 

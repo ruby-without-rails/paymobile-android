@@ -143,6 +143,9 @@
     <string name="reset_password_failed">Failed to send reset email!</string>
     <string name="action_add_to_cart">Add to Cart</string>
     <string name="action_see_more">See More</string>
+    <string name="repeat_register_operation">Please Repeat the Signup Operation</string>
+    <string name="process_finish">Process Finish</string>
+    <string name="processing">Processing</string>
 </resources>
 
 

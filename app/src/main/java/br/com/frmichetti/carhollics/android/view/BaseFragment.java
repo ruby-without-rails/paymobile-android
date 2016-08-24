@@ -18,7 +18,8 @@ import android.view.ViewGroup;
 
 import br.com.frmichetti.carhollics.android.util.ConnectivityReceiver;
 
-public abstract class BaseFragment extends Fragment implements MyPattern, ConnectivityReceiver.ConnectivityReceiverListener {
+public abstract class BaseFragment extends Fragment implements MyPattern,
+        ConnectivityReceiver.ConnectivityReceiverListener {
 
     private Context context;
 

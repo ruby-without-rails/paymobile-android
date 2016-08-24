@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -26,8 +25,6 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,11 +33,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import br.com.frmichetti.carhollics.android.R;
+import br.com.frmichetti.carhollics.android.model.Customer;
+import br.com.frmichetti.carhollics.android.model.Service;
+import br.com.frmichetti.carhollics.android.model.ShoppingCart;
+import br.com.frmichetti.carhollics.android.model.Vehicle;
 import br.com.frmichetti.carhollics.android.util.ConnectivityReceiver;
-import br.com.frmichetti.carhollics.android.model.Carrinho;
-import br.com.frmichetti.carhollics.android.model.Cliente;
-import br.com.frmichetti.carhollics.android.model.Servico;
-import br.com.frmichetti.carhollics.android.model.Veiculo;
 
 public abstract class BaseActivity extends AppCompatActivity implements MyPattern,
         ConnectivityReceiver.ConnectivityReceiverListener{
@@ -55,17 +52,17 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
     private FirebaseAuth.AuthStateListener authListener;
 
-    protected FirebaseAuth auth;
+    protected FirebaseAuth firebaseAuth;
 
-    protected FirebaseUser user;
+    protected FirebaseUser firebaseUser;
 
-    protected Cliente cliente;
+    protected Customer customer;
 
-    protected Carrinho carrinho;
+    protected ShoppingCart shoppingCart;
 
-    protected Servico servicoSelecionado;
+    protected Service selectedService;
 
-    protected Veiculo veiculoSelecionado;
+    protected Vehicle selectedVehicle;
 
     protected BaseActivity(){
 
@@ -80,9 +77,9 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         doRecoverState(savedInstanceState);
 
-        auth = FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
 
-        user = auth.getCurrentUser();
+        firebaseUser = firebaseAuth.getCurrentUser();
 
         doCreateFirebaseListener();
 
@@ -118,7 +115,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         super.onStart();
 
-        auth.addAuthStateListener(authListener);
+        firebaseAuth.addAuthStateListener(authListener);
 
         Log.d("[DEBUG-AUTH-LISTENER]","Registered Authentication Listener");
 
@@ -132,7 +129,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         if (authListener != null) {
 
-            auth.removeAuthStateListener(authListener);
+            firebaseAuth.removeAuthStateListener(authListener);
 
             Log.d("[DEBUG-AUTH-LISTENER]","Removed Authentication Listener");
 
@@ -146,13 +143,13 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         super.onSaveInstanceState(outState);
 
-        outState.putSerializable("Cliente",cliente);
+        outState.putSerializable("Cliente", customer);
 
-        outState.putSerializable("Carrinho",carrinho);
+        outState.putSerializable("Carrinho", shoppingCart);
 
-        outState.putSerializable("Servico",servicoSelecionado);
+        outState.putSerializable("Servico", selectedService);
 
-        outState.putSerializable("Veiculo",veiculoSelecionado);
+        outState.putSerializable("Veiculo", selectedVehicle);
 
         Log.d("[INFO-SAVE-BUNDLE]","Save State");
 
@@ -330,7 +327,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
     public void signOut() {
 
-        auth.signOut();
+        firebaseAuth.signOut();
 
         Log.d("[INFO-SIGNOUT]","SignOut");
 
@@ -340,13 +337,13 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         if(bundle != null){
 
-            cliente = (Cliente) bundle.getSerializable("Cliente");
+            customer = (Customer) bundle.getSerializable("Cliente");
 
-            carrinho = (Carrinho) bundle.getSerializable("Carrinho");
+            shoppingCart = (ShoppingCart) bundle.getSerializable("Carrinho");
 
-            servicoSelecionado = (Servico) bundle.getSerializable("Servico");
+            selectedService = (Service) bundle.getSerializable("Servico");
 
-            veiculoSelecionado = (Veiculo) bundle.getSerializable("Veiculo");
+            selectedVehicle = (Vehicle) bundle.getSerializable("Veiculo");
 
             Log.d("[INFO-LOAD-BUNDLE]","Load Saved State");
 
@@ -359,13 +356,13 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         Bundle bundle = new Bundle();
 
-        bundle.putSerializable("Cliente",cliente);
+        bundle.putSerializable("Cliente", customer);
 
-        bundle.putSerializable("Carrinho",carrinho);
+        bundle.putSerializable("Carrinho", shoppingCart);
 
-        bundle.putSerializable("Servico",servicoSelecionado);
+        bundle.putSerializable("Servico", selectedService);
 
-        bundle.putSerializable("Veiculo",veiculoSelecionado);
+        bundle.putSerializable("Veiculo", selectedVehicle);
 
         Log.d("[INFO-SAVE-BUNDLE]","Saved State");
 
@@ -374,13 +371,13 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
     public void doLoadExtras(Intent intent) {
 
-        cliente = (Cliente) intent.getSerializableExtra("Cliente");
+        customer = (Customer) intent.getSerializableExtra("Cliente");
 
-        carrinho = (Carrinho) intent.getSerializableExtra("Carrinho");
+        shoppingCart = (ShoppingCart) intent.getSerializableExtra("Carrinho");
 
-        servicoSelecionado = (Servico) intent.getSerializableExtra("Servico");
+        selectedService = (Service) intent.getSerializableExtra("Servico");
 
-        veiculoSelecionado = (Veiculo) intent.getSerializableExtra("Veiculo");
+        selectedVehicle = (Vehicle) intent.getSerializableExtra("Veiculo");
 
         Log.d("DEBUG-LOAD-EXTRAS","Load Extras");
     }

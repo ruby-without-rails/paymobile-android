@@ -23,10 +23,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import br.com.frmichetti.carhollics.android.R;
-import br.com.frmichetti.carhollics.android.model.Carrinho;
-import br.com.frmichetti.carhollics.android.model.Cliente;
-import br.com.frmichetti.carhollics.android.model.Servico;
-import br.com.frmichetti.carhollics.android.model.Veiculo;
+import br.com.frmichetti.carhollics.android.model.Customer;
+import br.com.frmichetti.carhollics.android.model.Service;
+import br.com.frmichetti.carhollics.android.model.ShoppingCart;
+import br.com.frmichetti.carhollics.android.model.Vehicle;
 
 
 public class OptionsActivity extends BaseActivity {
@@ -65,13 +65,13 @@ public class OptionsActivity extends BaseActivity {
 
     private void doLoadExtras() {
 
-        cliente = (Cliente) intent.getSerializableExtra("Cliente");
+        customer = (Customer) intent.getSerializableExtra("Cliente");
 
-        carrinho = (Carrinho) intent.getSerializableExtra("Carrinho");
+        shoppingCart = (ShoppingCart) intent.getSerializableExtra("Carrinho");
 
-        servicoSelecionado = (Servico) intent.getSerializableExtra("Servico");
+        selectedService = (Service) intent.getSerializableExtra("Servico");
 
-        veiculoSelecionado = (Veiculo) intent.getSerializableExtra("Veiculo");
+        selectedVehicle = (Vehicle) intent.getSerializableExtra("Veiculo");
 
     }
 
@@ -172,9 +172,9 @@ public class OptionsActivity extends BaseActivity {
 
                 progressBar.setVisibility(View.VISIBLE);
 
-                if (user != null && !newEmail.getText().toString().trim().equals("")) {
+                if (firebaseUser != null && !newEmail.getText().toString().trim().equals("")) {
 
-                    user.updateEmail(newEmail.getText().toString().trim())
+                    firebaseUser.updateEmail(newEmail.getText().toString().trim())
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
 
                                 @Override
@@ -236,7 +236,7 @@ public class OptionsActivity extends BaseActivity {
 
                 progressBar.setVisibility(View.VISIBLE);
 
-                if (user != null && !newPassword.getText().toString().trim().equals("")) {
+                if (firebaseUser != null && !newPassword.getText().toString().trim().equals("")) {
 
                     if (newPassword.getText().toString().trim().length() < 6) {
 
@@ -246,7 +246,7 @@ public class OptionsActivity extends BaseActivity {
 
                     } else {
 
-                        user.updatePassword(newPassword.getText().toString().trim())
+                        firebaseUser.updatePassword(newPassword.getText().toString().trim())
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
 
                                     @Override
@@ -310,7 +310,7 @@ public class OptionsActivity extends BaseActivity {
 
                 if (!oldEmail.getText().toString().trim().equals("")) {
 
-                    auth.sendPasswordResetEmail(oldEmail.getText().toString().trim())
+                    firebaseAuth.sendPasswordResetEmail(oldEmail.getText().toString().trim())
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
@@ -344,9 +344,9 @@ public class OptionsActivity extends BaseActivity {
 
                 progressBar.setVisibility(View.VISIBLE);
 
-                if (user != null) {
+                if (firebaseUser != null) {
 
-                    user.delete()
+                    firebaseUser.delete()
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
@@ -400,11 +400,11 @@ public class OptionsActivity extends BaseActivity {
 
         if (id == R.id.action_cart) {
 
-            startActivity(new Intent(context,CartActivity.class)
-                    .putExtra("Carrinho",carrinho)
-                    .putExtra("Cliente",cliente)
-                    .putExtra("Veiculo",veiculoSelecionado)
-                    .putExtra("Servico",servicoSelecionado)
+            startActivity(new Intent(context,ShoppingCartActivity.class)
+                    .putExtra("Carrinho", shoppingCart)
+                    .putExtra("Cliente", customer)
+                    .putExtra("Veiculo", selectedVehicle)
+                    .putExtra("Servico", selectedService)
             );
 
             return true;

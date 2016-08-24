@@ -34,8 +34,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
 import br.com.frmichetti.carhollics.android.jobs.TaskLoginFirebase;
+import br.com.frmichetti.carhollics.android.model.Customer;
 import br.com.frmichetti.carhollics.android.util.ConnectivityReceiver;
-import br.com.frmichetti.carhollics.android.model.Cliente;
 
 
 public class LoginActivity extends AppCompatActivity implements MyPattern, ConnectivityReceiver.ConnectivityReceiverListener {
@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity implements MyPattern, Conne
 
     private ActionBar actionBar;
 
-    private EditText inputEmail, inputPassword;
+    private EditText editTextEmail, editTextPassword;
 
     private FirebaseAuth auth;
 
@@ -85,9 +85,9 @@ public class LoginActivity extends AppCompatActivity implements MyPattern, Conne
 
         setSupportActionBar(toolbar);
 
-        inputEmail = (EditText) findViewById(R.id.email);
+        editTextEmail = (EditText) findViewById(R.id.email);
 
-        inputPassword = (EditText) findViewById(R.id.password);
+        editTextPassword = (EditText) findViewById(R.id.password);
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
@@ -124,9 +124,9 @@ public class LoginActivity extends AppCompatActivity implements MyPattern, Conne
             @Override
             public void onClick(View v) {
 
-                String email = inputEmail.getText().toString();
+                String email = editTextEmail.getText().toString();
 
-                final String password = inputPassword.getText().toString();
+                final String password = editTextPassword.getText().toString();
 
                 if (TextUtils.isEmpty(email)) {
 
@@ -148,16 +148,16 @@ public class LoginActivity extends AppCompatActivity implements MyPattern, Conne
 
                     progressBar.setVisibility(View.VISIBLE);
 
-                    //authenticate user
+                    //authenticate firebaseUser
                     auth.signInWithEmailAndPassword(email, password)
                             .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
 
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
 
-                                    // If sign in fails, display a message to the user. If sign in succeeds
-                                    // the auth state listener will be notified and logic to handle the
-                                    // signed in user can be handled in the listener.
+                                    // If sign in fails, display a message to the firebaseUser. If sign in succeeds
+                                    // the firebaseAuth state listener will be notified and logic to handle the
+                                    // signed in firebaseUser can be handled in the listener.
                                     progressBar.setVisibility(View.GONE);
 
                                     if (!task.isSuccessful()) {
@@ -165,7 +165,7 @@ public class LoginActivity extends AppCompatActivity implements MyPattern, Conne
                                         // there was an error
                                         if (password.length() < 6) {
 
-                                            inputPassword.setError(getString(R.string.minimum_password));
+                                            editTextPassword.setError(getString(R.string.minimum_password));
 
                                         } else {
 
@@ -176,10 +176,10 @@ public class LoginActivity extends AppCompatActivity implements MyPattern, Conne
 
                                     } else {
 
-                                        TaskLoginFirebase taskLoginFirebase = new TaskLoginFirebase(context, new AsyncResponse<Cliente>() {
+                                        TaskLoginFirebase taskLoginFirebase = new TaskLoginFirebase(context, new AsyncResponse<Customer>() {
 
                                             @Override
-                                            public void processFinish(Cliente output) {
+                                            public void processFinish(Customer output) {
 
                                                 if (output != null){
 

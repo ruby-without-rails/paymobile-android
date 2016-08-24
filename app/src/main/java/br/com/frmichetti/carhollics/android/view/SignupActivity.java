@@ -36,12 +36,13 @@ import com.google.firebase.iid.FirebaseInstanceId;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
-import br.com.frmichetti.carhollics.android.jobs.TaskCreateUsuario;
+import br.com.frmichetti.carhollics.android.jobs.TaskCreateUser;
+import br.com.frmichetti.carhollics.android.model.User;
 import br.com.frmichetti.carhollics.android.util.ConnectivityReceiver;
-import br.com.frmichetti.carhollics.android.model.Usuario;
 
 
-public class SignupActivity extends AppCompatActivity implements MyPattern,ConnectivityReceiver.ConnectivityReceiverListener{
+public class SignupActivity extends AppCompatActivity implements MyPattern,
+        ConnectivityReceiver.ConnectivityReceiverListener{
 
     private FirebaseAuth auth;
 
@@ -49,7 +50,7 @@ public class SignupActivity extends AppCompatActivity implements MyPattern,Conne
 
     private Context context;
 
-    private EditText inputEmail, inputPassword;
+    private EditText editTextEmail, editTextPassword;
 
     private Button btnSignIn, btnSignUp, btnResetPassword;
 
@@ -103,9 +104,9 @@ public class SignupActivity extends AppCompatActivity implements MyPattern,Conne
 
         btnSignUp = (Button) findViewById(R.id.sign_up_button);
 
-        inputEmail = (EditText) findViewById(R.id.email);
+        editTextEmail = (EditText) findViewById(R.id.email);
 
-        inputPassword = (EditText) findViewById(R.id.password);
+        editTextPassword = (EditText) findViewById(R.id.password);
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
@@ -138,9 +139,9 @@ public class SignupActivity extends AppCompatActivity implements MyPattern,Conne
             @Override
             public void onClick(View v) {
 
-                String email = inputEmail.getText().toString().trim();
+                String email = editTextEmail.getText().toString().trim();
 
-                String password = inputPassword.getText().toString().trim();
+                String password = editTextPassword.getText().toString().trim();
 
                 if (TextUtils.isEmpty(email)) {
 
@@ -167,7 +168,7 @@ public class SignupActivity extends AppCompatActivity implements MyPattern,Conne
 
                     progressBar.setVisibility(View.VISIBLE);
 
-                    //create user
+                    //create firebaseUser
                     auth.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
 
@@ -176,9 +177,9 @@ public class SignupActivity extends AppCompatActivity implements MyPattern,Conne
 
                                     progressBar.setVisibility(View.GONE);
 
-                                    // If sign in fails, display a message to the user. If sign in succeeds
-                                    // the auth state listener will be notified and logic to handle the
-                                    // signed in user can be handled in the listener.
+                                    // If sign in fails, display a message to the firebaseUser. If sign in succeeds
+                                    // the firebaseAuth state listener will be notified and logic to handle the
+                                    // signed in firebaseUser can be handled in the listener.
                                     if (!task.isSuccessful()) {
 
                                         Toast.makeText(context, getString(R.string.auth_error) + task.getException(),
@@ -188,14 +189,14 @@ public class SignupActivity extends AppCompatActivity implements MyPattern,Conne
 
                                     } else {
 
-                                        TaskCreateUsuario taskCreateUsuario = new TaskCreateUsuario(context, new AsyncResponse<Usuario>() {
+                                        TaskCreateUser taskCreateUsuario = new TaskCreateUser(context, new AsyncResponse<User>() {
 
                                             @Override
-                                            public void processFinish(Usuario output) {
+                                            public void processFinish(User output) {
 
                                                 //TODO Implementar Logica do Login
 
-                                                startActivity(new Intent(context, ClientActivity.class)
+                                                startActivity(new Intent(context, CustomerActivity.class)
                                                         .putExtra("Usuario",output));
 
                                                 finish();
@@ -204,7 +205,7 @@ public class SignupActivity extends AppCompatActivity implements MyPattern,Conne
 
                                         FirebaseUser firebaseUser = auth.getCurrentUser();
 
-                                        Usuario usuario = new Usuario();
+                                        User usuario = new User();
 
                                         usuario.setFirebaseUUID(firebaseUser.getUid());
 

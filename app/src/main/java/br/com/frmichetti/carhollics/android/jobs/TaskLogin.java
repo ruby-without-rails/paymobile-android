@@ -16,11 +16,11 @@ import java.io.IOException;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.dao.HTTP;
-import br.com.frmichetti.carhollics.android.model.Cliente;
-import br.com.frmichetti.carhollics.android.model.Usuario;
+import br.com.frmichetti.carhollics.android.model.Customer;
+import br.com.frmichetti.carhollics.android.model.User;
 
 @Deprecated
-public class TaskLogin extends AsyncTask<Usuario,String, Cliente> {
+public class TaskLogin extends AsyncTask<User,String, Customer> {
 
     public AsyncResponse delegate = null;
 
@@ -28,15 +28,11 @@ public class TaskLogin extends AsyncTask<Usuario,String, Cliente> {
 
     private String url;
 
-    private String json;
-
-    private Cliente cliente;
-
-    private java.lang.reflect.Type collectionType;
+    private Customer customer;
 
     private Context context;
 
-    public TaskLogin(Context context,AsyncResponse<Cliente> delegate){
+    public TaskLogin(Context context,AsyncResponse<Customer> delegate){
         this(context);
         this.delegate = delegate;
     }
@@ -57,7 +53,7 @@ public class TaskLogin extends AsyncTask<Usuario,String, Cliente> {
 
         super.onPreExecute();
 
-        url = context.getResources().getString(R.string.local_server) + "/services/usuario/login";
+        url = context.getResources().getString(R.string.remote_server) + "/services/usuario/login";
 
         Log.d("DEBUG-TASK","server config -> " + url);
 
@@ -77,17 +73,21 @@ public class TaskLogin extends AsyncTask<Usuario,String, Cliente> {
     }
 
     @Override
-    protected Cliente doInBackground(Usuario... params) {
+    protected Customer doInBackground(User ... params) {
+
+        String response = "";
 
         try {
 
             publishProgress("Enviando Objeto para o Servidor");
 
-            json = HTTP.sendPost(url, params[0].toGson());
+            //TODO FIXME Create a Json to Login
+
+            response = HTTP.sendPost(url, params[0].toString());
 
             publishProgress("Objeto recebido");
 
-            if (json == null || json.equals("")){
+            if (response == null || response.equals("")){
 
                 publishProgress("Servidor Respondeu Null");
 
@@ -98,7 +98,9 @@ public class TaskLogin extends AsyncTask<Usuario,String, Cliente> {
             {
                 publishProgress("Criando Objeto Cliente");
 
-                cliente = Cliente.fromGson(json);
+                //TODO FIXME Receive Json to Login
+
+               // customer = Cliente.fromGson(response);
             }
 
 
@@ -113,7 +115,7 @@ public class TaskLogin extends AsyncTask<Usuario,String, Cliente> {
 
             publishProgress("Entrando...");
 
-        return cliente;
+        return customer;
     }
 
 
@@ -127,7 +129,7 @@ public class TaskLogin extends AsyncTask<Usuario,String, Cliente> {
 
 
     @Override
-    protected void onPostExecute(Cliente result) {
+    protected void onPostExecute(Customer result) {
 
         dialog.setMessage("Tarefa Finalizada!");
 
