@@ -22,9 +22,8 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
 import br.com.frmichetti.carhollics.android.jobs.TaskCreateCustomer;
-import br.com.frmichetti.carhollics.android.model.Customer;
-import br.com.frmichetti.carhollics.android.model.User;
-
+import br.com.frmichetti.carhollics.android.model.compatibility.Customer;
+import br.com.frmichetti.carhollics.android.model.compatibility.User;
 
 
 public class CustomerActivity extends BaseActivity{

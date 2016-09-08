@@ -16,7 +16,7 @@ import java.io.IOException;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.dao.HTTP;
-import br.com.frmichetti.carhollics.android.model.Checkout;
+import br.com.frmichetti.carhollics.android.model.compatibility.Checkout;
 
 
 public class TaskCreateCheckout extends AsyncTask<Checkout,String, Boolean>  {

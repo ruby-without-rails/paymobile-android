@@ -12,22 +12,29 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.dao.HTTP;
-import br.com.frmichetti.carhollics.android.model.Checkout;
-import br.com.frmichetti.carhollics.android.model.Customer;
+import br.com.frmichetti.carhollics.android.model.compatibility.Checkout;
+import br.com.frmichetti.carhollics.android.model.compatibility.Customer;
+import br.com.frmichetti.carhollics.android.util.GsonDateDeserializer;
 
 
-public class TaskLoadCheckouts extends AsyncTask<Customer,String,List<Checkout>> {
+public class TaskDownloadCheckouts extends AsyncTask<Customer,String,List<Checkout>> {
 
     public AsyncResponse delegate = null;
 
     private String url ;
 
-    private String json;
+    private String response;
 
     private List<Checkout> checkouts;
 
@@ -35,18 +42,18 @@ public class TaskLoadCheckouts extends AsyncTask<Customer,String,List<Checkout>>
 
     private Context context;
 
-    public TaskLoadCheckouts(Context context, AsyncResponse<List<Checkout>> delegate){
+    public TaskDownloadCheckouts(Context context, AsyncResponse<List<Checkout>> delegate){
         this(context);
         this.delegate = delegate;
     }
 
-    private TaskLoadCheckouts(Context context){
+    private TaskDownloadCheckouts(Context context){
         this();
         this.context = context;
     }
 
-    private TaskLoadCheckouts(){
-        Log.d("DEBUG-TASK","create TaskLoadServicos");
+    private TaskDownloadCheckouts(){
+        Log.d("DEBUG-TASK","create TaskDownloadServices");
     }
 
     @Override
@@ -54,22 +61,10 @@ public class TaskLoadCheckouts extends AsyncTask<Customer,String,List<Checkout>>
 
         super.onPreExecute();
 
-        url = context.getResources().getString(R.string.remote_server) + "/services/pedido/list";
+        url = context.getResources().getString(R.string.local_server) + "checkouts";
 
         Log.d("DEBUG-TASK","server config -> " + url);
 
-        /*
-
-        in = new GsonBuilder()
-                .serializeSpecialFloatingPointValues()
-                .enableComplexMapKeySerialization()
-                .excludeFieldsWithoutExposeAnnotation()
-                .setPrettyPrinting()
-                .setDateFormat("dd/MM/yyyy").create();
-
-        collectionType = new TypeToken<List<Pedido>>() {}.getType();*/
-
-        //TODO FIXME Receive a JSON Array
 
         dialog = new ProgressDialog(context);
 
@@ -94,18 +89,9 @@ public class TaskLoadCheckouts extends AsyncTask<Customer,String,List<Checkout>>
 
             publishProgress("Enviando Requisição para o Servidor");
 
-            /*
-
-            out = new GsonBuilder()
-                    .serializeSpecialFloatingPointValues()
-                    .enableComplexMapKeySerialization()
-                    .excludeFieldsWithoutExposeAnnotation()
-                    .setPrettyPrinting()
-                    .setDateFormat("dd/MM/yyyy").create();*/
-
             //TODO FIXME Receive a JSONArray
 
-            json = HTTP.sendPost(url,params[0].toString());
+            response = HTTP.sendGet(url);
 
         } catch (IOException e) {
 
@@ -118,14 +104,17 @@ public class TaskLoadCheckouts extends AsyncTask<Customer,String,List<Checkout>>
 
         //TODO FIXME Receive a Json Array
 
-        checkouts = null;
+        checkouts = new GsonBuilder()
+                .registerTypeAdapter(Date.class, new GsonDateDeserializer())
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+                .create().fromJson(response, new TypeToken<List<Checkout>>(){}.getType());
 
-        return checkouts;
+        return (checkouts != null) ? checkouts : new ArrayList<Checkout>();
     }
 
 
     @Override
-    protected void onProgressUpdate(String... values) {
+    protected void onProgressUpdate(String ... values) {
 
         super.onProgressUpdate(values);
 

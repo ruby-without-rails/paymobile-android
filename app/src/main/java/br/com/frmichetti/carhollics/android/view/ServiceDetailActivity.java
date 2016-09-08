@@ -110,7 +110,7 @@ public class ServiceDetailActivity extends BaseActivity{
 
     private void doFillData() {
 
-        textViewName.setText(selectedService.getName());
+        textViewName.setText(selectedService.getTitle());
 
         textViewDescricao.setText(selectedService.getDescription());
 

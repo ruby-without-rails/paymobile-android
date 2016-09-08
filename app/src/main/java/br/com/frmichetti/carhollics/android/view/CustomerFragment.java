@@ -25,9 +25,9 @@ import java.util.List;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
-import br.com.frmichetti.carhollics.android.jobs.TaskLoadCheckouts;
-import br.com.frmichetti.carhollics.android.model.Checkout;
-import br.com.frmichetti.carhollics.android.model.Customer;
+import br.com.frmichetti.carhollics.android.jobs.TaskDownloadCheckouts;
+import br.com.frmichetti.carhollics.android.model.compatibility.Checkout;
+import br.com.frmichetti.carhollics.android.model.compatibility.Customer;
 
 public class CustomerFragment extends Fragment {
 
@@ -118,7 +118,7 @@ public class CustomerFragment extends Fragment {
 
             Log.d("INFO","Load Pedidos from webservice");
 
-            TaskLoadCheckouts taskLoadPedidos = new TaskLoadCheckouts(context, new AsyncResponse<List<Checkout>>() {
+            TaskDownloadCheckouts taskLoadPedidos = new TaskDownloadCheckouts(context, new AsyncResponse<List<Checkout>>() {
 
                 @Override
                 public void processFinish(List<Checkout> output) {

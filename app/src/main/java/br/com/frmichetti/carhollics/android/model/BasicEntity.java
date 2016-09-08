@@ -12,7 +12,7 @@ package br.com.frmichetti.carhollics.android.model;
  * @author Felipe Rodrigues Michetti
  *
  */
-public interface BaseEntity {  
+public interface BasicEntity {  
 
 	public Long getId();  
 

@@ -17,8 +17,8 @@ import android.widget.EditText;
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
 import br.com.frmichetti.carhollics.android.jobs.TaskCreateVehicle;
-import br.com.frmichetti.carhollics.android.model.Customer;
-import br.com.frmichetti.carhollics.android.model.Vehicle;
+import br.com.frmichetti.carhollics.android.model.compatibility.Customer;
+import br.com.frmichetti.carhollics.android.model.compatibility.Vehicle;
 
 
 public class VehicleCreateActivity extends BaseActivity {
@@ -119,7 +119,7 @@ public class VehicleCreateActivity extends BaseActivity {
 
         Vehicle v = new Vehicle();
 
-        v.setName(editTextName.getText().toString());
+        v.setModel(editTextName.getText().toString());
 
         v.setBrand(editTextBrand.getText().toString());
 

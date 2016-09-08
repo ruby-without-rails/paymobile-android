@@ -34,11 +34,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
 import br.com.frmichetti.carhollics.android.jobs.TaskLoginFirebase;
-import br.com.frmichetti.carhollics.android.model.Customer;
+import br.com.frmichetti.carhollics.android.model.compatibility.BaseModel;
+import br.com.frmichetti.carhollics.android.model.compatibility.Customer;
+import br.com.frmichetti.carhollics.android.model.compatibility.User;
 import br.com.frmichetti.carhollics.android.util.ConnectivityReceiver;
 
 
-public class LoginActivity extends AppCompatActivity implements MyPattern, ConnectivityReceiver.ConnectivityReceiverListener {
+public class LoginActivity extends AppCompatActivity implements MyPattern,
+        ConnectivityReceiver.ConnectivityReceiverListener {
 
     private Context context;
 
@@ -183,9 +186,9 @@ public class LoginActivity extends AppCompatActivity implements MyPattern, Conne
 
                                                 if (output != null){
 
-                                                    startActivity(new Intent(context, MainActivity.class).putExtra("Cliente",output));
+                                                        startActivity(new Intent(context, MainActivity.class).putExtra("Cliente",output));
 
-                                                    finish();
+                                                        finish();
 
                                                 }else{
 
@@ -223,6 +226,12 @@ public class LoginActivity extends AppCompatActivity implements MyPattern, Conne
         actionBar.setSubtitle(R.string.action_sign_in);
 
         actionBar.setDisplayHomeAsUpEnabled(false);
+
+        //TODO FIXME REMOVEME
+
+        editTextEmail.setText("frmichetti@gmail.com");
+
+        editTextPassword.setText("123456");
 
 
     }

@@ -16,7 +16,7 @@ import java.io.IOException;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.dao.HTTP;
-import br.com.frmichetti.carhollics.android.model.User;
+import br.com.frmichetti.carhollics.android.model.compatibility.User;
 
 public class TaskCreateUser extends AsyncTask<User,String,User> {
 

@@ -12,38 +12,42 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.dao.HTTP;
-import br.com.frmichetti.carhollics.android.model.Service;
+import br.com.frmichetti.carhollics.android.model.compatibility.Service;
 
 
-public class TaskLoadServicos extends AsyncTask<Void,String,List<Service>> {
+public class TaskDownloadServices extends AsyncTask<Void,String,List<Service>> {
 
     public AsyncResponse delegate = null;
 
     private String url ;
 
-    private List<Service> servicos;
+    private List<Service> services;
 
     private ProgressDialog dialog;
 
     private Context context;
 
-    public TaskLoadServicos(Context context, AsyncResponse<List<Service>> delegate){
+    public TaskDownloadServices(Context context, AsyncResponse<List<Service>> delegate){
         this(context);
         this.delegate = delegate;
     }
 
-    private TaskLoadServicos(Context context){
+    private TaskDownloadServices(Context context){
         this();
         this.context = context;
     }
 
-    private TaskLoadServicos(){
-        Log.d("DEBUG-TASK","create TaskLoadServicos");
+    private TaskDownloadServices(){
+        Log.d("DEBUG-TASK","create TaskDownloadServices");
 
     }
 
@@ -52,7 +56,7 @@ public class TaskLoadServicos extends AsyncTask<Void,String,List<Service>> {
 
         super.onPreExecute();
 
-        url = context.getResources().getString(R.string.remote_server) + "/services/servico/list";
+        url = context.getResources().getString(R.string.local_server) + "services";
 
         Log.d("DEBUG-TASK","server config -> " + url);
 
@@ -73,7 +77,7 @@ public class TaskLoadServicos extends AsyncTask<Void,String,List<Service>> {
 
 
     @Override
-    protected List<Service> doInBackground(Void... params) {
+    protected List<Service> doInBackground(Void ... params) {
 
         String response = "";
 
@@ -96,14 +100,14 @@ public class TaskLoadServicos extends AsyncTask<Void,String,List<Service>> {
 
         //TODO FIXME Response Json
 
-        servicos = null;
+        services = new Gson().fromJson(response, new TypeToken<List<Service>>(){}.getType());
 
-        return servicos;
+        return (services != null) ? services : new ArrayList<Service>();
     }
 
 
     @Override
-    protected void onProgressUpdate(String... values) {
+    protected void onProgressUpdate(String ... values) {
 
         super.onProgressUpdate(values);
 

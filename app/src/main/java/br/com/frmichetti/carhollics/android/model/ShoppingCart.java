@@ -23,7 +23,7 @@ import java.util.Map;
 public class ShoppingCart implements Serializable {
 
 	private static final long serialVersionUID = -2804186734546390662L;
-	
+
 	private Map<ShoppingItem, Integer> mapItems = new LinkedHashMap<>();
 
 	public ShoppingCart(){
@@ -32,7 +32,7 @@ public class ShoppingCart implements Serializable {
 
 	public void add(ShoppingItem shoppingItem) {
 
-		mapItems.put(shoppingItem, getQuantityOfItens(shoppingItem) + 1);		
+		mapItems.put(shoppingItem, getQuantityOfItens(shoppingItem) + 1);
 	}
 
 	public Integer getQuantityOfItens(ShoppingItem shoppingItem) {
@@ -46,20 +46,20 @@ public class ShoppingCart implements Serializable {
 
 	public Integer getQuantity(){
 
-        int accumulator = 0;
+		int accumulator = 0;
 
-        for (int shoppingItem : mapItems.values()) {
-            accumulator+= shoppingItem;
-        }
-        //TODO FIXME to java <=7
-        /*
+		for (int shoppingItem : mapItems.values()) {
+			accumulator+= shoppingItem;
+		}
+
+        /* TODO FIXME to java <=7
 		return mapItems.values().stream()
 				.reduce(0, (next,accumulator)-> next + accumulator);*/
 
-        return accumulator;
+		return accumulator;
 	}
 
-	public Collection<ShoppingItem> getList(){	
+	public Collection<ShoppingItem> getList(){
 		return new ArrayList<>(mapItems.keySet());
 	}
 
@@ -76,7 +76,7 @@ public class ShoppingCart implements Serializable {
 		return total;
 	}
 
-	public void remove(ShoppingItem shoppingItem) {	
+	public void remove(ShoppingItem shoppingItem) {
 		mapItems.remove(shoppingItem);
 	}
 
@@ -85,7 +85,7 @@ public class ShoppingCart implements Serializable {
 	}
 
 	public void emptyCart(){
-		mapItems.clear();		
+		mapItems.clear();
 	}
 
 
@@ -120,19 +120,19 @@ public class ShoppingCart implements Serializable {
 
 		for (ShoppingItem shoppingItem : getList()){
 
-            try {
-                itens.put(new JSONObject()
-                        .put("name", shoppingItem.getService().getName())
-                        .put("price", shoppingItem.getService().getPrice())
-                        .put("quantity", getQuantityOfItens(shoppingItem).intValue())
-                        .put("total", getTotal(shoppingItem))
-                        );
-            } catch (JSONException e) {
-                Log.e("JSON-CONVERSION","Não foi possível criar objeto JSon",e);
-            }
-        }
+			try {
+				itens.put(new JSONObject()
+						.put("title", shoppingItem.getService().getTitle())
+						.put("price", shoppingItem.getService().getPrice())
+						.put("quantity", getQuantityOfItens(shoppingItem).intValue())
+						.put("total", getTotal(shoppingItem))
+				);
+			} catch (JSONException e) {
+				Log.e("JSON-CONVERSION","Não foi possível criar objeto JSon",e);
+			}
+		}
 
 		return itens.toString();
-	}	
+	}
 
 }

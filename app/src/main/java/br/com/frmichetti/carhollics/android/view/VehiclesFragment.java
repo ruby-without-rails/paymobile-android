@@ -27,11 +27,11 @@ import java.util.List;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
-import br.com.frmichetti.carhollics.android.jobs.TaskLoadVehicles;
-import br.com.frmichetti.carhollics.android.model.Customer;
-import br.com.frmichetti.carhollics.android.model.Service;
+import br.com.frmichetti.carhollics.android.jobs.TaskDownloadVehicles;
+import br.com.frmichetti.carhollics.android.model.compatibility.Customer;
+import br.com.frmichetti.carhollics.android.model.compatibility.Service;
 import br.com.frmichetti.carhollics.android.model.ShoppingCart;
-import br.com.frmichetti.carhollics.android.model.Vehicle;
+import br.com.frmichetti.carhollics.android.model.compatibility.Vehicle;
 
 
 public class VehiclesFragment extends Fragment {
@@ -168,7 +168,7 @@ public class VehiclesFragment extends Fragment {
 
             Log.d("INFO","Load Servicos from webservice");
 
-            TaskLoadVehicles taskLoadVeiculos = new TaskLoadVehicles(context, new AsyncResponse<List<Vehicle>>() {
+            TaskDownloadVehicles taskLoadVeiculos = new TaskDownloadVehicles(context, new AsyncResponse<List<Vehicle>>() {
 
                 @Override
                 public void processFinish(List<Vehicle> output) {

@@ -10,13 +10,22 @@ package br.com.frmichetti.carhollics.android.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import br.com.frmichetti.carhollics.android.model.compatibility.Service;
+
+/**
+ * ShoppingItem Model
+ * 
+ * @author felipe
+ * @since 1.0
+ * @version
+ */
 public class ShoppingItem implements Serializable{
 
 	private static final long serialVersionUID = -3480230394888070089L;
 
 	private Long serviceId;
 
-	private Service service;	
+	private Service service;
 
 	public ShoppingItem() {
 		super();
@@ -74,5 +83,8 @@ public class ShoppingItem implements Serializable{
 		return true;
 	}
 
-
+	@Override
+	public String toString() {
+		return service.toString();
+	}
 }

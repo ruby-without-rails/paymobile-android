@@ -37,7 +37,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
 import br.com.frmichetti.carhollics.android.jobs.TaskCreateUser;
-import br.com.frmichetti.carhollics.android.model.User;
+import br.com.frmichetti.carhollics.android.model.compatibility.User;
 import br.com.frmichetti.carhollics.android.util.ConnectivityReceiver;
 
 
@@ -208,8 +208,6 @@ public class SignupActivity extends AppCompatActivity implements MyPattern,
                                         User usuario = new User();
 
                                         usuario.setFirebaseUUID(firebaseUser.getUid());
-
-                                        usuario.setLogin(firebaseUser.getEmail());
 
                                         usuario.setEmail(firebaseUser.getEmail());
 

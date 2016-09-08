@@ -25,8 +25,8 @@ import java.util.ArrayList;
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
 import br.com.frmichetti.carhollics.android.jobs.TaskCreateCheckout;
-import br.com.frmichetti.carhollics.android.model.Checkout;
-import br.com.frmichetti.carhollics.android.model.Service;
+import br.com.frmichetti.carhollics.android.model.compatibility.Checkout;
+import br.com.frmichetti.carhollics.android.model.compatibility.Service;
 import br.com.frmichetti.carhollics.android.model.ShoppingCart;
 import br.com.frmichetti.carhollics.android.model.ShoppingItem;
 
@@ -40,6 +40,8 @@ public class ShoppingCartActivity extends BaseActivity {
     private ListView listViewShoppingCart;
 
     private ShoppingItem shoppingItem;
+
+    private Checkout checkout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +70,8 @@ public class ShoppingCartActivity extends BaseActivity {
         doRefresh();
 
         doCheckConnection(context);
+
+        checkout = new Checkout();
 
     }
 
@@ -214,7 +218,7 @@ public class ShoppingCartActivity extends BaseActivity {
 
                     if(doCheckConnection(context)){
 
-                        taskFazerPedido.execute(new Checkout(customer, shoppingCart));
+                        taskFazerPedido.execute(checkout);
 
                     }else{
 

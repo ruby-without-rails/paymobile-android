@@ -12,38 +12,42 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.dao.HTTP;
-import br.com.frmichetti.carhollics.android.model.Vehicle;
+import br.com.frmichetti.carhollics.android.model.compatibility.Vehicle;
 
 
-public class TaskLoadVehicles extends AsyncTask<Void,String,List<Vehicle>> {
+public class TaskDownloadVehicles extends AsyncTask<Void,String,List<Vehicle>> {
 
     public AsyncResponse delegate = null;
 
     private String url ;
 
-    private List<Vehicle> veiculos;
+    private List<Vehicle> vehicles;
 
     private ProgressDialog dialog;
 
     private Context context;
 
-    public TaskLoadVehicles(Context context, AsyncResponse<List<Vehicle>> delegate){
+    public TaskDownloadVehicles(Context context, AsyncResponse<List<Vehicle>> delegate){
         this(context);
         this.delegate = delegate;
     }
 
-    private TaskLoadVehicles(Context context){
+    private TaskDownloadVehicles(Context context){
         this();
         this.context = context;
     }
 
-    private TaskLoadVehicles(){
-        Log.d("DEBUG-TASK","create TaskLoadVehicles");
+    private TaskDownloadVehicles(){
+        Log.d("DEBUG-TASK","create TaskDownloadVehicles");
 
     }
 
@@ -52,21 +56,9 @@ public class TaskLoadVehicles extends AsyncTask<Void,String,List<Vehicle>> {
 
         super.onPreExecute();
 
-        url = context.getResources().getString(R.string.remote_server) + "/services/veiculo/list";
+        url = context.getResources().getString(R.string.local_server) + "vehicles";
 
         Log.d("DEBUG-TASK","server config -> " + url);
-
-        /*
-
-        in = new GsonBuilder()
-                .excludeFieldsWithoutExposeAnnotation()
-                .setPrettyPrinting()
-                .setDateFormat("dd/MM/yyyy").create();
-
-        collectionType = new TypeToken<List<Veiculo>>() {
-        }.getType();
-
-        */
 
         dialog = new ProgressDialog(context);
 
@@ -106,9 +98,9 @@ public class TaskLoadVehicles extends AsyncTask<Void,String,List<Vehicle>> {
 
         //TODO FIXME Receive a JSON ARRAy
 
-        veiculos = null;
+        vehicles = new Gson().fromJson(response, new TypeToken<List<Vehicle>>(){}.getType());
 
-        return veiculos;
+        return (vehicles != null) ? vehicles : new ArrayList<Vehicle>();
     }
 
 

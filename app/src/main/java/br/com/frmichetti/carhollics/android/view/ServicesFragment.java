@@ -25,11 +25,11 @@ import java.util.List;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
-import br.com.frmichetti.carhollics.android.jobs.TaskLoadServicos;
-import br.com.frmichetti.carhollics.android.model.Customer;
-import br.com.frmichetti.carhollics.android.model.Service;
+import br.com.frmichetti.carhollics.android.jobs.TaskDownloadServices;
+import br.com.frmichetti.carhollics.android.model.compatibility.Customer;
+import br.com.frmichetti.carhollics.android.model.compatibility.Service;
 import br.com.frmichetti.carhollics.android.model.ShoppingCart;
-import br.com.frmichetti.carhollics.android.model.Vehicle;
+import br.com.frmichetti.carhollics.android.model.compatibility.Vehicle;
 
 
 public class ServicesFragment extends Fragment {
@@ -184,7 +184,7 @@ public class ServicesFragment extends Fragment {
 
             Log.d("INFO","Load Servicos from webservice");
 
-            TaskLoadServicos taskLoadServices = new TaskLoadServicos(context, new AsyncResponse<List<Service>>() {
+            TaskDownloadServices taskLoadServices = new TaskDownloadServices(context, new AsyncResponse<List<Service>>() {
 
                 @Override
                 public void processFinish(List<Service> output) {

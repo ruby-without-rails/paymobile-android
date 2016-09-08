@@ -33,10 +33,10 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import br.com.frmichetti.carhollics.android.R;
-import br.com.frmichetti.carhollics.android.model.Customer;
-import br.com.frmichetti.carhollics.android.model.Service;
+import br.com.frmichetti.carhollics.android.model.compatibility.Customer;
+import br.com.frmichetti.carhollics.android.model.compatibility.Service;
 import br.com.frmichetti.carhollics.android.model.ShoppingCart;
-import br.com.frmichetti.carhollics.android.model.Vehicle;
+import br.com.frmichetti.carhollics.android.model.compatibility.Vehicle;
 import br.com.frmichetti.carhollics.android.util.ConnectivityReceiver;
 
 public abstract class BaseActivity extends AppCompatActivity implements MyPattern,

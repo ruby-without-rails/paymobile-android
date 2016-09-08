@@ -46,7 +46,7 @@ public final class HTTP {
 
         String resp;
 
-        if(responseCode == 200){
+        if(responseCode == 200 || responseCode == 201){
 
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(con.getInputStream()));
@@ -108,7 +108,7 @@ public final class HTTP {
 
         String resp;
 
-        if(responseCode == 200){
+        if(responseCode == 200 || responseCode == 201){
 
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 

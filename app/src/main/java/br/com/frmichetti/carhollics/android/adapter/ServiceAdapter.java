@@ -14,7 +14,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import br.com.frmichetti.carhollics.android.R;
-import br.com.frmichetti.carhollics.android.model.Service;
+import br.com.frmichetti.carhollics.android.model.compatibility.Service;
 
 public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MyViewHolder> {
 
@@ -64,7 +64,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MyViewHo
 
         Service service = services.get(position);
 
-        holder.title.setText(service.getName());
+        holder.title.setText(service.getTitle());
 
         holder.price.setText(service.getPrice() + " Preço");
 

@@ -16,7 +16,7 @@ import java.io.IOException;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.dao.HTTP;
-import br.com.frmichetti.carhollics.android.model.Customer;
+import br.com.frmichetti.carhollics.android.model.compatibility.Customer;
 
 public class TaskCreateCustomer extends AsyncTask<Customer,String,Customer> {
 
