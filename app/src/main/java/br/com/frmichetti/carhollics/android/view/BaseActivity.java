@@ -1,10 +1,9 @@
 /**
- *
  * @author Felipe Rodrigues Michetti
  * @see http://portfolio-frmichetti.rhcloud.com
  * @see http://www.codecode.com.br
  * @see mailto:frmichetti@gmail.com
- * */
+ */
 package br.com.frmichetti.carhollics.android.view;
 
 import android.content.Context;
@@ -33,6 +32,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import br.com.frmichetti.carhollics.android.R;
+import br.com.frmichetti.carhollics.android.model.compatibility.Address;
 import br.com.frmichetti.carhollics.android.model.compatibility.Customer;
 import br.com.frmichetti.carhollics.android.model.compatibility.Service;
 import br.com.frmichetti.carhollics.android.model.ShoppingCart;
@@ -40,7 +40,7 @@ import br.com.frmichetti.carhollics.android.model.compatibility.Vehicle;
 import br.com.frmichetti.carhollics.android.util.ConnectivityReceiver;
 
 public abstract class BaseActivity extends AppCompatActivity implements MyPattern,
-        ConnectivityReceiver.ConnectivityReceiverListener{
+        ConnectivityReceiver.ConnectivityReceiverListener {
 
     protected ActionBar actionBar;
 
@@ -64,10 +64,10 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
     protected Vehicle selectedVehicle;
 
-    protected BaseActivity(){
+    protected Address selectedAddress;
 
-        Log.d("[INFO-INSTANCE]","Create instance of " + this.getClass().getSimpleName());
-
+    protected BaseActivity() {
+        Log.d("[INFO-INSTANCE]", "Create instance of " + this.getClass().getSimpleName());
     }
 
     @Override
@@ -83,7 +83,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         doCreateFirebaseListener();
 
-        Log.d("DEBUG-ON-CREATE","Super On Create");
+        Log.d("DEBUG-ON-CREATE", "Super On Create");
 
         Log.d("Firebase-ID ", FirebaseInstanceId.getInstance().getToken());
 
@@ -98,7 +98,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         doConfigure();
 
-        Log.d("DEBUG-ON-POST-CREATE","Super On Post Create");
+        Log.d("DEBUG-ON-POST-CREATE", "Super On Post Create");
 
     }
 
@@ -117,7 +117,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         firebaseAuth.addAuthStateListener(authListener);
 
-        Log.d("[DEBUG-AUTH-LISTENER]","Registered Authentication Listener");
+        Log.d("[DEBUG-AUTH-LISTENER]", "Registered Authentication Listener");
 
     }
 
@@ -131,7 +131,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
             firebaseAuth.removeAuthStateListener(authListener);
 
-            Log.d("[DEBUG-AUTH-LISTENER]","Removed Authentication Listener");
+            Log.d("[DEBUG-AUTH-LISTENER]", "Removed Authentication Listener");
 
         }
 
@@ -151,7 +151,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         outState.putSerializable("vehicle", selectedVehicle);
 
-        Log.d("[INFO-SAVE-BUNDLE]","Save State");
+        Log.d("[INFO-SAVE-BUNDLE]", "Save State");
 
     }
 
@@ -160,9 +160,9 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         int id = item.getItemId();
 
-        if(id == android.R.id.home){
+        if (id == android.R.id.home) {
 
-            Toast.makeText(context,getString(R.string.click_on_back_button) ,Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, getString(R.string.click_on_back_button), Toast.LENGTH_SHORT).show();
 
             return true;
 
@@ -170,56 +170,56 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         if (id == R.id.action_settings) {
 
-            Toast.makeText(context,getString(R.string.click_on_settings_button),Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, getString(R.string.click_on_settings_button), Toast.LENGTH_SHORT).show();
 
             return true;
         }
 
-        if(id == R.id.action_vehicle){
+        if (id == R.id.action_vehicle) {
 
-            Toast.makeText(context,getString(R.string.click_on_vehicle_button) ,Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, getString(R.string.click_on_vehicle_button), Toast.LENGTH_SHORT).show();
 
             return true;
 
         }
 
-        if(id == R.id.action_search){
+        if (id == R.id.action_search) {
 
-            Toast.makeText(context,getString(R.string.click_on_search_button) ,Toast.LENGTH_SHORT).show();
-
-            return true;
-        }
-
-        if(id == R.id.action_contact_developer){
-
-            Toast.makeText(context,getString(R.string.click_on_developer_button) ,Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, getString(R.string.click_on_search_button), Toast.LENGTH_SHORT).show();
 
             return true;
         }
 
-        if(id == R.id.action_personal_data){
+        if (id == R.id.action_contact_developer) {
 
-            Toast.makeText(context,getString(R.string.click_on_personalData_button) ,Toast.LENGTH_SHORT).show();
-
-            return true;
-        }
-
-        if(id == R.id.action_map){
-
-            Toast.makeText(context,getString(R.string.click_on_map_button),Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, getString(R.string.click_on_developer_button), Toast.LENGTH_SHORT).show();
 
             return true;
         }
 
-        if(id == R.id.action_cart){
+        if (id == R.id.action_personal_data) {
 
-            Toast.makeText(context,getString(R.string.click_on_cart_button),Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, getString(R.string.click_on_personalData_button), Toast.LENGTH_SHORT).show();
+
+            return true;
+        }
+
+        if (id == R.id.action_map) {
+
+            Toast.makeText(context, getString(R.string.click_on_map_button), Toast.LENGTH_SHORT).show();
+
+            return true;
+        }
+
+        if (id == R.id.action_cart) {
+
+            Toast.makeText(context, getString(R.string.click_on_cart_button), Toast.LENGTH_SHORT).show();
 
             return true;
         }
 
 
-        if(id == R.id.action_about){
+        if (id == R.id.action_about) {
 
             PackageInfo pinfo = null;
 
@@ -236,7 +236,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
             String versionName = pinfo.versionName;
 
-            Toast.makeText(context,getString(R.string.version_of_app) + versionName,Toast.LENGTH_LONG).show();
+            Toast.makeText(context, getString(R.string.version_of_app) + versionName, Toast.LENGTH_LONG).show();
 
             return true;
         }
@@ -248,20 +248,20 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
 
-        if(event.getKeyCode() == KeyEvent.KEYCODE_BACK){
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
 
-            Toast.makeText(context,getString(R.string.keyUp_back_button),Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, getString(R.string.keyUp_back_button), Toast.LENGTH_SHORT).show();
 
         }
 
-        if(event.getKeyCode() == KeyEvent.KEYCODE_HOME){
+        if (event.getKeyCode() == KeyEvent.KEYCODE_HOME) {
 
-            Toast.makeText(context,getString(R.string.keyUp_home_button),Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, getString(R.string.keyUp_home_button), Toast.LENGTH_SHORT).show();
         }
 
-        if(event.getKeyCode() == KeyEvent.KEYCODE_SEARCH){
+        if (event.getKeyCode() == KeyEvent.KEYCODE_SEARCH) {
 
-            Toast.makeText(context,getString(R.string.keyUp_search_button),Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, getString(R.string.keyUp_search_button), Toast.LENGTH_SHORT).show();
         }
 
         return true;
@@ -282,7 +282,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
                     finish();
 
-                    Log.d("[DEBUG-INFO]","User Null, Send to LoginActivity");
+                    Log.d("[DEBUG-INFO]", "User Null, Send to LoginActivity");
 
                 }
             }
@@ -298,7 +298,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         actionBar = getSupportActionBar();
 
-        Log.d("DEBUG-DO-CAST-COMP","Super Do Cast Components");
+        Log.d("DEBUG-DO-CAST-COMP", "Super Do Cast Components");
     }
 
     @Override
@@ -312,7 +312,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        Log.d("DEBUG-DO-CONFIGURE","Super Do Configure");
+        Log.d("DEBUG-DO-CONFIGURE", "Super Do Configure");
 
     }
 
@@ -329,13 +329,13 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         firebaseAuth.signOut();
 
-        Log.d("[INFO-SIGNOUT]","SignOut");
+        Log.d("[INFO-SIGNOUT]", "SignOut");
 
     }
 
-    public void doRecoverState(Bundle bundle){
+    public void doRecoverState(Bundle bundle) {
 
-        if(bundle != null){
+        if (bundle != null) {
 
             customer = (Customer) bundle.getSerializable("customer");
 
@@ -345,14 +345,14 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
             selectedVehicle = (Vehicle) bundle.getSerializable("vehicle");
 
-            Log.d("[INFO-LOAD-BUNDLE]","Load Saved State");
+            Log.d("[INFO-LOAD-BUNDLE]", "Load Saved State");
 
         }
 
 
     }
 
-    public Bundle doSaveState(){
+    public Bundle doSaveState() {
 
         Bundle bundle = new Bundle();
 
@@ -364,7 +364,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         bundle.putSerializable("vehicle", selectedVehicle);
 
-        Log.d("[INFO-SAVE-BUNDLE]","Saved State");
+        Log.d("[INFO-SAVE-BUNDLE]", "Saved State");
 
         return bundle;
     }
@@ -379,15 +379,13 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         selectedVehicle = (Vehicle) intent.getSerializableExtra("vehicle");
 
-        Log.d("DEBUG-LOAD-EXTRAS","Load Extras");
+        Log.d("DEBUG-LOAD-EXTRAS", "Load Extras");
     }
 
     // Method to manually check connection status
     protected boolean doCheckConnection(Context context) {
 
-        boolean isConnected = ConnectivityReceiver.isConnected(context);
-
-        return isConnected;
+        return ConnectivityReceiver.isConnected(context);
     }
 
     // Showing the status in Snackbar

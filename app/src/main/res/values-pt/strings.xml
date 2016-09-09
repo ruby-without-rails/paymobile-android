@@ -83,7 +83,7 @@
     <string name="auth_error" >Ocorreu uma Falha na Autenticação.</string>
     <string name="register">Registre-se</string>
     <string name="click_on_cart_button" >Clicou no Botão de Carrinho</string>
-    <string name="checkout_sucess">Pedido Solicitado com sucesso! Entraremos em contato para Confirmar Agendamento.</string>
+    <string name="checkout_success">Pedido Solicitado com sucesso! Entraremos em contato para Confirmar Agendamento.</string>
     <string name="checkout_failed">Não foi possível concluir o pedido, Tente Novamente mais tarde.</string>
     <string name="cart_is_empty">Carrinho Vazio</string>
     <string name="service_details">Detalhes do Serviço</string>

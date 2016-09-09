@@ -113,7 +113,7 @@
         <item>@drawable/ic_action_done</item>
     </array>
 
-    <string name="checkout_sucess">Order successfully Requested! We will contact you to confirm scheduling.</string>
+    <string name="checkout_success">Order successfully Requested! We will contact you to confirm scheduling.</string>
     <string name="checkout_failed">Could not complete your request, try again later.</string>
     <string name="cart_is_empty">Empty Cart</string>
     <string name="service_details">Details of Service</string>

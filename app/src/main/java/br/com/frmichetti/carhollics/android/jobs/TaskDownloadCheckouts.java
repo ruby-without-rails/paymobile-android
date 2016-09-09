@@ -1,10 +1,9 @@
 /**
- *
  * @author Felipe Rodrigues Michetti
  * @see http://portfolio-frmichetti.rhcloud.com
  * @see http://www.codecode.com.br
  * @see mailto:frmichetti@gmail.com
- * */
+ */
 package br.com.frmichetti.carhollics.android.jobs;
 
 import android.app.ProgressDialog;
@@ -28,11 +27,11 @@ import br.com.frmichetti.carhollics.android.model.compatibility.Customer;
 import br.com.frmichetti.carhollics.android.util.GsonDateDeserializer;
 
 
-public class TaskDownloadCheckouts extends AsyncTask<Customer,String,List<Checkout>> {
+public class TaskDownloadCheckouts extends AsyncTask<Customer, String, List<Checkout>> {
 
     public AsyncResponse delegate = null;
 
-    private String url ;
+    private String url;
 
     private String response;
 
@@ -42,18 +41,18 @@ public class TaskDownloadCheckouts extends AsyncTask<Customer,String,List<Checko
 
     private Context context;
 
-    public TaskDownloadCheckouts(Context context, AsyncResponse<List<Checkout>> delegate){
+    public TaskDownloadCheckouts(Context context, AsyncResponse<List<Checkout>> delegate) {
         this(context);
         this.delegate = delegate;
     }
 
-    private TaskDownloadCheckouts(Context context){
+    private TaskDownloadCheckouts(Context context) {
         this();
         this.context = context;
     }
 
-    private TaskDownloadCheckouts(){
-        Log.d("DEBUG-TASK","create TaskDownloadServices");
+    private TaskDownloadCheckouts() {
+        Log.d("DEBUG-TASK", "create TaskDownloadServices");
     }
 
     @Override
@@ -63,7 +62,7 @@ public class TaskDownloadCheckouts extends AsyncTask<Customer,String,List<Checko
 
         url = context.getResources().getString(R.string.local_server) + "checkouts";
 
-        Log.d("DEBUG-TASK","server config -> " + url);
+        Log.d("DEBUG-TASK", "server config -> " + url);
 
 
         dialog = new ProgressDialog(context);
@@ -83,7 +82,7 @@ public class TaskDownloadCheckouts extends AsyncTask<Customer,String,List<Checko
 
 
     @Override
-    protected List<Checkout> doInBackground(Customer ... params) {
+    protected List<Checkout> doInBackground(Customer... params) {
 
         try {
 
@@ -107,14 +106,15 @@ public class TaskDownloadCheckouts extends AsyncTask<Customer,String,List<Checko
         checkouts = new GsonBuilder()
                 .registerTypeAdapter(Date.class, new GsonDateDeserializer())
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
-                .create().fromJson(response, new TypeToken<List<Checkout>>(){}.getType());
+                .create().fromJson(response, new TypeToken<List<Checkout>>() {
+                }.getType());
 
         return (checkouts != null) ? checkouts : new ArrayList<Checkout>();
     }
 
 
     @Override
-    protected void onProgressUpdate(String ... values) {
+    protected void onProgressUpdate(String... values) {
 
         super.onProgressUpdate(values);
 

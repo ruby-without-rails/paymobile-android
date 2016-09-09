@@ -1,10 +1,9 @@
 /**
- *
  * @author Felipe Rodrigues Michetti
  * @see http://portfolio-frmichetti.rhcloud.com
  * @see http://www.codecode.com.br
  * @see mailto:frmichetti@gmail.com
- * */
+ */
 package br.com.frmichetti.carhollics.android.fcm;
 
 public class NotificationData {
@@ -17,7 +16,8 @@ public class NotificationData {
     private String textMessage;
     private String sound;
 
-    public NotificationData(){}
+    public NotificationData() {
+    }
 
     public NotificationData(String imageName, int id, String title, String textMessage, String sound) {
         this.imageName = imageName;

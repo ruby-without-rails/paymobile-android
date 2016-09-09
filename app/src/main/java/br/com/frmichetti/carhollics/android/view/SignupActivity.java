@@ -1,10 +1,9 @@
 /**
- *
  * @author Felipe Rodrigues Michetti
  * @see http://portfolio-frmichetti.rhcloud.com
  * @see http://www.codecode.com.br
  * @see mailto:frmichetti@gmail.com
- * */
+ */
 package br.com.frmichetti.carhollics.android.view;
 
 import android.content.Context;
@@ -42,7 +41,7 @@ import br.com.frmichetti.carhollics.android.util.ConnectivityReceiver;
 
 
 public class SignupActivity extends AppCompatActivity implements MyPattern,
-        ConnectivityReceiver.ConnectivityReceiverListener{
+        ConnectivityReceiver.ConnectivityReceiverListener {
 
     private FirebaseAuth auth;
 
@@ -145,26 +144,26 @@ public class SignupActivity extends AppCompatActivity implements MyPattern,
 
                 if (TextUtils.isEmpty(email)) {
 
-                    Toast.makeText(context, getString(R.string.enter_email_address) , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, getString(R.string.enter_email_address), Toast.LENGTH_SHORT).show();
 
                     return;
                 }
 
                 if (TextUtils.isEmpty(password)) {
 
-                    Toast.makeText(context, getString(R.string.enter_password) , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, getString(R.string.enter_password), Toast.LENGTH_SHORT).show();
 
                     return;
                 }
 
                 if (password.length() < 6) {
 
-                    Toast.makeText(context, getString(R.string.minimum_password) , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, getString(R.string.minimum_password), Toast.LENGTH_SHORT).show();
 
                     return;
                 }
 
-                if(doCheckConnection()){
+                if (doCheckConnection()) {
 
                     progressBar.setVisibility(View.VISIBLE);
 
@@ -185,7 +184,7 @@ public class SignupActivity extends AppCompatActivity implements MyPattern,
                                         Toast.makeText(context, getString(R.string.auth_error) + task.getException(),
                                                 Toast.LENGTH_LONG).show();
 
-                                        Log.d("DEBUG-LOGIN",getString(R.string.auth_error) + task.getException().toString());
+                                        Log.d("DEBUG-LOGIN", getString(R.string.auth_error) + task.getException().toString());
 
                                     } else {
 
@@ -197,7 +196,7 @@ public class SignupActivity extends AppCompatActivity implements MyPattern,
                                                 //TODO Implementar Logica do Login
 
                                                 startActivity(new Intent(context, CustomerActivity.class)
-                                                        .putExtra("user",output));
+                                                        .putExtra("user", output));
 
                                                 finish();
                                             }
@@ -218,12 +217,11 @@ public class SignupActivity extends AppCompatActivity implements MyPattern,
                                 }
                             });
 
-                }else{
+                } else {
 
                     showSnack(doCheckConnection());
 
                 }
-
 
 
             }
@@ -250,7 +248,7 @@ public class SignupActivity extends AppCompatActivity implements MyPattern,
 
         int id = item.getItemId();
 
-        if(id == android.R.id.home){
+        if (id == android.R.id.home) {
 
             finish();
 

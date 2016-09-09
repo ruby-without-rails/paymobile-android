@@ -23,12 +23,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import br.com.frmichetti.carhollics.android.R;
-import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
-import br.com.frmichetti.carhollics.android.jobs.TaskCreateCheckout;
+import br.com.frmichetti.carhollics.android.model.ShoppingItem;
 import br.com.frmichetti.carhollics.android.model.compatibility.Checkout;
 import br.com.frmichetti.carhollics.android.model.compatibility.Service;
-import br.com.frmichetti.carhollics.android.model.ShoppingCart;
-import br.com.frmichetti.carhollics.android.model.ShoppingItem;
 
 
 public class ShoppingCartActivity extends BaseActivity {
@@ -184,55 +181,14 @@ public class ShoppingCartActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
-                //TODO FIXME Activity de Resumo de Compra
-                TaskCreateCheckout taskFazerPedido = new TaskCreateCheckout(context, new AsyncResponse<Boolean>() {
+                startActivity(new Intent(context,ResumeCheckout.class)
+                        .putExtra("customer", customer)
+                        .putExtra("shoppingCart", shoppingCart)
+                        .putExtra("service", selectedService)
+                        .putExtra("vehicle", selectedVehicle)
+                );
 
-                    @Override
-                    public void processFinish(Boolean output) {
-
-                        if(output != null && output == true){
-
-                            Toast.makeText(context, getString(R.string.checkout_sucess), Toast.LENGTH_LONG).show();
-
-                            shoppingCart = new ShoppingCart();
-
-                            startActivity(new Intent(context,MainActivity.class)
-                                    .putExtra("customer", customer)
-                                    .putExtra("shoppingCart", shoppingCart)
-                                    .putExtra("service", selectedService)
-                                    .putExtra("vehicle", selectedVehicle)
-                            );
-
-                            finish();
-
-                        }else{
-
-                            Toast.makeText(context,getString(R.string.checkout_failed),Toast.LENGTH_LONG).show();
-
-                        }
-
-                    }
-                });
-
-                if(!shoppingCart.isEmpty()){
-
-                    if(doCheckConnection(context)){
-
-                        taskFazerPedido.execute(checkout);
-
-                    }else{
-
-                        showSnack((CoordinatorLayout) findViewById(R.id.coordlayoutcart),doCheckConnection(context));
-                    }
-
-
-
-                }else {
-
-                    Toast.makeText(context,getString(R.string.cart_is_empty),Toast.LENGTH_SHORT).show();
-
-                }
-
+                finish();
 
 
             }

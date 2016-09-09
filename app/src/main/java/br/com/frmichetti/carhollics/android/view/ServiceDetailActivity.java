@@ -1,10 +1,9 @@
 /**
- *
  * @author Felipe Rodrigues Michetti
  * @see http://portfolio-frmichetti.rhcloud.com
  * @see http://www.codecode.com.br
  * @see mailto:frmichetti@gmail.com
- * */
+ */
 package br.com.frmichetti.carhollics.android.view;
 
 
@@ -22,9 +21,9 @@ import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.model.ShoppingItem;
 
 
-public class ServiceDetailActivity extends BaseActivity{
+public class ServiceDetailActivity extends BaseActivity {
 
-    private TextView textViewName,textViewDescricao, textViewDuration, textViewPrice;
+    private TextView textViewName, textViewDescricao, textViewDuration, textViewPrice;
 
     private FloatingActionButton floatButtonAddCart;
 
@@ -65,6 +64,7 @@ public class ServiceDetailActivity extends BaseActivity{
 
         actionBar.setSubtitle(getString(R.string.service_details));
 
+
     }
 
 
@@ -94,7 +94,7 @@ public class ServiceDetailActivity extends BaseActivity{
 
                 shoppingCart.add(new ShoppingItem(selectedService));
 
-                startActivity(new Intent(context,ShoppingCartActivity.class)
+                startActivity(new Intent(context, ShoppingCartActivity.class)
                         .putExtra("customer", customer)
                         .putExtra("shoppingCart", shoppingCart)
                         .putExtra("service", selectedService)
@@ -124,7 +124,7 @@ public class ServiceDetailActivity extends BaseActivity{
 
         int id = item.getItemId();
 
-        if(id == android.R.id.home){
+        if (id == android.R.id.home) {
 
             finish();
 
@@ -139,20 +139,22 @@ public class ServiceDetailActivity extends BaseActivity{
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
 
-        super.onKeyUp(keyCode,event);
+        super.onKeyUp(keyCode, event);
 
-        if(event.getKeyCode() == KeyEvent.KEYCODE_BACK){
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
 
-        }
-
-        if(event.getKeyCode() == KeyEvent.KEYCODE_HOME){
-
+            //TODO FIXME Not Implemented Yet
 
         }
 
-        if(event.getKeyCode() == KeyEvent.KEYCODE_SEARCH){
+        if (event.getKeyCode() == KeyEvent.KEYCODE_HOME) {
+            //TODO FIXME Not Implemented Yet
 
+        }
 
+        if (event.getKeyCode() == KeyEvent.KEYCODE_SEARCH) {
+
+            //TODO FIXME Not Implemented Yet
         }
 
         return true;
@@ -165,7 +167,7 @@ public class ServiceDetailActivity extends BaseActivity{
     @Override
     public void onNetworkConnectionChanged(boolean isConnected) {
 
-        showSnack((CoordinatorLayout) findViewById(R.id.coordlayoutservicodetail),isConnected);
+        showSnack((CoordinatorLayout) findViewById(R.id.coordlayoutservicodetail), isConnected);
     }
 
 
