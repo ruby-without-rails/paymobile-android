@@ -186,7 +186,7 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
 
                                                 if (output != null){
 
-                                                        startActivity(new Intent(context, MainActivity.class).putExtra("Cliente",output));
+                                                        startActivity(new Intent(context, MainActivity.class).putExtra("customer",output));
 
                                                         finish();
 

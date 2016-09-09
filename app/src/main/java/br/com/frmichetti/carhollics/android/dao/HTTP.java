@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 public final class HTTP {
 
@@ -76,6 +77,8 @@ public final class HTTP {
     public static String sendPost(String url, String params) throws IOException {
 
         URL obj = new URL(url);
+
+        params = new String(params.getBytes(), "ISO_8859_1");
 
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 

@@ -147,9 +147,11 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         outState.putSerializable("shoppingCart", shoppingCart);
 
-        outState.putSerializable("eervice", selectedService);
+        outState.putSerializable("service", selectedService);
 
         outState.putSerializable("vehicle", selectedVehicle);
+
+        outState.putSerializable("address", selectedAddress);
 
         Log.d("[INFO-SAVE-BUNDLE]", "Save State");
 
@@ -345,6 +347,8 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
             selectedVehicle = (Vehicle) bundle.getSerializable("vehicle");
 
+            selectedAddress = (Address) bundle.getSerializable("address");
+
             Log.d("[INFO-LOAD-BUNDLE]", "Load Saved State");
 
         }
@@ -363,6 +367,8 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
         bundle.putSerializable("service", selectedService);
 
         bundle.putSerializable("vehicle", selectedVehicle);
+
+        bundle.putSerializable("address", selectedAddress);
 
         Log.d("[INFO-SAVE-BUNDLE]", "Saved State");
 

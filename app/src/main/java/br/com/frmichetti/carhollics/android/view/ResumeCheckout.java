@@ -78,6 +78,22 @@ public class ResumeCheckout extends BaseActivity {
             @Override
             public void onClick(View view) {
 
+                checkout.setPurchaseDate(new Date());
+
+                if(!shoppingCart.isEmpty()) {
+
+                    checkout.setShoppingCart(shoppingCart.toJson());
+
+                    checkout.setTotal(shoppingCart.getTotal());
+                }
+
+                checkout.setCustomer(customer);
+
+                checkout.setAddress(selectedAddress);
+
+                checkout.setVehicle(selectedVehicle);
+
+
                 TaskCreateCheckout taskCreateCheckout = new TaskCreateCheckout(context, new AsyncResponse<Boolean>() {
 
                     @Override
@@ -107,24 +123,9 @@ public class ResumeCheckout extends BaseActivity {
                     }
                 });
 
-                if(selectedAddress != null && selectedVehicle != null){
+                if(selectedAddress != null && selectedVehicle != null && customer != null){
 
                     if(doCheckConnection(context)){
-
-                        checkout.setPurchaseDate(new Date());
-
-                        if(!shoppingCart.isEmpty()) {
-
-                            checkout.setShoppingCart(shoppingCart.toJson());
-
-                            checkout.setTotal(shoppingCart.getTotal());
-                        }
-
-                        checkout.setCustomer(customer);
-
-                        checkout.setAddress(selectedAddress);
-
-                        checkout.setVehicle(selectedVehicle);
 
                         taskCreateCheckout.execute(checkout);
 
@@ -133,52 +134,54 @@ public class ResumeCheckout extends BaseActivity {
                         showSnack((CoordinatorLayout) findViewById(R.id.coordlayoutcart),doCheckConnection(context));
                     }
 
-
-
                 }else {
 
                     Toast.makeText(context,getString(R.string.cart_is_empty),Toast.LENGTH_SHORT).show();
 
                 }
 
+            }
+        });
 
-                spinnerAddresses.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinnerAddresses.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
-                    @Override
-                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                        selectedAddress = (Address) spinnerAddresses.getSelectedItem();
+                selectedAddress = (Address) spinnerAddresses.getSelectedItem();
 
-                        textViewSelectedAddress.setText(selectedAddress.getStreet());
+                textViewSelectedAddress.setText(selectedAddress.getStreet());
 
-                    }
+                Toast.makeText(context,selectedAddress.getStreet(),Toast.LENGTH_SHORT).show();
 
-                    @Override
-                    public void onNothingSelected(AdapterView<?> adapterView) {
+            }
 
-                    }
-                });
-
-                spinnerVehicles.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-                    @Override
-                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                        selectedVehicle = (Vehicle) spinnerVehicles.getSelectedItem();
-
-                        textViewSelectedVehicle.setText(selectedVehicle.getModel());
-
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> adapterView) {
-
-                    }
-                });
-
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
         });
+
+        spinnerVehicles.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                selectedVehicle = (Vehicle) spinnerVehicles.getSelectedItem();
+
+                textViewSelectedVehicle.setText(selectedVehicle.getModel());
+
+                Toast.makeText(context,selectedVehicle.getModel(),Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
 
     }
 

@@ -1,10 +1,9 @@
 /**
- *
  * @author Felipe Rodrigues Michetti
  * @see http://portfolio-frmichetti.rhcloud.com
  * @see http://www.codecode.com.br
  * @see mailto:frmichetti@gmail.com
- * */
+ */
 package br.com.frmichetti.carhollics.android.view;
 
 import android.Manifest;
@@ -34,6 +33,7 @@ import java.net.URL;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.DownloadImageTask;
+import br.com.frmichetti.carhollics.android.model.compatibility.Address;
 import br.com.frmichetti.carhollics.android.model.compatibility.Service;
 import br.com.frmichetti.carhollics.android.model.ShoppingCart;
 import br.com.frmichetti.carhollics.android.model.compatibility.Vehicle;
@@ -71,19 +71,24 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
 
         doLoadExtras(intent);
 
-        if(shoppingCart == null){
+        if (shoppingCart == null) {
 
             shoppingCart = new ShoppingCart();
         }
 
-        if(selectedService == null){
+        if (selectedService == null) {
 
             selectedService = new Service();
         }
 
-        if(selectedVehicle == null){
+        if (selectedVehicle == null) {
 
             selectedVehicle = new Vehicle();
+        }
+
+        if(selectedAddress == null){
+
+            selectedAddress = new Address();
         }
 
         doSetFragment();
@@ -94,19 +99,20 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
 
     //TODO FIXME show info personal data
     private void doShowInfo() {
-        if(firebaseUser != null){
 
-            Log.i("INFO - USER",((firebaseUser.getDisplayName() != null) ? firebaseUser.getDisplayName() : "" ));
+        if (firebaseUser != null) {
 
-            Log.i("INFO - USER",((firebaseUser.getEmail() != null ) ? firebaseUser.getEmail() : ""));
+            Log.i("INFO - USER", ((firebaseUser.getDisplayName() != null) ? firebaseUser.getDisplayName() : ""));
 
-            Log.i("INFO - USER",((firebaseUser.getProviderId() != null) ? firebaseUser.getProviderId() : ""));
+            Log.i("INFO - USER", ((firebaseUser.getEmail() != null) ? firebaseUser.getEmail() : ""));
 
-            Log.i("INFO - USER",((firebaseUser.getPhotoUrl() != null) ? firebaseUser.getPhotoUrl().toString() : ""));
+            Log.i("INFO - USER", ((firebaseUser.getProviderId() != null) ? firebaseUser.getProviderId() : ""));
+
+            Log.i("INFO - USER", ((firebaseUser.getPhotoUrl() != null) ? firebaseUser.getPhotoUrl().toString() : ""));
         }
 
 
-        if(firebaseUser.getPhotoUrl() != null){
+        if (firebaseUser.getPhotoUrl() != null) {
 
             try {
 
@@ -116,15 +122,15 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
 
                 Log.d("DEBUG", "Não foi possivel alcançar a URL " + e);
 
-            } catch (NullPointerException e){
+            } catch (NullPointerException e) {
 
-                Log.d("DEBUG","Não foi possível obter a foto " + e);
+                Log.d("DEBUG", "Não foi possível obter a foto " + e);
             }
 
 
         }
 
-        if(firebaseUser.getEmail() != null){
+        if (firebaseUser.getEmail() != null) {
 
             textView.append(firebaseUser.getEmail());
 
@@ -151,7 +157,7 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
 
         if (id == R.id.action_settings) {
 
-            startActivity(new Intent(context,OptionsActivity.class)
+            startActivity(new Intent(context, OptionsActivity.class)
                     .putExtra("shoppingCart", shoppingCart)
                     .putExtra("customer", customer)
                     .putExtra("vehicle", selectedVehicle)
@@ -160,9 +166,9 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
 
         }
 
-        if(id == R.id.action_cart){
+        if (id == R.id.action_cart) {
 
-            startActivity(new Intent(context,ShoppingCartActivity.class)
+            startActivity(new Intent(context, ShoppingCartActivity.class)
                     .putExtra("shoppingCart", shoppingCart)
                     .putExtra("customer", customer)
                     .putExtra("vehicle", selectedVehicle)
@@ -171,9 +177,9 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
 
         }
 
-        if(id == R.id.action_personal_data){
+        if (id == R.id.action_personal_data) {
 
-            startActivity(new Intent(context,CustomerActivity.class)
+            startActivity(new Intent(context, CustomerActivity.class)
                     .putExtra("shoppingCart", shoppingCart)
                     .putExtra("customer", customer)
                     .putExtra("vehicle", selectedVehicle)
@@ -181,15 +187,15 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
             );
         }
 
-        if(id == R.id.action_contact_developer){
+        if (id == R.id.action_contact_developer) {
 
             Intent i = new Intent(Intent.ACTION_SEND);
 
             i.setType("message/rfc822");
 
-            i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"frmichetti@gmail.com"});
+            i.putExtra(Intent.EXTRA_EMAIL, new String[]{"frmichetti@gmail.com"});
             i.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
-            i.putExtra(Intent.EXTRA_TEXT   , "Contato App Carhollics");
+            i.putExtra(Intent.EXTRA_TEXT, "Contato App Carhollics");
 
             try {
 
@@ -202,9 +208,9 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
 
         }
 
-        if(id == R.id.action_map){
+        if (id == R.id.action_map) {
 
-            checkPermissions(context,this);
+            checkPermissions(context, this);
         }
 
         return true;
@@ -212,27 +218,27 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
 
     private void checkPermissions(Context context, Activity activity) {
 
-        if(ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-            if(ActivityCompat.shouldShowRequestPermissionRationale(activity,Manifest.permission.ACCESS_FINE_LOCATION)){
+            if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.ACCESS_FINE_LOCATION)) {
 
 
-            }else{
+            } else {
 
-                ActivityCompat.requestPermissions(activity,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},0);
+                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
             }
 
-        }else{
+        } else {
 
-            Toast.makeText(context,getString(R.string.permission_granted),Toast.LENGTH_LONG).show();
+            Toast.makeText(context, getString(R.string.permission_granted), Toast.LENGTH_LONG).show();
 
             permission = true;
 
         }
 
-        if(permission){
+        if (permission) {
 
-            startActivity(new Intent(context,MapActivity.class));
+            startActivity(new Intent(context, MapActivity.class));
         }
 
     }
@@ -322,19 +328,19 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
 
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        switch (requestCode){
+        switch (requestCode) {
 
             case 0: {
 
-                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    Toast.makeText(context,getString(R.string.permission_accepted),Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, getString(R.string.permission_accepted), Toast.LENGTH_LONG).show();
 
                     permission = true;
 
-                }else{
+                } else {
 
-                    Toast.makeText(context,getString(R.string.permission_not_accepted),Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, getString(R.string.permission_not_accepted), Toast.LENGTH_LONG).show();
 
                     permission = false;
 
