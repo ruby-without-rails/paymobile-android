@@ -95,10 +95,10 @@ public class ServiceDetailActivity extends BaseActivity{
                 shoppingCart.add(new ShoppingItem(selectedService));
 
                 startActivity(new Intent(context,ShoppingCartActivity.class)
-                        .putExtra("Cliente", customer)
-                        .putExtra("Carrinho", shoppingCart)
-                        .putExtra("Servico", selectedService)
-                        .putExtra("Veiculo", selectedVehicle)
+                        .putExtra("customer", customer)
+                        .putExtra("shoppingCart", shoppingCart)
+                        .putExtra("service", selectedService)
+                        .putExtra("vehicle", selectedVehicle)
 
                 );
 

@@ -72,7 +72,7 @@
             android:name=".view.MapActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".CardsMain"
+            android:name=".view.CardsMain"
             android:launchMode="singleTop" />
 
         <!--
@@ -88,7 +88,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".MapsActivity"
+            android:name=".view.MapsActivity"
             android:label="@string/title_activity_maps"></activity>
     </application>
 

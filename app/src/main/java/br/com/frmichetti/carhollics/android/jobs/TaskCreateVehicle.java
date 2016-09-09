@@ -49,7 +49,7 @@ public class TaskCreateVehicle extends AsyncTask<Vehicle,String,Vehicle> {
 
         super.onPreExecute();
 
-        url = context.getResources().getString(R.string.remote_server) + "/services/vehicle/save";
+        url = context.getResources().getString(R.string.local_server) + "vehicles";
 
         Log.d("DEBUG-TASK","server config -> " + url);
 

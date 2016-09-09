@@ -65,13 +65,13 @@ public class OptionsActivity extends BaseActivity {
 
     private void doLoadExtras() {
 
-        customer = (Customer) intent.getSerializableExtra("Cliente");
+        customer = (Customer) intent.getSerializableExtra("customer");
 
-        shoppingCart = (ShoppingCart) intent.getSerializableExtra("Carrinho");
+        shoppingCart = (ShoppingCart) intent.getSerializableExtra("shoppingCart");
 
-        selectedService = (Service) intent.getSerializableExtra("Servico");
+        selectedService = (Service) intent.getSerializableExtra("service");
 
-        selectedVehicle = (Vehicle) intent.getSerializableExtra("Veiculo");
+        selectedVehicle = (Vehicle) intent.getSerializableExtra("vehicle");
 
     }
 
@@ -401,10 +401,10 @@ public class OptionsActivity extends BaseActivity {
         if (id == R.id.action_cart) {
 
             startActivity(new Intent(context,ShoppingCartActivity.class)
-                    .putExtra("Carrinho", shoppingCart)
-                    .putExtra("Cliente", customer)
-                    .putExtra("Veiculo", selectedVehicle)
-                    .putExtra("Servico", selectedService)
+                    .putExtra("shoppingCart", shoppingCart)
+                    .putExtra("customer", customer)
+                    .putExtra("vehicle", selectedVehicle)
+                    .putExtra("service", selectedService)
             );
 
             return true;

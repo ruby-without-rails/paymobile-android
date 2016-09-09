@@ -143,13 +143,13 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         super.onSaveInstanceState(outState);
 
-        outState.putSerializable("Cliente", customer);
+        outState.putSerializable("customer", customer);
 
-        outState.putSerializable("Carrinho", shoppingCart);
+        outState.putSerializable("shoppingCart", shoppingCart);
 
-        outState.putSerializable("Servico", selectedService);
+        outState.putSerializable("eervice", selectedService);
 
-        outState.putSerializable("Veiculo", selectedVehicle);
+        outState.putSerializable("vehicle", selectedVehicle);
 
         Log.d("[INFO-SAVE-BUNDLE]","Save State");
 
@@ -274,7 +274,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
-                FirebaseUser user = firebaseAuth.getCurrentUser();
+                final FirebaseUser user = firebaseAuth.getCurrentUser();
 
                 if (user == null) {
 
@@ -337,13 +337,13 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         if(bundle != null){
 
-            customer = (Customer) bundle.getSerializable("Cliente");
+            customer = (Customer) bundle.getSerializable("customer");
 
-            shoppingCart = (ShoppingCart) bundle.getSerializable("Carrinho");
+            shoppingCart = (ShoppingCart) bundle.getSerializable("shoppingCart");
 
-            selectedService = (Service) bundle.getSerializable("Servico");
+            selectedService = (Service) bundle.getSerializable("service");
 
-            selectedVehicle = (Vehicle) bundle.getSerializable("Veiculo");
+            selectedVehicle = (Vehicle) bundle.getSerializable("vehicle");
 
             Log.d("[INFO-LOAD-BUNDLE]","Load Saved State");
 
@@ -356,13 +356,13 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         Bundle bundle = new Bundle();
 
-        bundle.putSerializable("Cliente", customer);
+        bundle.putSerializable("customer", customer);
 
-        bundle.putSerializable("Carrinho", shoppingCart);
+        bundle.putSerializable("shoppingCart", shoppingCart);
 
-        bundle.putSerializable("Servico", selectedService);
+        bundle.putSerializable("service", selectedService);
 
-        bundle.putSerializable("Veiculo", selectedVehicle);
+        bundle.putSerializable("vehicle", selectedVehicle);
 
         Log.d("[INFO-SAVE-BUNDLE]","Saved State");
 
@@ -371,13 +371,13 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
     public void doLoadExtras(Intent intent) {
 
-        customer = (Customer) intent.getSerializableExtra("Cliente");
+        customer = (Customer) intent.getSerializableExtra("customer");
 
-        shoppingCart = (ShoppingCart) intent.getSerializableExtra("Carrinho");
+        shoppingCart = (ShoppingCart) intent.getSerializableExtra("shoppingCart");
 
-        selectedService = (Service) intent.getSerializableExtra("Servico");
+        selectedService = (Service) intent.getSerializableExtra("service");
 
-        selectedVehicle = (Vehicle) intent.getSerializableExtra("Veiculo");
+        selectedVehicle = (Vehicle) intent.getSerializableExtra("vehicle");
 
         Log.d("DEBUG-LOAD-EXTRAS","Load Extras");
     }

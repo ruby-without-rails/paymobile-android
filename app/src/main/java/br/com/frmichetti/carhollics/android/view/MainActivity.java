@@ -152,10 +152,10 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
         if (id == R.id.action_settings) {
 
             startActivity(new Intent(context,OptionsActivity.class)
-                    .putExtra("Carrinho", shoppingCart)
-                    .putExtra("Cliente", customer)
-                    .putExtra("Veiculo", selectedVehicle)
-                    .putExtra("Servico", selectedService)
+                    .putExtra("shoppingCart", shoppingCart)
+                    .putExtra("customer", customer)
+                    .putExtra("vehicle", selectedVehicle)
+                    .putExtra("service", selectedService)
             );
 
         }
@@ -163,10 +163,10 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
         if(id == R.id.action_cart){
 
             startActivity(new Intent(context,ShoppingCartActivity.class)
-                    .putExtra("Carrinho", shoppingCart)
-                    .putExtra("Cliente", customer)
-                    .putExtra("Veiculo", selectedVehicle)
-                    .putExtra("Servico", selectedService)
+                    .putExtra("shoppingCart", shoppingCart)
+                    .putExtra("customer", customer)
+                    .putExtra("vehicle", selectedVehicle)
+                    .putExtra("service", selectedService)
             );
 
         }
@@ -174,10 +174,10 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
         if(id == R.id.action_personal_data){
 
             startActivity(new Intent(context,CustomerActivity.class)
-                    .putExtra("Carrinho", shoppingCart)
-                    .putExtra("Cliente", customer)
-                    .putExtra("Veiculo", selectedVehicle)
-                    .putExtra("Servico", selectedService)
+                    .putExtra("shoppingCart", shoppingCart)
+                    .putExtra("customer", customer)
+                    .putExtra("vehicle", selectedVehicle)
+                    .putExtra("service", selectedService)
             );
         }
 

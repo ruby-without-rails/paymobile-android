@@ -47,7 +47,7 @@ public class VehicleCreateActivity extends BaseActivity {
 
         super.onPostCreate(savedInstanceState);
 
-        customer = (Customer) intent.getSerializableExtra("Cliente");
+        customer = (Customer) intent.getSerializableExtra("customer");
 
         doConfigure();
 
@@ -82,8 +82,8 @@ public class VehicleCreateActivity extends BaseActivity {
                         selectedVehicle = output;
 
                         startActivity(new Intent(context,MainActivity.class)
-                                .putExtra("Veiculo", selectedVehicle)
-                                .putExtra("Cliente", customer)
+                                .putExtra("vehicle", selectedVehicle)
+                                .putExtra("customer", customer)
                         );
 
                         finish();

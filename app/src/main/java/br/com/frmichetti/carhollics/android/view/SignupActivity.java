@@ -197,7 +197,7 @@ public class SignupActivity extends AppCompatActivity implements MyPattern,
                                                 //TODO Implementar Logica do Login
 
                                                 startActivity(new Intent(context, CustomerActivity.class)
-                                                        .putExtra("Usuario",output));
+                                                        .putExtra("user",output));
 
                                                 finish();
                                             }

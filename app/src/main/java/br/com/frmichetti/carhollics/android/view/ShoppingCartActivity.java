@@ -197,10 +197,10 @@ public class ShoppingCartActivity extends BaseActivity {
                             shoppingCart = new ShoppingCart();
 
                             startActivity(new Intent(context,MainActivity.class)
-                                    .putExtra("Cliente", customer)
-                                    .putExtra("Carrinho", shoppingCart)
-                                    .putExtra("Servico", selectedService)
-                                    .putExtra("Veiculo", selectedVehicle)
+                                    .putExtra("customer", customer)
+                                    .putExtra("shoppingCart", shoppingCart)
+                                    .putExtra("service", selectedService)
+                                    .putExtra("vehicle", selectedVehicle)
                             );
 
                             finish();
@@ -259,10 +259,10 @@ public class ShoppingCartActivity extends BaseActivity {
         if(id == android.R.id.home){
 
             startActivity(new Intent(context,MainActivity.class)
-                    .putExtra("Cliente", customer)
-                    .putExtra("Carrinho", shoppingCart)
-                    .putExtra("Servico", selectedService)
-                    .putExtra("Veiculo", selectedVehicle)
+                    .putExtra("customer", customer)
+                    .putExtra("shoppingCart", shoppingCart)
+                    .putExtra("service", selectedService)
+                    .putExtra("vehicle", selectedVehicle)
             );
 
             finish();

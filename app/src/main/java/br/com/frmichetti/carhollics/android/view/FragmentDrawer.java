@@ -47,9 +47,7 @@ public class FragmentDrawer extends Fragment {
 
     private FragmentDrawerListener drawerListener;
 
-    public FragmentDrawer() {
-
-    }
+    public FragmentDrawer(){}
 
     public void setDrawerListener(FragmentDrawerListener listener) {
         this.drawerListener = listener;
@@ -58,7 +56,6 @@ public class FragmentDrawer extends Fragment {
     public static List<NavDrawerItem> getData() {
 
         List<NavDrawerItem> data = new ArrayList<NavDrawerItem>();
-
 
         // preparing navigation drawer items
         for (int i = 0; i < titles.length; i++) {

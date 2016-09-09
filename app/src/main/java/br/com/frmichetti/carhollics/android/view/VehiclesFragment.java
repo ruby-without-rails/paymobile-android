@@ -66,7 +66,7 @@ public class VehiclesFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if(savedInstanceState != null){
-            vehicles = (List<Vehicle>) savedInstanceState.getSerializable("Veiculos");
+            vehicles = (List<Vehicle>) savedInstanceState.getSerializable("vehicles");
         }
 
         doConfigure();
@@ -80,18 +80,18 @@ public class VehiclesFragment extends Fragment {
 
         super.onSaveInstanceState(outState);
 
-        outState.putSerializable("Veiculos", (Serializable) vehicles);
+        outState.putSerializable("vehicles", (Serializable) vehicles);
     }
 
     private void doLoadExtras() {
 
-        customer = (Customer) intent.getSerializableExtra("Cliente");
+        customer = (Customer) intent.getSerializableExtra("customer");
 
-        shoppingCart = (ShoppingCart) intent.getSerializableExtra("Carrinho");
+        shoppingCart = (ShoppingCart) intent.getSerializableExtra("shoppingCart");
 
-        selectedService = (Service) intent.getSerializableExtra("Servico");
+        selectedService = (Service) intent.getSerializableExtra("service");
 
-        selectedVehicle = (Vehicle) intent.getSerializableExtra("Veiculo");
+        selectedVehicle = (Vehicle) intent.getSerializableExtra("vehicle");
     }
 
     private void doConfigure() {
@@ -106,7 +106,7 @@ public class VehiclesFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         if(savedInstanceState != null){
-            vehicles = (List<Vehicle>) savedInstanceState.getSerializable("Veiculos");
+            vehicles = (List<Vehicle>) savedInstanceState.getSerializable("vehicles");
         }
 
 
@@ -166,7 +166,7 @@ public class VehiclesFragment extends Fragment {
 
         if(vehicles == null){
 
-            Log.d("INFO","Load Servicos from webservice");
+            Log.d("INFO","Load Services from webservice");
 
             TaskDownloadVehicles taskLoadVeiculos = new TaskDownloadVehicles(context, new AsyncResponse<List<Vehicle>>() {
 

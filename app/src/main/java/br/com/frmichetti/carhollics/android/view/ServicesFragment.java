@@ -52,9 +52,7 @@ public class ServicesFragment extends Fragment {
 
     private ShoppingCart shoppingCart;
 
-    public ServicesFragment() {
-        // Required empty public constructor
-    }
+    public ServicesFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,7 +61,7 @@ public class ServicesFragment extends Fragment {
 
         if(savedInstanceState != null){
 
-            services = (List<Service>) savedInstanceState.getSerializable("Servicos");
+            services = (List<Service>) savedInstanceState.getSerializable("services");
 
         }
 
@@ -93,7 +91,7 @@ public class ServicesFragment extends Fragment {
 
         super.onSaveInstanceState(outState);
 
-        outState.putSerializable("Servicos", (Serializable) services);
+        outState.putSerializable("services", (Serializable) services);
 
         Log.d("DEBUG - Save State","Salvando Estado");
 
@@ -109,13 +107,13 @@ public class ServicesFragment extends Fragment {
 
     private void doLoadExtras() {
 
-        customer = (Customer) intent.getSerializableExtra("Cliente");
+        customer = (Customer) intent.getSerializableExtra("customer");
 
-        shoppingCart = (ShoppingCart) intent.getSerializableExtra("Carrinho");
+        shoppingCart = (ShoppingCart) intent.getSerializableExtra("shoppingCart");
 
-        selectedService = (Service) intent.getSerializableExtra("Servico");
+        selectedService = (Service) intent.getSerializableExtra("service");
 
-        selectedVehicle = (Vehicle) intent.getSerializableExtra("Veiculo");
+        selectedVehicle = (Vehicle) intent.getSerializableExtra("vehicle");
 
     }
 
@@ -126,7 +124,7 @@ public class ServicesFragment extends Fragment {
 
         if(savedInstanceState != null){
 
-            services = (List<Service>) savedInstanceState.getSerializable("Servicos");
+            services = (List<Service>) savedInstanceState.getSerializable("services");
 
         }
 
@@ -136,7 +134,7 @@ public class ServicesFragment extends Fragment {
 
         doCreateListeners();
 
-        doLoadServicos();
+        doLoadServices();
 
         // Inflate the layout for this fragment
         return rootView;
@@ -167,10 +165,10 @@ public class ServicesFragment extends Fragment {
                 selectedService = (Service) itemValue;
 
                 startActivity(new Intent(context,ServiceDetailActivity.class)
-                        .putExtra("Carrinho", shoppingCart)
-                        .putExtra("Cliente", customer)
-                        .putExtra("Veiculo", selectedVehicle)
-                        .putExtra("Servico", selectedService)
+                        .putExtra("shoppingCart", shoppingCart)
+                        .putExtra("customer", customer)
+                        .putExtra("vehicle", selectedVehicle)
+                        .putExtra("service", selectedService)
                 );
 
             }
@@ -178,11 +176,11 @@ public class ServicesFragment extends Fragment {
 
     }
 
-    private void doLoadServicos(){
+    private void doLoadServices(){
 
         if(services == null){
 
-            Log.d("INFO","Load Servicos from webservice");
+            Log.d("INFO","Load Services from webservice");
 
             TaskDownloadServices taskLoadServices = new TaskDownloadServices(context, new AsyncResponse<List<Service>>() {
 

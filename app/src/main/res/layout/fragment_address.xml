@@ -26,6 +26,16 @@
         android:textSize="12dp"
         android:layout_marginTop="10dp"
         android:gravity="center_horizontal"
-        android:text="Endereços de Atendimento Aqui" />
+        android:text="Endereços de Atendimento Aqui"
+        android:id="@+id/textView8" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listViewAddress"
+        android:layout_centerHorizontal="true"
+        tools:listitem="@android:layout/simple_list_item_checked"
+        android:choiceMode="singleChoice"
+        android:layout_below="@+id/textView8" />
 
 </RelativeLayout>

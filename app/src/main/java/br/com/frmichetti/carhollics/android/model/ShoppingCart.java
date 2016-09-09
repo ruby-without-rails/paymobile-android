@@ -26,15 +26,6 @@ public class ShoppingCart implements Serializable {
 
 	private Map<ShoppingItem, Integer> mapItems = new LinkedHashMap<>();
 
-	public ShoppingCart(){
-		super();
-	}
-
-	public void add(ShoppingItem shoppingItem) {
-
-		mapItems.put(shoppingItem, getQuantityOfItens(shoppingItem) + 1);
-	}
-
 	public Integer getQuantityOfItens(ShoppingItem shoppingItem) {
 
 		if(!mapItems.containsKey(shoppingItem)){
@@ -42,7 +33,6 @@ public class ShoppingCart implements Serializable {
 		}
 		return mapItems.get(shoppingItem);
 	}
-
 
 	public Integer getQuantity(){
 
@@ -52,7 +42,7 @@ public class ShoppingCart implements Serializable {
 			accumulator+= shoppingItem;
 		}
 
-        /* TODO FIXME to java <=7
+        /* TODO FIXME to java > 7
 		return mapItems.values().stream()
 				.reduce(0, (next,accumulator)-> next + accumulator);*/
 
@@ -74,6 +64,11 @@ public class ShoppingCart implements Serializable {
 			total = total.add(getTotal(shoppingItem));
 		}
 		return total;
+	}
+
+	public void add(ShoppingItem shoppingItem) {
+
+		mapItems.put(shoppingItem, getQuantityOfItens(shoppingItem) + 1);
 	}
 
 	public void remove(ShoppingItem shoppingItem) {

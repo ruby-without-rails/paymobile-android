@@ -54,7 +54,7 @@ public class CustomerFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if(savedInstanceState != null){
-            checkouts = (List<Checkout>) savedInstanceState.getSerializable("Pedidos");
+            checkouts = (List<Checkout>) savedInstanceState.getSerializable("checkouts");
         }
 
         doConfigure();
@@ -83,7 +83,7 @@ public class CustomerFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         if(savedInstanceState != null){
-            checkouts = (List<Checkout>) savedInstanceState.getSerializable("Pedidos");
+            checkouts = (List<Checkout>) savedInstanceState.getSerializable("checkouts");
         }
 
         View rootView = inflater.inflate(R.layout.fragment_customer, container, false);
@@ -102,7 +102,7 @@ public class CustomerFragment extends Fragment {
 
     private void doLoadExtras(Intent intent) {
 
-        customer = (Customer) intent.getSerializableExtra("Cliente");
+        customer = (Customer) intent.getSerializableExtra("customer");
 
     }
 
@@ -116,7 +116,7 @@ public class CustomerFragment extends Fragment {
 
         if(checkouts == null){
 
-            Log.d("INFO","Load Pedidos from webservice");
+            Log.d("INFO","Load Checkouts from webservice");
 
             TaskDownloadCheckouts taskLoadPedidos = new TaskDownloadCheckouts(context, new AsyncResponse<List<Checkout>>() {
 

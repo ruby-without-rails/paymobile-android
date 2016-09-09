@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 import br.com.frmichetti.carhollics.android.R;
@@ -69,7 +71,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MyViewHo
         holder.price.setText(service.getPrice() + " Preço");
 
         // loading service cover using Glide library
-       // Glide.with(context).load(service.getThumbnail()).into(holder.thumbnail);
+        Glide.with(context).load(service.getThumbnail()).into(holder.thumbnail);
 
         holder.overflow.setOnClickListener(new View.OnClickListener() {
 

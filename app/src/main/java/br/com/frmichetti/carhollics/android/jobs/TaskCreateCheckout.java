@@ -12,6 +12,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.gson.GsonBuilder;
+
 import java.io.IOException;
 
 import br.com.frmichetti.carhollics.android.R;
@@ -28,9 +30,7 @@ public class TaskCreateCheckout extends AsyncTask<Checkout,String, Boolean>  {
     private Context context;
 
     private TaskCreateCheckout(){
-
         Log.d("DEBUG-TASK","create TaskCreateCheckout");
-
     }
 
     private TaskCreateCheckout(Context context){
@@ -50,7 +50,7 @@ public class TaskCreateCheckout extends AsyncTask<Checkout,String, Boolean>  {
 
         super.onPreExecute();
 
-        url = context.getResources().getString(R.string.remote_server) + "/services/pedido/save";
+        url = context.getResources().getString(R.string.local_server) + "checkouts";
 
         Log.d("DEBUG-TASK","server config -> " + url);
 
@@ -76,9 +76,11 @@ public class TaskCreateCheckout extends AsyncTask<Checkout,String, Boolean>  {
 
             publishProgress("Enviando Objeto para o Servidor");
 
-            //TODO FIXME Create a JSON
-
-            response = HTTP.sendPost(url, param[0].toString());
+            response = HTTP.sendPost(url, new GsonBuilder()
+                    .setPrettyPrinting()
+                    .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+                    .enableComplexMapKeySerialization()
+                    .create().toJson(param[0]));
 
         } catch (IOException e) {
 
@@ -92,18 +94,6 @@ public class TaskCreateCheckout extends AsyncTask<Checkout,String, Boolean>  {
 
         Log.i("Resposta",response);
 
-        //TODO FIXME SEND a Json
-/*
-        Gson in = new GsonBuilder()
-                .setPrettyPrinting()
-                .setDateFormat("dd/MM/yyyy").create();
-
-
-                in.fromJson(response,Boolean.class)
-
-
-                */
-
         return true;
 
     }
@@ -116,8 +106,6 @@ public class TaskCreateCheckout extends AsyncTask<Checkout,String, Boolean>  {
         dialog.setMessage(String.valueOf(values[0]));
     }
 
-
-
     @Override
     protected void onPostExecute(Boolean param) {
 
@@ -128,8 +116,6 @@ public class TaskCreateCheckout extends AsyncTask<Checkout,String, Boolean>  {
         dialog.dismiss();
 
         delegate.processFinish(param);
-
-
 
     }
 

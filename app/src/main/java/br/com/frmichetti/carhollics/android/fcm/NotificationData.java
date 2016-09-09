@@ -17,7 +17,7 @@ public class NotificationData {
     private String textMessage;
     private String sound;
 
-    public NotificationData() {}
+    public NotificationData(){}
 
     public NotificationData(String imageName, int id, String title, String textMessage, String sound) {
         this.imageName = imageName;

@@ -95,10 +95,10 @@ public class CustomerActivity extends BaseActivity{
                         //TODO FIXME getCliente
 
                         startActivity(new Intent(context,MainActivity.class)
-                                .putExtra("Carrinho", shoppingCart)
-                                .putExtra("Cliente", customer)
-                                .putExtra("Veiculo", selectedVehicle)
-                                .putExtra("Servico", selectedService));
+                                .putExtra("shoppingCart", shoppingCart)
+                                .putExtra("customer", customer)
+                                .putExtra("vehicle", selectedVehicle)
+                                .putExtra("service", selectedService));
 
                         finish();
                     }
@@ -187,9 +187,9 @@ public class CustomerActivity extends BaseActivity{
 
         super.doLoadExtras(intent);
 
-        user = (User) intent.getSerializableExtra("Usuario");
+        user = (User) intent.getSerializableExtra("user");
 
-        customer = (Customer) intent.getSerializableExtra("Cliente");
+        customer = (Customer) intent.getSerializableExtra("customer");
     }
 
     @Override
