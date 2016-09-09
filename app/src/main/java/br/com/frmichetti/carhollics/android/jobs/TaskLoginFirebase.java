@@ -1,13 +1,13 @@
 /**
- *
  * @author Felipe Rodrigues Michetti
  * @see http://portfolio-frmichetti.rhcloud.com
  * @see mailto:frmichetti@gmail.com
- * */
+ */
 package br.com.frmichetti.carhollics.android.jobs;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -25,35 +25,32 @@ import java.io.IOException;
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.dao.HTTP;
 import br.com.frmichetti.carhollics.android.model.Token;
-import br.com.frmichetti.carhollics.android.model.compatibility.BaseModel;
 import br.com.frmichetti.carhollics.android.model.compatibility.Customer;
 
 
-public class TaskLoginFirebase extends AsyncTask<String,String,Customer> {
+public class TaskLoginFirebase extends AsyncTask<String, String, Customer> {
 
     public AsyncResponse delegate = null;
 
+    protected Customer customer;
+
     private ProgressDialog dialog;
 
-    private String url ;
+    private String url;
 
     private Context context;
 
-    protected Customer customer;
-
-    public TaskLoginFirebase(Context context, AsyncResponse<Customer> delegate){
+    public TaskLoginFirebase(Context context, AsyncResponse<Customer> delegate) {
         this(context);
         this.delegate = delegate;
     }
 
-    private TaskLoginFirebase(Context context){
+    private TaskLoginFirebase(Context context) {
         this.context = context;
     }
 
-    private TaskLoginFirebase(){
-
-        Log.d("DEBUG-TASK","create TaskLoginFirebase");
-
+    private TaskLoginFirebase() {
+        Log.d("DEBUG-TASK", "create TaskLoginFirebase");
     }
 
 
@@ -64,7 +61,7 @@ public class TaskLoginFirebase extends AsyncTask<String,String,Customer> {
 
         url = context.getResources().getString(R.string.local_server) + "login/firebaselogin";
 
-        Log.d("DEBUG-TASK","server config -> " + url);
+        Log.d("DEBUG-TASK", "server config -> " + url);
 
         dialog = new ProgressDialog(context);
 
@@ -82,7 +79,7 @@ public class TaskLoginFirebase extends AsyncTask<String,String,Customer> {
     }
 
     @Override
-    protected Customer doInBackground(String ... params) {
+    protected Customer doInBackground(String... params) {
 
         String response = "";
 
@@ -98,50 +95,52 @@ public class TaskLoginFirebase extends AsyncTask<String,String,Customer> {
 
             response = HTTP.sendPost(url, new GsonBuilder().
                     setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
-                    .create().toJson(t) );
+                    .create().toJson(t));
 
             publishProgress("Objeto recebido");
 
-            if ((response == null) || (response.equals(""))){
+            if ((response == null) || (response.equals(""))) {
 
                 publishProgress("Servidor Respondeu Null");
 
 
-            }else if (response.equals("{}")){
+            } else if (response.equals("{}")) {
 
-                Log.d("DEBUG","ID Existente no Firebase");
+                Log.d("DEBUG", "ID Existente no Firebase");
 
-                Log.d("DEBUG","Cliente Vazio");
+                Log.d("DEBUG", "Cliente Vazio");
 
                 FirebaseAuth.getInstance().getCurrentUser().delete().addOnCompleteListener(new OnCompleteListener<Void>() {
 
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
 
-                        if(!(task.isSuccessful())){
+                        if (!(task.isSuccessful())) {
 
                             Toast.makeText(context, context.getString(R.string.delete_account_failed), Toast.LENGTH_LONG).show();
 
                             Toast.makeText(context, context.getString(R.string.could_not_authorize), Toast.LENGTH_LONG).show();
 
-                        }else{
+                        } else {
 
                             Toast.makeText(context, context.getString(R.string.delete_account_success), Toast.LENGTH_LONG).show();
 
                             Toast.makeText(context, context.getString(R.string.repeat_register_operation), Toast.LENGTH_LONG).show();
+
                         }
 
                     }
                 });
 
 
-            }else{
+            } else {
 
                 publishProgress("Criando Objeto Cliente");
 
                 //TODO FIXME Receive a json
 
-                customer = new Gson().fromJson(response, new TypeToken<Customer>(){}.getType());
+                customer = new Gson().fromJson(response, new TypeToken<Customer>() {
+                }.getType());
             }
 
 
@@ -152,16 +151,16 @@ public class TaskLoginFirebase extends AsyncTask<String,String,Customer> {
             Log.e("Erro", e.getMessage());
 
         }
-            publishProgress("Login Validado!");
+        publishProgress("Login Validado!");
 
-            publishProgress("Entrando...");
+        publishProgress("Entrando...");
 
         return customer;
     }
 
 
     @Override
-    protected void onProgressUpdate(String ... values) {
+    protected void onProgressUpdate(String... values) {
 
         super.onProgressUpdate(values);
 
@@ -179,7 +178,6 @@ public class TaskLoginFirebase extends AsyncTask<String,String,Customer> {
         delegate.processFinish(result);
 
     }
-
 
 
 }

@@ -1,10 +1,9 @@
 /**
- *
  * @author Felipe Rodrigues Michetti
  * @see http://portfolio-frmichetti.rhcloud.com
  * @see http://www.codecode.com.br
  * @see mailto:frmichetti@gmail.com
- * */
+ */
 package br.com.frmichetti.carhollics.android.view;
 
 import android.content.Intent;
@@ -73,7 +72,6 @@ public class VehicleCreateActivity extends BaseActivity {
             public void onClick(View v) {
 
 
-
                 TaskCreateVehicle taskCreateVeiculo = new TaskCreateVehicle(context, new AsyncResponse<Vehicle>() {
 
                     @Override
@@ -81,7 +79,7 @@ public class VehicleCreateActivity extends BaseActivity {
 
                         selectedVehicle = output;
 
-                        startActivity(new Intent(context,MainActivity.class)
+                        startActivity(new Intent(context, MainActivity.class)
                                 .putExtra("vehicle", selectedVehicle)
                                 .putExtra("customer", customer)
                         );
@@ -115,7 +113,7 @@ public class VehicleCreateActivity extends BaseActivity {
     }
 
 
-    private Vehicle doFillData(){
+    private Vehicle doFillData() {
 
         Vehicle v = new Vehicle();
 

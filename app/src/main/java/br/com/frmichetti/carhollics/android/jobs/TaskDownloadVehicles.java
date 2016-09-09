@@ -1,10 +1,9 @@
 /**
- *
  * @author Felipe Rodrigues Michetti
  * @see http://portfolio-frmichetti.rhcloud.com
  * @see http://www.codecode.com.br
  * @see mailto:frmichetti@gmail.com
- * */
+ */
 package br.com.frmichetti.carhollics.android.jobs;
 
 import android.app.ProgressDialog;
@@ -24,11 +23,11 @@ import br.com.frmichetti.carhollics.android.dao.HTTP;
 import br.com.frmichetti.carhollics.android.model.compatibility.Vehicle;
 
 
-public class TaskDownloadVehicles extends AsyncTask<Void,String,List<Vehicle>> {
+public class TaskDownloadVehicles extends AsyncTask<Void, String, List<Vehicle>> {
 
     public AsyncResponse delegate = null;
 
-    private String url ;
+    private String url;
 
     private List<Vehicle> vehicles;
 
@@ -36,18 +35,18 @@ public class TaskDownloadVehicles extends AsyncTask<Void,String,List<Vehicle>> {
 
     private Context context;
 
-    public TaskDownloadVehicles(Context context, AsyncResponse<List<Vehicle>> delegate){
+    public TaskDownloadVehicles(Context context, AsyncResponse<List<Vehicle>> delegate) {
         this(context);
         this.delegate = delegate;
     }
 
-    private TaskDownloadVehicles(Context context){
+    private TaskDownloadVehicles(Context context) {
         this();
         this.context = context;
     }
 
-    private TaskDownloadVehicles(){
-        Log.d("DEBUG-TASK","create TaskDownloadVehicles");
+    private TaskDownloadVehicles() {
+        Log.d("DEBUG-TASK", "create TaskDownloadVehicles");
 
     }
 
@@ -58,7 +57,7 @@ public class TaskDownloadVehicles extends AsyncTask<Void,String,List<Vehicle>> {
 
         url = context.getResources().getString(R.string.local_server) + "vehicles";
 
-        Log.d("DEBUG-TASK","server config -> " + url);
+        Log.d("DEBUG-TASK", "server config -> " + url);
 
         dialog = new ProgressDialog(context);
 
@@ -77,7 +76,7 @@ public class TaskDownloadVehicles extends AsyncTask<Void,String,List<Vehicle>> {
 
 
     @Override
-    protected List<Vehicle> doInBackground(Void ... params) {
+    protected List<Vehicle> doInBackground(Void... params) {
 
         String response = "";
 
@@ -98,14 +97,15 @@ public class TaskDownloadVehicles extends AsyncTask<Void,String,List<Vehicle>> {
 
         //TODO FIXME Receive a JSON ARRAy
 
-        vehicles = new Gson().fromJson(response, new TypeToken<List<Vehicle>>(){}.getType());
+        vehicles = new Gson().fromJson(response, new TypeToken<List<Vehicle>>() {
+        }.getType());
 
         return (vehicles != null) ? vehicles : new ArrayList<Vehicle>();
     }
 
 
     @Override
-    protected void onProgressUpdate(String ... values) {
+    protected void onProgressUpdate(String... values) {
 
         super.onProgressUpdate(values);
 

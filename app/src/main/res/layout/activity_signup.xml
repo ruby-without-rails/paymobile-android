@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordlayoutsignup"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
-    tools:context=".view.SignupActivity"
-    android:id="@+id/coordlayoutsignup">
+    tools:context=".view.SignupActivity">
 
     <include
+        layout="@layout/toolbar"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/toolbar" />
-
+        android:layout_height="wrap_content" />
 
 
     <LinearLayout
@@ -108,7 +106,6 @@
         android:layout_gravity="center|bottom"
         android:layout_marginBottom="20dp"
         android:visibility="gone" />
-
 
 
 </android.support.design.widget.CoordinatorLayout>

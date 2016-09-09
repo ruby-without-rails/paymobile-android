@@ -179,6 +179,16 @@ public class CardsMain extends AppCompatActivity {
     }
 
     /**
+     * Converting dp to pixel
+     */
+    private int dpToPx(int dp) {
+
+        Resources r = getResources();
+
+        return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
+    }
+
+    /**
      * RecyclerView item decoration - give equal margin around grid item
      */
     public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
@@ -218,15 +228,5 @@ public class CardsMain extends AppCompatActivity {
                 }
             }
         }
-    }
-
-    /**
-     * Converting dp to pixel
-     */
-    private int dpToPx(int dp) {
-
-        Resources r = getResources();
-
-        return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
 }

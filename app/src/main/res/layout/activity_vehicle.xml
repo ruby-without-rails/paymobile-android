@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.VeiculoActivity">
+    tools:context=".view.VehicleCreateActivity">
 
     <LinearLayout
+        android:id="@+id/linearLayout4"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:orientation="vertical"
-        android:id="@+id/linearLayout4">
+        android:orientation="vertical">
 
         <include
             android:id="@+id/toolbar"
@@ -18,26 +18,26 @@
     </LinearLayout>
 
     <ScrollView
+        android:id="@+id/scrollView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/scrollView3"
         android:layout_below="@+id/linearLayout4">
 
         <ListView
+            android:id="@+id/listViewVeiculo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/listViewVeiculo"
-            android:layout_below="@+id/linearLayout4"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/linearLayout4" />
     </ScrollView>
 
     <Button
+        android:id="@+id/buttonAdicionarVeiculo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Não está na Lista ? Cadastre o Seu !"
-        android:id="@+id/buttonAdicionarVeiculo"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:text="Não está na Lista ? Cadastre o Seu !" />
 
 </RelativeLayout>

@@ -1,11 +1,11 @@
 /**
- *
  * @author Felipe Rodrigues Michetti
  * @see http://portfolio-frmichetti.rhcloud.com
  * @see http://www.codecode.com.br
  * @see mailto:frmichetti@gmail.com
- * */
+ */
 package br.com.frmichetti.carhollics.android.view;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -28,29 +28,18 @@ import br.com.frmichetti.carhollics.android.adapter.NavDrawerItem;
 import br.com.frmichetti.carhollics.android.adapter.NavigationDrawerAdapter;
 
 
-
 public class FragmentDrawer extends Fragment {
 
     private static String TAG = FragmentDrawer.class.getSimpleName();
-
-    private RecyclerView recyclerView;
-
-    private ActionBarDrawerToggle mDrawerToggle;
-
-    private DrawerLayout mDrawerLayout;
-
-    private NavigationDrawerAdapter adapter;
-
-    private View containerView;
-
     private static String[] titles = null;
-
+    private RecyclerView recyclerView;
+    private ActionBarDrawerToggle mDrawerToggle;
+    private DrawerLayout mDrawerLayout;
+    private NavigationDrawerAdapter adapter;
+    private View containerView;
     private FragmentDrawerListener drawerListener;
 
-    public FragmentDrawer(){}
-
-    public void setDrawerListener(FragmentDrawerListener listener) {
-        this.drawerListener = listener;
+    public FragmentDrawer() {
     }
 
     public static List<NavDrawerItem> getData() {
@@ -64,6 +53,10 @@ public class FragmentDrawer extends Fragment {
             data.add(navItem);
         }
         return data;
+    }
+
+    public void setDrawerListener(FragmentDrawerListener listener) {
+        this.drawerListener = listener;
     }
 
     @Override
@@ -141,6 +134,10 @@ public class FragmentDrawer extends Fragment {
         public void onLongClick(View view, int position);
     }
 
+    public interface FragmentDrawerListener {
+        public void onDrawerItemSelected(View view, int position);
+    }
+
     static class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
 
         private GestureDetector gestureDetector;
@@ -185,9 +182,5 @@ public class FragmentDrawer extends Fragment {
         }
 
 
-    }
-
-    public interface FragmentDrawerListener {
-        public void onDrawerItemSelected(View view, int position);
     }
 }

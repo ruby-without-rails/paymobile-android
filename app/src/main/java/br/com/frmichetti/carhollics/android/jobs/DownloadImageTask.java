@@ -15,11 +15,11 @@ import java.io.InputStream;
 import java.net.URL;
 
 
-public class DownloadImageTask extends AsyncTask<URL,Void,Bitmap> {
+public class DownloadImageTask extends AsyncTask<URL, Void, Bitmap> {
 
     private ImageView imageView;
 
-    public DownloadImageTask(ImageView imageView){
+    public DownloadImageTask(ImageView imageView) {
 
         this.imageView = imageView;
 
@@ -27,19 +27,19 @@ public class DownloadImageTask extends AsyncTask<URL,Void,Bitmap> {
 
 
     @Override
-    protected Bitmap doInBackground(URL ... urls){
+    protected Bitmap doInBackground(URL... urls) {
 
         URL urlOfImage = urls[0];
 
         Bitmap logo = null;
 
-        try{
+        try {
 
             InputStream is = new URL(urlOfImage.toString()).openStream();
 
             logo = BitmapFactory.decodeStream(is);
 
-        }catch(Exception e){
+        } catch (Exception e) {
 
             e.printStackTrace();
         }
@@ -47,7 +47,7 @@ public class DownloadImageTask extends AsyncTask<URL,Void,Bitmap> {
     }
 
     @Override
-    protected void onPostExecute(Bitmap result){
+    protected void onPostExecute(Bitmap result) {
 
         imageView.setImageBitmap(result);
 

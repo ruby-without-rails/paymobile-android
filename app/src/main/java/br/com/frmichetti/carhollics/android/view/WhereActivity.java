@@ -1,10 +1,9 @@
 /**
- *
  * @author Felipe Rodrigues Michetti
  * @see http://portfolio-frmichetti.rhcloud.com
  * @see http://www.codecode.com.br
  * @see mailto:frmichetti@gmail.com
- * */
+ */
 package br.com.frmichetti.carhollics.android.view;
 
 import android.os.Bundle;
@@ -14,7 +13,7 @@ import android.widget.Toast;
 
 import br.com.frmichetti.carhollics.android.R;
 
-public class WhereActivity extends BaseActivity{
+public class WhereActivity extends BaseActivity {
 
 
     @Override
@@ -37,9 +36,9 @@ public class WhereActivity extends BaseActivity{
 
         doConfigure();
 
-        Toast.makeText(context,"Load Map from webservice",Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "Load Map from webservice", Toast.LENGTH_LONG).show();
 
-        Log.i("INFO","Load Map from webservice");
+        Log.i("INFO", "Load Map from webservice");
     }
 
     @Override
@@ -61,7 +60,6 @@ public class WhereActivity extends BaseActivity{
         actionBar.setSubtitle("Where Activity");
 
     }
-
 
 
 }

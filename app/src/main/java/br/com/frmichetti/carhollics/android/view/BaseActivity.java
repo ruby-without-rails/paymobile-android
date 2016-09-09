@@ -32,10 +32,10 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import br.com.frmichetti.carhollics.android.R;
+import br.com.frmichetti.carhollics.android.model.ShoppingCart;
 import br.com.frmichetti.carhollics.android.model.compatibility.Address;
 import br.com.frmichetti.carhollics.android.model.compatibility.Customer;
 import br.com.frmichetti.carhollics.android.model.compatibility.Service;
-import br.com.frmichetti.carhollics.android.model.ShoppingCart;
 import br.com.frmichetti.carhollics.android.model.compatibility.Vehicle;
 import br.com.frmichetti.carhollics.android.util.ConnectivityReceiver;
 
@@ -49,22 +49,14 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
     protected Context context;
 
     protected Intent intent;
-
-    private FirebaseAuth.AuthStateListener authListener;
-
     protected FirebaseAuth firebaseAuth;
-
     protected FirebaseUser firebaseUser;
-
     protected Customer customer;
-
     protected ShoppingCart shoppingCart;
-
     protected Service selectedService;
-
     protected Vehicle selectedVehicle;
-
     protected Address selectedAddress;
+    private FirebaseAuth.AuthStateListener authListener;
 
     protected BaseActivity() {
         Log.d("[INFO-INSTANCE]", "Create instance of " + this.getClass().getSimpleName());
@@ -147,9 +139,11 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         outState.putSerializable("shoppingCart", shoppingCart);
 
-        outState.putSerializable("eervice", selectedService);
+        outState.putSerializable("service", selectedService);
 
         outState.putSerializable("vehicle", selectedVehicle);
+
+        outState.putSerializable("address", selectedAddress);
 
         Log.d("[INFO-SAVE-BUNDLE]", "Save State");
 
@@ -345,6 +339,8 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
             selectedVehicle = (Vehicle) bundle.getSerializable("vehicle");
 
+            selectedAddress = (Address) bundle.getSerializable("address");
+
             Log.d("[INFO-LOAD-BUNDLE]", "Load Saved State");
 
         }
@@ -363,6 +359,8 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
         bundle.putSerializable("service", selectedService);
 
         bundle.putSerializable("vehicle", selectedVehicle);
+
+        bundle.putSerializable("address", selectedAddress);
 
         Log.d("[INFO-SAVE-BUNDLE]", "Saved State");
 

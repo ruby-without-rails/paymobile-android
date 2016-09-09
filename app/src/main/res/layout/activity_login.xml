@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordlayoutlogin"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:id="@+id/coordlayoutlogin"
-    >
+    android:fitsSystemWindows="true">
 
     <include
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
         layout="@layout/toolbar"
-        />
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
 
 
     <LinearLayout
@@ -103,7 +99,6 @@
         android:layout_gravity="center|bottom"
         android:layout_marginBottom="20dp"
         android:visibility="gone" />
-
 
 
 </android.support.design.widget.CoordinatorLayout>

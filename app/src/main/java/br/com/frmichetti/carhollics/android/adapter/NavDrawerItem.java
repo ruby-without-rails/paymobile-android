@@ -1,10 +1,9 @@
 /**
- *
  * @author Felipe Rodrigues Michetti
  * @see http://portfolio-frmichetti.rhcloud.com
  * @see http://www.codecode.com.br
  * @see mailto:frmichetti@gmail.com
- * */
+ */
 package br.com.frmichetti.carhollics.android.adapter;
 
 public class NavDrawerItem {
@@ -13,7 +12,8 @@ public class NavDrawerItem {
 
     private String title;
 
-    public NavDrawerItem() {}
+    public NavDrawerItem() {
+    }
 
     public NavDrawerItem(boolean showNotify, String title) {
         this.showNotify = showNotify;

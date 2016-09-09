@@ -1,10 +1,9 @@
 /**
- *
  * @author Felipe Rodrigues Michetti
  * @see http://portfolio-frmichetti.rhcloud.com
  * @see http://www.codecode.com.br
  * @see mailto:frmichetti@gmail.com
- * */
+ */
 package br.com.frmichetti.carhollics.android.jobs;
 
 import android.app.ProgressDialog;
@@ -12,13 +11,16 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.io.IOException;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.dao.HTTP;
 import br.com.frmichetti.carhollics.android.model.compatibility.Customer;
 
-public class TaskCreateCustomer extends AsyncTask<Customer,String,Customer> {
+public class TaskCreateCustomer extends AsyncTask<Customer, String, Customer> {
 
     public AsyncResponse delegate = null;
 
@@ -28,10 +30,12 @@ public class TaskCreateCustomer extends AsyncTask<Customer,String,Customer> {
 
     private Context context;
 
+    private String response;
 
-    private TaskCreateCustomer(){
 
-        Log.d("DEBUG-TASK","create TaskCreateCustomer");
+    private TaskCreateCustomer() {
+
+        Log.d("DEBUG-TASK", "create TaskCreateCustomer");
 
     }
 
@@ -40,7 +44,7 @@ public class TaskCreateCustomer extends AsyncTask<Customer,String,Customer> {
         this.context = context;
     }
 
-    public TaskCreateCustomer(Context context, AsyncResponse<Customer> delegate){
+    public TaskCreateCustomer(Context context, AsyncResponse<Customer> delegate) {
         this(context);
         this.delegate = delegate;
     }
@@ -50,9 +54,9 @@ public class TaskCreateCustomer extends AsyncTask<Customer,String,Customer> {
 
         super.onPreExecute();
 
-        url = context.getResources().getString(R.string.local_server) + "customers";
+        url = context.getResources().getString(R.string.local_server) + "new/customer";
 
-        Log.d("DEBUG-TASK","server config -> " + url);
+        Log.d("DEBUG-TASK", "server config -> " + url);
 
         dialog = new ProgressDialog(context);
 
@@ -69,17 +73,15 @@ public class TaskCreateCustomer extends AsyncTask<Customer,String,Customer> {
     }
 
     @Override
-    protected Customer doInBackground(Customer ... params) {
+    protected Customer doInBackground(Customer... params) {
 
         try {
 
             publishProgress("Enviando Requisição para o Servidor");
 
-            String response = "";
-
             //TODO FIXME Create a JSON
 
-            response = HTTP.sendPost(url,params[0].toString());
+            response = HTTP.sendPost(url, new Gson().toJson(params[0]));
 
         } catch (IOException e) {
 
@@ -92,7 +94,7 @@ public class TaskCreateCustomer extends AsyncTask<Customer,String,Customer> {
 
         //TODO FIXME Receive a JSON
 
-        Customer c = null;
+        Customer c = new Gson().fromJson(response, new TypeToken<Customer>(){}.getType());
 
         return c;
 

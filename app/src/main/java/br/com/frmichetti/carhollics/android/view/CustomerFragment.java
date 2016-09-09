@@ -1,10 +1,9 @@
 /**
- *
  * @author Felipe Rodrigues Michetti
  * @see http://portfolio-frmichetti.rhcloud.com
  * @see http://www.codecode.com.br
  * @see mailto:frmichetti@gmail.com
- * */
+ */
 package br.com.frmichetti.carhollics.android.view;
 
 import android.content.Context;
@@ -53,7 +52,7 @@ public class CustomerFragment extends Fragment {
 
         super.onCreate(savedInstanceState);
 
-        if(savedInstanceState != null){
+        if (savedInstanceState != null) {
             checkouts = (List<Checkout>) savedInstanceState.getSerializable("checkouts");
         }
 
@@ -82,7 +81,7 @@ public class CustomerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        if(savedInstanceState != null){
+        if (savedInstanceState != null) {
             checkouts = (List<Checkout>) savedInstanceState.getSerializable("checkouts");
         }
 
@@ -114,9 +113,9 @@ public class CustomerFragment extends Fragment {
 
     private void doLoadPedidos() {
 
-        if(checkouts == null){
+        if (checkouts == null) {
 
-            Log.d("INFO","Load Checkouts from webservice");
+            Log.d("INFO", "Load Checkouts from webservice");
 
             TaskDownloadCheckouts taskLoadPedidos = new TaskDownloadCheckouts(context, new AsyncResponse<List<Checkout>>() {
 
@@ -131,8 +130,6 @@ public class CustomerFragment extends Fragment {
 
             taskLoadPedidos.execute(customer);
         }
-
-
 
 
     }

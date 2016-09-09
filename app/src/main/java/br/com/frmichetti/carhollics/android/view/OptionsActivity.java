@@ -1,10 +1,9 @@
 /**
- *
  * @author Felipe Rodrigues Michetti
  * @see http://portfolio-frmichetti.rhcloud.com
  * @see http://www.codecode.com.br
  * @see mailto:frmichetti@gmail.com
- * */
+ */
 package br.com.frmichetti.carhollics.android.view;
 
 import android.content.Intent;
@@ -23,9 +22,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import br.com.frmichetti.carhollics.android.R;
+import br.com.frmichetti.carhollics.android.model.ShoppingCart;
 import br.com.frmichetti.carhollics.android.model.compatibility.Customer;
 import br.com.frmichetti.carhollics.android.model.compatibility.Service;
-import br.com.frmichetti.carhollics.android.model.ShoppingCart;
 import br.com.frmichetti.carhollics.android.model.compatibility.Vehicle;
 
 
@@ -82,8 +81,6 @@ public class OptionsActivity extends BaseActivity {
 
         actionBar.setSubtitle(R.string.action_settings);
     }
-
-
 
 
     public void doCastComponents() {
@@ -400,7 +397,7 @@ public class OptionsActivity extends BaseActivity {
 
         if (id == R.id.action_cart) {
 
-            startActivity(new Intent(context,ShoppingCartActivity.class)
+            startActivity(new Intent(context, ShoppingCartActivity.class)
                     .putExtra("shoppingCart", shoppingCart)
                     .putExtra("customer", customer)
                     .putExtra("vehicle", selectedVehicle)

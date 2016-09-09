@@ -1,98 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    android:layout_height="match_parent">
 
     <include
+        layout="@layout/toolbar"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/toolbar" />
+        android:layout_height="wrap_content" />
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/scrollView2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/toolbar">
 
         <LinearLayout
+            android:id="@+id/linearLayout6"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:id="@+id/linearLayout6"
-            android:layout_below="@+id/linearLayout5"
-            android:layout_above="@+id/buttonConfirmar">
+
+            android:orientation="vertical">
 
             <TextView
+                android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nome"
-                android:id="@+id/textView6"
-                android:textColor="@color/colorPrimary"
-                android:layout_below="@+id/linearLayout5"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:textColor="@color/colorPrimary" />
 
             <EditText
+                android:id="@+id/editTextNome"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/editTextNome"
-                android:layout_below="@+id/textView6"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignRight="@+id/buttonConfirmar"
-                android:layout_alignEnd="@+id/buttonConfirmar" />
+                 />
 
             <TextView
+                android:id="@+id/textView10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Telefone"
-                android:id="@+id/textView10"
-                android:textColor="@color/colorPrimary"
-                android:layout_below="@+id/editTextCPF"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:textColor="@color/colorPrimary" />
 
             <EditText
+                android:id="@+id/editTextTelefone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="phone"
                 android:ems="10"
-                android:id="@+id/editTextTelefone"
-                android:layout_below="@+id/textView10"
-                android:layout_alignRight="@+id/buttonConfirmar"
-                android:layout_alignEnd="@+id/buttonConfirmar"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:inputType="phone" />
 
             <TextView
+                android:id="@+id/textView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="CPF"
-                android:id="@+id/textView7"
-                android:textColor="@color/colorPrimary"
-                android:layout_below="@+id/editTextNome"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:textColor="@color/colorPrimary" />
 
             <EditText
+                android:id="@+id/editTextCPF"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/editTextCPF"
-                android:layout_below="@+id/textView7"
-                android:layout_alignRight="@+id/buttonConfirmar"
-                android:layout_alignEnd="@+id/buttonConfirmar"
-                android:layout_toRightOf="@+id/scrollView2"
-                android:layout_toEndOf="@+id/scrollView2" />
+                 />
 
 
         </LinearLayout>
@@ -104,14 +74,12 @@
         android:id="@+id/fab_action_done"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:src="@drawable/ic_action_done"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginRight="34dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="32dp"
         android:layout_marginEnd="34dp"
-        android:layout_marginBottom="32dp" />
+        android:src="@drawable/ic_action_done" />
 
 
 </RelativeLayout>

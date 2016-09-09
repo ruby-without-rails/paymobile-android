@@ -1,10 +1,9 @@
 /**
- *
  * @author Felipe Rodrigues Michetti
  * @see http://portfolio-frmichetti.rhcloud.com
  * @see http://www.codecode.com.br
  * @see mailto:frmichetti@gmail.com
- * */
+ */
 package br.com.frmichetti.carhollics.android.view;
 
 import android.content.Context;
@@ -28,9 +27,9 @@ import java.util.List;
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
 import br.com.frmichetti.carhollics.android.jobs.TaskDownloadVehicles;
+import br.com.frmichetti.carhollics.android.model.ShoppingCart;
 import br.com.frmichetti.carhollics.android.model.compatibility.Customer;
 import br.com.frmichetti.carhollics.android.model.compatibility.Service;
-import br.com.frmichetti.carhollics.android.model.ShoppingCart;
 import br.com.frmichetti.carhollics.android.model.compatibility.Vehicle;
 
 
@@ -65,7 +64,7 @@ public class VehiclesFragment extends Fragment {
 
         super.onCreate(savedInstanceState);
 
-        if(savedInstanceState != null){
+        if (savedInstanceState != null) {
             vehicles = (List<Vehicle>) savedInstanceState.getSerializable("vehicles");
         }
 
@@ -105,7 +104,7 @@ public class VehiclesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        if(savedInstanceState != null){
+        if (savedInstanceState != null) {
             vehicles = (List<Vehicle>) savedInstanceState.getSerializable("vehicles");
         }
 
@@ -145,7 +144,7 @@ public class VehiclesFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(context,"Implementar",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Implementar", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -162,11 +161,11 @@ public class VehiclesFragment extends Fragment {
 
     }
 
-    public void doLoadVeiculos(){
+    public void doLoadVeiculos() {
 
-        if(vehicles == null){
+        if (vehicles == null) {
 
-            Log.d("INFO","Load Services from webservice");
+            Log.d("INFO", "Load Services from webservice");
 
             TaskDownloadVehicles taskLoadVeiculos = new TaskDownloadVehicles(context, new AsyncResponse<List<Vehicle>>() {
 
@@ -185,7 +184,7 @@ public class VehiclesFragment extends Fragment {
 
     }
 
-    private void doFillData(List<Vehicle> veiculos){
+    private void doFillData(List<Vehicle> veiculos) {
 
         ArrayAdapter<Vehicle> adpItem = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, veiculos);
 

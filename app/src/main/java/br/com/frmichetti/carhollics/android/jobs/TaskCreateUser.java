@@ -1,10 +1,9 @@
 /**
- *
  * @author Felipe Rodrigues Michetti
  * @see http://portfolio-frmichetti.rhcloud.com
  * @see http://www.codecode.com.br
  * @see mailto:frmichetti@gmail.com
- * */
+ */
 package br.com.frmichetti.carhollics.android.jobs;
 
 import android.app.ProgressDialog;
@@ -12,26 +11,31 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.io.IOException;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.dao.HTTP;
 import br.com.frmichetti.carhollics.android.model.compatibility.User;
 
-public class TaskCreateUser extends AsyncTask<User,String,User> {
+public class TaskCreateUser extends AsyncTask<User, String, User> {
 
     public AsyncResponse delegate = null;
 
-    private String url ;
+    private String url;
 
     private ProgressDialog dialog;
 
     private Context context;
 
+    private String response;
 
-    private TaskCreateUser(){
 
-        Log.d("DEBUG-TASK","create TaskCreateUser");
+    private TaskCreateUser() {
+
+        Log.d("DEBUG-TASK", "create TaskCreateUser");
 
     }
 
@@ -40,7 +44,7 @@ public class TaskCreateUser extends AsyncTask<User,String,User> {
         this.context = context;
     }
 
-    public TaskCreateUser(Context context, AsyncResponse<User> delegate){
+    public TaskCreateUser(Context context, AsyncResponse<User> delegate) {
         this(context);
         this.delegate = delegate;
     }
@@ -50,9 +54,9 @@ public class TaskCreateUser extends AsyncTask<User,String,User> {
 
         super.onPreExecute();
 
-        url = context.getResources().getString(R.string.local_server) + "users";
+        url = context.getResources().getString(R.string.local_server) + "new/user";
 
-        Log.d("DEBUG-TASK","server config -> " + url);
+        Log.d("DEBUG-TASK", "server config -> " + url);
 
         dialog = new ProgressDialog(context);
 
@@ -75,11 +79,9 @@ public class TaskCreateUser extends AsyncTask<User,String,User> {
 
             publishProgress("Enviando Requisição para o Servidor");
 
-            String response = "";
-
             //TODO FIXME Make a Json
 
-            response = HTTP.sendPost(url,params[0].toString());
+            response = HTTP.sendPost(url, new Gson().toJson(params[0]));
 
         } catch (IOException e) {
 
@@ -92,14 +94,14 @@ public class TaskCreateUser extends AsyncTask<User,String,User> {
 
         //TODO FIXME Receive a Json
 
-        User u = null;
+        User u  = new Gson().fromJson(response, new TypeToken<User>(){}.getType());
 
         return u;
 
     }
 
     @Override
-    protected void onProgressUpdate(String ... values) {
+    protected void onProgressUpdate(String... values) {
 
         super.onProgressUpdate(values);
 

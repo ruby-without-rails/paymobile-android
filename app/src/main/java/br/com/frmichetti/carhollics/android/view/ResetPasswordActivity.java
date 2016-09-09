@@ -1,10 +1,9 @@
 /**
- *
  * @author Felipe Rodrigues Michetti
  * @see http://portfolio-frmichetti.rhcloud.com
  * @see http://www.codecode.com.br
  * @see mailto:frmichetti@gmail.com
- * */
+ */
 package br.com.frmichetti.carhollics.android.view;
 
 import android.content.Context;
@@ -33,7 +32,7 @@ import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.util.ConnectivityReceiver;
 
 public class ResetPasswordActivity extends AppCompatActivity implements MyPattern,
-        ConnectivityReceiver.ConnectivityReceiverListener  {
+        ConnectivityReceiver.ConnectivityReceiverListener {
 
     private ActionBar actionBar;
 
@@ -114,7 +113,7 @@ public class ResetPasswordActivity extends AppCompatActivity implements MyPatter
                     return;
                 }
 
-                if(doCheckConnection()){
+                if (doCheckConnection()) {
 
                     progressBar.setVisibility(View.VISIBLE);
 
@@ -134,7 +133,7 @@ public class ResetPasswordActivity extends AppCompatActivity implements MyPatter
                                 }
                             });
 
-                }else{
+                } else {
 
                     showSnack(doCheckConnection());
                 }
@@ -164,7 +163,7 @@ public class ResetPasswordActivity extends AppCompatActivity implements MyPatter
 
         int id = item.getItemId();
 
-        if(id == android.R.id.home){
+        if (id == android.R.id.home) {
 
             finish();
         }

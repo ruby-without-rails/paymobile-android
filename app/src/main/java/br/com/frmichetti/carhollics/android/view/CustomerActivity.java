@@ -1,10 +1,9 @@
 /**
- *
  * @author Felipe Rodrigues Michetti
  * @see http://portfolio-frmichetti.rhcloud.com
  * @see http://www.codecode.com.br
  * @see mailto:frmichetti@gmail.com
- * */
+ */
 package br.com.frmichetti.carhollics.android.view;
 
 import android.content.Intent;
@@ -26,11 +25,11 @@ import br.com.frmichetti.carhollics.android.model.compatibility.Customer;
 import br.com.frmichetti.carhollics.android.model.compatibility.User;
 
 
-public class CustomerActivity extends BaseActivity{
+public class CustomerActivity extends BaseActivity {
 
     private FloatingActionButton fabConfirm;
 
-    private EditText editTextName,editTextCPF, editTextPhone;
+    private EditText editTextName, editTextCPF, editTextPhone;
 
     private User user;
 
@@ -85,7 +84,7 @@ public class CustomerActivity extends BaseActivity{
             @Override
             public void onClick(View v) {
 
-                TaskCreateCustomer taskCreateCliente = new TaskCreateCustomer(context, new AsyncResponse<Customer>() {
+                TaskCreateCustomer taskCreateCustomer = new TaskCreateCustomer(context, new AsyncResponse<Customer>() {
 
                     @Override
                     public void processFinish(Customer output) {
@@ -94,7 +93,7 @@ public class CustomerActivity extends BaseActivity{
 
                         //TODO FIXME getCliente
 
-                        startActivity(new Intent(context,MainActivity.class)
+                        startActivity(new Intent(context, MainActivity.class)
                                 .putExtra("shoppingCart", shoppingCart)
                                 .putExtra("customer", customer)
                                 .putExtra("vehicle", selectedVehicle)
@@ -106,7 +105,7 @@ public class CustomerActivity extends BaseActivity{
 
                 customer = doLoadFields();
 
-                taskCreateCliente.execute(customer);
+                taskCreateCustomer.execute(customer);
 
 
             }
@@ -124,14 +123,14 @@ public class CustomerActivity extends BaseActivity{
 
             editTextPhone.setText(String.valueOf(cliente.getPhone()));
 
-        }else{
+        } else {
 
-            try{
+            try {
 
                 editTextName.setText(firebaseUser.getDisplayName());
 
-            }catch (NullPointerException e){
-                
+            } catch (NullPointerException e) {
+
                 Log.d("DEBUG-USER", "Usuario sem Valores na conta");
             }
 
@@ -140,11 +139,11 @@ public class CustomerActivity extends BaseActivity{
         return cliente;
     }
 
-    private Customer doLoadFields(){
+    private Customer doLoadFields() {
 
         Customer c;
 
-        if(customer != null){
+        if (customer != null) {
 
             c = customer;
 
@@ -153,7 +152,7 @@ public class CustomerActivity extends BaseActivity{
             c.getUser().setFirebaseUUID(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
 
-        }else {
+        } else {
 
             c = new Customer();
 
@@ -167,7 +166,7 @@ public class CustomerActivity extends BaseActivity{
 
         c.setPhone(Long.valueOf(editTextPhone.getText().toString()));
 
-        return  c;
+        return c;
 
     }
 
@@ -199,9 +198,9 @@ public class CustomerActivity extends BaseActivity{
 
         int id = item.getItemId();
 
-        if(id == android.R.id.home){
+        if (id == android.R.id.home) {
 
-            if(user == null){
+            if (user == null) {
                 finish();
             }
 

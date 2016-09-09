@@ -1,10 +1,9 @@
 /**
- *
  * @author Felipe Rodrigues Michetti
  * @see http://portfolio-frmichetti.rhcloud.com
  * @see http://www.codecode.com.br
  * @see mailto:frmichetti@gmail.com
- * */
+ */
 package br.com.frmichetti.carhollics.android.jobs;
 
 import android.app.ProgressDialog;
@@ -22,14 +21,13 @@ import java.util.List;
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.dao.HTTP;
 import br.com.frmichetti.carhollics.android.model.compatibility.Address;
-import br.com.frmichetti.carhollics.android.model.compatibility.Vehicle;
 
 
-public class TaskDownloadAddress extends AsyncTask<Void,String,List<Address>> {
+public class TaskDownloadAddress extends AsyncTask<Void, String, List<Address>> {
 
     public AsyncResponse delegate = null;
 
-    private String url ;
+    private String url;
 
     private List<Address> addresses;
 
@@ -37,18 +35,18 @@ public class TaskDownloadAddress extends AsyncTask<Void,String,List<Address>> {
 
     private Context context;
 
-    public TaskDownloadAddress(Context context, AsyncResponse<List<Address>> delegate){
+    public TaskDownloadAddress(Context context, AsyncResponse<List<Address>> delegate) {
         this(context);
         this.delegate = delegate;
     }
 
-    private TaskDownloadAddress(Context context){
+    private TaskDownloadAddress(Context context) {
         this();
         this.context = context;
     }
 
-    private TaskDownloadAddress(){
-        Log.d("DEBUG-TASK","create TaskDownloadAddresses");
+    private TaskDownloadAddress() {
+        Log.d("DEBUG-TASK", "create TaskDownloadAddresses");
 
     }
 
@@ -59,7 +57,7 @@ public class TaskDownloadAddress extends AsyncTask<Void,String,List<Address>> {
 
         url = context.getResources().getString(R.string.local_server) + "addresses";
 
-        Log.d("DEBUG-TASK","server config -> " + url);
+        Log.d("DEBUG-TASK", "server config -> " + url);
 
         dialog = new ProgressDialog(context);
 
@@ -78,7 +76,7 @@ public class TaskDownloadAddress extends AsyncTask<Void,String,List<Address>> {
 
 
     @Override
-    protected List<Address> doInBackground(Void ... params) {
+    protected List<Address> doInBackground(Void... params) {
 
         String response = "";
 
@@ -99,14 +97,14 @@ public class TaskDownloadAddress extends AsyncTask<Void,String,List<Address>> {
 
         //TODO FIXME Receive a JSON ARRAy
 
-        addresses = new Gson().fromJson(response, new TypeToken<List<Address>>(){}.getType());
+        addresses = new Gson().fromJson(response, new TypeToken<List<Address>>() {}.getType());
 
         return (addresses != null) ? addresses : new ArrayList<Address>();
     }
 
 
     @Override
-    protected void onProgressUpdate(String ... values) {
+    protected void onProgressUpdate(String... values) {
 
         super.onProgressUpdate(values);
 

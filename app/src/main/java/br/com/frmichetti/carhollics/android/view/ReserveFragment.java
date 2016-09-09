@@ -1,10 +1,9 @@
 /**
- *
  * @author Felipe Rodrigues Michetti
  * @see http://portfolio-frmichetti.rhcloud.com
  * @see http://www.codecode.com.br
  * @see mailto:frmichetti@gmail.com
- * */
+ */
 package br.com.frmichetti.carhollics.android.view;
 
 import android.app.Activity;
@@ -18,7 +17,7 @@ import br.com.frmichetti.carhollics.android.R;
 
 public class ReserveFragment extends Fragment {
 
-    public ReserveFragment(){
+    public ReserveFragment() {
 
     }
 

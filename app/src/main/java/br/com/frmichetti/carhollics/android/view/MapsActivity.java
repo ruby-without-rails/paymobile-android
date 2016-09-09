@@ -2,8 +2,8 @@ package br.com.frmichetti.carhollics.android.view;
 
 import android.location.Address;
 import android.location.Geocoder;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -58,30 +58,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         try {
 
-            List<Address> addresses = geocoder.getFromLocation(latLng.latitude,latLng.longitude, 30);
+            List<Address> addresses = geocoder.getFromLocation(latLng.latitude, latLng.longitude, 30);
 
-            for (Address address : addresses ) {
+            for (Address address : addresses) {
 
-                Log.i("ADDRESS-POSTAL-CODE", ((address.getPostalCode() != null ) && (address.getPostalCode().length() > 5) ? address.getPostalCode() : "" ));
+                Log.i("ADDRESS-POSTAL-CODE", ((address.getPostalCode() != null) && (address.getPostalCode().length() > 5) ? address.getPostalCode() : ""));
 
-                Log.i("ADDRESS-STREET", ((address.getPostalCode() != null ) && (address.getPostalCode().length() > 5) && (address.getAddressLine(0) != null )  ? address.getAddressLine(0) : "" ));
+                Log.i("ADDRESS-STREET", ((address.getPostalCode() != null) && (address.getPostalCode().length() > 5) && (address.getAddressLine(0) != null) ? address.getAddressLine(0) : ""));
             }
 
             mMap.addMarker(new MarkerOptions().position(latLng).title("Casa").draggable(false).visible(true));
 
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,18));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
 
         } catch (IOException e) {
 
-            Log.e("ERROR",e.toString());
+            Log.e("ERROR", e.toString());
         }
-
-
-
-
-
-
-
 
 
     }

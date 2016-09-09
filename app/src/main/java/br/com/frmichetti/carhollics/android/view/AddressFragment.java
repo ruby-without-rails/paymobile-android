@@ -1,10 +1,9 @@
 /**
- *
  * @author Felipe Rodrigues Michetti
  * @see http://portfolio-frmichetti.rhcloud.com
  * @see http://www.codecode.com.br
  * @see mailto:frmichetti@gmail.com
- * */
+ */
 package br.com.frmichetti.carhollics.android.view;
 
 import android.content.Context;
@@ -26,9 +25,9 @@ import java.util.List;
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
 import br.com.frmichetti.carhollics.android.jobs.TaskDownloadAddress;
+import br.com.frmichetti.carhollics.android.model.ShoppingCart;
 import br.com.frmichetti.carhollics.android.model.compatibility.Address;
 import br.com.frmichetti.carhollics.android.model.compatibility.Customer;
-import br.com.frmichetti.carhollics.android.model.ShoppingCart;
 import br.com.frmichetti.carhollics.android.model.compatibility.Vehicle;
 
 
@@ -50,14 +49,15 @@ public class AddressFragment extends Fragment {
 
     private ShoppingCart shoppingCart;
 
-    public AddressFragment(){}
+    public AddressFragment() {
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
-        if(savedInstanceState != null){
+        if (savedInstanceState != null) {
 
             addresses = (List<Address>) savedInstanceState.getSerializable("addresses");
 
@@ -67,17 +67,17 @@ public class AddressFragment extends Fragment {
 
         doLoadExtras();
 
-        if(shoppingCart == null){
+        if (shoppingCart == null) {
 
             shoppingCart = new ShoppingCart();
         }
 
-        if(selectedAddress == null){
+        if (selectedAddress == null) {
 
             selectedAddress = new Address();
         }
 
-        if(selectedVehicle == null){
+        if (selectedVehicle == null) {
 
             selectedVehicle = new Vehicle();
         }
@@ -91,7 +91,7 @@ public class AddressFragment extends Fragment {
 
         outState.putSerializable("addresses", (Serializable) addresses);
 
-        Log.d("DEBUG - Save State","Salvando Estado");
+        Log.d("DEBUG - Save State", "Salvando Estado");
 
     }
 
@@ -120,7 +120,7 @@ public class AddressFragment extends Fragment {
                              Bundle savedInstanceState) {
 
 
-        if(savedInstanceState != null){
+        if (savedInstanceState != null) {
 
             addresses = (List<Address>) savedInstanceState.getSerializable("addresses");
 
@@ -137,8 +137,6 @@ public class AddressFragment extends Fragment {
         // Inflate the layout for this fragment
         return rootView;
     }
-
-
 
 
     private void doCastComponents(View rootView) {
@@ -171,18 +169,18 @@ public class AddressFragment extends Fragment {
 
                 */
 
-                Toast.makeText(context,selectedAddress.getStreet(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, selectedAddress.getStreet(), Toast.LENGTH_SHORT).show();
 
             }
         });
 
     }
 
-    private void doLoadAddresses(){
+    private void doLoadAddresses() {
 
-        if(addresses == null){
+        if (addresses == null) {
 
-            Log.d("INFO","Load Addresses from webservice");
+            Log.d("INFO", "Load Addresses from webservice");
 
             TaskDownloadAddress taskLoadAddresses = new TaskDownloadAddress(context, new AsyncResponse<List<Address>>() {
 
@@ -202,13 +200,12 @@ public class AddressFragment extends Fragment {
 
     }
 
-    private void doFillData(List<Address> addresses){
+    private void doFillData(List<Address> addresses) {
 
         ArrayAdapter<Address> adpItem = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, addresses);
 
         listView.setAdapter(adpItem);
     }
-
 
 
 }

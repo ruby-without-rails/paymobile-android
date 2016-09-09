@@ -1,10 +1,9 @@
 /**
- *
  * @author Felipe Rodrigues Michetti
  * @see http://portfolio-frmichetti.rhcloud.com
  * @see http://www.codecode.com.br
  * @see mailto:frmichetti@gmail.com
- * */
+ */
 package br.com.frmichetti.carhollics.android.jobs;
 
 import android.app.ProgressDialog;
@@ -18,20 +17,20 @@ import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.dao.HTTP;
 import br.com.frmichetti.carhollics.android.model.compatibility.Vehicle;
 
-public class TaskCreateVehicle extends AsyncTask<Vehicle,String,Vehicle> {
+public class TaskCreateVehicle extends AsyncTask<Vehicle, String, Vehicle> {
 
     public AsyncResponse delegate = null;
 
-    private String url ;
+    private String url;
 
     private ProgressDialog dialog;
 
     private Context context;
 
 
-    private TaskCreateVehicle(){
+    private TaskCreateVehicle() {
 
-        Log.d("DEBUG-TASK","create TaskCreateUser");
+        Log.d("DEBUG-TASK", "create TaskCreateUser");
     }
 
     private TaskCreateVehicle(Context context) {
@@ -39,7 +38,7 @@ public class TaskCreateVehicle extends AsyncTask<Vehicle,String,Vehicle> {
         this.context = context;
     }
 
-    public TaskCreateVehicle(Context context, AsyncResponse<Vehicle> delegate){
+    public TaskCreateVehicle(Context context, AsyncResponse<Vehicle> delegate) {
         this(context);
         this.delegate = delegate;
     }
@@ -51,7 +50,7 @@ public class TaskCreateVehicle extends AsyncTask<Vehicle,String,Vehicle> {
 
         url = context.getResources().getString(R.string.local_server) + "vehicles";
 
-        Log.d("DEBUG-TASK","server config -> " + url);
+        Log.d("DEBUG-TASK", "server config -> " + url);
 
         dialog = new ProgressDialog(context);
 
@@ -68,7 +67,7 @@ public class TaskCreateVehicle extends AsyncTask<Vehicle,String,Vehicle> {
     }
 
     @Override
-    protected Vehicle doInBackground(Vehicle ... params) {
+    protected Vehicle doInBackground(Vehicle... params) {
 
         try {
 
@@ -78,7 +77,7 @@ public class TaskCreateVehicle extends AsyncTask<Vehicle,String,Vehicle> {
 
             //TODO FIXME Create a JSON
 
-            response = HTTP.sendPost(url,params[0].toString());
+            response = HTTP.sendPost(url, params[0].toString());
 
         } catch (IOException e) {
 
@@ -98,7 +97,7 @@ public class TaskCreateVehicle extends AsyncTask<Vehicle,String,Vehicle> {
     }
 
     @Override
-    protected void onProgressUpdate(String ... values) {
+    protected void onProgressUpdate(String... values) {
 
         super.onProgressUpdate(values);
 

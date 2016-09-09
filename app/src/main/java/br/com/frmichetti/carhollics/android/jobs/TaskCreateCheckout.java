@@ -1,10 +1,9 @@
 /**
- *
  * @author Felipe Rodrigues Michetti
  * @see http://portfolio-frmichetti.rhcloud.com
  * @see http://www.codecode.com.br
  * @see mailto:frmichetti@gmail.com
- * */
+ */
 package br.com.frmichetti.carhollics.android.jobs;
 
 import android.app.ProgressDialog;
@@ -21,29 +20,28 @@ import br.com.frmichetti.carhollics.android.dao.HTTP;
 import br.com.frmichetti.carhollics.android.model.compatibility.Checkout;
 
 
-public class TaskCreateCheckout extends AsyncTask<Checkout,String, Boolean>  {
+public class TaskCreateCheckout extends AsyncTask<Checkout, String, Boolean> {
 
     public AsyncResponse delegate = null;
 
-    private String url ;
+    private String url;
 
     private Context context;
+    private ProgressDialog dialog;
 
-    private TaskCreateCheckout(){
-        Log.d("DEBUG-TASK","create TaskCreateCheckout");
+    private TaskCreateCheckout() {
+        Log.d("DEBUG-TASK", "create TaskCreateCheckout");
     }
 
-    private TaskCreateCheckout(Context context){
+    private TaskCreateCheckout(Context context) {
         this();
         this.context = context;
     }
 
-    public TaskCreateCheckout(Context context, AsyncResponse<Boolean> delegate){
+    public TaskCreateCheckout(Context context, AsyncResponse<Boolean> delegate) {
         this(context);
         this.delegate = delegate;
     }
-
-    private ProgressDialog dialog;
 
     @Override
     protected void onPreExecute() {
@@ -52,7 +50,7 @@ public class TaskCreateCheckout extends AsyncTask<Checkout,String, Boolean>  {
 
         url = context.getResources().getString(R.string.local_server) + "checkouts";
 
-        Log.d("DEBUG-TASK","server config -> " + url);
+        Log.d("DEBUG-TASK", "server config -> " + url);
 
         dialog = new ProgressDialog(context);
 
@@ -68,7 +66,7 @@ public class TaskCreateCheckout extends AsyncTask<Checkout,String, Boolean>  {
     }
 
     @Override
-    protected Boolean doInBackground(Checkout ... param) {
+    protected Boolean doInBackground(Checkout... param) {
 
         String response = "";
 
@@ -92,14 +90,14 @@ public class TaskCreateCheckout extends AsyncTask<Checkout,String, Boolean>  {
 
         }
 
-        Log.i("Resposta",response);
+        Log.i("Resposta", response);
 
         return true;
 
     }
 
     @Override
-    protected void onProgressUpdate(String ... values) {
+    protected void onProgressUpdate(String... values) {
 
         super.onProgressUpdate(values);
 

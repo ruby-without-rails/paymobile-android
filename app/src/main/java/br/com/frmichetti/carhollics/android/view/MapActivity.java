@@ -1,21 +1,17 @@
 /**
- *
  * @author Felipe Rodrigues Michetti
  * @see http://portfolio-frmichetti.rhcloud.com
  * @see http://www.codecode.com.br
  * @see mailto:frmichetti@gmail.com
- * */
+ */
 package br.com.frmichetti.carhollics.android.view;
 
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -45,28 +41,18 @@ public class MapActivity extends AppCompatActivity implements ConnectionCallback
 
     // LogCat tag
     private static final String TAG = MapActivity.class.getSimpleName();
-
-    private Context context;
-
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 1000;
-
-    private Location mLastLocation;
-
-    // Google client to interact with Google API
-    private GoogleApiClient mGoogleApiClient;
-
-    // boolean flag to toggle periodic location updates
-    private boolean mRequestingLocationUpdates = false;
-
-    private LocationRequest mLocationRequest;
-
     // Location updates intervals in sec
     private static int UPDATE_INTERVAL = 10000; // 10 sec
-
     private static int FATEST_INTERVAL = 5000; // 5 sec
-
     private static int DISPLACEMENT = 10; // 10 meters
-
+    private Context context;
+    private Location mLastLocation;
+    // Google client to interact with Google API
+    private GoogleApiClient mGoogleApiClient;
+    // boolean flag to toggle periodic location updates
+    private boolean mRequestingLocationUpdates = false;
+    private LocationRequest mLocationRequest;
     // UI elements
     private TextView lblLocation;
 
@@ -129,7 +115,6 @@ public class MapActivity extends AppCompatActivity implements ConnectionCallback
         });
 
 
-
     }
 
     @Override
@@ -137,7 +122,7 @@ public class MapActivity extends AppCompatActivity implements ConnectionCallback
 
         super.onPostCreate(savedInstanceState);
 
-        checkPermissions(context,this);
+        checkPermissions(context, this);
 
         checkPlayServices();
 
@@ -145,17 +130,17 @@ public class MapActivity extends AppCompatActivity implements ConnectionCallback
 
     private void checkPermissions(Context context, Activity activity) {
 
-        if(ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-            if(ActivityCompat.shouldShowRequestPermissionRationale(activity,Manifest.permission.ACCESS_FINE_LOCATION)){
+            if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.ACCESS_FINE_LOCATION)) {
 
-            }else{
+            } else {
 
-                ActivityCompat.requestPermissions(activity,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},0);
+                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
             }
-        }else{
+        } else {
 
-            Toast.makeText(context,getString(R.string.permission_granted),Toast.LENGTH_LONG).show();
+            Toast.makeText(context, getString(R.string.permission_granted), Toast.LENGTH_LONG).show();
         }
 
     }
@@ -211,7 +196,7 @@ public class MapActivity extends AppCompatActivity implements ConnectionCallback
         boolean permission = ContextCompat.checkSelfPermission(MapActivity.this,
                 Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
 
-        if(permission){
+        if (permission) {
 
             mLastLocation = LocationServices.FusedLocationApi
                     .getLastLocation(mGoogleApiClient);
@@ -230,9 +215,9 @@ public class MapActivity extends AppCompatActivity implements ConnectionCallback
                         .setText(getString(R.string.could_get_location));
             }
 
-        }else{
+        } else {
 
-            Toast.makeText(context,getString(R.string.not_authorized_yet),Toast.LENGTH_LONG).show();
+            Toast.makeText(context, getString(R.string.not_authorized_yet), Toast.LENGTH_LONG).show();
         }
 
 
@@ -252,7 +237,7 @@ public class MapActivity extends AppCompatActivity implements ConnectionCallback
             // Starting the location updates
             startLocationUpdates();
 
-            Toast.makeText(context,getString(R.string.periodic_location_update_started),Toast.LENGTH_SHORT);
+            Toast.makeText(context, getString(R.string.periodic_location_update_started), Toast.LENGTH_SHORT);
 
         } else {
             // Changing the button text
@@ -264,7 +249,7 @@ public class MapActivity extends AppCompatActivity implements ConnectionCallback
             // Stopping the location updates
             stopLocationUpdates();
 
-            Toast.makeText(context,getString(R.string.periodic_location_update_stoped),Toast.LENGTH_SHORT);
+            Toast.makeText(context, getString(R.string.periodic_location_update_stoped), Toast.LENGTH_SHORT);
         }
     }
 
@@ -319,14 +304,14 @@ public class MapActivity extends AppCompatActivity implements ConnectionCallback
         boolean permission = ContextCompat.checkSelfPermission(MapActivity.this,
                 Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
 
-        if(permission){
+        if (permission) {
 
             LocationServices.FusedLocationApi.requestLocationUpdates(
                     mGoogleApiClient, mLocationRequest, this);
 
-        }else{
+        } else {
 
-            Toast.makeText(context,getString(R.string.not_authorized_yet),Toast.LENGTH_LONG).show();
+            Toast.makeText(context, getString(R.string.not_authorized_yet), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -383,7 +368,7 @@ public class MapActivity extends AppCompatActivity implements ConnectionCallback
 
         int id = item.getItemId();
 
-        if(id == android.R.id.home){
+        if (id == android.R.id.home) {
 
             finish();
 
@@ -396,7 +381,7 @@ public class MapActivity extends AppCompatActivity implements ConnectionCallback
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
 
-        super.onKeyUp(keyCode,event);
+        super.onKeyUp(keyCode, event);
 
         return true;
     }

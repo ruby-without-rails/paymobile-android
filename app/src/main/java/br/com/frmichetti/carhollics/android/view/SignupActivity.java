@@ -241,6 +241,11 @@ public class SignupActivity extends AppCompatActivity implements MyPattern,
 
         actionBar.setSubtitle(R.string.register);
 
+        //TODO FIXME REMOVEME
+        editTextEmail.setText("crackernoia@gmail.com");
+
+        editTextPassword.setText("123456");
+
     }
 
     @Override

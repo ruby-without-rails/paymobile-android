@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<!-- Material Design Color -->
+    <!-- Material Design Color -->
     <color name="colorPrimary">#E8C835</color>
     <color name="colorPrimaryDark">#DF9A2E</color>
     <color name="colorAccent">#b71c1c</color>

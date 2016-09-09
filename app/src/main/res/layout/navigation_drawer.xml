@@ -13,22 +13,21 @@
         android:background="@color/colorPrimary">
 
 
-
         <ImageView
+            android:id="@+id/imageViewAccountImage"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:src="@drawable/ic_action_account"
-            android:scaleType="fitCenter"
             android:layout_centerInParent="true"
-            android:id="@+id/imageViewAccountImage" />
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_action_account" />
 
         <TextView
+            android:id="@+id/textViewNome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Olá "
-            android:id="@+id/textViewNome"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
+            android:text="Olá "
             android:textColor="@color/white" />
 
     </RelativeLayout>

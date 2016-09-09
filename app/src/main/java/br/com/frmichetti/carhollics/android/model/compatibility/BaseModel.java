@@ -5,30 +5,31 @@ import java.util.Date;
 
 public abstract class BaseModel implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private int version;
+    private int version;
 
-	private transient Date createdAt;
+    private transient Date createdAt;
 
-	private transient Date updatedAt;
+    private transient Date updatedAt;
 
-	public BaseModel(){}
+    public BaseModel() {
+    }
 
-	public int getVersion() {
-		return this.version;
-	}
+    public int getVersion() {
+        return this.version;
+    }
 
-	public void setVersion(final int version) {
-		this.version = version;
-	}
+    public void setVersion(final int version) {
+        this.version = version;
+    }
 
-	private void onUpdate(){
-		this.updatedAt = new Date();
-	}
+    private void onUpdate() {
+        this.updatedAt = new Date();
+    }
 
-	private void onCreate(){
-		this.createdAt = new Date();
-	}	
+    private void onCreate() {
+        this.createdAt = new Date();
+    }
 
 }

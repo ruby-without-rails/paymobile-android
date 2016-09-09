@@ -1,10 +1,9 @@
 /**
- *
  * @author Felipe Rodrigues Michetti
  * @see http://portfolio-frmichetti.rhcloud.com
  * @see http://www.codecode.com.br
  * @see mailto:frmichetti@gmail.com
- * */
+ */
 package br.com.frmichetti.carhollics.android.dao;
 
 import android.util.Log;
@@ -40,13 +39,13 @@ public final class HTTP {
 
         int responseCode = con.getResponseCode();
 
-        Log.i("Resposta","Enviando requisicao 'GET' para a URL : " + url);
+        Log.i("Resposta", "Enviando requisicao 'GET' para a URL : " + url);
 
-        Log.i("Resposta","Codigo de Resposta : " + responseCode);
+        Log.i("Resposta", "Codigo de Resposta : " + responseCode);
 
         String resp;
 
-        if(responseCode == 200 || responseCode == 201){
+        if (responseCode == 200 || responseCode == 201) {
 
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(con.getInputStream()));
@@ -59,13 +58,13 @@ public final class HTTP {
                 response.append(inputLine);
             }
 
-            Log.i("Resposta","Resposta do Servidor");
+            Log.i("Resposta", "Resposta do Servidor");
 
-            Log.i("Resposta",response.toString());
+            Log.i("Resposta", response.toString());
 
             resp = response.toString();
 
-        }else{
+        } else {
             resp = null;
         }
 
@@ -76,6 +75,8 @@ public final class HTTP {
     public static String sendPost(String url, String params) throws IOException {
 
         URL obj = new URL(url);
+
+        params = new String(params.getBytes(), "ISO_8859_1");
 
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
@@ -91,24 +92,24 @@ public final class HTTP {
         // Send post request
         con.setDoOutput(true);
 
-       DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+        DataOutputStream wr = new DataOutputStream(con.getOutputStream());
 
-            wr.writeBytes(params);
+        wr.writeBytes(params);
 
-            wr.flush();
+        wr.flush();
 
 
         int responseCode = con.getResponseCode();
 
-        Log.i("Resposta","Enviando Requisição 'POST' para URL : " + url);
+        Log.i("Resposta", "Enviando Requisição 'POST' para URL : " + url);
 
-        Log.i("Resposta","Parametros do Post : " + params);
+        Log.i("Resposta", "Parametros do Post : " + params);
 
-        Log.i("Resposta","Codigo da Resposta : " + responseCode);
+        Log.i("Resposta", "Codigo da Resposta : " + responseCode);
 
         String resp;
 
-        if(responseCode == 200 || responseCode == 201){
+        if (responseCode == 200 || responseCode == 201) {
 
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 
@@ -122,13 +123,13 @@ public final class HTTP {
 
             }
 
-            Log.i("Resposta","Resposta do Servidor");
+            Log.i("Resposta", "Resposta do Servidor");
 
-            Log.i("Resposta",response.toString());
+            Log.i("Resposta", response.toString());
 
             resp = response.toString();
 
-        }else{
+        } else {
 
             resp = null;
         }

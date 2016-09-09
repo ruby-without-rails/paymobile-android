@@ -1,10 +1,9 @@
 /**
- *
  * @author Felipe Rodrigues Michetti
  * @see http://portfolio-frmichetti.rhcloud.com
  * @see http://www.codecode.com.br
  * @see mailto:frmichetti@gmail.com
- * */
+ */
 package br.com.frmichetti.carhollics.android.view;
 
 import android.content.Context;
@@ -26,9 +25,9 @@ import java.util.List;
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
 import br.com.frmichetti.carhollics.android.jobs.TaskDownloadServices;
+import br.com.frmichetti.carhollics.android.model.ShoppingCart;
 import br.com.frmichetti.carhollics.android.model.compatibility.Customer;
 import br.com.frmichetti.carhollics.android.model.compatibility.Service;
-import br.com.frmichetti.carhollics.android.model.ShoppingCart;
 import br.com.frmichetti.carhollics.android.model.compatibility.Vehicle;
 
 
@@ -52,14 +51,15 @@ public class ServicesFragment extends Fragment {
 
     private ShoppingCart shoppingCart;
 
-    public ServicesFragment() {}
+    public ServicesFragment() {
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
-        if(savedInstanceState != null){
+        if (savedInstanceState != null) {
 
             services = (List<Service>) savedInstanceState.getSerializable("services");
 
@@ -69,17 +69,17 @@ public class ServicesFragment extends Fragment {
 
         doLoadExtras();
 
-        if(shoppingCart == null){
+        if (shoppingCart == null) {
 
             shoppingCart = new ShoppingCart();
         }
 
-        if(selectedService == null){
+        if (selectedService == null) {
 
             selectedService = new Service();
         }
 
-        if(selectedVehicle == null){
+        if (selectedVehicle == null) {
 
             selectedVehicle = new Vehicle();
         }
@@ -93,7 +93,7 @@ public class ServicesFragment extends Fragment {
 
         outState.putSerializable("services", (Serializable) services);
 
-        Log.d("DEBUG - Save State","Salvando Estado");
+        Log.d("DEBUG - Save State", "Salvando Estado");
 
     }
 
@@ -122,7 +122,7 @@ public class ServicesFragment extends Fragment {
                              Bundle savedInstanceState) {
 
 
-        if(savedInstanceState != null){
+        if (savedInstanceState != null) {
 
             services = (List<Service>) savedInstanceState.getSerializable("services");
 
@@ -139,8 +139,6 @@ public class ServicesFragment extends Fragment {
         // Inflate the layout for this fragment
         return rootView;
     }
-
-
 
 
     private void doCastComponents(View rootView) {
@@ -164,7 +162,7 @@ public class ServicesFragment extends Fragment {
 
                 selectedService = (Service) itemValue;
 
-                startActivity(new Intent(context,ServiceDetailActivity.class)
+                startActivity(new Intent(context, ServiceDetailActivity.class)
                         .putExtra("shoppingCart", shoppingCart)
                         .putExtra("customer", customer)
                         .putExtra("vehicle", selectedVehicle)
@@ -176,11 +174,11 @@ public class ServicesFragment extends Fragment {
 
     }
 
-    private void doLoadServices(){
+    private void doLoadServices() {
 
-        if(services == null){
+        if (services == null) {
 
-            Log.d("INFO","Load Services from webservice");
+            Log.d("INFO", "Load Services from webservice");
 
             TaskDownloadServices taskLoadServices = new TaskDownloadServices(context, new AsyncResponse<List<Service>>() {
 
@@ -200,13 +198,12 @@ public class ServicesFragment extends Fragment {
 
     }
 
-    private void doFillData(List<Service> servicos){
+    private void doFillData(List<Service> servicos) {
 
         ArrayAdapter<Service> adpItem = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, servicos);
 
         listView.setAdapter(adpItem);
     }
-
 
 
 }

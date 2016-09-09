@@ -1,10 +1,9 @@
 /**
- *
  * @author Felipe Rodrigues Michetti
  * @see http://portfolio-frmichetti.rhcloud.com
  * @see http://www.codecode.com.br
  * @see mailto:frmichetti@gmail.com
- * */
+ */
 package br.com.frmichetti.carhollics.android.view;
 
 import android.content.Context;
@@ -34,9 +33,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
 import br.com.frmichetti.carhollics.android.jobs.TaskLoginFirebase;
-import br.com.frmichetti.carhollics.android.model.compatibility.BaseModel;
 import br.com.frmichetti.carhollics.android.model.compatibility.Customer;
-import br.com.frmichetti.carhollics.android.model.compatibility.User;
 import br.com.frmichetti.carhollics.android.util.ConnectivityReceiver;
 
 
@@ -133,20 +130,20 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
 
                 if (TextUtils.isEmpty(email)) {
 
-                    Toast.makeText(context, getString(R.string.enter_email_address) , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, getString(R.string.enter_email_address), Toast.LENGTH_SHORT).show();
 
                     return;
                 }
 
                 if (TextUtils.isEmpty(password)) {
 
-                    Toast.makeText(context, getString(R.string.enter_password) , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, getString(R.string.enter_password), Toast.LENGTH_SHORT).show();
 
                     return;
                 }
 
 
-                if(doCheckConnection()){
+                if (doCheckConnection()) {
 
 
                     progressBar.setVisibility(View.VISIBLE);
@@ -174,7 +171,7 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
 
                                             Toast.makeText(context, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
 
-                                            Log.d("DEBUG-LOGIN",String.valueOf(R.string.auth_failed));
+                                            Log.d("DEBUG-LOGIN", String.valueOf(R.string.auth_failed));
                                         }
 
                                     } else {
@@ -184,15 +181,15 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
                                             @Override
                                             public void processFinish(Customer output) {
 
-                                                if (output != null){
+                                                if (output != null) {
 
-                                                        startActivity(new Intent(context, MainActivity.class).putExtra("Cliente",output));
+                                                    startActivity(new Intent(context, MainActivity.class).putExtra("customer", output));
 
-                                                        finish();
+                                                    finish();
 
-                                                }else{
+                                                } else {
 
-                                                    Toast.makeText(context, getString(R.string.could_not_authorize) ,Toast.LENGTH_LONG).show();
+                                                    Toast.makeText(context, getString(R.string.could_not_authorize), Toast.LENGTH_LONG).show();
                                                 }
                                             }
                                         });
@@ -202,13 +199,13 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
                                     }
                                 }
                             });
-                }else{
+                } else {
 
                     showSnack(doCheckConnection());
 
                 }
 
-                }
+            }
 
         });
 
@@ -229,9 +226,9 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
 
         //TODO FIXME REMOVEME
 
-        editTextEmail.setText("frmichetti@gmail.com");
+        // editTextEmail.setText("frmichetti@gmail.com");
 
-        editTextPassword.setText("123456");
+        // editTextPassword.setText("123456");
 
 
     }

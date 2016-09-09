@@ -1,4 +1,5 @@
 package br.com.frmichetti.carhollics.android.adapter;
+
 import android.content.Context;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -23,27 +24,6 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MyViewHo
     private Context context;
 
     private List<Service> services;
-
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-
-        public TextView title, price;
-
-        public ImageView thumbnail, overflow;
-
-        public MyViewHolder(View view) {
-
-            super(view);
-
-            title = (TextView) view.findViewById(R.id.title);
-
-            price = (TextView) view.findViewById(R.id.count);
-
-            thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
-
-            overflow = (ImageView) view.findViewById(R.id.overflow);
-        }
-    }
-
 
     public ServiceAdapter(Context context, List<Service> services) {
 
@@ -99,6 +79,31 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MyViewHo
         popup.show();
     }
 
+    @Override
+    public int getItemCount() {
+        return services.size();
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+
+        public TextView title, price;
+
+        public ImageView thumbnail, overflow;
+
+        public MyViewHolder(View view) {
+
+            super(view);
+
+            title = (TextView) view.findViewById(R.id.title);
+
+            price = (TextView) view.findViewById(R.id.count);
+
+            thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
+
+            overflow = (ImageView) view.findViewById(R.id.overflow);
+        }
+    }
+
     /**
      * Click listener for popup menu items
      */
@@ -128,10 +133,5 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.MyViewHo
             }
             return false;
         }
-    }
-
-    @Override
-    public int getItemCount() {
-        return services.size();
     }
 }

@@ -1,10 +1,9 @@
 /**
- *
  * @author Felipe Rodrigues Michetti
  * @see http://portfolio-frmichetti.rhcloud.com
  * @see http://www.codecode.com.br
  * @see mailto:frmichetti@gmail.com
- * */
+ */
 package br.com.frmichetti.carhollics.android.view;
 
 import android.content.Intent;
@@ -32,7 +31,7 @@ public class ShoppingCartActivity extends BaseActivity {
 
     private FloatingActionButton fabRemoveItem, fabPurchase;
 
-    private TextView textViewSelectedItem, textViewQuantity, textViewPrice,textViewSubTotal,textViewTotal;
+    private TextView textViewSelectedItem, textViewQuantity, textViewPrice, textViewSubTotal, textViewTotal;
 
     private ListView listViewShoppingCart;
 
@@ -74,7 +73,7 @@ public class ShoppingCartActivity extends BaseActivity {
 
     private void doRefresh() {
 
-        if(!shoppingCart.isEmpty()){
+        if (!shoppingCart.isEmpty()) {
 
             textViewSelectedItem.setText(shoppingItem.toString());
 
@@ -84,7 +83,7 @@ public class ShoppingCartActivity extends BaseActivity {
 
             //TODO FIXME valores individuais
 
-           // textViewPrice.setText(String.valueOf(shoppingItem.getServico().getPreco()));
+            // textViewPrice.setText(String.valueOf(shoppingItem.getServico().getPreco()));
 
             textViewQuantity.setText(String.valueOf(shoppingCart.getQuantityOfItens(shoppingItem)));
         }
@@ -141,7 +140,7 @@ public class ShoppingCartActivity extends BaseActivity {
 
                 shoppingItem = (ShoppingItem) itemValue;
 
-                Toast.makeText(context,getString(R.string.service_selected) + shoppingItem.toString(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, getString(R.string.service_selected) + shoppingItem.toString(), Toast.LENGTH_SHORT).show();
 
                 doRefresh();
 
@@ -153,11 +152,11 @@ public class ShoppingCartActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
-                if(!shoppingCart.isEmpty()){
+                if (!shoppingCart.isEmpty()) {
 
                     shoppingCart.remove(shoppingItem);
 
-                    Toast.makeText(context,getString(R.string.remove) + shoppingItem.toString(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, getString(R.string.remove) + shoppingItem.toString(), Toast.LENGTH_SHORT).show();
 
                     doFillData();
 
@@ -165,12 +164,11 @@ public class ShoppingCartActivity extends BaseActivity {
 
                     selectedService = new Service();
 
-                }else{
+                } else {
 
-                    Toast.makeText(context,getString(R.string.cart_is_empty),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, getString(R.string.cart_is_empty), Toast.LENGTH_SHORT).show();
 
                 }
-
 
 
             }
@@ -181,7 +179,7 @@ public class ShoppingCartActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(context,ResumeCheckout.class)
+                startActivity(new Intent(context, ResumeCheckout.class)
                         .putExtra("customer", customer)
                         .putExtra("shoppingCart", shoppingCart)
                         .putExtra("service", selectedService)
@@ -212,9 +210,9 @@ public class ShoppingCartActivity extends BaseActivity {
 
         int id = item.getItemId();
 
-        if(id == android.R.id.home){
+        if (id == android.R.id.home) {
 
-            startActivity(new Intent(context,MainActivity.class)
+            startActivity(new Intent(context, MainActivity.class)
                     .putExtra("customer", customer)
                     .putExtra("shoppingCart", shoppingCart)
                     .putExtra("service", selectedService)
@@ -222,7 +220,6 @@ public class ShoppingCartActivity extends BaseActivity {
             );
 
             finish();
-
 
 
         }
@@ -238,7 +235,7 @@ public class ShoppingCartActivity extends BaseActivity {
     @Override
     public void onNetworkConnectionChanged(boolean isConnected) {
 
-        showSnack((CoordinatorLayout) findViewById(R.id.coordlayoutcart),isConnected);
+        showSnack((CoordinatorLayout) findViewById(R.id.coordlayoutcart), isConnected);
     }
 
 }
