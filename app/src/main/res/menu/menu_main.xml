@@ -54,11 +54,4 @@
         android:title="@string/map"
         app:showAsAction="never" />
 
-
-    <item
-        android:id="@+id/action_search"
-        android:icon="@drawable/ic_action_find"
-        android:orderInCategory="100"
-        android:title="@string/action_search"
-        app:showAsAction="never" />
 </menu>
