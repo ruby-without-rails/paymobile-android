@@ -10,7 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -64,6 +63,8 @@ public class ResumeCheckout extends BaseActivity {
         doCheckConnection(context);
 
         doFillShoppingCart();
+
+        doFillSpinners();
     }
 
     @Override
@@ -192,8 +193,6 @@ public class ResumeCheckout extends BaseActivity {
 
         super.doConfigure();
 
-        doFillSpinners();
-
         checkout = new Checkout();
 
     }
@@ -218,8 +217,11 @@ public class ResumeCheckout extends BaseActivity {
             public void processFinish(List<Address> output) {
 
                 if (output != null) {
+
                     addresses = output;
+
                 } else {
+
                     addresses = new ArrayList<>();
                 }
 
@@ -230,7 +232,7 @@ public class ResumeCheckout extends BaseActivity {
             }
         });
 
-        taskDownloadAddress.execute();
+        taskDownloadAddress.execute(customer);
 
 
         TaskDownloadVehicles taskDownloadVehicles = new TaskDownloadVehicles(context, new AsyncResponse<List<Vehicle>>() {
@@ -239,8 +241,11 @@ public class ResumeCheckout extends BaseActivity {
             public void processFinish(List<Vehicle> output) {
 
                 if (output != null) {
+
                     vehicles = output;
+
                 } else {
+
                     vehicles = new ArrayList<>();
                 }
 
