@@ -193,7 +193,7 @@ public class AddressFragment extends Fragment {
                 }
             });
 
-            taskLoadAddresses.execute();
+            taskLoadAddresses.execute(customer);
 
         }
 

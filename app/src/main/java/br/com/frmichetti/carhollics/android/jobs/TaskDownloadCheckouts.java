@@ -11,6 +11,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
@@ -59,7 +60,7 @@ public class TaskDownloadCheckouts extends AsyncTask<Customer, String, List<Chec
 
         super.onPreExecute();
 
-        url = context.getResources().getString(R.string.local_server) + "checkouts";
+        url = context.getResources().getString(R.string.local_server) + "find/chkbycus";
 
         Log.d("DEBUG-TASK", "server config -> " + url);
 
@@ -89,7 +90,8 @@ public class TaskDownloadCheckouts extends AsyncTask<Customer, String, List<Chec
 
             //TODO FIXME Receive a JSONArray
 
-            response = HTTP.sendGet(url);
+            response = HTTP.sendPost(url,
+                    new Gson().toJson(params[0]));
 
         } catch (IOException e) {
 

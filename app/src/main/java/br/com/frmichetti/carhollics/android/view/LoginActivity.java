@@ -226,9 +226,9 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
 
         //TODO FIXME REMOVEME
 
-        // editTextEmail.setText("frmichetti@gmail.com");
+        editTextEmail.setText("frmichetti@gmail.com");
 
-        // editTextPassword.setText("123456");
+        editTextPassword.setText("123456");
 
 
     }

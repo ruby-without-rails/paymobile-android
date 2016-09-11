@@ -14,6 +14,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -331,7 +332,7 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
 
         imageView = (ImageView) findViewById(R.id.imageViewAccountImage);
 
-        textView = (TextView) findViewById(R.id.textViewNome);
+        textView = (TextView) findViewById(R.id.textViewTitle);
     }
 
     @Override
@@ -361,6 +362,11 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
         }
     }
 
+    @Override
+    public void onNetworkConnectionChanged(boolean isConnected) {
+
+        showSnack((CoordinatorLayout) findViewById(R.id.coordLayoutMain), isConnected);
+    }
 
 }
 

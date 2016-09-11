@@ -21,9 +21,10 @@ import java.util.List;
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.dao.HTTP;
 import br.com.frmichetti.carhollics.android.model.compatibility.Address;
+import br.com.frmichetti.carhollics.android.model.compatibility.Customer;
 
 
-public class TaskDownloadAddress extends AsyncTask<Void, String, List<Address>> {
+public class TaskDownloadAddress extends AsyncTask<Customer, String, List<Address>> {
 
     public AsyncResponse delegate = null;
 
@@ -55,7 +56,7 @@ public class TaskDownloadAddress extends AsyncTask<Void, String, List<Address>> 
 
         super.onPreExecute();
 
-        url = context.getResources().getString(R.string.local_server) + "addresses";
+        url = context.getResources().getString(R.string.local_server) + "find/addrbycus";
 
         Log.d("DEBUG-TASK", "server config -> " + url);
 
@@ -76,7 +77,7 @@ public class TaskDownloadAddress extends AsyncTask<Void, String, List<Address>> 
 
 
     @Override
-    protected List<Address> doInBackground(Void... params) {
+    protected List<Address> doInBackground(Customer ... params) {
 
         String response = "";
 
@@ -84,7 +85,8 @@ public class TaskDownloadAddress extends AsyncTask<Void, String, List<Address>> 
 
             publishProgress("Enviando Requisição para o Servidor");
 
-            response = HTTP.sendGet(url);
+            response = HTTP.sendPost(url,
+                    new Gson().toJson(params[0]));
 
         } catch (IOException e) {
 
@@ -97,7 +99,7 @@ public class TaskDownloadAddress extends AsyncTask<Void, String, List<Address>> 
 
         //TODO FIXME Receive a JSON ARRAy
 
-        addresses = new Gson().fromJson(response, new TypeToken<List<Address>>() {}.getType());
+        addresses = new Gson().fromJson(response, new TypeToken<List<Address>>(){}.getType());
 
         return (addresses != null) ? addresses : new ArrayList<Address>();
     }

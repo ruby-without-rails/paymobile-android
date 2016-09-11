@@ -15,13 +15,11 @@ public class Customer extends BaseModel {
 
     private long cpf;
 
-    private Set<Vehicle> vehicles = new HashSet<Vehicle>();
-
-    private Set<Address> addresses = new HashSet<Address>();
-
     private long phone;
 
     private long mobilePhone;
+
+    private Set<Vehicle> vehicles = new HashSet<Vehicle>();
 
     public Customer() {
     }
@@ -56,22 +54,6 @@ public class Customer extends BaseModel {
 
     public void setCpf(long cpf) {
         this.cpf = cpf;
-    }
-
-    public Set<Vehicle> getVehicles() {
-        return this.vehicles;
-    }
-
-    public void setVehicles(final Set<Vehicle> vehicles) {
-        this.vehicles = vehicles;
-    }
-
-    public Set<Address> getAddresses() {
-        return this.addresses;
-    }
-
-    public void setAddresses(final Set<Address> addresses) {
-        this.addresses = addresses;
     }
 
     public long getPhone() {
@@ -124,6 +106,14 @@ public class Customer extends BaseModel {
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         return result;
+    }
+
+    public Set<Vehicle> getVehicles() {
+        return this.vehicles;
+    }
+
+    public void setVehicles(final Set<Vehicle> vehicles) {
+        this.vehicles = vehicles;
     }
 
 }

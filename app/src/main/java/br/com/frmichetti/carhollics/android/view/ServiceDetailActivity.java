@@ -23,7 +23,7 @@ import br.com.frmichetti.carhollics.android.model.ShoppingItem;
 
 public class ServiceDetailActivity extends BaseActivity {
 
-    private TextView textViewName, textViewDescricao, textViewDuration, textViewPrice;
+    private TextView textViewTitle, textViewDescription, textViewDuration, textViewObservation, textViewPrice;
 
     private FloatingActionButton floatButtonAddCart;
 
@@ -72,13 +72,15 @@ public class ServiceDetailActivity extends BaseActivity {
 
         super.doCastComponents();
 
-        textViewName = (TextView) findViewById(R.id.textViewNome);
+        textViewTitle = (TextView) findViewById(R.id.textViewTitle);
 
-        textViewDescricao = (TextView) findViewById(R.id.textViewDescricaoVar);
+        textViewDescription = (TextView) findViewById(R.id.textViewDescricaoVar);
 
-        textViewDuration = (TextView) findViewById(R.id.textViewDuracaoVar);
+        textViewDuration = (TextView) findViewById(R.id.textViewDurationVar);
 
-        textViewPrice = (TextView) findViewById(R.id.textViewPrecoUnitVar);
+        textViewObservation = (TextView) findViewById(R.id.textViewObservationVar);
+
+        textViewPrice = (TextView) findViewById(R.id.textViewPriceVar);
 
         floatButtonAddCart = (FloatingActionButton) findViewById(R.id.fab_add_to_cart);
 
@@ -110,11 +112,13 @@ public class ServiceDetailActivity extends BaseActivity {
 
     private void doFillData() {
 
-        textViewName.setText(selectedService.getTitle());
+        textViewTitle.setText(selectedService.getTitle());
 
-        textViewDescricao.setText(selectedService.getDescription());
+        textViewDescription.setText(selectedService.getDescription());
 
         textViewDuration.setText(String.valueOf(selectedService.getDuration()));
+
+        textViewObservation.setText(selectedService.getObservation());
 
         textViewPrice.setText(String.valueOf(selectedService.getPrice()));
     }

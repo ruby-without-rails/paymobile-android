@@ -18,7 +18,7 @@ public class Service extends BaseModel {
 
     private BigDecimal price;
 
-    private transient byte[] thumbnail;
+    private byte[] thumbnail;
 
     public Service() {
     }
@@ -108,4 +108,6 @@ public class Service extends BaseModel {
     public String toString() {
         return title;
     }
+
+
 }

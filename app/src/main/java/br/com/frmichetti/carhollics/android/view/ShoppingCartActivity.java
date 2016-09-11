@@ -117,7 +117,8 @@ public class ShoppingCartActivity extends BaseActivity {
 
         textViewQuantity = (TextView) findViewById(R.id.textViewQuantidadeVar);
 
-        textViewPrice = (TextView) findViewById(R.id.textViewPrecoUnitVar);
+        //TODO FIXME Verify CAst
+        textViewPrice = (TextView) findViewById(R.id.textViewPrecoUnit);
 
         textViewSubTotal = (TextView) findViewById(R.id.textViewSubtotalVar);
 

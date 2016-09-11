@@ -9,9 +9,9 @@ public abstract class BaseModel implements Serializable {
 
     private int version;
 
-    private transient Date createdAt;
+    private Date createdAt;
 
-    private transient Date updatedAt;
+    private Date updatedAt;
 
     public BaseModel() {
     }

@@ -6,6 +6,8 @@ public class Address extends BaseModel {
 
     private Long id;
 
+    private Customer customer;
+
     private long cep;
 
     private String street;
@@ -92,8 +94,17 @@ public class Address extends BaseModel {
         return result;
     }
 
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
     @Override
     public String toString() {
-        return street + ", " + number + " , " + cep;
+        return cep + " , " + street + " . " + number;
     }
+
 }

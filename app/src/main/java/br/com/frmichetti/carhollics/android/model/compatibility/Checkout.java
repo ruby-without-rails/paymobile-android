@@ -20,11 +20,14 @@ public class Checkout extends BaseModel {
 
     private Address address;
 
-    private BigDecimal total;
-
     private String shoppingCart;
 
+    private BigDecimal total;
+
+    private CheckoutStatus status;
+
     public Checkout() {
+        this.status = CheckoutStatus.NEW;
     }
 
     public Long getId() {
@@ -89,6 +92,14 @@ public class Checkout extends BaseModel {
 
     public void setShoppingCart(String shoppingCart) {
         this.shoppingCart = shoppingCart;
+    }
+
+    public CheckoutStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(CheckoutStatus status) {
+        this.status = status;
     }
 
     private void generateUUID() {
