@@ -19,7 +19,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
         android:animateLayoutChanges="true"
-        tools:context=".view.ShoppingCartActivity">
+        tools:context=".view.activity.shoppingCart.ShoppingCartActivity">
 
         <TextView
             android:id="@+id/textView9"

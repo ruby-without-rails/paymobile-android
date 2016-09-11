@@ -1,4 +1,4 @@
-package br.com.frmichetti.carhollics.android.view;
+package br.com.frmichetti.carhollics.android.view.activity;
 
 import android.content.res.Resources;
 import android.graphics.Rect;
@@ -26,7 +26,7 @@ import br.com.frmichetti.carhollics.android.adapter.ServiceAdapter;
 import br.com.frmichetti.carhollics.android.model.compatibility.Service;
 
 
-public class CardsMain extends AppCompatActivity {
+public class CardsMainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
 

@@ -13,7 +13,7 @@
         android:layout_centerInParent="true"
         android:layout_marginTop="10dp"
         android:gravity="center_horizontal"
-        android:text="Lista de Reservas"
+        android:text="Lista de Pedidos"
         android:textSize="12dp" />
 
     <TextView
@@ -23,12 +23,12 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:gravity="center_horizontal"
-        android:text="RESERVAS"
+        android:text="PEDIDOS"
         android:textSize="45dp"
         android:textStyle="bold" />
 
     <ListView
-        android:id="@+id/listViewServicos"
+        android:id="@+id/listViewCheckouts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView"

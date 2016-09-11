@@ -4,7 +4,7 @@
  * @see http://www.codecode.com.br
  * @see mailto:frmichetti@gmail.com
  */
-package br.com.frmichetti.carhollics.android.view;
+package br.com.frmichetti.carhollics.android.view.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

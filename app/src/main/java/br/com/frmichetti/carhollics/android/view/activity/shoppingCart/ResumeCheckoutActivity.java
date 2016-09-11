@@ -1,4 +1,4 @@
-package br.com.frmichetti.carhollics.android.view;
+package br.com.frmichetti.carhollics.android.view.activity.shoppingCart;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,8 +26,10 @@ import br.com.frmichetti.carhollics.android.model.ShoppingItem;
 import br.com.frmichetti.carhollics.android.model.compatibility.Address;
 import br.com.frmichetti.carhollics.android.model.compatibility.Checkout;
 import br.com.frmichetti.carhollics.android.model.compatibility.Vehicle;
+import br.com.frmichetti.carhollics.android.view.activity.BaseActivity;
+import br.com.frmichetti.carhollics.android.view.activity.MainActivity;
 
-public class ResumeCheckout extends BaseActivity {
+public class ResumeCheckoutActivity extends BaseActivity {
 
     private ListView listViewShoppingCart;
 

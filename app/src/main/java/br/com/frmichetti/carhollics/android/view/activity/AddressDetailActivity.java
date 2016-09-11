@@ -1,4 +1,4 @@
-package br.com.frmichetti.carhollics.android.view;
+package br.com.frmichetti.carhollics.android.view.activity;
 
 import android.support.v7.app.AppCompatActivity;
 

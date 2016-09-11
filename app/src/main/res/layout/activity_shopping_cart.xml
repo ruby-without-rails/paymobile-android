@@ -18,7 +18,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
         android:animateLayoutChanges="true"
-        tools:context=".view.ShoppingCartActivity">
+        tools:context=".view.activity.shoppingCart.ShoppingCartActivity">
 
 
         <TextView
@@ -33,7 +33,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <ListView
-            android:id="@+id/listViewPedidos"
+            android:id="@+id/listViewCheckouts"
             android:layout_width="wrap_content"
             android:layout_height="250dp"
             android:layout_above="@+id/textViewBemVindo"
@@ -153,7 +153,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/listViewPedidos"
+            android:layout_below="@+id/listViewCheckouts"
             android:text="Quantidade"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 

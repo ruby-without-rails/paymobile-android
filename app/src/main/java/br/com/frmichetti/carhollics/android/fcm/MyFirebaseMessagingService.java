@@ -22,7 +22,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 
 import br.com.frmichetti.carhollics.android.R;
-import br.com.frmichetti.carhollics.android.view.MainActivity;
+import br.com.frmichetti.carhollics.android.view.activity.MainActivity;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 

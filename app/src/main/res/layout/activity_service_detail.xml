@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/background_light"
     android:fitsSystemWindows="true"
-    tools:context=".view.ServiceDetailActivity">
+    tools:context=".view.activity.ServiceDetailActivity">
 
     <include
         layout="@layout/toolbar"
@@ -100,7 +100,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/textViewObservationVar"
                 android:layout_marginTop="30dp"
-                android:text="Tempo de Duração"
+                android:text="Tempo de Execução"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/colorPrimary" />
 
@@ -149,6 +149,16 @@
                 android:layout_below="@+id/textViewPrecoUnit"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text=" hora(s)"
+                android:id="@+id/textView17"
+                android:layout_above="@+id/textViewPrecoUnit"
+                android:layout_toRightOf="@+id/textViewDurationVar"
+                android:layout_toEndOf="@+id/textViewDurationVar" />
 
 
         </RelativeLayout>
