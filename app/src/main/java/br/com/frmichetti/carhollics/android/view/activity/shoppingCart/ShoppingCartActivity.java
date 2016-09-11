@@ -83,9 +83,7 @@ public class ShoppingCartActivity extends BaseActivity {
 
             textViewTotal.setText(String.valueOf(shoppingCart.getTotal()));
 
-            //TODO FIXME valores individuais
-
-            // textViewPrice.setText(String.valueOf(shoppingItem.getServico().getPreco()));
+            textViewPrice.setText(String.valueOf(shoppingItem.getService().getPrice()));
 
             textViewQuantity.setText(String.valueOf(shoppingCart.getQuantityOfItens(shoppingItem)));
         }
@@ -113,18 +111,17 @@ public class ShoppingCartActivity extends BaseActivity {
 
         fabPurchase = (FloatingActionButton) findViewById(R.id.fab_buy);
 
-        listViewShoppingCart = (ListView) findViewById(R.id.listViewCheckouts);
+        listViewShoppingCart = (ListView) findViewById(R.id.lvShoppingCartItems);
 
-        textViewSelectedItem = (TextView) findViewById(R.id.textViewItemSelecionadoVar);
+        textViewSelectedItem = (TextView) findViewById(R.id.tvSelectedServiceVar);
 
-        textViewQuantity = (TextView) findViewById(R.id.textViewQuantidadeVar);
+        textViewQuantity = (TextView) findViewById(R.id.tvQuantityVar);
 
-        //TODO FIXME Verify CAst
-        textViewPrice = (TextView) findViewById(R.id.textViewPrecoUnit);
+        textViewPrice = (TextView) findViewById(R.id.tvPriceVar);
 
-        textViewSubTotal = (TextView) findViewById(R.id.textViewSubtotalVar);
+        textViewSubTotal = (TextView) findViewById(R.id.tvSubtotalVar);
 
-        textViewTotal = (TextView) findViewById(R.id.textViewTotalVar);
+        textViewTotal = (TextView) findViewById(R.id.tvTotalVar);
 
 
     }

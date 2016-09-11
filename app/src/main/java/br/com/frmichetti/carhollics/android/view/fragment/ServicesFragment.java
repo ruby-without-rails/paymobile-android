@@ -144,7 +144,7 @@ public class ServicesFragment extends Fragment {
 
     private void doCastComponents(View rootView) {
 
-        textView = (TextView) rootView.findViewById(R.id.textViewBemVindo);
+        textView = (TextView) rootView.findViewById(R.id.tvSelectedService);
 
         listView = (ListView) rootView.findViewById(R.id.listViewCheckouts);
 
