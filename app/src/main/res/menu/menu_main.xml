@@ -9,7 +9,7 @@
         android:icon="@drawable/ic_action_car"
         android:orderInCategory="100"
         android:title="@string/action_vehicle"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 
 
     <item

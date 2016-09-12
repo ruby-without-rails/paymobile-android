@@ -110,7 +110,7 @@ public class TaskDownloadCheckouts extends AsyncTask<Customer, String, List<Chec
                 .create().fromJson(response, new TypeToken<List<Checkout>>() {
                 }.getType());
 
-        return (checkouts != null) ? checkouts : new ArrayList<Checkout>();
+        return (checkouts != null) ? (checkouts) : (new ArrayList<Checkout>());
     }
 
 

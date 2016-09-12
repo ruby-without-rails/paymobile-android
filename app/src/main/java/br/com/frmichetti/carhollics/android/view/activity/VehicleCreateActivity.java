@@ -6,7 +6,6 @@
  */
 package br.com.frmichetti.carhollics.android.view.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -14,8 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import br.com.frmichetti.carhollics.android.R;
-import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
-import br.com.frmichetti.carhollics.android.jobs.TaskCreateVehicle;
 import br.com.frmichetti.carhollics.android.model.compatibility.Customer;
 import br.com.frmichetti.carhollics.android.model.compatibility.Vehicle;
 
@@ -71,8 +68,8 @@ public class VehicleCreateActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
-
-                TaskCreateVehicle taskCreateVeiculo = new TaskCreateVehicle(context, new AsyncResponse<Vehicle>() {
+/*
+                TaskCreateAddress taskCreateVeiculo = new TaskCreateAddress(context, new AsyncResponse<Vehicle>() {
 
                     @Override
                     public void processFinish(Vehicle output) {
@@ -89,11 +86,11 @@ public class VehicleCreateActivity extends BaseActivity {
 
                     }
                 });
-
+*/
 
                 vehicle = doFillData();
 
-                taskCreateVeiculo.execute(vehicle);
+//                taskCreateVeiculo.execute(vehicle);
 
 
             }

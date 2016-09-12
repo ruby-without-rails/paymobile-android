@@ -1,9 +1,12 @@
 package br.com.frmichetti.carhollics.android.view.activity;
 
-import android.support.v7.app.AppCompatActivity;
-
 /**
  * Created by felipe on 9/9/16.
  */
-public class AddressDetailActivity extends AppCompatActivity {
+public class AddressDetailActivity extends BaseActivity {
+
+    @Override
+    public void doCreateListeners() {
+
+    }
 }

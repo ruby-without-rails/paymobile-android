@@ -9,6 +9,7 @@ package br.com.frmichetti.carhollics.android.view.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,6 +30,7 @@ import br.com.frmichetti.carhollics.android.model.ShoppingCart;
 import br.com.frmichetti.carhollics.android.model.compatibility.Address;
 import br.com.frmichetti.carhollics.android.model.compatibility.Customer;
 import br.com.frmichetti.carhollics.android.model.compatibility.Vehicle;
+import br.com.frmichetti.carhollics.android.view.activity.NewAddressActivity;
 
 
 public class AddressFragment extends Fragment {
@@ -48,6 +50,8 @@ public class AddressFragment extends Fragment {
     private Customer customer;
 
     private ShoppingCart shoppingCart;
+
+    private FloatingActionButton fab;
 
     public AddressFragment() {
     }
@@ -141,11 +145,27 @@ public class AddressFragment extends Fragment {
 
     private void doCastComponents(View rootView) {
 
-        listView = (ListView) rootView.findViewById(R.id.listViewAddress);
+        listView = (ListView) rootView.findViewById(R.id.lvAddresses);
+
+        fab = (FloatingActionButton) rootView.findViewById(R.id.fab_new_address);
 
     }
 
     private void doCreateListeners() {
+
+        fab.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+                Toast.makeText(context,"New Address Button",Toast.LENGTH_SHORT).show();
+
+                startActivity(new Intent(context, NewAddressActivity.class)
+                        .putExtra("customer",customer)
+
+                );
+            }
+        });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -158,16 +178,10 @@ public class AddressFragment extends Fragment {
 
                 selectedAddress = (Address) itemValue;
 
-/*                startActivity(new Intent(context,AddressDetailActivity.class)
-                        .putExtra("shoppingCart", shoppingCart)
+            /*    startActivity(new Intent(context,AddressDetailActivity.class)
                         .putExtra("customer", customer)
-                        .putExtra("vehicle", selectedVehicle)
                         .putExtra("address", selectedAddress)
-
-
-                );
-
-                */
+                );*/
 
                 Toast.makeText(context, selectedAddress.getStreet(), Toast.LENGTH_SHORT).show();
 

@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.io.Serializable;
 import java.util.List;
@@ -160,7 +159,6 @@ public class CheckoutsFragment extends Fragment {
                 startActivity(new Intent(context, CheckoutDetailActivity.class)
                         .putExtra("selectedCheckout",selectedCheckout));
 
-                Toast.makeText(context, "Pedido Selecionado " + selectedCheckout.toString(), Toast.LENGTH_SHORT).show();
 
             }
         });

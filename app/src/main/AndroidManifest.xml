@@ -88,7 +88,8 @@
             android:name=".view.activity.MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity android:name=".view.activity.shoppingCart.ResumeCheckoutActivity" />
-        <activity android:name=".view.activity.shoppingCart.CheckoutDetailActivity"></activity>
+        <activity android:name=".view.activity.shoppingCart.CheckoutDetailActivity" />
+        <activity android:name=".view.activity.NewAddressActivity"></activity>
     </application>
 
 </manifest>

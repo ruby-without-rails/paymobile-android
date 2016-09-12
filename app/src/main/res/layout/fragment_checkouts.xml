@@ -34,6 +34,6 @@
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
         android:choiceMode="singleChoice"
-        tools:listitem="@android:layout/simple_list_item_checked" />
+        tools:listitem="@android:layout/simple_list_item_1" />
 
 </RelativeLayout>

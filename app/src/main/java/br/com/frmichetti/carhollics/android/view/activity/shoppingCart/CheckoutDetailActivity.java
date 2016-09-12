@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
+import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import br.com.frmichetti.carhollics.android.R;
@@ -84,5 +86,33 @@ public class CheckoutDetailActivity extends BaseActivity {
         showSnack((CoordinatorLayout) findViewById(R.id.coordLayoutCheckDetail), isConnected);
     }
 
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
 
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+
+            finish();
+
+        }
+
+        return super.onKeyUp(keyCode, event);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+
+            finish();
+
+            return true;
+
+        }
+
+        return super.onOptionsItemSelected(item);
+
+    }
 }
