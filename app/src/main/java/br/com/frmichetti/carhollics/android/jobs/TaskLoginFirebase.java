@@ -7,7 +7,6 @@ package br.com.frmichetti.carhollics.android.jobs;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -93,7 +92,7 @@ public class TaskLoginFirebase extends AsyncTask<String, String, Customer> {
 
             t.setKey(params[0]);
 
-            response = HTTP.sendPost(url, new GsonBuilder().
+            response = HTTP.sendRequest(url,"POST" ,new GsonBuilder().
                     setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
                     .create().toJson(t));
 

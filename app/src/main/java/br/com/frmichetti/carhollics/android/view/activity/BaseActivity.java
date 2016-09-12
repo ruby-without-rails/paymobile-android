@@ -67,6 +67,8 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
     private FirebaseAuth.AuthStateListener authListener;
 
+    protected int fragmentId;
+
     protected BaseActivity() {
         Log.d("[INFO-INSTANCE]", "Create instance of " + this.getClass().getSimpleName());
     }
@@ -153,6 +155,8 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
         outState.putSerializable("vehicle", selectedVehicle);
 
         outState.putSerializable("address", selectedAddress);
+
+        outState.putInt("fragmentId", fragmentId);
 
         Log.d("[INFO-SAVE-BUNDLE]", "Save State");
 
@@ -304,7 +308,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         intent = getIntent();
 
-        if(actionBar != null){
+        if (actionBar != null) {
 
             actionBar.setTitle(getString(R.string.app_name));
 
@@ -347,6 +351,8 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
             selectedAddress = (Address) bundle.getSerializable("address");
 
+            fragmentId = bundle.getInt("fragmentId");
+
             Log.d("[INFO-LOAD-BUNDLE]", "Load Saved State");
 
         }
@@ -367,6 +373,8 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
         bundle.putSerializable("vehicle", selectedVehicle);
 
         bundle.putSerializable("address", selectedAddress);
+
+        bundle.putInt("fragmentId", fragmentId);
 
         Log.d("[INFO-SAVE-BUNDLE]", "Saved State");
 

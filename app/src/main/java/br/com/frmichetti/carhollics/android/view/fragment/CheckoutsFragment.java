@@ -26,7 +26,7 @@ import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
 import br.com.frmichetti.carhollics.android.jobs.TaskDownloadCheckouts;
 import br.com.frmichetti.carhollics.android.model.compatibility.Checkout;
 import br.com.frmichetti.carhollics.android.model.compatibility.Customer;
-import br.com.frmichetti.carhollics.android.view.activity.shoppingCart.CheckoutDetailActivity;
+import br.com.frmichetti.carhollics.android.view.activity.CheckoutDetailActivity;
 
 public class CheckoutsFragment extends Fragment {
 

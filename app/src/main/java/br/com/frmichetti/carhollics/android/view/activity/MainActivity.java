@@ -79,6 +79,16 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
 
         doLoadExtras(intent);
 
+        doPrepareItems();
+
+        doSetFragment();
+
+        doShowInfo();
+
+    }
+
+    private void doPrepareItems() {
+
         if (shoppingCart == null) {
 
             shoppingCart = new ShoppingCart();
@@ -98,10 +108,6 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
 
             selectedAddress = new Address();
         }
-
-        doSetFragment();
-
-        doShowInfo();
 
     }
 
@@ -267,6 +273,8 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
 
         displayView(position);
 
+        fragmentId = position;
+
     }
 
     private void displayView(int position) {
@@ -329,7 +337,7 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
         drawerFragment.setDrawerListener(this);
 
         // display the first navigation drawer view on app launch
-        displayView(0);
+        displayView(fragmentId);
     }
 
     @Override

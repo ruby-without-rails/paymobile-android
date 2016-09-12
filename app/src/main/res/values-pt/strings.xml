@@ -49,8 +49,8 @@
     <string name="nav_item_address">Endereços</string>
     <string name="nav_item_services">Serviços</string>
     <string name="nav_item_vehicles">Veículos</string>
-    <string name="title_address">Endereço</string>
-    <string name="title_services">Serviço</string>
+    <string name="title_address">Endereços</string>
+    <string name="title_services">Serviços</string>
     <string name="title_vehicles">Veículos</string>
     <string name="contact_developer">Contate o Desenvolvedor</string>
     <string name="title_checkouts">Pedidos</string>

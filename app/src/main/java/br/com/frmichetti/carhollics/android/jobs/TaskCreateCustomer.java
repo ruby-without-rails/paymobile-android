@@ -54,7 +54,7 @@ public class TaskCreateCustomer extends AsyncTask<Customer, String, Customer> {
 
         super.onPreExecute();
 
-        url = context.getResources().getString(R.string.local_server) + "new/customer";
+        url = context.getResources().getString(R.string.local_server) + "save/customer";
 
         Log.d("DEBUG-TASK", "server config -> " + url);
 
@@ -81,7 +81,7 @@ public class TaskCreateCustomer extends AsyncTask<Customer, String, Customer> {
 
             //TODO FIXME Create a JSON
 
-            response = HTTP.sendPost(url, new Gson().toJson(params[0]));
+            response = HTTP.sendRequest(url, "POST" ,new Gson().toJson(params[0]));
 
         } catch (IOException e) {
 

@@ -85,7 +85,7 @@ public class TaskDownloadAddress extends AsyncTask<Customer, String, List<Addres
 
             publishProgress("Enviando Requisição para o Servidor");
 
-            response = HTTP.sendPost(url,
+            response = HTTP.sendRequest(url,"POST",
                     new Gson().toJson(params[0]));
 
         } catch (IOException e) {

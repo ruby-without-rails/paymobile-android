@@ -1,4 +1,4 @@
-package br.com.frmichetti.carhollics.android.view.activity.shoppingCart;
+package br.com.frmichetti.carhollics.android.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.model.compatibility.Checkout;
-import br.com.frmichetti.carhollics.android.view.activity.BaseActivity;
 
 public class CheckoutDetailActivity extends BaseActivity {
 
@@ -40,6 +39,10 @@ public class CheckoutDetailActivity extends BaseActivity {
     public void doConfigure() {
 
         super.doConfigure();
+
+        if(actionBar != null){
+            actionBar.setSubtitle("Detalhes do Pedido");
+        }
 
     }
 

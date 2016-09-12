@@ -104,6 +104,8 @@ public class ServicesFragment extends Fragment {
         context = getContext();
 
         intent = getActivity().getIntent();
+
+        setRetainInstance(true);
     }
 
     private void doLoadExtras() {

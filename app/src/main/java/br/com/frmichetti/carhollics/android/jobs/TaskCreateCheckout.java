@@ -74,7 +74,7 @@ public class TaskCreateCheckout extends AsyncTask<Checkout, String, Boolean> {
 
             publishProgress("Enviando Objeto para o Servidor");
 
-            response = HTTP.sendPost(url, new GsonBuilder()
+            response = HTTP.sendRequest(url,"POST", new GsonBuilder()
                     .setPrettyPrinting()
                     .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
                     .enableComplexMapKeySerialization()

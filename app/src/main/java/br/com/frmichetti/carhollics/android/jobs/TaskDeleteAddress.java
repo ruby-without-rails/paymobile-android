@@ -12,7 +12,6 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 
@@ -20,9 +19,7 @@ import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.dao.HTTP;
 import br.com.frmichetti.carhollics.android.model.compatibility.Address;
 
-public class TaskCreateAddress extends AsyncTask<Address, String, Address> {
-
-    public AsyncResponse delegate = null;
+public class TaskDeleteAddress extends AsyncTask<Address, String, Void> {
 
     private String url;
 
@@ -32,19 +29,14 @@ public class TaskCreateAddress extends AsyncTask<Address, String, Address> {
 
     private String response;
 
-    private TaskCreateAddress() {
+    private TaskDeleteAddress() {
 
-        Log.d("DEBUG-TASK", "create TaskCreateUser");
+        Log.d("DEBUG-TASK", "create TaskDeleteAddress");
     }
 
-    private TaskCreateAddress(Context context) {
+    public TaskDeleteAddress(Context context) {
         this();
         this.context = context;
-    }
-
-    public TaskCreateAddress(Context context, AsyncResponse<Address> delegate) {
-        this(context);
-        this.delegate = delegate;
     }
 
     @Override
@@ -52,7 +44,7 @@ public class TaskCreateAddress extends AsyncTask<Address, String, Address> {
 
         super.onPreExecute();
 
-        url = context.getResources().getString(R.string.local_server) + "save/address";
+        url = context.getResources().getString(R.string.local_server) + "delete/address";
 
         Log.d("DEBUG-TASK", "server config -> " + url);
 
@@ -64,20 +56,20 @@ public class TaskCreateAddress extends AsyncTask<Address, String, Address> {
 
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
-        dialog.setMessage("Iniciando a Tarefa Criar Novo Endereço");
+        dialog.setMessage("Iniciando a Tarefa Deletar Endereço");
 
         dialog.show();
 
     }
 
     @Override
-    protected Address doInBackground(Address ... params) {
+    protected Void doInBackground(Address ... params) {
 
         try {
 
             publishProgress("Enviando Requisição para o Servidor");
 
-            response = HTTP.sendRequest(url,"POST",new Gson().toJson(params[0]));
+            response = HTTP.sendRequest(url,"DELETE",new Gson().toJson(params[0]));
 
         } catch (IOException e) {
 
@@ -86,11 +78,7 @@ public class TaskCreateAddress extends AsyncTask<Address, String, Address> {
             Log.e("Erro", e.getMessage());
         }
 
-        publishProgress("Item recebido !");
-
-        Address a = new Gson().fromJson(response, new TypeToken<Address>(){}.getType());
-
-        return (a != null) ? (a) : (new Address());
+        return null;
 
     }
 
@@ -104,13 +92,12 @@ public class TaskCreateAddress extends AsyncTask<Address, String, Address> {
 
 
     @Override
-    protected void onPostExecute(Address result) {
+    protected void onPostExecute(Void result) {
 
         dialog.setMessage("Tarefa Finalizada!");
 
         dialog.dismiss();
 
-        delegate.processFinish(result);
 
     }
 }

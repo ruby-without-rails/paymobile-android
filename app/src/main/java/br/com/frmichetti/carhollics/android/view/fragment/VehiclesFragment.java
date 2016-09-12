@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,8 +41,6 @@ public class VehiclesFragment extends Fragment {
     private TextView textView;
 
     private ListView listView;
-
-    private Button button;
 
     private List<Vehicle> vehicles;
 
@@ -139,14 +136,6 @@ public class VehiclesFragment extends Fragment {
             }
         });
 
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                Toast.makeText(context, "Implementar", Toast.LENGTH_SHORT).show();
-            }
-        });
 
     }
 
@@ -155,9 +144,6 @@ public class VehiclesFragment extends Fragment {
         textView = (TextView) rootView.findViewById(R.id.textView14);
 
         listView = (ListView) rootView.findViewById(R.id.listViewVeiculos);
-
-        button = (Button) rootView.findViewById(R.id.buttonCadastrarVeiculo);
-
 
     }
 

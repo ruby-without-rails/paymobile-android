@@ -1,5 +1,6 @@
 package br.com.frmichetti.carhollics.android.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
@@ -13,13 +14,14 @@ import android.widget.Toast;
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
 import br.com.frmichetti.carhollics.android.jobs.TaskCreateAddress;
+import br.com.frmichetti.carhollics.android.jobs.TaskDeleteAddress;
 import br.com.frmichetti.carhollics.android.model.compatibility.Address;
 
 public class NewAddressActivity extends BaseActivity {
 
     private EditText edtCep,edtStreet,edtNeighborhood,edtComplement,edtNumber;
 
-    private Button buttonSave;
+    private Button buttonSave, buttonDelete;
 
     private Address address;
 
@@ -42,11 +44,25 @@ public class NewAddressActivity extends BaseActivity {
 
         address = new Address();
 
-
-
         doConfigure();
 
         doLoadExtras(intent);
+
+        if(selectedAddress != null){
+
+            address.setId(selectedAddress.getId());
+
+            edtCep.setText(String.valueOf(selectedAddress.getCep()));
+
+            edtStreet.setText(selectedAddress.getStreet());
+
+            edtNeighborhood.setText(selectedAddress.getNeighborhood());
+
+            edtComplement.setText(selectedAddress.getComplement());
+
+            edtNumber.setText(selectedAddress.getNumber());
+
+        }
     }
 
     @Override
@@ -61,6 +77,18 @@ public class NewAddressActivity extends BaseActivity {
 
                 doSendData();
                 
+            }
+        });
+
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+                new TaskDeleteAddress(context).execute(address);
+
+                finish();
+
             }
         });
 
@@ -125,6 +153,8 @@ public class NewAddressActivity extends BaseActivity {
 
         buttonSave = (Button) findViewById(R.id.buttonSave);
 
+        buttonDelete = (Button) findViewById(R.id.buttonDelete);
+
     }
 
     @Override
@@ -171,5 +201,14 @@ public class NewAddressActivity extends BaseActivity {
         if(actionBar != null){
             actionBar.setSubtitle("New Address");
         }
+    }
+
+    @Override
+    public void doLoadExtras(Intent intent) {
+
+        super.doLoadExtras(intent);
+
+        selectedAddress = (Address) intent.getSerializableExtra("address");
+
     }
 }

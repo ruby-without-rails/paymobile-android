@@ -20,7 +20,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.io.Serializable;
 import java.util.List;
 
 import br.com.frmichetti.carhollics.android.R;
@@ -61,44 +60,13 @@ public class AddressFragment extends Fragment {
 
         super.onCreate(savedInstanceState);
 
-        if (savedInstanceState != null) {
-
-            addresses = (List<Address>) savedInstanceState.getSerializable("addresses");
-
-        }
+        setRetainInstance(true);
 
         doConfigure();
 
         doLoadExtras();
 
-        if (shoppingCart == null) {
-
-            shoppingCart = new ShoppingCart();
-        }
-
-        if (selectedAddress == null) {
-
-            selectedAddress = new Address();
-        }
-
-        if (selectedVehicle == null) {
-
-            selectedVehicle = new Vehicle();
-        }
-
     }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-
-        super.onSaveInstanceState(outState);
-
-        outState.putSerializable("addresses", (Serializable) addresses);
-
-        Log.d("DEBUG - Save State", "Salvando Estado");
-
-    }
-
 
     private void doConfigure() {
 
@@ -123,25 +91,24 @@ public class AddressFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
 
-
-        if (savedInstanceState != null) {
-
-            addresses = (List<Address>) savedInstanceState.getSerializable("addresses");
-
-        }
-
         View rootView = inflater.inflate(R.layout.fragment_address, container, false);
 
         doCastComponents(rootView);
 
         doCreateListeners();
 
-        doLoadAddresses();
-
         // Inflate the layout for this fragment
         return rootView;
     }
 
+    @Override
+    public void onResume() {
+
+        super.onResume();
+
+        doLoadAddresses();
+
+    }
 
     private void doCastComponents(View rootView) {
 
@@ -178,12 +145,10 @@ public class AddressFragment extends Fragment {
 
                 selectedAddress = (Address) itemValue;
 
-            /*    startActivity(new Intent(context,AddressDetailActivity.class)
+                startActivity(new Intent(context,NewAddressActivity.class)
                         .putExtra("customer", customer)
                         .putExtra("address", selectedAddress)
-                );*/
-
-                Toast.makeText(context, selectedAddress.getStreet(), Toast.LENGTH_SHORT).show();
+                );
 
             }
         });
@@ -191,8 +156,6 @@ public class AddressFragment extends Fragment {
     }
 
     private void doLoadAddresses() {
-
-        if (addresses == null) {
 
             Log.d("INFO", "Load Addresses from webservice");
 
@@ -209,7 +172,7 @@ public class AddressFragment extends Fragment {
 
             taskLoadAddresses.execute(customer);
 
-        }
+
 
 
     }
@@ -220,6 +183,5 @@ public class AddressFragment extends Fragment {
 
         listView.setAdapter(adpItem);
     }
-
 
 }

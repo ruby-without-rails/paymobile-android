@@ -14,13 +14,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 
 public final class HTTP {
 
     private static final String USER_AGENT = "Mozilla/5.0";
 
-    private static final Integer TIME_OUT = 1000;
+    private static final Integer TIME_OUT = 20_000;
 
     // HTTP GET request
     public static String sendGet(String url) throws IOException {
@@ -32,6 +31,8 @@ public final class HTTP {
         //add request header
         con.setRequestMethod("GET");
 
+        con.setReadTimeout(TIME_OUT);
+
         con.setRequestProperty("Accept-Language", "UTF-8");
 
         con.setRequestProperty("Content-Type", "application/json");
@@ -40,9 +41,9 @@ public final class HTTP {
 
         int responseCode = con.getResponseCode();
 
-        Log.i("Resposta", "Enviando requisicao 'GET' para a URL : " + url);
+        Log.i("Response", "Send 'GET' request for URL : " + url);
 
-        Log.i("Resposta", "Codigo de Resposta : " + responseCode);
+        Log.i("Response", "Response Code: " + responseCode);
 
         String resp;
 
@@ -59,9 +60,9 @@ public final class HTTP {
                 response.append(inputLine);
             }
 
-            Log.i("Resposta", "Resposta do Servidor");
+            Log.i("Response", "Response do Servidor");
 
-            Log.i("Resposta", response.toString());
+            Log.i("Response", response.toString());
 
             resp = response.toString();
 
@@ -72,8 +73,7 @@ public final class HTTP {
         return resp;
     }
 
-    // HTTP POST request
-    public static String sendPost(String url, String params) throws IOException {
+    public static String sendRequest(String url, String method, String params) throws IOException {
 
         URL obj = new URL(url);
 
@@ -82,7 +82,7 @@ public final class HTTP {
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
         //add request header
-        con.setRequestMethod("POST");
+        con.setRequestMethod(method);
 
         con.setRequestProperty("User-Agent", USER_AGENT);
 
@@ -99,14 +99,13 @@ public final class HTTP {
 
         wr.flush();
 
-
         int responseCode = con.getResponseCode();
 
-        Log.i("Resposta", "Enviando Requisição 'POST' para URL : " + url);
+        Log.i("Response", "Send Request " + con.getRequestMethod() + " to URL : " + url);
 
-        Log.i("Resposta", "Parametros do Post : " + params);
+        Log.i("Response", "Parameters : " + params);
 
-        Log.i("Resposta", "Codigo da Resposta : " + responseCode);
+        Log.i("Response", "Response Code : " + responseCode);
 
         String resp;
 
@@ -124,9 +123,9 @@ public final class HTTP {
 
             }
 
-            Log.i("Resposta", "Resposta do Servidor");
+            Log.i("Response", "Response of Server");
 
-            Log.i("Resposta", response.toString());
+            Log.i("Response", response.toString());
 
             resp = response.toString();
 

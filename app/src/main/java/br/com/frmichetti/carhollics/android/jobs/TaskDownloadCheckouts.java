@@ -90,7 +90,7 @@ public class TaskDownloadCheckouts extends AsyncTask<Customer, String, List<Chec
 
             //TODO FIXME Receive a JSONArray
 
-            response = HTTP.sendPost(url,
+            response = HTTP.sendRequest(url,"POST",
                     new Gson().toJson(params[0]));
 
         } catch (IOException e) {
