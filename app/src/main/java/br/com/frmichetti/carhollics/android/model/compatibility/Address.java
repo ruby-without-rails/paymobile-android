@@ -1,5 +1,8 @@
 package br.com.frmichetti.carhollics.android.model.compatibility;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Address extends BaseModel {
 
     private static final long serialVersionUID = 1L;
@@ -105,6 +108,27 @@ public class Address extends BaseModel {
     @Override
     public String toString() {
         return cep + " , " + street + " . " + number;
+    }
+
+    public String toJson(){
+
+        String json = "";
+        try {
+
+            json = new JSONObject()
+                    .put("cep", this.cep)
+                    .put("street", this.street)
+                    .put("neighborhood", this.neighborhood)
+                    .put("complement", this.complement)
+                    .put("number", this.number).toString();
+
+        } catch (JSONException e) {
+
+            e.printStackTrace();
+
+        }
+
+        return json;
     }
 
 }

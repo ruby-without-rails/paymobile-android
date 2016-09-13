@@ -152,6 +152,9 @@
     <string name="hint_neighborhood">Insert a New Neighborhood</string>
     <string name="hint_number">Insert a New Number</string>
     <string name="hint_complement">Insert a New Complement</string>
+    <string name="hint_cpf">Insert a Cpf Number</string>
+    <string name="hint_mobilePhone">Insert Your Mobile Phone Number</string>
+    <string name="hint_phone">Inser Your Phone Number</string>
 </resources>
 
 

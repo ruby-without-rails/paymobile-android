@@ -18,7 +18,7 @@ public class Checkout extends BaseModel {
 
     private Vehicle vehicle;
 
-    private Address address;
+    private String address;
 
     private String shoppingCart;
 
@@ -70,11 +70,11 @@ public class Checkout extends BaseModel {
         this.vehicle = vehicle;
     }
 
-    public Address getAddress() {
+    public String getAddress() {
         return address;
     }
 
-    public void setAddress(Address address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 

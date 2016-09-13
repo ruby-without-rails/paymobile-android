@@ -4,12 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
+import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -32,6 +35,8 @@ import br.com.frmichetti.carhollics.android.view.activity.MainActivity;
 public class ResumeCheckoutActivity extends BaseActivity {
 
     private ListView listViewShoppingCart;
+
+    private TextView tvTotal;
 
     private Spinner spinnerAddresses, spinnerVehicles;
 
@@ -67,7 +72,12 @@ public class ResumeCheckoutActivity extends BaseActivity {
         doFillShoppingCart();
 
         doFillSpinners();
+
+        tvTotal.setText(shoppingCart.getTotal().toString());
     }
+
+
+
 
     @Override
     public void doCreateListeners() {
@@ -88,7 +98,7 @@ public class ResumeCheckoutActivity extends BaseActivity {
 
                 checkout.setCustomer(customer);
 
-                checkout.setAddress(selectedAddress);
+                checkout.setAddress(selectedAddress.toJson());
 
                 checkout.setVehicle(selectedVehicle);
 
@@ -188,6 +198,8 @@ public class ResumeCheckoutActivity extends BaseActivity {
 
         buttonConfirm = (Button) findViewById(R.id.buttonConfirmCheckout);
 
+        tvTotal = (TextView) findViewById(R.id.tvTotalVar);
+
     }
 
     @Override
@@ -196,6 +208,10 @@ public class ResumeCheckoutActivity extends BaseActivity {
         super.doConfigure();
 
         checkout = new Checkout();
+
+        if(actionBar!= null){
+            actionBar.setSubtitle("Resumo do Pedido");
+        }
 
     }
 
@@ -267,8 +283,39 @@ public class ResumeCheckoutActivity extends BaseActivity {
     @Override
     public void onNetworkConnectionChanged(boolean isConnected) {
 
-        showSnack((CoordinatorLayout) findViewById(R.id.coordlayoutresume), isConnected);
+        showSnack((CoordinatorLayout) findViewById(R.id.coordlayoutResumeCheckout), isConnected);
     }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+
+           finish();
+
+        }
+
+        return super.onKeyUp(keyCode, event);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+
+            finish();
+
+            return true;
+
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
 }
 
 

@@ -106,7 +106,7 @@ public class TaskDownloadAddress extends AsyncTask<Customer, String, List<Addres
 
 
     @Override
-    protected void onProgressUpdate(String... values) {
+    protected void onProgressUpdate(String ... values) {
 
         super.onProgressUpdate(values);
 

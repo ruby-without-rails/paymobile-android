@@ -88,8 +88,6 @@ public class TaskDownloadCheckouts extends AsyncTask<Customer, String, List<Chec
 
             publishProgress("Enviando Requisição para o Servidor");
 
-            //TODO FIXME Receive a JSONArray
-
             response = HTTP.sendRequest(url,"POST",
                     new Gson().toJson(params[0]));
 
@@ -106,9 +104,9 @@ public class TaskDownloadCheckouts extends AsyncTask<Customer, String, List<Chec
 
         checkouts = new GsonBuilder()
                 .registerTypeAdapter(Date.class, new GsonDateDeserializer())
-                .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
-                .create().fromJson(response, new TypeToken<List<Checkout>>() {
-                }.getType());
+                .setDateFormat("MM-dd-yyyy'T'HH:mm:ss")
+                .create()
+                .fromJson(response, new TypeToken<List<Checkout>>(){}.getType());
 
         return (checkouts != null) ? (checkouts) : (new ArrayList<Checkout>());
     }

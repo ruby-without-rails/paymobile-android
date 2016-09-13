@@ -54,7 +54,7 @@ public class CheckoutDetailActivity extends BaseActivity {
 
             textViewUUID.setText(checkout.getUuid());
 
-            textViewDate.setText(checkout.getPurchaseDate().toString());
+            textViewDate.setText(String.valueOf(checkout.getPurchaseDate()));
 
             textViewStatus.setText(checkout.getStatus().name());
 

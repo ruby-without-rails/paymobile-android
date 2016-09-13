@@ -9,6 +9,7 @@ package br.com.frmichetti.carhollics.android.view.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.MenuItem;
@@ -29,7 +30,7 @@ public class CustomerActivity extends BaseActivity {
 
     private FloatingActionButton fabConfirm;
 
-    private EditText editTextName, editTextCPF, editTextPhone;
+    private EditText editTextName, editTextCPF, editTextPhone,editTextMobilePhone;
 
     private User user;
 
@@ -55,7 +56,7 @@ public class CustomerActivity extends BaseActivity {
 
         doLoadExtras(intent);
 
-        doLoadCliente(customer);
+        doLoadCustomer(customer);
 
     }
 
@@ -64,11 +65,13 @@ public class CustomerActivity extends BaseActivity {
 
         super.doCastComponents();
 
-        editTextName = (EditText) findViewById(R.id.editTextNome);
+        editTextName = (EditText) findViewById(R.id.editTextName);
 
         editTextCPF = (EditText) findViewById(R.id.editTextCPF);
 
-        editTextPhone = (EditText) findViewById(R.id.editTextTelefone);
+        editTextPhone = (EditText) findViewById(R.id.editTextPhone);
+
+        editTextMobilePhone = (EditText) findViewById(R.id.editTextMobilePhone);
 
         fabConfirm = (FloatingActionButton) findViewById(R.id.fab_action_done);
 
@@ -91,8 +94,6 @@ public class CustomerActivity extends BaseActivity {
 
                         customer = output;
 
-                        //TODO FIXME getCliente
-
                         startActivity(new Intent(context, MainActivity.class)
                                 .putExtra("shoppingCart", shoppingCart)
                                 .putExtra("customer", customer)
@@ -113,15 +114,17 @@ public class CustomerActivity extends BaseActivity {
 
     }
 
-    private Customer doLoadCliente(Customer cliente) {
+    private Customer doLoadCustomer(Customer customer) {
 
-        if (cliente != null) {
+        if (customer != null) {
 
-            editTextName.setText(cliente.getName());
+            editTextName.setText(customer.getName());
 
-            editTextCPF.setText(String.valueOf(cliente.getCpf()));
+            editTextCPF.setText(String.valueOf(customer.getCpf()));
 
-            editTextPhone.setText(String.valueOf(cliente.getPhone()));
+            editTextPhone.setText(String.valueOf(customer.getPhone()));
+
+            editTextMobilePhone.setText(String.valueOf(customer.getMobilePhone()));
 
         } else {
 
@@ -136,7 +139,7 @@ public class CustomerActivity extends BaseActivity {
 
         }
 
-        return cliente;
+        return customer;
     }
 
     private Customer doLoadFields() {
@@ -207,7 +210,11 @@ public class CustomerActivity extends BaseActivity {
         }
 
         return true;
+    }
 
+    @Override
+    public void onNetworkConnectionChanged(boolean isConnected) {
 
+        showSnack((CoordinatorLayout) findViewById(R.id.coordlayoutCustomer), isConnected);
     }
 }

@@ -24,7 +24,7 @@ public class GsonDateDeserializer implements JsonDeserializer<Date> {
 
         String date = element.getAsString();
 
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+        SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy'T'HH:mm:ss");
 
         formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
 
