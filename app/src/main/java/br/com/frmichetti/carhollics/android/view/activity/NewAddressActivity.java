@@ -23,10 +23,10 @@ import br.com.frmichetti.carhollics.android.model.compatibility.Address;
 
 public class NewAddressActivity extends BaseActivity {
 
-    private EditText edtCep,edtStreet,edtNeighborhood,edtComplement,edtNumber;
+    private EditText edtCep, edtStreet, edtNeighborhood, edtComplement, edtNumber;
 
-    private TextInputLayout txtInputLayoutCep,txtInputLayoutStreet,txtInputLayoutNeighborhood,
-            txtInputLayoutComplement,txtInputLayoutNumber;
+    private TextInputLayout txtInputLayoutCep, txtInputLayoutStreet, txtInputLayoutNeighborhood,
+            txtInputLayoutComplement, txtInputLayoutNumber;
 
     private Button buttonSave, buttonDelete;
 
@@ -55,7 +55,7 @@ public class NewAddressActivity extends BaseActivity {
 
         doLoadExtras(intent);
 
-        if(selectedAddress != null){
+        if (selectedAddress != null) {
 
             address.setId(selectedAddress.getId());
 
@@ -86,11 +86,11 @@ public class NewAddressActivity extends BaseActivity {
         edtNumber.addTextChangedListener(new MyTextWatcher(txtInputLayoutNumber));
 
         buttonSave.setOnClickListener(new View.OnClickListener() {
-            
+
             @Override
             public void onClick(View view) {
 
-                if(submitForm()){
+                if (submitForm()) {
 
                     doFillData();
 
@@ -98,7 +98,6 @@ public class NewAddressActivity extends BaseActivity {
                 }
 
 
-                
             }
         });
 
@@ -107,14 +106,20 @@ public class NewAddressActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
 
+                if (address != null) {
 
-                if(address.getId() != 0 ){
+                    if (address.getId() != null) {
 
-                    new TaskDeleteAddress(context).execute(address);
+                        if (address.getId() != 0) {
 
-                    finish();
+                            new TaskDeleteAddress(context).execute(address);
+
+                            finish();
+                        }
+                    }
+
+
                 }
-
 
 
             }
@@ -129,15 +134,15 @@ public class NewAddressActivity extends BaseActivity {
             @Override
             public void processFinish(Address output) {
 
-                if(output.getId() != null){
-                    if(output.getId() > 0){
+                if (output.getId() != null) {
+                    if (output.getId() > 0) {
 
-                        Toast.makeText(context,"Address Created with Success",Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "Address Created with Success", Toast.LENGTH_LONG).show();
 
                         finish();
-                    }else{
+                    } else {
 
-                        Toast.makeText(context,"Address Not Created , try Again",Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "Address Not Created , try Again", Toast.LENGTH_LONG).show();
                     }
                 }
 
@@ -236,7 +241,7 @@ public class NewAddressActivity extends BaseActivity {
 
         super.doConfigure();
 
-        if(actionBar != null){
+        if (actionBar != null) {
             actionBar.setSubtitle("New Address");
         }
     }
@@ -366,7 +371,6 @@ public class NewAddressActivity extends BaseActivity {
     }
 
 
-
     private void requestFocus(View view) {
         if (view.requestFocus()) {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
@@ -408,7 +412,6 @@ public class NewAddressActivity extends BaseActivity {
             }
         }
     }
-
 
 
 }

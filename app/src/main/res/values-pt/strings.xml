@@ -86,7 +86,7 @@
     <string name="no_email_client_installed">Não há clientes de e-mail instalados.</string>
     <string name="permission_granted">Permissões Concedidas!</string>
     <string name="not_authorized_yet">Sem Permissão de Execução.</string>
-    <string name="service_selected">Servico Selecionado</string>
+    <string name="service_selected">Serviço Selecionado</string>
     <string name="device_is_not_supported">Esse dispositivo não é suportado.</string>
     <string name="could_get_location"> ( Não foi possível obter a localização . Certifique-se de que a localização está ativada no dispositivo )</string>
     <string name="location_changed">Localização mudou!</string>
@@ -99,4 +99,21 @@
     <string name="reset_password_failed">Falha ao enviar email de reset!</string>
     <string name="reset_password_success">Enviamos instruções para redefinir sua senha!</string>
     <string name="repeat_register_operation">Por Favor Repita a Operação de Registro</string>
+    <string name="err_msg_cep">Valor Inválido para Cep</string>
+    <string name="err_msg_complement">Valor Inválido para Complemento</string>
+    <string name="err_msg_cpf">Valor Inválido para CPF</string>
+    <string name="err_msg_name">Valor Inválido para Nome</string>
+    <string name="err_msg_neighborhood">Valor Inválido para Bairro</string>
+    <string name="err_msg_number">Valor Inválido para Rua</string>
+    <string name="err_msg_phone">Valor Inválido para Telefone</string>
+    <string name="err_msg_street">Valor Inválido para Rua</string>
+    <string name="hint_cep">Insira um Novo Cep</string>
+    <string name="hint_complement">Insira um novo Complemento</string>
+    <string name="hint_cpf">Insira um CPF</string>
+    <string name="hint_mobilePhone">Insira o seu Celular</string>
+    <string name="hint_neighborhood">Insira um novo Bairro</string>
+    <string name="hint_number">Insira um novo Número</string>
+    <string name="hint_phone">Insira um Número de Telefone</string>
+    <string name="hint_street">Insira uma Rua</string>
+    <string name="logo">Logotipo</string>
 </resources>
