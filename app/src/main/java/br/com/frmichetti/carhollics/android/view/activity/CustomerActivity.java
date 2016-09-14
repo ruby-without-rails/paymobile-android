@@ -11,10 +11,15 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TextInputLayout;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -31,6 +36,8 @@ public class CustomerActivity extends BaseActivity {
     private FloatingActionButton fabConfirm;
 
     private EditText editTextName, editTextCPF, editTextPhone,editTextMobilePhone;
+
+    private TextInputLayout txtInputLayoutName, txtInputLayoutCPF, txtInputLayoutPhone,txtInputLayoutMobilePhone;
 
     private User user;
 
@@ -67,19 +74,35 @@ public class CustomerActivity extends BaseActivity {
 
         editTextName = (EditText) findViewById(R.id.editTextName);
 
+        txtInputLayoutName = (TextInputLayout) findViewById(R.id.input_layout_name);
+
         editTextCPF = (EditText) findViewById(R.id.editTextCPF);
+
+        txtInputLayoutCPF = (TextInputLayout) findViewById(R.id.input_layout_cpf);
 
         editTextPhone = (EditText) findViewById(R.id.editTextPhone);
 
+        txtInputLayoutPhone = (TextInputLayout) findViewById(R.id.input_layout_phone);
+
         editTextMobilePhone = (EditText) findViewById(R.id.editTextMobilePhone);
 
-        fabConfirm = (FloatingActionButton) findViewById(R.id.fab_action_done);
+        txtInputLayoutMobilePhone = (TextInputLayout) findViewById(R.id.input_layout_mobilePhone);
 
+        fabConfirm = (FloatingActionButton) findViewById(R.id.fab_action_done);
 
     }
 
     @Override
     public void doCreateListeners() {
+
+
+        editTextName.addTextChangedListener(new MyTextWatcher(txtInputLayoutName));
+
+        editTextCPF.addTextChangedListener(new MyTextWatcher(txtInputLayoutCPF));
+
+        editTextPhone.addTextChangedListener(new MyTextWatcher(txtInputLayoutPhone));
+
+        editTextMobilePhone.addTextChangedListener(new MyTextWatcher(txtInputLayoutMobilePhone));
 
         fabConfirm.setOnClickListener(new View.OnClickListener() {
 
@@ -87,27 +110,30 @@ public class CustomerActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
-                TaskCreateCustomer taskCreateCustomer = new TaskCreateCustomer(context, new AsyncResponse<Customer>() {
+                if(submitForm()){
 
-                    @Override
-                    public void processFinish(Customer output) {
+                    TaskCreateCustomer taskCreateCustomer = new TaskCreateCustomer(context, new AsyncResponse<Customer>() {
 
-                        customer = output;
+                        @Override
+                        public void processFinish(Customer output) {
 
-                        startActivity(new Intent(context, MainActivity.class)
-                                .putExtra("shoppingCart", shoppingCart)
-                                .putExtra("customer", customer)
-                                .putExtra("vehicle", selectedVehicle)
-                                .putExtra("service", selectedService));
+                            customer = output;
 
-                        finish();
-                    }
-                });
+                            startActivity(new Intent(context, MainActivity.class)
+                                    .putExtra("shoppingCart", shoppingCart)
+                                    .putExtra("customer", customer)
+                                    .putExtra("vehicle", selectedVehicle)
+                                    .putExtra("service", selectedService));
 
-                customer = doLoadFields();
+                            finish();
+                        }
+                    });
 
-                taskCreateCustomer.execute(customer);
+                    customer = doLoadFields();
 
+                    taskCreateCustomer.execute(customer);
+
+                }
 
             }
         });
@@ -150,10 +176,18 @@ public class CustomerActivity extends BaseActivity {
 
             c = customer;
 
-            c.getUser().setFirebaseMessageToken(FirebaseInstanceId.getInstance().getToken());
+            if(c.getUser() != null){
 
-            c.getUser().setFirebaseUUID(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                c.getUser().setFirebaseMessageToken(FirebaseInstanceId.getInstance().getToken());
 
+                c.getUser().setFirebaseUUID(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+            }else{
+
+                Toast.makeText(context,"Usuário parece estar corrompido, por favor contate o Administrador ...",Toast.LENGTH_LONG).show();
+
+                finish();
+            }
 
         } else {
 
@@ -165,9 +199,11 @@ public class CustomerActivity extends BaseActivity {
 
         c.setName(editTextName.getText().toString());
 
-        c.setCpf(Long.valueOf(editTextCPF.getText().toString()));
+        c.setCpf(Long.parseLong(editTextCPF.getText().toString()));
 
-        c.setPhone(Long.valueOf(editTextPhone.getText().toString()));
+        c.setPhone(Long.parseLong(editTextPhone.getText().toString()));
+
+        c.setMobilePhone(Long.parseLong(editTextMobilePhone.getText().toString()));
 
         return c;
 
@@ -217,4 +253,146 @@ public class CustomerActivity extends BaseActivity {
 
         showSnack((CoordinatorLayout) findViewById(R.id.coordlayoutCustomer), isConnected);
     }
+
+
+    /**
+     * Validating form
+     */
+    private boolean submitForm() {
+        if (!validateName()) {
+            return false;
+        }
+
+        if (!validateCPF()) {
+            return false;
+        }
+
+        if (!validatePhone()) {
+            return false;
+        }
+
+        if (!validateMobilePhone()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean validateName() {
+
+        if (editTextName.getText().toString().trim().isEmpty()) {
+
+            txtInputLayoutName.setError(getString(R.string.err_msg_name));
+
+            requestFocus(editTextName);
+
+            return false;
+
+        } else {
+
+            txtInputLayoutName.setErrorEnabled(false);
+        }
+
+        return true;
+    }
+
+    private boolean validateCPF() {
+
+        if (editTextCPF.getText().toString().trim().isEmpty()) {
+
+            txtInputLayoutCPF.setError(getString(R.string.err_msg_cpf));
+
+            requestFocus(editTextCPF);
+
+            return false;
+
+        } else {
+
+            txtInputLayoutCPF.setErrorEnabled(false);
+        }
+
+        return true;
+    }
+
+    private boolean validatePhone() {
+
+        if (editTextPhone.getText().toString().trim().isEmpty()) {
+
+            txtInputLayoutPhone.setError(getString(R.string.err_msg_phone));
+
+            requestFocus(editTextPhone);
+
+            return false;
+
+        } else {
+
+            txtInputLayoutPhone.setErrorEnabled(false);
+        }
+
+        return true;
+    }
+
+    private boolean validateMobilePhone() {
+
+        if (editTextMobilePhone.getText().toString().trim().isEmpty()) {
+
+            txtInputLayoutMobilePhone.setError(getString(R.string.err_msg_phone));
+
+            requestFocus(editTextMobilePhone);
+
+            return false;
+
+        } else {
+
+            txtInputLayoutMobilePhone.setErrorEnabled(false);
+        }
+
+        return true;
+    }
+
+    private void requestFocus(View view) {
+        if (view.requestFocus()) {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
+    }
+
+    private class MyTextWatcher implements TextWatcher {
+
+        private View view;
+
+        private MyTextWatcher(View view) {
+            this.view = view;
+        }
+
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        public void afterTextChanged(Editable editable) {
+
+            switch (view.getId()) {
+
+                case R.id.editTextName:
+                    validateName();
+                    break;
+                case R.id.editTextCPF:
+                    validateCPF();
+                    break;
+                case R.id.editTextPhone:
+                    validatePhone();
+                    break;
+                case R.id.editTextMobilePhone:
+                    validateMobilePhone();
+                    break;
+            }
+        }
+    }
+
+
 }
+
+

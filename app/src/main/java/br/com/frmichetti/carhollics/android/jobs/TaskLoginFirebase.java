@@ -58,7 +58,7 @@ public class TaskLoginFirebase extends AsyncTask<String, String, Customer> {
 
         super.onPreExecute();
 
-        url = context.getResources().getString(R.string.local_server) + "login/firebaselogin";
+        url = context.getResources().getString(R.string.remote_server) + "login/firebaselogin";
 
         Log.d("DEBUG-TASK", "server config -> " + url);
 
@@ -85,8 +85,6 @@ public class TaskLoginFirebase extends AsyncTask<String, String, Customer> {
         try {
 
             publishProgress("Enviando Objeto para o Servidor");
-
-            //Todo FIXME Send a Json to Login
 
             Token t = new Token();
 
@@ -136,10 +134,7 @@ public class TaskLoginFirebase extends AsyncTask<String, String, Customer> {
 
                 publishProgress("Criando Objeto Cliente");
 
-                //TODO FIXME Receive a json
-
-                customer = new Gson().fromJson(response, new TypeToken<Customer>() {
-                }.getType());
+                customer = new Gson().fromJson(response, new TypeToken<Customer>(){}.getType());
             }
 
 
@@ -154,12 +149,12 @@ public class TaskLoginFirebase extends AsyncTask<String, String, Customer> {
 
         publishProgress("Entrando...");
 
-        return customer;
+        return (customer != null) ? (customer) : (new Customer());
     }
 
 
     @Override
-    protected void onProgressUpdate(String... values) {
+    protected void onProgressUpdate(String ... values) {
 
         super.onProgressUpdate(values);
 

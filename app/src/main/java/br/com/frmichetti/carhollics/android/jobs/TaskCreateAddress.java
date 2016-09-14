@@ -52,7 +52,7 @@ public class TaskCreateAddress extends AsyncTask<Address, String, Address> {
 
         super.onPreExecute();
 
-        url = context.getResources().getString(R.string.local_server) + "save/address";
+        url = context.getResources().getString(R.string.remote_server) + "save/address";
 
         Log.d("DEBUG-TASK", "server config -> " + url);
 

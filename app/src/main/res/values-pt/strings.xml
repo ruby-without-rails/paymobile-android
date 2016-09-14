@@ -24,26 +24,13 @@
     <string name="new_pass">Nova Senha</string>
     <string name="remove_user">Remover usuário</string>
     <string name="send_password_reset_email">Enviar Email de reset de senha</string>
-    <string name="title_activity_login">Registrar</string>
     <string name="app_name">Carhollics CallCenter</string>
     <string name="action_settings">Opções</string>
     <string name="action_sign_in">Entre ou Registre-se</string>
-    <string name="error_field_required">Campo é Obrigatório</string>
-    <string name="error_incorrect_password">Senha está incorreta</string>
-    <string name="error_invalid_email">Email está incorreto</string>
-    <string name="error_invalid_password">A senha é muito curta</string>
-    <string name="hello_blank_fragment">Olá Fragmento em Branco</string>
     <string name="hint_email">Email</string>
-    <string name="permission_rationale">A permissão de Contatos é permitida para prover autocompletar do email.</string>
-    <string name="prompt_email">Email</string>
     <string name="prompt_password">Senha(Opcional)</string>
-    <string name="section_format">Olá Mundo da seção: %1$d</string>
-    <string name="title_activity_detail">Atividade de Detalhe</string>
     <string name="title_activity_maps">Mapa</string>
-    <string name="title_activity_profile">Firebase</string>
-    <string name="title_activity_reset_password">Atividade de Reset de Senha</string>
     <string name="action_cart">Carrinho</string>
-    <string name="action_search">Localizar</string>
     <string name="drawer_close">Fechar</string>
     <string name="drawer_open">Abrir</string>
     <string name="nav_item_address">Endereços</string>
@@ -55,7 +42,6 @@
     <string name="contact_developer">Contate o Desenvolvedor</string>
     <string name="title_checkouts">Pedidos</string>
     <string name="nav_item_checkouts">Pedidos</string>
-    <string name="action_car">Carro</string>
     <string name="action_vehicle">Veículo</string>
     <string name="action_personal_data">Dados Pessoais</string>
     <string name="about">Sobre</string>
@@ -67,7 +53,6 @@
     <string name="click_on_back_button">Clicou no Botão de Voltar</string>
     <string name="click_on_settings_button">Clicou no Botão de Opções</string>
     <string name="click_on_vehicle_button">Clicou no Botão de Veículo</string>
-    <string name="click_on_search_button">Clicou no Botão de Localizar</string>
     <string name="click_on_developer_button">Clicou no Botão de Contato ao Desenvolvedor</string>
     <string name="click_on_personalData_button">Clicou no Botão de Dados Pessoais</string>
     <string name="version_of_app">Versão deste App : </string>
@@ -114,6 +99,4 @@
     <string name="reset_password_failed">Falha ao enviar email de reset!</string>
     <string name="reset_password_success">Enviamos instruções para redefinir sua senha!</string>
     <string name="repeat_register_operation">Por Favor Repita a Operação de Registro</string>
-    <string name="action_see_more">Veja Mais</string>
-    <string name="action_add_to_cart">Adicionar ao Carrinho</string>
 </resources>

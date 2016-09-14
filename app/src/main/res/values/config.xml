@@ -2,5 +2,4 @@
 <resources>
     <string name="local_server" translatable="false">http://192.168.1.35:8080/carhollics-javaee/services/</string>
     <string name="remote_server" translatable="false">http://callcenter-carhollics.rhcloud.com/services/</string>
-
 </resources>

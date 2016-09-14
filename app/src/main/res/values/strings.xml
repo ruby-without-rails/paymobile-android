@@ -1,24 +1,13 @@
 <resources>
     <string name="app_name">Carhollics CallCenter</string>
 
-    <string name="title_activity_login">Sign in</string>
-
     <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Register</string>
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">Contacts permissions are needed for providing email completions.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_detail">DetailActivity</string>
     <string name="action_settings">Settings</string>
-    <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_maps">Map</string>
 
     <string name="email">Email</string>
@@ -29,14 +18,12 @@
     <string name="send_password_reset_email">Send Password reset email</string>
     <string name="remove_user">Remove user</string>
     <string name="new_pass">New Password</string>
-    <string name="title_activity_profile">Firebase</string>
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
     <string name="hint_name">Fullname</string>
     <string name="btn_login">Login</string>
     <string name="btn_link_to_register">Not a member? Get registered in Carhollics now!</string>
     <string name="btn_link_to_login">Already registered. Login Me!</string>
-    <string name="title_activity_reset_password">ResetPasswordActivity</string>
     <string name="btn_forgot_password">Forgot your password?</string>
     <string name="btn_reset_password">Reset Password</string>
     <string name="btn_back">Back</string>
@@ -50,7 +37,6 @@
 
     <!--Material Design -->
     <string name="action_cart">Cart</string>
-    <string name="action_search">Search</string>
     <string name="action_vehicle">Vehicle</string>
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
@@ -67,7 +53,6 @@
     <string name="title_checkouts">Checkouts</string>
     <string name="contact_developer">Contact Developer</string>
     <string name="action_personal_data">Personal Data</string>
-    <string name="action_car">Car</string>
     <string name="about">About</string>
 
 
@@ -79,7 +64,6 @@
     <string name="click_on_back_button">Click on Back Button</string>
     <string name="click_on_settings_button">Click on Settings Button</string>
     <string name="click_on_vehicle_button">Click on Car Button</string>
-    <string name="click_on_search_button">Click on Search Button</string>
     <string name="click_on_developer_button">Click on Contact Developer Button</string>
     <string name="click_on_personalData_button">Click on Personal Data Button</string>
     <string name="version_of_app">Version of App:</string>
@@ -106,12 +90,6 @@
 
     <!-- Nav Drawer List Item Icons -->
     <!-- Keep them in order as the titles are in -->
-    <array name="nav_drawer_icons">
-        <item>@drawable/ic_action_done</item>
-        <item>@drawable/ic_action_done</item>
-        <item>@drawable/ic_action_done</item>
-        <item>@drawable/ic_action_done</item>
-    </array>
 
     <string name="checkout_success">Order successfully Requested! We will contact you to confirm scheduling.</string>
     <string name="checkout_failed">Could not complete your request, try again later.</string>
@@ -141,8 +119,6 @@
     <string name="enter_email_address_id">Enter your registered email id</string>
     <string name="reset_password_success">We have sent you instructions to reset your password!</string>
     <string name="reset_password_failed">Failed to send reset email!</string>
-    <string name="action_add_to_cart">Add to Cart</string>
-    <string name="action_see_more">See More</string>
     <string name="repeat_register_operation">Please Repeat the Signup Operation</string>
     <string name="process_finish">Process Finish</string>
     <string name="processing">Processing</string>
@@ -155,6 +131,14 @@
     <string name="hint_cpf">Insert a Cpf Number</string>
     <string name="hint_mobilePhone">Insert Your Mobile Phone Number</string>
     <string name="hint_phone">Inser Your Phone Number</string>
+    <string name="err_msg_name">Invalid String for Name</string>
+    <string name="err_msg_cpf">Invalid Value for CPF</string>
+    <string name="err_msg_phone">Invalue Value for Phone</string>
+    <string name="err_msg_cep">Invalid Value for Cep</string>
+    <string name="err_msg_street">Invalid Value for Street</string>
+    <string name="err_msg_neighborhood">Invalid String for Neighborhood</string>
+    <string name="err_msg_complement">Invalid Value for Complement</string>
+    <string name="err_msg_number">Invalid Value for Street</string>
 </resources>
 
 

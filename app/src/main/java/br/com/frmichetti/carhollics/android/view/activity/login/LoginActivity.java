@@ -226,13 +226,6 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
 
         actionBar.setDisplayHomeAsUpEnabled(false);
 
-        //TODO FIXME REMOVEME
-
-        editTextEmail.setText("frmichetti@gmail.com");
-
-        editTextPassword.setText("123456");
-
-
     }
 
     // Method to manually check connection status

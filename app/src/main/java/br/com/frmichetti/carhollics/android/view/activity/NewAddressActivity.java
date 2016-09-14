@@ -4,9 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.TextInputLayout;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -20,6 +24,9 @@ import br.com.frmichetti.carhollics.android.model.compatibility.Address;
 public class NewAddressActivity extends BaseActivity {
 
     private EditText edtCep,edtStreet,edtNeighborhood,edtComplement,edtNumber;
+
+    private TextInputLayout txtInputLayoutCep,txtInputLayoutStreet,txtInputLayoutNeighborhood,
+            txtInputLayoutComplement,txtInputLayoutNumber;
 
     private Button buttonSave, buttonDelete;
 
@@ -68,14 +75,29 @@ public class NewAddressActivity extends BaseActivity {
     @Override
     public void doCreateListeners() {
 
+        edtCep.addTextChangedListener(new MyTextWatcher(txtInputLayoutCep));
+
+        edtStreet.addTextChangedListener(new MyTextWatcher(txtInputLayoutStreet));
+
+        edtNeighborhood.addTextChangedListener(new MyTextWatcher(txtInputLayoutNeighborhood));
+
+        edtComplement.addTextChangedListener(new MyTextWatcher(txtInputLayoutComplement));
+
+        edtNumber.addTextChangedListener(new MyTextWatcher(txtInputLayoutNumber));
+
         buttonSave.setOnClickListener(new View.OnClickListener() {
             
             @Override
             public void onClick(View view) {
 
-                doFillData();
+                if(submitForm()){
 
-                doSendData();
+                    doFillData();
+
+                    doSendData();
+                }
+
+
                 
             }
         });
@@ -85,9 +107,15 @@ public class NewAddressActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
 
-                new TaskDeleteAddress(context).execute(address);
 
-                finish();
+                if(address.getId() != 0 ){
+
+                    new TaskDeleteAddress(context).execute(address);
+
+                    finish();
+                }
+
+
 
             }
         });
@@ -143,13 +171,23 @@ public class NewAddressActivity extends BaseActivity {
 
         edtCep = (EditText) findViewById(R.id.editTextCep);
 
+        txtInputLayoutCep = (TextInputLayout) findViewById(R.id.input_layout_cep);
+
         edtStreet = (EditText) findViewById(R.id.editTextStreet);
+
+        txtInputLayoutStreet = (TextInputLayout) findViewById(R.id.input_layout_street);
 
         edtNeighborhood = (EditText) findViewById(R.id.editTextNeighborhood);
 
+        txtInputLayoutNeighborhood = (TextInputLayout) findViewById(R.id.input_layout_neighborhood);
+
         edtComplement = (EditText) findViewById(R.id.editTextComplement);
 
+        txtInputLayoutComplement = (TextInputLayout) findViewById(R.id.input_layout_complement);
+
         edtNumber = (EditText) findViewById(R.id.editTextNumber);
+
+        txtInputLayoutNumber = (TextInputLayout) findViewById(R.id.input_layout_number);
 
         buttonSave = (Button) findViewById(R.id.buttonSave);
 
@@ -211,4 +249,166 @@ public class NewAddressActivity extends BaseActivity {
         selectedAddress = (Address) intent.getSerializableExtra("address");
 
     }
+
+    /**
+     * Validating form
+     */
+    private boolean submitForm() {
+
+        if (!validateCEP()) {
+            return false;
+        }
+
+        if (!validateStreet()) {
+            return false;
+        }
+
+        if (!validateNeighBorhood()) {
+            return false;
+        }
+
+
+        if (!validateComplement()) {
+            return false;
+        }
+
+
+        if (!validateNumber()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean validateCEP() {
+
+        if (edtCep.getText().toString().trim().isEmpty()) {
+
+            txtInputLayoutCep.setError(getString(R.string.err_msg_cep));
+
+            requestFocus(edtCep);
+
+            return false;
+
+        } else {
+
+            txtInputLayoutCep.setErrorEnabled(false);
+        }
+
+        return true;
+    }
+
+    private boolean validateStreet() {
+
+        if (edtStreet.getText().toString().trim().isEmpty()) {
+
+            txtInputLayoutStreet.setError(getString(R.string.err_msg_street));
+
+            requestFocus(edtStreet);
+
+            return false;
+
+        } else {
+
+            txtInputLayoutStreet.setErrorEnabled(false);
+        }
+
+        return true;
+    }
+
+    private boolean validateNeighBorhood() {
+        if (edtNeighborhood.getText().toString().trim().isEmpty()) {
+            txtInputLayoutNeighborhood.setError(getString(R.string.err_msg_neighborhood));
+            requestFocus(edtNeighborhood);
+            return false;
+        } else {
+            txtInputLayoutNeighborhood.setErrorEnabled(false);
+        }
+
+        return true;
+    }
+
+    private boolean validateComplement() {
+
+        if (edtComplement.getText().toString().trim().isEmpty()) {
+
+            txtInputLayoutComplement.setError(getString(R.string.err_msg_complement));
+
+            requestFocus(edtComplement);
+
+            return false;
+
+        } else {
+
+            txtInputLayoutComplement.setErrorEnabled(false);
+        }
+
+        return true;
+
+    }
+
+    private boolean validateNumber() {
+
+        if (edtNumber.getText().toString().trim().isEmpty()) {
+
+            txtInputLayoutNumber.setError(getString(R.string.err_msg_number));
+
+            requestFocus(edtNumber);
+
+            return false;
+
+        } else {
+
+            txtInputLayoutNumber.setErrorEnabled(false);
+        }
+
+        return true;
+    }
+
+
+
+    private void requestFocus(View view) {
+        if (view.requestFocus()) {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
+    }
+
+    private class MyTextWatcher implements TextWatcher {
+
+        private View view;
+
+        private MyTextWatcher(View view) {
+            this.view = view;
+        }
+
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        public void afterTextChanged(Editable editable) {
+            switch (view.getId()) {
+                case R.id.editTextCep:
+                    validateCEP();
+                    break;
+                case R.id.editTextStreet:
+                    validateStreet();
+                    break;
+                case R.id.editTextNeighborhood:
+                    validateNeighBorhood();
+                    break;
+                case R.id.editTextComplement:
+                    validateComplement();
+                    break;
+                case R.id.editTextNumber:
+                    validateNumber();
+                    break;
+
+            }
+        }
+    }
+
+
+
 }

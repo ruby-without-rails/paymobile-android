@@ -55,7 +55,7 @@ public class TaskDownloadVehicles extends AsyncTask<Void, String, List<Vehicle>>
 
         super.onPreExecute();
 
-        url = context.getResources().getString(R.string.local_server) + "vehicles";
+        url = context.getResources().getString(R.string.remote_server) + "vehicles";
 
         Log.d("DEBUG-TASK", "server config -> " + url);
 

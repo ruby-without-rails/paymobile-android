@@ -155,7 +155,6 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text=" hora(s)"
-                android:id="@+id/textView17"
                 android:layout_above="@+id/tvPriceVar"
                 android:layout_toRightOf="@+id/textViewDurationVar"
                 android:layout_toEndOf="@+id/textViewDurationVar" />

@@ -221,7 +221,8 @@ public class ResumeCheckoutActivity extends BaseActivity {
 
         list.addAll(shoppingCart.getList());
 
-        ArrayAdapter<ShoppingItem> adapterItems = new ArrayAdapter<>(context, android.R.layout.simple_list_item_single_choice, list);
+        ArrayAdapter<ShoppingItem> adapterItems = new ArrayAdapter<>(context,
+                android.R.layout.simple_list_item_1, list);
 
         listViewShoppingCart.setAdapter(adapterItems);
 
@@ -238,12 +239,21 @@ public class ResumeCheckoutActivity extends BaseActivity {
 
                     addresses = output;
 
+
                 } else {
 
                     addresses = new ArrayList<>();
                 }
 
-                ArrayAdapter<Address> adapterAddresses = new ArrayAdapter<>(context, android.R.layout.simple_list_item_single_choice, addresses);
+                if(addresses.size() == 0){
+
+                    Toast.makeText(context,"Você precisa cadastrar um endereço para Prosseguir",Toast.LENGTH_LONG).show();
+
+                    finish();
+                }
+
+                ArrayAdapter<Address> adapterAddresses = new ArrayAdapter<>(context,
+                        android.R.layout.simple_list_item_1, addresses);
 
                 spinnerAddresses.setAdapter(adapterAddresses);
 
@@ -267,7 +277,15 @@ public class ResumeCheckoutActivity extends BaseActivity {
                     vehicles = new ArrayList<>();
                 }
 
-                ArrayAdapter<Vehicle> adapterVehicles = new ArrayAdapter<>(context, android.R.layout.simple_list_item_single_choice, vehicles);
+                if(vehicles.size() == 0){
+
+                    Toast.makeText(context,"Você precisa cadastrar um Veículo para Prosseguir",Toast.LENGTH_LONG).show();
+
+                    finish();
+                }
+
+                ArrayAdapter<Vehicle> adapterVehicles = new ArrayAdapter<>(context,
+                        android.R.layout.simple_list_item_1, vehicles);
 
                 spinnerVehicles.setAdapter(adapterVehicles);
 
