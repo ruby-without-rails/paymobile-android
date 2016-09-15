@@ -56,7 +56,7 @@ public class TaskDownloadAddress extends AsyncTask<Customer, String, List<Addres
 
         super.onPreExecute();
 
-        url = context.getResources().getString(R.string.remote_server) + "find/addrbycus";
+        url = context.getResources().getString(R.string.server) + "find/addrbycus";
 
         Log.d("DEBUG-TASK", "server config -> " + url);
 

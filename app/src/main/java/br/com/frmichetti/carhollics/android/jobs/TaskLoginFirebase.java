@@ -58,7 +58,7 @@ public class TaskLoginFirebase extends AsyncTask<String, String, Customer> {
 
         super.onPreExecute();
 
-        url = context.getResources().getString(R.string.remote_server) + "login/firebaselogin";
+        url = context.getResources().getString(R.string.server) + "login/firebaselogin";
 
         Log.d("DEBUG-TASK", "server config -> " + url);
 

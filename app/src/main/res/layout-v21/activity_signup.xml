@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/coordlayoutlogin"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordlayoutsignup"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:background="@color/colorPrimary"
-    android:fitsSystemWindows="true">
+    android:background="@color/colorPrimaryDark"
+    android:fitsSystemWindows="true"
+    tools:context=".view.activity.login.SignupActivity">
 
     <include layout="@layout/toolbar" />
 
@@ -15,10 +15,10 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_marginTop="55dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimary"
+            android:layout_marginTop="45dp"
+            android:background="@color/colorPrimaryDark"
             android:gravity="center"
             android:orientation="vertical"
             android:padding="@dimen/activity_horizontal_margin">
@@ -28,7 +28,6 @@
                 android:layout_width="@dimen/logo_w_h"
                 android:layout_height="@dimen/logo_w_h"
                 android:layout_gravity="center_horizontal"
-                android:contentDescription="@string/logo"
                 android:src="@drawable/logo512x512" />
 
             <android.support.design.widget.TextInputLayout
@@ -39,11 +38,12 @@
                     android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:hint="@string/hint_email"
+                    android:hint="@string/email"
                     android:inputType="textEmailAddress"
-                    android:textColor="@android:color/white"
-                    android:textColorHint="@android:color/white" />
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@android:color/white" />
+
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -52,25 +52,30 @@
 
                 <EditText
                     android:id="@+id/password"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
+                    android:focusableInTouchMode="true"
                     android:hint="@string/hint_password"
+                    android:imeActionId="@+id/login"
+                    android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
-                    android:textColor="@android:color/white"
-                    android:textColorHint="@android:color/white" />
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@android:color/white" />
+
             </android.support.design.widget.TextInputLayout>
 
-            <!-- Login Button -->
-
             <Button
-                android:id="@+id/btn_login"
-                android:layout_width="fill_parent"
+                android:id="@+id/sign_up_button"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dip"
-                android:text="@string/btn_login"
+                android:layout_marginTop="16dp"
+                android:text="@string/action_sign_in_short"
                 android:textColor="@android:color/black"
-                android:background="@color/colorAccent" />
+                android:textStyle="bold"
+                android:backgroundTint="@color/colorAccent"
+                android:background="@drawable/ripple_rect" />
 
             <Button
                 android:id="@+id/btn_reset_password"
@@ -85,12 +90,12 @@
             <!-- Link to Login Screen -->
 
             <Button
-                android:id="@+id/btn_signup"
+                android:id="@+id/sign_in_button"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dip"
                 android:background="@null"
-                android:text="@string/btn_link_to_register"
+                android:text="@string/btn_link_to_login"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="15dp" />
@@ -107,4 +112,3 @@
 
 
 </android.support.design.widget.CoordinatorLayout>
-

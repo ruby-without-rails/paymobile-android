@@ -233,10 +233,6 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
 
         }
 
-        if (id == R.id.action_map) {
-
-            checkPermissions(context, this);
-        }
 
         return true;
     }
@@ -261,10 +257,6 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
 
         }
 
-        if (permission) {
-
-            startActivity(new Intent(context, MapActivity.class));
-        }
 
     }
 

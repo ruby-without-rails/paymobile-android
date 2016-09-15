@@ -55,7 +55,7 @@ public class TaskDownloadServices extends AsyncTask<Void, String, List<Service>>
 
         super.onPreExecute();
 
-        url = context.getResources().getString(R.string.remote_server) + "services";
+        url = context.getResources().getString(R.string.server) + "services";
 
         Log.d("DEBUG-TASK", "server config -> " + url);
 

@@ -54,7 +54,7 @@ public class TaskCreateCustomer extends AsyncTask<Customer, String, Customer> {
 
         super.onPreExecute();
 
-        url = context.getResources().getString(R.string.remote_server) + "save/customer";
+        url = context.getResources().getString(R.string.server) + "save/customer";
 
         Log.d("DEBUG-TASK", "server config -> " + url);
 

@@ -1,26 +1,36 @@
 apply plugin: 'com.android.application'
 
 android {
-
+    signingConfigs {
+        release {
+            storeFile file('/git/googlekeysign.jks')
+            keyAlias 'Felipe Rodrigues Michetti'
+            keyPassword 'S394asc9@'
+            storePassword 'S394asc9@'
+        }
+        debug {
+            storeFile file('/git/googlekeysign.jks')
+            keyAlias 'Felipe Rodrigues Michetti'
+            keyPassword 'S394asc9@'
+            storePassword 'S394asc9@'
+        }
+    }
     compileSdkVersion 24
     buildToolsVersion "23.0.3"
-
     defaultConfig {
         applicationId "br.com.frmichetti.carhollics.android"
         minSdkVersion 11
         targetSdkVersion 24
         versionCode 14
         versionName "0.2.2"
-
         // Enabling multidex support.
         multiDexEnabled true
-
         //Enable this for Java 8 support
         jackOptions {
             enabled false
         }
+        signingConfig signingConfigs.release
     }
-
     buildTypes {
 
         release {
@@ -32,14 +42,14 @@ android {
 
         }
     }
-
     dexOptions {
         javaMaxHeapSize "4g"
     }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
+    }
+    productFlavors {
     }
 }
 
@@ -47,7 +57,6 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-
     compile 'com.google.code.gson:gson:2.7'
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:support-v4:24.2.1'

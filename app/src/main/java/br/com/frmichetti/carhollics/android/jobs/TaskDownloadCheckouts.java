@@ -60,7 +60,7 @@ public class TaskDownloadCheckouts extends AsyncTask<Customer, String, List<Chec
 
         super.onPreExecute();
 
-        url = context.getResources().getString(R.string.remote_server) + "find/chkbycus";
+        url = context.getResources().getString(R.string.server) + "find/chkbycus";
 
         Log.d("DEBUG-TASK", "server config -> " + url);
 

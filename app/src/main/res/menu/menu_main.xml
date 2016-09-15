@@ -47,11 +47,5 @@
         android:title="@string/about"
         app:showAsAction="never" />
 
-    <item
-        android:id="@+id/action_map"
-        android:orderInCategory="100"
-
-        android:title="@string/map"
-        app:showAsAction="never" />
 
 </menu>
