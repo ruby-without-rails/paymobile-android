@@ -70,8 +70,7 @@
                 android:layout_marginTop="20dip"
                 android:text="@string/btn_login"
                 android:textColor="@android:color/black"
-                android:background="@drawable/ripple_rect"
-                android:backgroundTint="@color/colorAccent" />
+                android:background="@color/colorAccent" />
 
             <Button
                 android:id="@+id/btn_reset_password"

@@ -44,7 +44,7 @@ public class TaskDeleteAddress extends AsyncTask<Address, String, Void> {
 
         super.onPreExecute();
 
-        url = context.getResources().getString(R.string.remote_server) + "delete/address";
+        url = context.getResources().getString(R.string.server) + "delete/address";
 
         Log.d("DEBUG-TASK", "server config -> " + url);
 

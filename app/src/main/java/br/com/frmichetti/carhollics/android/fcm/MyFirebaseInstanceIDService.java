@@ -21,11 +21,12 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
         // Get updated InstanceID token.
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
 
-        Log.d(TAG, "Refreshed token: " + refreshedToken);
+        Log.v(TAG, "Refreshed token: " + refreshedToken);
 
         // TODO: Implement this method to send any registration to your app's servers.
-        Log.d(TAG + "TOKEN: ", refreshedToken);
+        Log.v(TAG + "TOKEN: ", refreshedToken);
 
         //Update where FIREBASE ID
+
     }
 }

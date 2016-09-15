@@ -48,7 +48,7 @@ public class TaskCreateCheckout extends AsyncTask<Checkout, String, Boolean> {
 
         super.onPreExecute();
 
-        url = context.getResources().getString(R.string.remote_server) + "checkouts";
+        url = context.getResources().getString(R.string.server) + "checkouts";
 
         Log.d("DEBUG-TASK", "server config -> " + url);
 

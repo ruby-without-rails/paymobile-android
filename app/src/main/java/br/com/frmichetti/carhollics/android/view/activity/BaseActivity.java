@@ -204,12 +204,6 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
             return true;
         }
 
-        if (id == R.id.action_map) {
-
-            Toast.makeText(context, getString(R.string.click_on_map_button), Toast.LENGTH_SHORT).show();
-
-            return true;
-        }
 
         if (id == R.id.action_cart) {
 

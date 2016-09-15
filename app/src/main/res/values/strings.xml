@@ -8,7 +8,6 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="action_settings">Settings</string>
-    <string name="title_activity_maps">Map</string>
 
     <string name="email">Email</string>
     <string name="minimum_password">Password too short, enter minimum 6 characters!</string>
@@ -56,10 +55,6 @@
     <string name="about">About</string>
 
 
-    <string name="lbl_you_are_at">You are at</string>
-    <string name="btn_get_location">Get My Location</string>
-    <string name="btn_start_location_updates">Start Location Updates</string>
-    <string name="btn_stop_location_updates">Stop Location Updates</string>
     <string name="map">Map</string>
     <string name="click_on_back_button">Click on Back Button</string>
     <string name="click_on_settings_button">Click on Settings Button</string>
@@ -67,7 +62,6 @@
     <string name="click_on_developer_button">Click on Contact Developer Button</string>
     <string name="click_on_personalData_button">Click on Personal Data Button</string>
     <string name="version_of_app">Version of App:</string>
-    <string name="click_on_map_button">Click on Map Button</string>
     <string name="keyUp_back_button">KeyUp Back Button Pressed</string>
     <string name="keyUp_home_button">KeyUp Home Button Pressed</string>
     <string name="keyUp_search_button">KeyUp Search Button Pressed</string>
@@ -107,15 +101,9 @@
     <string name="permission_granted">Permissions Granted!</string>
     <string name="permission_accepted">Accepted the permission.</string>
     <string name="permission_not_accepted">Not accepted permission.</string>
-    <string name="location_changed">Location changed!</string>
-    <string name="could_get_location">(Couldn\'t get the location. Make sure location is enabled on the device)</string>
-    <string name="periodic_location_update_started">Periodic location updates started!</string>
-    <string name="periodic_location_update_stoped">Periodic location updates stopped!</string>
-    <string name="device_is_not_supported">This device is not supported.</string>
     <string name="send_mail_to_developer">Send an email to the developer ...</string>
     <string name="service_selected">Service Selected</string>
     <string name="remove">Removed</string>
-    <string name="not_authorized_yet">Still No Execution Permission.</string>
     <string name="enter_email_address_id">Enter your registered email id</string>
     <string name="reset_password_success">We have sent you instructions to reset your password!</string>
     <string name="reset_password_failed">Failed to send reset email!</string>
