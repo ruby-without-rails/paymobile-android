@@ -1,12 +1,13 @@
 package br.com.frmichetti.carhollics.android.model.compatibility;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.UUID;
 
 public class Checkout extends BaseModel {
-
-    private static final long serialVersionUID = 1L;
 
     private Long id;
 
@@ -28,6 +29,33 @@ public class Checkout extends BaseModel {
 
     public Checkout() {
         this.status = CheckoutStatus.NEW;
+    }
+
+    public Checkout(Parcel parcel) {
+
+        if (parcel != null) {
+
+            this.id = parcel.readLong();
+
+            this.uuid = parcel.readString();
+
+            this.purchaseDate = new Date(parcel.readLong());
+
+            this.customer = parcel.readParcelable(Customer.class.getClassLoader());
+
+            this.vehicle = parcel.readParcelable(Vehicle.class.getClassLoader());
+
+            this.address = parcel.readString();
+
+            this.shoppingCart = parcel.readString();
+
+            this.total = new BigDecimal(parcel.readDouble());
+
+            //TODO FIXME read status
+            this.status = (CheckoutStatus) parcel.readSerializable();
+        }
+
+
     }
 
     public Long getId() {
@@ -140,4 +168,61 @@ public class Checkout extends BaseModel {
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+
+        if (id != null) {
+            parcel.writeLong(id);
+        }
+
+        if (uuid != null) {
+            parcel.writeString(uuid);
+        }
+
+        if (purchaseDate != null) {
+            parcel.writeLong(purchaseDate.getTime());
+        }
+
+        if (customer != null) {
+            parcel.writeParcelable(customer, i);
+        }
+
+        if (vehicle != null) {
+            parcel.writeParcelable(vehicle, i + 1);
+        }
+
+        if (address != null) {
+            parcel.writeString(address);
+        }
+
+        if (shoppingCart != null) {
+            parcel.writeString(shoppingCart);
+        }
+
+        if (total != null) {
+            parcel.writeDouble(total.doubleValue());
+        }
+
+        if (status != null) {
+            parcel.writeSerializable(status);
+        }
+
+    }
+
+
+    public static final Parcelable.Creator<Checkout> CREATOR = new Parcelable.Creator<Checkout>() {
+
+        public Checkout createFromParcel(Parcel parcel) {
+            return new Checkout(parcel);
+        }
+
+        public Checkout[] newArray(int size) {
+            return new Checkout[size];
+        }
+    };
 }

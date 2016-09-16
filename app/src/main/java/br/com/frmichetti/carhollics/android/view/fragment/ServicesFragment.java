@@ -6,10 +6,8 @@
  */
 package br.com.frmichetti.carhollics.android.view.fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,24 +17,16 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.io.Serializable;
 import java.util.List;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
 import br.com.frmichetti.carhollics.android.jobs.TaskDownloadServices;
-import br.com.frmichetti.carhollics.android.model.ShoppingCart;
-import br.com.frmichetti.carhollics.android.model.compatibility.Customer;
 import br.com.frmichetti.carhollics.android.model.compatibility.Service;
-import br.com.frmichetti.carhollics.android.model.compatibility.Vehicle;
 import br.com.frmichetti.carhollics.android.view.activity.ServiceDetailActivity;
 
 
-public class ServicesFragment extends Fragment {
-
-    private Context context;
-
-    private Intent intent;
+public class ServicesFragment extends BaseFragment {
 
     private TextView textView;
 
@@ -44,80 +34,7 @@ public class ServicesFragment extends Fragment {
 
     private List<Service> services;
 
-    private Service selectedService;
-
-    private Vehicle selectedVehicle;
-
-    private Customer customer;
-
-    private ShoppingCart shoppingCart;
-
     public ServicesFragment() {
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
-
-        if (savedInstanceState != null) {
-
-            services = (List<Service>) savedInstanceState.getSerializable("services");
-
-        }
-
-        doConfigure();
-
-        doLoadExtras();
-
-        if (shoppingCart == null) {
-
-            shoppingCart = new ShoppingCart();
-        }
-
-        if (selectedService == null) {
-
-            selectedService = new Service();
-        }
-
-        if (selectedVehicle == null) {
-
-            selectedVehicle = new Vehicle();
-        }
-
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-
-        super.onSaveInstanceState(outState);
-
-        outState.putSerializable("services", (Serializable) services);
-
-        Log.d("DEBUG - Save State", "Salvando Estado");
-
-    }
-
-
-    private void doConfigure() {
-
-        context = getContext();
-
-        intent = getActivity().getIntent();
-
-        setRetainInstance(true);
-    }
-
-    private void doLoadExtras() {
-
-        customer = (Customer) intent.getSerializableExtra("customer");
-
-        shoppingCart = (ShoppingCart) intent.getSerializableExtra("shoppingCart");
-
-        selectedService = (Service) intent.getSerializableExtra("service");
-
-        selectedVehicle = (Vehicle) intent.getSerializableExtra("vehicle");
-
     }
 
     @Override
@@ -126,9 +43,7 @@ public class ServicesFragment extends Fragment {
 
 
         if (savedInstanceState != null) {
-
-            services = (List<Service>) savedInstanceState.getSerializable("services");
-
+            services = savedInstanceState.getParcelable("services");
         }
 
         View rootView = inflater.inflate(R.layout.fragment_services, container, false);
@@ -143,8 +58,8 @@ public class ServicesFragment extends Fragment {
         return rootView;
     }
 
-
-    private void doCastComponents(View rootView) {
+    @Override
+    protected void doCastComponents(View rootView) {
 
         textView = (TextView) rootView.findViewById(R.id.tvSelectedService);
 
@@ -152,7 +67,8 @@ public class ServicesFragment extends Fragment {
 
     }
 
-    private void doCreateListeners() {
+    @Override
+    protected void doCreateListeners() {
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -183,7 +99,8 @@ public class ServicesFragment extends Fragment {
 
             Log.d("INFO", "Load Services from webservice");
 
-            TaskDownloadServices taskLoadServices = new TaskDownloadServices(context, new AsyncResponse<List<Service>>() {
+            TaskDownloadServices taskDownloadServices = new TaskDownloadServices(context,
+                    new AsyncResponse<List<Service>>() {
 
                 @Override
                 public void processFinish(List<Service> output) {
@@ -194,16 +111,17 @@ public class ServicesFragment extends Fragment {
                 }
             });
 
-            taskLoadServices.execute();
+            taskDownloadServices.execute();
 
         }
 
 
     }
 
-    private void doFillData(List<Service> servicos) {
+    private void doFillData(List<Service> services) {
 
-        ArrayAdapter<Service> adpItem = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, servicos);
+        ArrayAdapter<Service> adpItem = new ArrayAdapter<>(context,
+                android.R.layout.simple_list_item_1, services);
 
         listView.setAdapter(adpItem);
     }

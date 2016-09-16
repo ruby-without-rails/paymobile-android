@@ -51,21 +51,21 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
     protected Intent intent;
 
+    private FirebaseAuth.AuthStateListener authListener;
+
     protected FirebaseAuth firebaseAuth;
 
     protected FirebaseUser firebaseUser;
 
-    protected Customer customer;
-
     protected ShoppingCart shoppingCart;
+
+    protected Customer customer;
 
     protected Service selectedService;
 
     protected Vehicle selectedVehicle;
 
     protected Address selectedAddress;
-
-    private FirebaseAuth.AuthStateListener authListener;
 
     protected int fragmentId;
 
@@ -78,17 +78,8 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         super.onCreate(savedInstanceState);
 
-        doRecoverState(savedInstanceState);
+        Log.d("[ON-CREATE]", "Super On Create");
 
-        firebaseAuth = FirebaseAuth.getInstance();
-
-        firebaseUser = firebaseAuth.getCurrentUser();
-
-        doCreateFirebaseListener();
-
-        Log.d("DEBUG-ON-CREATE", "Super On Create");
-
-        Log.d("Firebase-ID ", FirebaseInstanceId.getInstance().getToken());
 
     }
 
@@ -101,7 +92,11 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         doConfigure();
 
-        Log.d("DEBUG-ON-POST-CREATE", "Super On Post Create");
+        doLoadExtras(intent);
+
+        doCheckConnection(context);
+
+        Log.d("[POST-CREATE]", "Super On Post Create");
 
     }
 
@@ -118,7 +113,9 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         super.onStart();
 
-        firebaseAuth.addAuthStateListener(authListener);
+        doRegisterFirebaseListener();
+
+        Log.i("[Firebase-ID]", FirebaseInstanceId.getInstance().getToken());
 
         Log.d("[DEBUG-AUTH-LISTENER]", "Registered Authentication Listener");
 
@@ -129,6 +126,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
     protected void onStop() {
 
         super.onStop();
+
 
         if (authListener != null) {
 
@@ -146,15 +144,15 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         super.onSaveInstanceState(outState);
 
-        outState.putSerializable("customer", customer);
+        outState.putParcelable("customer", customer);
 
         outState.putSerializable("shoppingCart", shoppingCart);
 
-        outState.putSerializable("service", selectedService);
+        outState.putParcelable("service", selectedService);
 
-        outState.putSerializable("vehicle", selectedVehicle);
+        outState.putParcelable("vehicle", selectedVehicle);
 
-        outState.putSerializable("address", selectedAddress);
+        outState.putParcelable("address", selectedAddress);
 
         outState.putInt("fragmentId", fragmentId);
 
@@ -261,7 +259,11 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
         return true;
     }
 
-    private void doCreateFirebaseListener() {
+    private void doRegisterFirebaseListener() {
+
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        firebaseUser = firebaseAuth.getCurrentUser();
 
         authListener = new FirebaseAuth.AuthStateListener() {
 
@@ -281,37 +283,8 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
                 }
             }
         };
-    }
 
-    @Override
-    public void doCastComponents() {
-
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-
-        setSupportActionBar(toolbar);
-
-        actionBar = getSupportActionBar();
-
-        Log.d("DEBUG-DO-CAST-COMP", "Super Do Cast Components");
-    }
-
-    @Override
-    public void doConfigure() {
-
-        context = this;
-
-        intent = getIntent();
-
-        if (actionBar != null) {
-
-            actionBar.setTitle(getString(R.string.app_name));
-
-            actionBar.setDisplayHomeAsUpEnabled(true);
-
-        }
-
-        Log.d("DEBUG-DO-CONFIGURE", "Super Do Configure");
-
+        firebaseAuth.addAuthStateListener(authListener);
     }
 
     @Override
@@ -321,6 +294,44 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
         return true;
+    }
+
+    @Override
+    public void doCastComponents() {
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        Log.d("[DO-CAST-COMP]", "Super Do Cast Components");
+
+    }
+
+    @Override
+    public void doConfigure() {
+
+        context = this;
+
+        intent = getIntent();
+
+        Log.d("DEBUG-DO-CONFIGURE", "Super Do Configure");
+
+    }
+
+    @Override
+    public void setupToolBar() {
+
+        if (toolbar != null) {
+
+            setSupportActionBar(toolbar);
+
+            actionBar = getSupportActionBar();
+
+            actionBar.setTitle(getString(R.string.app_name));
+
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
+        Log.d("DEBUG-SETUP-TOOLBAR", "Super Setup Toolbar");
+
     }
 
     public void signOut() {
@@ -335,15 +346,16 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         if (bundle != null) {
 
-            customer = (Customer) bundle.getSerializable("customer");
+            customer = bundle.getParcelable("customer");
 
+            //TODO CHANGE TO PARCELABLE
             shoppingCart = (ShoppingCart) bundle.getSerializable("shoppingCart");
 
-            selectedService = (Service) bundle.getSerializable("service");
+            selectedService = bundle.getParcelable("service");
 
-            selectedVehicle = (Vehicle) bundle.getSerializable("vehicle");
+            selectedVehicle = bundle.getParcelable("vehicle");
 
-            selectedAddress = (Address) bundle.getSerializable("address");
+            selectedAddress = bundle.getParcelable("address");
 
             fragmentId = bundle.getInt("fragmentId");
 
@@ -358,15 +370,16 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         Bundle bundle = new Bundle();
 
-        bundle.putSerializable("customer", customer);
+        bundle.putParcelable("customer", customer);
 
+        //TODO CHANGE TO PARCELABLE
         bundle.putSerializable("shoppingCart", shoppingCart);
 
-        bundle.putSerializable("service", selectedService);
+        bundle.putParcelable("service", selectedService);
 
-        bundle.putSerializable("vehicle", selectedVehicle);
+        bundle.putParcelable("vehicle", selectedVehicle);
 
-        bundle.putSerializable("address", selectedAddress);
+        bundle.putParcelable("address", selectedAddress);
 
         bundle.putInt("fragmentId", fragmentId);
 
@@ -377,20 +390,19 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
     public void doLoadExtras(Intent intent) {
 
-        customer = (Customer) intent.getSerializableExtra("customer");
-
         shoppingCart = (ShoppingCart) intent.getSerializableExtra("shoppingCart");
 
-        selectedService = (Service) intent.getSerializableExtra("service");
+        customer = intent.getParcelableExtra("customer");
 
-        selectedVehicle = (Vehicle) intent.getSerializableExtra("vehicle");
+        selectedService = intent.getParcelableExtra("service");
+
+        selectedVehicle = intent.getParcelableExtra("vehicle");
 
         Log.d("DEBUG-LOAD-EXTRAS", "Load Extras");
     }
 
     // Method to manually check connection status
     protected boolean doCheckConnection(Context context) {
-
         return ConnectivityReceiver.isConnected(context);
     }
 
@@ -427,15 +439,20 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
     }
 
-    @Override
-    public void onNetworkConnectionChanged(boolean isConnected) {
-
-    }
-
-
     private void setConnectivityListener(ConnectivityReceiver.ConnectivityReceiverListener listener) {
 
         ConnectivityReceiver.connectivityReceiverListener = listener;
+    }
+
+    @Override
+    public void doChangeActivity(Context context, Class clazz) {
+
+        startActivity(new Intent(context, clazz)
+                .putExtra("shoppingCart", shoppingCart)
+                .putExtra("customer", customer)
+                .putExtra("vehicle", selectedVehicle)
+                .putExtra("service", selectedService)
+                .putExtra("address", selectedAddress));
     }
 
 }

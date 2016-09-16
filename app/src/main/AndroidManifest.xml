@@ -53,7 +53,7 @@
             android:name=".view.activity.login.SignupActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".view.activity.login.OptionsActivity"
+            android:name=".view.activity.OptionsActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".view.activity.CustomerActivity"

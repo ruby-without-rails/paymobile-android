@@ -6,10 +6,8 @@
  */
 package br.com.frmichetti.carhollics.android.view.fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,21 +16,15 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import java.io.Serializable;
 import java.util.List;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
 import br.com.frmichetti.carhollics.android.jobs.TaskDownloadCheckouts;
 import br.com.frmichetti.carhollics.android.model.compatibility.Checkout;
-import br.com.frmichetti.carhollics.android.model.compatibility.Customer;
 import br.com.frmichetti.carhollics.android.view.activity.CheckoutDetailActivity;
 
-public class CheckoutsFragment extends Fragment {
-
-    private Context context;
-
-    private Intent intent;
+public class CheckoutsFragment extends BaseFragment {
 
     private Checkout selectedCheckout;
 
@@ -40,52 +32,13 @@ public class CheckoutsFragment extends Fragment {
 
     private ListView listView;
 
-    private Customer customer;
-
-
-
     public CheckoutsFragment() {
-
     }
 
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
-
-        if (savedInstanceState != null) {
-            checkouts = (List<Checkout>) savedInstanceState.getSerializable("checkouts");
-        }
-
-        doConfigure();
-
-    }
-
-    private void doConfigure() {
-
-        context = getContext();
-
-        intent = getActivity().getIntent();
-
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-
-        super.onSaveInstanceState(outState);
-
-        outState.putSerializable("Pedidos", (Serializable) checkouts);
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        if (savedInstanceState != null) {
-            checkouts = (List<Checkout>) savedInstanceState.getSerializable("checkouts");
-        }
 
         View rootView = inflater.inflate(R.layout.fragment_checkouts, container, false);
 
@@ -93,33 +46,24 @@ public class CheckoutsFragment extends Fragment {
 
         doCreateListeners();
 
-        doLoadExtras(intent);
+        doLoadCheckouts();
 
-        doLoadPedidos();
-
-        // Inflate the layout for this fragment
         return rootView;
     }
 
-    private void doLoadExtras(Intent intent) {
-
-        customer = (Customer) intent.getSerializableExtra("customer");
-
-    }
-
-    private void doCastComponents(View rootView) {
-
+    @Override
+    public void doCastComponents(View rootView) {
         listView = (ListView) rootView.findViewById(R.id.listViewCheckouts);
-
     }
 
-    private void doLoadPedidos() {
+    private void doLoadCheckouts() {
 
         if (checkouts == null) {
 
             Log.d("INFO", "Load Checkouts from webservice");
 
-            TaskDownloadCheckouts taskLoadPedidos = new TaskDownloadCheckouts(context, new AsyncResponse<List<Checkout>>() {
+            TaskDownloadCheckouts taskDownloadCheckouts = new TaskDownloadCheckouts(context,
+                    new AsyncResponse<List<Checkout>>() {
 
                 @Override
                 public void processFinish(List<Checkout> output) {
@@ -130,20 +74,22 @@ public class CheckoutsFragment extends Fragment {
                 }
             });
 
-            taskLoadPedidos.execute(customer);
+            taskDownloadCheckouts.execute(customer);
         }
 
 
     }
 
-    private void doFillData(List<Checkout> pedidos) {
+    private void doFillData(List<Checkout> checkouts) {
 
-        ArrayAdapter<Checkout> adpItem = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, pedidos);
+        ArrayAdapter<Checkout> adpItem = new ArrayAdapter<>(context,
+                android.R.layout.simple_list_item_1, checkouts);
 
         listView.setAdapter(adpItem);
     }
 
-    private void doCreateListeners() {
+    @Override
+    public void doCreateListeners() {
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -157,7 +103,7 @@ public class CheckoutsFragment extends Fragment {
                 selectedCheckout = (Checkout) itemValue;
 
                 startActivity(new Intent(context, CheckoutDetailActivity.class)
-                        .putExtra("selectedCheckout",selectedCheckout));
+                        .putExtra("selectedCheckout", selectedCheckout));
 
 
             }

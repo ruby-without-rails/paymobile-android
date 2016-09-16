@@ -1,10 +1,11 @@
 package br.com.frmichetti.carhollics.android.model.compatibility;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.math.BigDecimal;
 
 public class Service extends BaseModel {
-
-    private static final long serialVersionUID = 1L;
 
     private Long id;
 
@@ -18,9 +19,33 @@ public class Service extends BaseModel {
 
     private BigDecimal price;
 
-    private byte[] thumbnail;
+    private transient byte[] thumbnail;
 
     public Service() {
+    }
+
+    public Service(Parcel parcel) {
+
+        if (parcel != null) {
+
+            this.id = parcel.readLong();
+
+            this.title = parcel.readString();
+
+            this.description = parcel.readString();
+
+            this.observation = parcel.readString();
+
+            this.duration = parcel.readInt();
+
+            this.price = new BigDecimal(parcel.readDouble());
+
+            //TODO FIXME I DONT KNOW How TO READ THIS
+            //this.thumbnail = parcel.readByteArray(thumbnail);
+
+        }
+
+
     }
 
     public Long getId() {
@@ -110,4 +135,50 @@ public class Service extends BaseModel {
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+
+        if (id != null) {
+            parcel.writeLong(id);
+        }
+
+        if (title != null) {
+            parcel.writeString(title);
+        }
+
+        if (description != null) {
+            parcel.writeString(description);
+        }
+
+
+        if (observation != null) {
+            parcel.writeString(observation);
+        }
+
+        parcel.writeInt(duration);
+
+
+        if (price != null) {
+            parcel.writeDouble(price.doubleValue());
+        }
+
+        parcel.writeByteArray(thumbnail);
+
+    }
+
+    public static final Parcelable.Creator<Service> CREATOR = new Parcelable.Creator<Service>() {
+
+        public Service createFromParcel(Parcel parcel) {
+            return new Service(parcel);
+        }
+
+        public Service[] newArray(int size) {
+            return new Service[size];
+        }
+    };
 }

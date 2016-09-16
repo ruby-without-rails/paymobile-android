@@ -1,11 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
-
+    signingConfigs {
+        defaultSign {
+            keyAlias 'Felipe Rodrigues Michetti'
+            storeFile file('/git/googlekeysign.jks')
+            keyPassword 'S394asc9@'
+            storePassword 'S394asc9@'
+        }
+    }
     compileSdkVersion 24
-
     buildToolsVersion "23.0.3"
-
     defaultConfig {
         applicationId "br.com.frmichetti.carhollics.android"
         minSdkVersion 11
@@ -18,16 +23,15 @@ android {
         jackOptions {
             enabled false
         }
-
+        signingConfig signingConfigs.defaultSign
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-
+            signingConfig signingConfigs.defaultSign
         }
         debug {
-
         }
     }
     dexOptions {
@@ -44,6 +48,10 @@ android {
 
 
 dependencies {
+
+    // Required -- JUnit 4 framework
+    compile 'junit:junit:4.12'
+
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.google.code.gson:gson:2.7'
     compile 'com.android.support:appcompat-v7:24.2.1'
@@ -55,5 +63,5 @@ dependencies {
     compile 'com.google.firebase:firebase-messaging:9.0.2'
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.github.bumptech.glide:glide:3.7.0'
+    apply plugin: 'com.google.gms.google-services'
 }
-apply plugin: 'com.google.gms.google-services'

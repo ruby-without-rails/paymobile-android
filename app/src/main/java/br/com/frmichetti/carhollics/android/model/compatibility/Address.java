@@ -1,11 +1,12 @@
 package br.com.frmichetti.carhollics.android.model.compatibility;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Address extends BaseModel {
-
-    private static final long serialVersionUID = 1L;
 
     private Long id;
 
@@ -22,6 +23,28 @@ public class Address extends BaseModel {
     private String number;
 
     public Address() {
+    }
+
+    public Address(Parcel parcel) {
+
+        if(parcel != null){
+
+            this.id = parcel.readLong();
+
+            this.customer = parcel.readParcelable(Customer.class.getClassLoader());
+
+            this.cep = parcel.readLong();
+
+            this.street = parcel.readString();
+
+            this.neighborhood = parcel.readString();
+
+            this.complement = parcel.readString();
+
+            this.number = parcel.readString();
+        }
+
+
     }
 
     public Long getId() {
@@ -110,7 +133,7 @@ public class Address extends BaseModel {
         return cep + " , " + street + " . " + number;
     }
 
-    public String toJson(){
+    public String toJson() {
 
         String json = "";
         try {
@@ -131,4 +154,51 @@ public class Address extends BaseModel {
         return json;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+
+        if (id != null) {
+            parcel.writeLong(id);
+        }
+
+        if (customer != null) {
+            parcel.writeParcelable(customer, i);
+        }
+
+        parcel.writeLong(cep);
+
+        if (street != null) {
+            parcel.writeString(street);
+        }
+
+        if (neighborhood != null) {
+            parcel.writeString(neighborhood);
+        }
+
+        if (complement != null) {
+            parcel.writeString(complement);
+        }
+
+        if (number != null) {
+            parcel.writeString(number);
+        }
+
+
+    }
+
+    public static final Parcelable.Creator<Address> CREATOR = new Parcelable.Creator<Address>() {
+
+        public Address createFromParcel(Parcel parcel) {
+            return new Address(parcel);
+        }
+
+        public Address[] newArray(int size) {
+            return new Address[size];
+        }
+    };
 }

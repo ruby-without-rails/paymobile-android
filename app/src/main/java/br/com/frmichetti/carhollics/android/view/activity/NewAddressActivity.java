@@ -42,6 +42,9 @@ public class NewAddressActivity extends BaseActivity {
         doCastComponents();
 
         doCreateListeners();
+
+        setupToolBar();
+
     }
 
     @Override
@@ -51,9 +54,11 @@ public class NewAddressActivity extends BaseActivity {
 
         address = new Address();
 
-        doConfigure();
+        doReadAddress();
 
-        doLoadExtras(intent);
+    }
+
+    private void doReadAddress() {
 
         if (selectedAddress != null) {
 
@@ -70,6 +75,7 @@ public class NewAddressActivity extends BaseActivity {
             edtNumber.setText(selectedAddress.getNumber());
 
         }
+
     }
 
     @Override
@@ -135,11 +141,13 @@ public class NewAddressActivity extends BaseActivity {
             public void processFinish(Address output) {
 
                 if (output.getId() != null) {
+
                     if (output.getId() > 0) {
 
                         Toast.makeText(context, "Address Created with Success", Toast.LENGTH_LONG).show();
 
                         finish();
+
                     } else {
 
                         Toast.makeText(context, "Address Not Created , try Again", Toast.LENGTH_LONG).show();
@@ -237,13 +245,12 @@ public class NewAddressActivity extends BaseActivity {
     }
 
     @Override
-    public void doConfigure() {
+    public void setupToolBar() {
 
-        super.doConfigure();
+        super.setupToolBar();
 
-        if (actionBar != null) {
-            actionBar.setSubtitle("New Address");
-        }
+        actionBar.setSubtitle("New Address");
+
     }
 
     @Override
@@ -251,7 +258,7 @@ public class NewAddressActivity extends BaseActivity {
 
         super.doLoadExtras(intent);
 
-        selectedAddress = (Address) intent.getSerializableExtra("address");
+        selectedAddress = intent.getParcelableExtra("address");
 
     }
 
@@ -278,11 +285,8 @@ public class NewAddressActivity extends BaseActivity {
         }
 
 
-        if (!validateNumber()) {
-            return false;
-        }
+        return validateNumber();
 
-        return true;
     }
 
     private boolean validateCEP() {
@@ -322,11 +326,17 @@ public class NewAddressActivity extends BaseActivity {
     }
 
     private boolean validateNeighBorhood() {
+
         if (edtNeighborhood.getText().toString().trim().isEmpty()) {
+
             txtInputLayoutNeighborhood.setError(getString(R.string.err_msg_neighborhood));
+
             requestFocus(edtNeighborhood);
+
             return false;
+
         } else {
+
             txtInputLayoutNeighborhood.setErrorEnabled(false);
         }
 

@@ -6,44 +6,29 @@
  */
 package br.com.frmichetti.carhollics.android.view.activity.login;
 
-import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.support.design.widget.CoordinatorLayout;
 import android.text.TextUtils;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
 
 import br.com.frmichetti.carhollics.android.R;
-import br.com.frmichetti.carhollics.android.util.ConnectivityReceiver;
-import br.com.frmichetti.carhollics.android.view.activity.MyPattern;
+import br.com.frmichetti.carhollics.android.view.activity.BaseActivity;
 
-public class ResetPasswordActivity extends AppCompatActivity implements MyPattern,
-        ConnectivityReceiver.ConnectivityReceiverListener {
-
-    private ActionBar actionBar;
-
-    private Context context;
+public class ResetPasswordActivity extends BaseActivity {
 
     private EditText inputEmail;
 
     private Button btnReset, btnBack;
-
-    private FirebaseAuth auth;
 
     private ProgressBar progressBar;
 
@@ -58,27 +43,15 @@ public class ResetPasswordActivity extends AppCompatActivity implements MyPatter
 
         doCreateListeners();
 
-        auth = FirebaseAuth.getInstance();
-
+        setupToolBar();
 
     }
 
-    @Override
-    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
-
-        super.onPostCreate(savedInstanceState);
-
-        doConfigure();
-
-        doCheckConnection();
-    }
 
     @Override
     public void doCastComponents() {
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
-        setSupportActionBar(toolbar);
+        super.doCastComponents();
 
         inputEmail = (EditText) findViewById(R.id.email);
 
@@ -114,11 +87,11 @@ public class ResetPasswordActivity extends AppCompatActivity implements MyPatter
                     return;
                 }
 
-                if (doCheckConnection()) {
+                if (doCheckConnection(context)) {
 
                     progressBar.setVisibility(View.VISIBLE);
 
-                    auth.sendPasswordResetEmail(email)
+                    firebaseAuth.sendPasswordResetEmail(email)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
 
                                 @Override
@@ -136,7 +109,8 @@ public class ResetPasswordActivity extends AppCompatActivity implements MyPatter
 
                 } else {
 
-                    showSnack(doCheckConnection());
+                    doCheckConnection(context);
+
                 }
             }
         });
@@ -145,18 +119,13 @@ public class ResetPasswordActivity extends AppCompatActivity implements MyPatter
     }
 
     @Override
-    public void doConfigure() {
+    public void setupToolBar() {
 
-        context = this;
-
-        actionBar = getSupportActionBar();
+        super.setupToolBar();
 
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        actionBar.setTitle(R.string.app_name);
-
         actionBar.setSubtitle(R.string.btn_reset_password);
-
     }
 
     @Override
@@ -172,50 +141,10 @@ public class ResetPasswordActivity extends AppCompatActivity implements MyPatter
         return super.onOptionsItemSelected(item);
     }
 
-
-    // Method to manually check connection status
-    private boolean doCheckConnection() {
-
-        boolean isConnected = ConnectivityReceiver.isConnected(context);
-
-        return isConnected;
-    }
-
-    // Showing the status in Snackbar
-    private void showSnack(boolean isConnected) {
-
-        String message;
-
-        int color;
-
-        if (isConnected) {
-            message = "Connected to Internet";
-            color = Color.GREEN;
-        } else {
-            message = "Not connected to internet";
-            color = Color.RED;
-        }
-
-        Snackbar snackbar = Snackbar
-                .make(findViewById(R.id.coordlayoutreset), message, Snackbar.LENGTH_LONG);
-
-        View sbView = snackbar.getView();
-
-        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
-
-        textView.setTextColor(color);
-
-        snackbar.show();
-
-    }
-
     @Override
-    protected void onResume() {
-
-        super.onResume();
-
-        // register connection status listener
-        this.setConnectivityListener(this);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //  return super.onCreateOptionsMenu(menu);
+        return true;
     }
 
     /**
@@ -225,12 +154,8 @@ public class ResetPasswordActivity extends AppCompatActivity implements MyPatter
     @Override
     public void onNetworkConnectionChanged(boolean isConnected) {
 
-        showSnack(isConnected);
+        showSnack((CoordinatorLayout) findViewById(R.id.coordlayoutResetPassword),isConnected);
     }
 
 
-    public void setConnectivityListener(ConnectivityReceiver.ConnectivityReceiverListener listener) {
-
-        ConnectivityReceiver.connectivityReceiverListener = listener;
-    }
 }

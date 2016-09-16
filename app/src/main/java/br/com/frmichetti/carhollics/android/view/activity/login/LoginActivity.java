@@ -6,49 +6,34 @@
  */
 package br.com.frmichetti.carhollics.android.view.activity.login;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.support.design.widget.CoordinatorLayout;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
 import br.com.frmichetti.carhollics.android.jobs.TaskLoginFirebase;
 import br.com.frmichetti.carhollics.android.model.compatibility.Customer;
-import br.com.frmichetti.carhollics.android.util.ConnectivityReceiver;
+import br.com.frmichetti.carhollics.android.view.activity.BaseActivity;
 import br.com.frmichetti.carhollics.android.view.activity.MainActivity;
-import br.com.frmichetti.carhollics.android.view.activity.MyPattern;
 
-
-public class LoginActivity extends AppCompatActivity implements MyPattern,
-        ConnectivityReceiver.ConnectivityReceiverListener {
-
-    private Context context;
-
-    private ActionBar actionBar;
+public class LoginActivity extends BaseActivity {
 
     private EditText editTextEmail, editTextPassword;
-
-    private FirebaseAuth auth;
 
     private ProgressBar progressBar;
 
@@ -59,33 +44,27 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
 
         super.onCreate(savedInstanceState);
 
-        auth = FirebaseAuth.getInstance();
-
         setContentView(R.layout.activity_login);
 
         doCastComponents();
 
         doCreateListeners();
 
-    }
+        setupToolBar();
 
+    }
 
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
 
         super.onPostCreate(savedInstanceState);
 
-        doConfigure();
-
-        doCheckConnection();
     }
 
     @Override
     public void doCastComponents() {
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
-        setSupportActionBar(toolbar);
+        super.doCastComponents();
 
         editTextEmail = (EditText) findViewById(R.id.email);
 
@@ -102,7 +81,6 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
 
     @Override
     public void doCreateListeners() {
-
         btnSignup.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -120,6 +98,7 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
                 startActivity(new Intent(context, ResetPasswordActivity.class));
             }
         });
+
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
 
@@ -145,13 +124,12 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
                 }
 
 
-                if (doCheckConnection()) {
-
+                if (doCheckConnection(context)) {
 
                     progressBar.setVisibility(View.VISIBLE);
 
                     //authenticate firebaseUser
-                    auth.signInWithEmailAndPassword(email, password)
+                    firebaseAuth.signInWithEmailAndPassword(email, password)
                             .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
 
                                 @Override
@@ -171,9 +149,10 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
 
                                         } else {
 
-                                            Toast.makeText(context, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
+                                            Toast.makeText(context, getString(R.string.auth_failed),
+                                                    Toast.LENGTH_LONG).show();
 
-                                            Log.d("DEBUG-LOGIN", String.valueOf(R.string.auth_failed));
+                                            Log.d("[LOGIN]", String.valueOf(R.string.auth_failed));
                                         }
 
                                     } else {
@@ -185,25 +164,27 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
 
                                                 if (output != null) {
 
-                                                    startActivity(new Intent(context, MainActivity.class).putExtra("customer", output));
+                                                    startActivity(new Intent(context, MainActivity.class)
+                                                            .putExtra("customer", output));
 
                                                     finish();
 
                                                 } else {
 
-                                                    Toast.makeText(context, getString(R.string.could_not_authorize), Toast.LENGTH_LONG).show();
+                                                    Toast.makeText(context, getString(R.string.could_not_authorize),
+                                                            Toast.LENGTH_LONG).show();
                                                 }
                                             }
                                         });
 
-                                        taskLoginFirebase.execute(auth.getCurrentUser().getUid());
+                                        taskLoginFirebase.execute(firebaseAuth.getCurrentUser().getUid());
 
                                     }
                                 }
                             });
                 } else {
 
-                    showSnack(doCheckConnection());
+                    doCheckConnection(context);
 
                 }
 
@@ -214,13 +195,28 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //return super.onCreateOptionsMenu(menu);
+        return true;
+    }
+
+    @Override
     public void doConfigure() {
 
-        context = this;
+        super.doConfigure();
 
-        actionBar = getSupportActionBar();
+        //TODO FIXME REMOVEME
 
-        actionBar.setTitle(R.string.app_name);
+        editTextEmail.setText("frmichetti@gmail.com");
+
+        editTextPassword.setText("123456");
+
+    }
+
+    @Override
+    public void setupToolBar() {
+
+        super.setupToolBar();
 
         actionBar.setSubtitle(R.string.action_sign_in);
 
@@ -228,56 +224,6 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
 
     }
 
-    // Method to manually check connection status
-    private boolean doCheckConnection() {
-
-        boolean isConnected = ConnectivityReceiver.isConnected(context);
-
-        return isConnected;
-    }
-
-    // Showing the status in Snackbar
-    private void showSnack(boolean isConnected) {
-
-        String message;
-
-        int color;
-
-        if (isConnected) {
-
-            message = getString(R.string.connected_on_internet);
-
-            color = Color.GREEN;
-
-        } else {
-
-            message = getString(R.string.not_connected_on_internet);
-
-            color = Color.RED;
-
-        }
-
-        Snackbar snackbar = Snackbar
-                .make(findViewById(R.id.coordlayoutlogin), message, Snackbar.LENGTH_LONG);
-
-        View sbView = snackbar.getView();
-
-        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
-
-        textView.setTextColor(color);
-
-        snackbar.show();
-
-    }
-
-    @Override
-    protected void onResume() {
-
-        super.onResume();
-
-        // register connection status listener
-        this.setConnectivityListener(this);
-    }
 
     /**
      * Callback will be triggered when there is change in
@@ -286,12 +232,8 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
     @Override
     public void onNetworkConnectionChanged(boolean isConnected) {
 
-        showSnack(isConnected);
+        showSnack((CoordinatorLayout) findViewById(R.id.coordlayoutLogin), isConnected);
     }
 
 
-    public void setConnectivityListener(ConnectivityReceiver.ConnectivityReceiverListener listener) {
-
-        ConnectivityReceiver.connectivityReceiverListener = listener;
-    }
 }

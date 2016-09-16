@@ -6,9 +6,10 @@
  */
 package br.com.frmichetti.carhollics.android.model.compatibility;
 
-public class Vehicle extends BaseModel {
+import android.os.Parcel;
+import android.os.Parcelable;
 
-    private static final long serialVersionUID = 1L;
+public class Vehicle extends BaseModel {
 
     private Long id;
 
@@ -20,6 +21,24 @@ public class Vehicle extends BaseModel {
 
     public Vehicle() {
     }
+
+    public Vehicle(Parcel parcel) {
+
+        if (parcel != null) {
+
+            this.id = parcel.readLong();
+
+            this.category = parcel.readParcelable(Category.class.getClassLoader());
+
+            this.brand = parcel.readString();
+
+            this.model = parcel.readString();
+
+        }
+
+
+    }
+
 
     public Long getId() {
         return this.id;
@@ -90,4 +109,41 @@ public class Vehicle extends BaseModel {
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+
+        if (id != null) {
+            parcel.writeLong(id);
+        }
+
+        if (category != null) {
+            parcel.writeParcelable(category, i);
+        }
+
+        if (brand != null) {
+            parcel.writeString(brand);
+        }
+
+        if (model != null) {
+            parcel.writeString(model);
+        }
+
+
+    }
+
+    public static final Parcelable.Creator<Vehicle> CREATOR = new Parcelable.Creator<Vehicle>() {
+
+        public Vehicle createFromParcel(Parcel parcel) {
+            return new Vehicle(parcel);
+        }
+
+        public Vehicle[] newArray(int size) {
+            return new Vehicle[size];
+        }
+    };
 }

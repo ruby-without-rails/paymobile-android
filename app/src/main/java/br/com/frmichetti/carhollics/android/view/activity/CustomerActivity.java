@@ -35,9 +35,9 @@ public class CustomerActivity extends BaseActivity {
 
     private FloatingActionButton fabConfirm;
 
-    private EditText editTextName, editTextCPF, editTextPhone,editTextMobilePhone;
+    private EditText editTextName, editTextCPF, editTextPhone, editTextMobilePhone;
 
-    private TextInputLayout txtInputLayoutName, txtInputLayoutCPF, txtInputLayoutPhone,txtInputLayoutMobilePhone;
+    private TextInputLayout txtInputLayoutName, txtInputLayoutCPF, txtInputLayoutPhone, txtInputLayoutMobilePhone;
 
     private User user;
 
@@ -52,16 +52,14 @@ public class CustomerActivity extends BaseActivity {
 
         doCreateListeners();
 
+        setupToolBar();
+
     }
 
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
 
         super.onPostCreate(savedInstanceState);
-
-        doConfigure();
-
-        doLoadExtras(intent);
 
         doLoadCustomer(customer);
 
@@ -95,7 +93,6 @@ public class CustomerActivity extends BaseActivity {
     @Override
     public void doCreateListeners() {
 
-
         editTextName.addTextChangedListener(new MyTextWatcher(txtInputLayoutName));
 
         editTextCPF.addTextChangedListener(new MyTextWatcher(txtInputLayoutCPF));
@@ -110,7 +107,7 @@ public class CustomerActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
-                if(submitForm()){
+                if (submitForm()) {
 
                     TaskCreateCustomer taskCreateCustomer = new TaskCreateCustomer(context, new AsyncResponse<Customer>() {
 
@@ -119,11 +116,7 @@ public class CustomerActivity extends BaseActivity {
 
                             customer = output;
 
-                            startActivity(new Intent(context, MainActivity.class)
-                                    .putExtra("shoppingCart", shoppingCart)
-                                    .putExtra("customer", customer)
-                                    .putExtra("vehicle", selectedVehicle)
-                                    .putExtra("service", selectedService));
+                            doChangeActivity(context,MainActivity.class);
 
                             finish();
                         }
@@ -176,15 +169,15 @@ public class CustomerActivity extends BaseActivity {
 
             c = customer;
 
-            if(c.getUser() != null){
+            if (c.getUser() != null) {
 
                 c.getUser().setFirebaseMessageToken(FirebaseInstanceId.getInstance().getToken());
 
                 c.getUser().setFirebaseUUID(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
-            }else{
+            } else {
 
-                Toast.makeText(context,"Usuário parece estar corrompido, por favor contate o Administrador ...",Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Usuário parece estar corrompido, por favor contate o Administrador ...", Toast.LENGTH_LONG).show();
 
                 finish();
             }
@@ -210,14 +203,11 @@ public class CustomerActivity extends BaseActivity {
     }
 
     @Override
-    public void doConfigure() {
+    public void setupToolBar() {
 
-        super.doConfigure();
-
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        super.setupToolBar();
 
         actionBar.setSubtitle("Cadastro de Cliente");
-
     }
 
     @Override
@@ -225,9 +215,8 @@ public class CustomerActivity extends BaseActivity {
 
         super.doLoadExtras(intent);
 
-        user = (User) intent.getSerializableExtra("user");
+        user = intent.getParcelableExtra("user");
 
-        customer = (Customer) intent.getSerializableExtra("customer");
     }
 
     @Override
@@ -271,11 +260,8 @@ public class CustomerActivity extends BaseActivity {
             return false;
         }
 
-        if (!validateMobilePhone()) {
-            return false;
-        }
+        return validateMobilePhone();
 
-        return true;
     }
 
     private boolean validateName() {

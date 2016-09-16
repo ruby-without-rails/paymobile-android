@@ -22,7 +22,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -38,8 +37,6 @@ import br.com.frmichetti.carhollics.android.model.ShoppingCart;
 import br.com.frmichetti.carhollics.android.model.compatibility.Address;
 import br.com.frmichetti.carhollics.android.model.compatibility.Service;
 import br.com.frmichetti.carhollics.android.model.compatibility.Vehicle;
-import br.com.frmichetti.carhollics.android.view.activity.login.OptionsActivity;
-import br.com.frmichetti.carhollics.android.view.activity.shoppingCart.ShoppingCartActivity;
 import br.com.frmichetti.carhollics.android.view.fragment.AddressFragment;
 import br.com.frmichetti.carhollics.android.view.fragment.CheckoutsFragment;
 import br.com.frmichetti.carhollics.android.view.fragment.FragmentDrawer;
@@ -68,16 +65,16 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
 
         doCastComponents();
 
+        doCreateListeners();
+
+        setupToolBar();
+
     }
 
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
 
         super.onPostCreate(savedInstanceState);
-
-        doConfigure();
-
-        doLoadExtras(intent);
 
         doPrepareItems();
 
@@ -154,15 +151,6 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         super.onOptionsItemSelected(item);
@@ -171,13 +159,7 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
 
         if (id == R.id.action_settings) {
 
-            startActivity(new Intent(context, OptionsActivity.class)
-                    .putExtra("shoppingCart", shoppingCart)
-                    .putExtra("customer", customer)
-                    .putExtra("vehicle", selectedVehicle)
-                    .putExtra("service", selectedService)
-                    .putExtra("address", selectedAddress)
-            );
+            doChangeActivity(context, OptionsActivity.class);
 
         }
 
@@ -185,13 +167,7 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
 
             if (!shoppingCart.isEmpty()) {
 
-                startActivity(new Intent(context, ShoppingCartActivity.class)
-                        .putExtra("shoppingCart", shoppingCart)
-                        .putExtra("customer", customer)
-                        .putExtra("vehicle", selectedVehicle)
-                        .putExtra("service", selectedService)
-                        .putExtra("address", selectedAddress)
-                );
+                doChangeActivity(context, ShoppingCart.class);
 
             } else {
 
@@ -203,13 +179,7 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
 
         if (id == R.id.action_personal_data) {
 
-            startActivity(new Intent(context, CustomerActivity.class)
-                    .putExtra("shoppingCart", shoppingCart)
-                    .putExtra("customer", customer)
-                    .putExtra("vehicle", selectedVehicle)
-                    .putExtra("service", selectedService)
-                    .putExtra("address", selectedAddress)
-            );
+            doChangeActivity(context, CustomerActivity.class);
         }
 
         if (id == R.id.action_contact_developer) {
@@ -219,7 +189,9 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
             i.setType("message/rfc822");
 
             i.putExtra(Intent.EXTRA_EMAIL, new String[]{"frmichetti@gmail.com"});
+
             i.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
+
             i.putExtra(Intent.EXTRA_TEXT, "Contato App Carhollics");
 
             try {
@@ -237,6 +209,12 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
         return true;
     }
 
+    /**
+     * For GPS Access
+     *
+     * @param context
+     * @param activity
+     */
     private void checkPermissions(Context context, Activity activity) {
 
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -314,9 +292,7 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
 
 
     @Override
-    public void doCreateListeners() {
-
-    }
+    public void doCreateListeners() {}
 
 
     private void doSetFragment() {
@@ -324,7 +300,8 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
         drawerFragment = (FragmentDrawer)
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
 
-        drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
+        drawerFragment.setUp(R.id.fragment_navigation_drawer,
+                (DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
 
         drawerFragment.setDrawerListener(this);
 

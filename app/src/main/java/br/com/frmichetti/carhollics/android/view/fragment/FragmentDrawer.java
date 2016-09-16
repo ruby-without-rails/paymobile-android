@@ -31,12 +31,19 @@ import br.com.frmichetti.carhollics.android.adapter.NavigationDrawerAdapter;
 public class FragmentDrawer extends Fragment {
 
     private static String TAG = FragmentDrawer.class.getSimpleName();
+
     private static String[] titles = null;
+
     private RecyclerView recyclerView;
+
     private ActionBarDrawerToggle mDrawerToggle;
+
     private DrawerLayout mDrawerLayout;
+
     private NavigationDrawerAdapter adapter;
+
     private View containerView;
+
     private FragmentDrawerListener drawerListener;
 
     public FragmentDrawer() {
@@ -72,12 +79,17 @@ public class FragmentDrawer extends Fragment {
                              Bundle savedInstanceState) {
         // Inflating view layout
         View layout = inflater.inflate(R.layout.navigation_drawer, container, false);
+
         recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
 
         adapter = new NavigationDrawerAdapter(getActivity(), getData());
+
         recyclerView.setAdapter(adapter);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new ClickListener() {
+
             @Override
             public void onClick(View view, int position) {
                 drawerListener.onDrawerItemSelected(view, position);
@@ -95,9 +107,13 @@ public class FragmentDrawer extends Fragment {
 
 
     public void setUp(int fragmentId, DrawerLayout drawerLayout, final Toolbar toolbar) {
+
         containerView = getActivity().findViewById(fragmentId);
+
         mDrawerLayout = drawerLayout;
+
         mDrawerToggle = new ActionBarDrawerToggle(getActivity(), drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close) {
+
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
@@ -118,6 +134,7 @@ public class FragmentDrawer extends Fragment {
         };
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
+
         mDrawerLayout.post(new Runnable() {
 
             @Override
@@ -128,14 +145,15 @@ public class FragmentDrawer extends Fragment {
 
     }
 
-    public static interface ClickListener {
-        public void onClick(View view, int position);
+    public interface ClickListener {
 
-        public void onLongClick(View view, int position);
+        void onClick(View view, int position);
+
+        void onLongClick(View view, int position);
     }
 
     public interface FragmentDrawerListener {
-        public void onDrawerItemSelected(View view, int position);
+        void onDrawerItemSelected(View view, int position);
     }
 
     static class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {

@@ -1,6 +1,5 @@
 package br.com.frmichetti.carhollics.android.view.activity.shoppingCart;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
@@ -58,6 +57,8 @@ public class ResumeCheckoutActivity extends BaseActivity {
         doCastComponents();
 
         doCreateListeners();
+
+        setupToolBar();
     }
 
     @Override
@@ -65,18 +66,12 @@ public class ResumeCheckoutActivity extends BaseActivity {
 
         super.onPostCreate(savedInstanceState);
 
-        doLoadExtras(intent);
-
-        doCheckConnection(context);
-
         doFillShoppingCart();
 
         doFillSpinners();
 
         tvTotal.setText(shoppingCart.getTotal().toString());
     }
-
-
 
 
     @Override
@@ -114,12 +109,7 @@ public class ResumeCheckoutActivity extends BaseActivity {
 
                             shoppingCart = new ShoppingCart();
 
-                            startActivity(new Intent(context, MainActivity.class)
-                                    .putExtra("customer", customer)
-                                    .putExtra("shoppingCart", shoppingCart)
-                                    .putExtra("service", selectedService)
-                                    .putExtra("vehicle", selectedVehicle)
-                            );
+                            doChangeActivity(context, MainActivity.class);
 
                             finish();
 
@@ -203,15 +193,11 @@ public class ResumeCheckoutActivity extends BaseActivity {
     }
 
     @Override
-    public void doConfigure() {
+    public void setupToolBar() {
 
-        super.doConfigure();
+        super.setupToolBar();
 
-        checkout = new Checkout();
-
-        if(actionBar!= null){
-            actionBar.setSubtitle("Resumo do Pedido");
-        }
+        actionBar.setSubtitle("Resumo do Pedido");
 
     }
 
@@ -245,9 +231,9 @@ public class ResumeCheckoutActivity extends BaseActivity {
                     addresses = new ArrayList<>();
                 }
 
-                if(addresses.size() == 0){
+                if (addresses.size() == 0) {
 
-                    Toast.makeText(context,"Você precisa cadastrar um endereço para Prosseguir",Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Você precisa cadastrar um endereço para Prosseguir", Toast.LENGTH_LONG).show();
 
                     finish();
                 }
@@ -277,9 +263,9 @@ public class ResumeCheckoutActivity extends BaseActivity {
                     vehicles = new ArrayList<>();
                 }
 
-                if(vehicles.size() == 0){
+                if (vehicles.size() == 0) {
 
-                    Toast.makeText(context,"Você precisa cadastrar um Veículo para Prosseguir",Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Você precisa cadastrar um Veículo para Prosseguir", Toast.LENGTH_LONG).show();
 
                     finish();
                 }
@@ -309,7 +295,7 @@ public class ResumeCheckoutActivity extends BaseActivity {
 
         if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
 
-           finish();
+            finish();
 
         }
 

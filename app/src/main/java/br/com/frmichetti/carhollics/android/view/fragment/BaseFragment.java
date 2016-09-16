@@ -11,47 +11,65 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
-import br.com.frmichetti.carhollics.android.util.ConnectivityReceiver;
-import br.com.frmichetti.carhollics.android.view.activity.MyPattern;
+import br.com.frmichetti.carhollics.android.model.ShoppingCart;
+import br.com.frmichetti.carhollics.android.model.compatibility.Address;
+import br.com.frmichetti.carhollics.android.model.compatibility.Customer;
+import br.com.frmichetti.carhollics.android.model.compatibility.Service;
+import br.com.frmichetti.carhollics.android.model.compatibility.Vehicle;
 
-public abstract class BaseFragment extends Fragment implements MyPattern,
-        ConnectivityReceiver.ConnectivityReceiverListener {
+public abstract class BaseFragment extends Fragment {
 
-    private Context context;
+    protected Context context;
 
-    private Intent intent;
+    protected Intent intent;
+
+    protected Customer customer;
+
+    protected ShoppingCart shoppingCart;
+
+    protected Address selectedAddress;
+
+    protected Vehicle selectedVehicle;
+
+    protected Service selectedService;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
+        doConfigure();
+
+        doLoadExtras(intent);
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        return super.onCreateView(inflater, container, savedInstanceState);
+    protected abstract void doCastComponents(View rootView);
 
-    }
+    protected abstract void doCreateListeners();
 
-    @Override
-    public void doCastComponents() {
+    private void doConfigure() {
 
-    }
+        context = getContext();
 
-    @Override
-    public void doConfigure() {
+        intent = getActivity().getIntent();
+
+        setRetainInstance(true);
 
     }
 
-    @Override
-    public void doCreateListeners() {
+    //TODO FIXME VERIFYME
+    protected void doLoadExtras(Intent intent) {
+
+        customer = intent.getParcelableExtra("customer");
+
+        shoppingCart = (ShoppingCart) intent.getSerializableExtra("shoppingCart");
+
+        selectedAddress = intent.getParcelableExtra("address");
+
+        selectedVehicle = intent.getParcelableExtra("vehicle");
 
     }
 }

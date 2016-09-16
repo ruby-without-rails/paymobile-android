@@ -36,19 +36,17 @@ public class CheckoutDetailActivity extends BaseActivity {
     }
 
     @Override
-    public void doConfigure() {
+    public void setupToolBar() {
 
-        super.doConfigure();
+        super.setupToolBar();
 
-        if(actionBar != null){
-            actionBar.setSubtitle("Detalhes do Pedido");
-        }
+        actionBar.setSubtitle("Detalhes do Pedido");
 
     }
 
     private void doFillDate(Intent intent) {
 
-        checkout = (Checkout) intent.getSerializableExtra("selectedCheckout");
+        checkout = intent.getParcelableExtra("selectedCheckout");
 
         if (checkout != null) {
 
@@ -70,8 +68,9 @@ public class CheckoutDetailActivity extends BaseActivity {
 
         doCastComponents();
 
-        doConfigure();
+        doCreateListeners();
 
+        setupToolBar();
     }
 
     @Override
@@ -93,9 +92,7 @@ public class CheckoutDetailActivity extends BaseActivity {
     public boolean onKeyUp(int keyCode, KeyEvent event) {
 
         if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-
             finish();
-
         }
 
         return super.onKeyUp(keyCode, event);

@@ -6,11 +6,12 @@
  */
 package br.com.frmichetti.carhollics.android.model.compatibility;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.UUID;
 
 public class User extends BaseModel {
-
-    private static final long serialVersionUID = 1L;
 
     private Long id;
 
@@ -25,6 +26,26 @@ public class User extends BaseModel {
     private String firebaseMessageToken;
 
     public User() {
+    }
+
+    public User(Parcel parcel) {
+
+        if (parcel != null) {
+
+            this.id = parcel.readLong();
+
+            this.uuid = parcel.readString();
+
+            this.active = (parcel.readByte() != 0);
+
+            this.email = parcel.readString();
+
+            this.firebaseUUID = parcel.readString();
+
+            this.firebaseMessageToken = parcel.readString();
+        }
+
+
     }
 
     public Long getId() {
@@ -121,4 +142,44 @@ public class User extends BaseModel {
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+
+        if (id != null) {
+            parcel.writeLong(id);
+        }
+
+        if (uuid != null) {
+            parcel.writeString(uuid);
+        }
+
+        parcel.writeByte((byte) (active ? 1 : 0));
+
+        if (email != null) {
+            parcel.writeString(email);
+        }
+
+        if (firebaseUUID != null) {
+            parcel.writeString(firebaseUUID);
+        }
+        if (firebaseMessageToken != null) {
+            parcel.writeString(firebaseMessageToken);
+        }
+    }
+
+    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
+
+        public User createFromParcel(Parcel parcel) {
+            return new User(parcel);
+        }
+
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 }

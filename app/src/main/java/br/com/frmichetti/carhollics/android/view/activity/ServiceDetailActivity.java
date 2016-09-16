@@ -6,8 +6,6 @@
  */
 package br.com.frmichetti.carhollics.android.view.activity;
 
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
@@ -21,10 +19,10 @@ import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.model.ShoppingItem;
 import br.com.frmichetti.carhollics.android.view.activity.shoppingCart.ShoppingCartActivity;
 
-
 public class ServiceDetailActivity extends BaseActivity {
 
-    private TextView textViewTitle, textViewDescription, textViewDuration, textViewObservation, textViewPrice;
+    private TextView textViewTitle, textViewDescription, textViewDuration,
+            textViewObservation, textViewPrice;
 
     private FloatingActionButton floatButtonAddCart;
 
@@ -40,6 +38,7 @@ public class ServiceDetailActivity extends BaseActivity {
 
         doCreateListeners();
 
+        setupToolBar();
 
     }
 
@@ -48,27 +47,20 @@ public class ServiceDetailActivity extends BaseActivity {
 
         super.onPostCreate(savedInstanceState);
 
-        doConfigure();
-
-        doLoadExtras(intent);
-
         doFillData();
 
-        doCheckConnection(context);
-
     }
 
 
-    public void doConfigure() {
+    @Override
+    public void setupToolBar() {
 
-        super.doConfigure();
+        super.setupToolBar();
 
         actionBar.setSubtitle(getString(R.string.service_details));
-
-
     }
 
-
+    @Override
     public void doCastComponents() {
 
         super.doCastComponents();
@@ -88,6 +80,7 @@ public class ServiceDetailActivity extends BaseActivity {
 
     }
 
+    @Override
     public void doCreateListeners() {
 
         floatButtonAddCart.setOnClickListener(new View.OnClickListener() {
@@ -97,13 +90,7 @@ public class ServiceDetailActivity extends BaseActivity {
 
                 shoppingCart.add(new ShoppingItem(selectedService));
 
-                startActivity(new Intent(context, ShoppingCartActivity.class)
-                        .putExtra("customer", customer)
-                        .putExtra("shoppingCart", shoppingCart)
-                        .putExtra("service", selectedService)
-                        .putExtra("vehicle", selectedVehicle)
-
-                );
+                doChangeActivity(context, ShoppingCartActivity.class);
 
                 finish();
             }

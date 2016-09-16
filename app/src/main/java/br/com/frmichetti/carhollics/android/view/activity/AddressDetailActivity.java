@@ -9,4 +9,9 @@ public class AddressDetailActivity extends BaseActivity {
     public void doCreateListeners() {
 
     }
+
+    @Override
+    public void onNetworkConnectionChanged(boolean isConnected) {
+
+    }
 }

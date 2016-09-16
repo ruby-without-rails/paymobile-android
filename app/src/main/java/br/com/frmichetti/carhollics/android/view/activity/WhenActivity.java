@@ -19,11 +19,6 @@ public class WhenActivity extends BaseActivity {
 
         setContentView(R.layout.activity_when);
 
-        doCastComponents();
-
-        doCreateListeners();
-
-
     }
 
     @Override
@@ -36,4 +31,8 @@ public class WhenActivity extends BaseActivity {
 
     }
 
+    @Override
+    public void onNetworkConnectionChanged(boolean isConnected) {
+
+    }
 }

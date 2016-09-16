@@ -6,7 +6,6 @@
  */
 package br.com.frmichetti.carhollics.android.view.activity.shoppingCart;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
@@ -52,6 +51,8 @@ public class ShoppingCartActivity extends BaseActivity {
 
         doCreateListeners();
 
+        setupToolBar();
+
     }
 
     @Override
@@ -59,15 +60,9 @@ public class ShoppingCartActivity extends BaseActivity {
 
         super.onPostCreate(savedInstanceState);
 
-        doConfigure();
-
-        doLoadExtras(intent);
-
         doFillData();
 
         doRefresh();
-
-        doCheckConnection(context);
 
         checkout = new Checkout();
 
@@ -95,8 +90,8 @@ public class ShoppingCartActivity extends BaseActivity {
 
         shoppingItem = new ShoppingItem(selectedService);
 
-        ArrayAdapter<ShoppingItem> adpItem = new ArrayAdapter<ShoppingItem>(this, android.R.layout.simple_list_item_1,
-                new ArrayList<ShoppingItem>(shoppingCart.getList()));
+        ArrayAdapter<ShoppingItem> adpItem = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
+                new ArrayList<>(shoppingCart.getList()));
 
         listViewShoppingCart.setAdapter(adpItem);
 
@@ -179,28 +174,20 @@ public class ShoppingCartActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(context, ResumeCheckoutActivity.class)
-                        .putExtra("customer", customer)
-                        .putExtra("shoppingCart", shoppingCart)
-                        .putExtra("service", selectedService)
-                        .putExtra("vehicle", selectedVehicle)
-                );
+                doChangeActivity(context, ResumeCheckoutActivity.class);
 
                 finish();
-
-
             }
         });
 
     }
 
+    @Override
+    public void setupToolBar() {
 
-    public void doConfigure() {
-
-        super.doConfigure();
+        super.setupToolBar();
 
         actionBar.setSubtitle(getString(R.string.action_cart));
-
     }
 
     @Override
@@ -212,12 +199,7 @@ public class ShoppingCartActivity extends BaseActivity {
 
         if (id == android.R.id.home) {
 
-            startActivity(new Intent(context, MainActivity.class)
-                    .putExtra("customer", customer)
-                    .putExtra("shoppingCart", shoppingCart)
-                    .putExtra("service", selectedService)
-                    .putExtra("vehicle", selectedVehicle)
-            );
+            doChangeActivity(context, MainActivity.class);
 
             finish();
 

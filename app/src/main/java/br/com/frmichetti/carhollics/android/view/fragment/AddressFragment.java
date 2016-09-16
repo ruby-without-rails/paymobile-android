@@ -6,11 +6,9 @@
  */
 package br.com.frmichetti.carhollics.android.view.fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,66 +23,19 @@ import java.util.List;
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
 import br.com.frmichetti.carhollics.android.jobs.TaskDownloadAddress;
-import br.com.frmichetti.carhollics.android.model.ShoppingCart;
 import br.com.frmichetti.carhollics.android.model.compatibility.Address;
-import br.com.frmichetti.carhollics.android.model.compatibility.Customer;
-import br.com.frmichetti.carhollics.android.model.compatibility.Vehicle;
 import br.com.frmichetti.carhollics.android.view.activity.NewAddressActivity;
 
 
-public class AddressFragment extends Fragment {
+public class AddressFragment extends BaseFragment {
 
-    private Context context;
-
-    private Intent intent;
+    private FloatingActionButton fab;
 
     private ListView listView;
 
     private List<Address> addresses;
 
-    private Address selectedAddress;
-
-    private Vehicle selectedVehicle;
-
-    private Customer customer;
-
-    private ShoppingCart shoppingCart;
-
-    private FloatingActionButton fab;
-
     public AddressFragment() {
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
-
-        setRetainInstance(true);
-
-        doConfigure();
-
-        doLoadExtras();
-
-    }
-
-    private void doConfigure() {
-
-        context = getContext();
-
-        intent = getActivity().getIntent();
-    }
-
-    private void doLoadExtras() {
-
-        customer = (Customer) intent.getSerializableExtra("customer");
-
-        shoppingCart = (ShoppingCart) intent.getSerializableExtra("shoppingCart");
-
-        selectedAddress = (Address) intent.getSerializableExtra("address");
-
-        selectedVehicle = (Vehicle) intent.getSerializableExtra("vehicle");
-
     }
 
     @Override
@@ -110,7 +61,8 @@ public class AddressFragment extends Fragment {
 
     }
 
-    private void doCastComponents(View rootView) {
+    @Override
+    protected void doCastComponents(View rootView) {
 
         listView = (ListView) rootView.findViewById(R.id.lvAddresses);
 
@@ -118,17 +70,18 @@ public class AddressFragment extends Fragment {
 
     }
 
-    private void doCreateListeners() {
+    @Override
+    protected void doCreateListeners() {
 
         fab.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(context,"New Address Button",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "New Address Button", Toast.LENGTH_SHORT).show();
 
                 startActivity(new Intent(context, NewAddressActivity.class)
-                        .putExtra("customer",customer)
+                        .putExtra("customer", customer)
 
                 );
             }
@@ -145,7 +98,7 @@ public class AddressFragment extends Fragment {
 
                 selectedAddress = (Address) itemValue;
 
-                startActivity(new Intent(context,NewAddressActivity.class)
+                startActivity(new Intent(context, NewAddressActivity.class)
                         .putExtra("customer", customer)
                         .putExtra("address", selectedAddress)
                 );
@@ -157,22 +110,20 @@ public class AddressFragment extends Fragment {
 
     private void doLoadAddresses() {
 
-            Log.d("INFO", "Load Addresses from webservice");
+        Log.d("INFO", "Load Addresses from webservice");
 
-            TaskDownloadAddress taskLoadAddresses = new TaskDownloadAddress(context, new AsyncResponse<List<Address>>() {
+        TaskDownloadAddress taskLoadAddresses = new TaskDownloadAddress(context, new AsyncResponse<List<Address>>() {
 
-                @Override
-                public void processFinish(List<Address> output) {
+            @Override
+            public void processFinish(List<Address> output) {
 
-                    addresses = output;
+                addresses = output;
 
-                    doFillData(addresses);
-                }
-            });
+                doFillData(addresses);
+            }
+        });
 
-            taskLoadAddresses.execute(customer);
-
-
+        taskLoadAddresses.execute(customer);
 
 
     }

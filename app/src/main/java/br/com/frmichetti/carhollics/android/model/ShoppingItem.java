@@ -16,29 +16,26 @@ import br.com.frmichetti.carhollics.android.model.compatibility.Service;
  *
  * @author felipe
  * @since 1.0
- * @version
  */
 public class ShoppingItem implements Serializable {
-
-    private static final long serialVersionUID = -3480230394888070089L;
 
     private Long serviceId;
 
     private Service service;
 
-    public ShoppingItem() {
+    private ShoppingItem() {
         super();
+    }
+
+    private static ShoppingItem shoppingItem() {
+        Service service = new Service();
+        service.setPrice(BigDecimal.ZERO);
+        return new ShoppingItem(service);
     }
 
     public ShoppingItem(Service service) {
         this.service = service;
         this.serviceId = service.getId();
-    }
-
-    public static ShoppingItem shoppingItem() {
-        Service service = new Service();
-        service.setPrice(BigDecimal.ZERO);
-        return new ShoppingItem(service);
     }
 
     public Service getService() {
@@ -86,4 +83,6 @@ public class ShoppingItem implements Serializable {
     public String toString() {
         return service.toString();
     }
+
+
 }

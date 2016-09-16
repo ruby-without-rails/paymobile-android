@@ -1,7 +1,9 @@
 package br.com.frmichetti.carhollics.android.model.compatibility;
 
-public enum CheckoutStatus {
-	
-	NEW,ANALYSING,INQUEUE,COMPLETE;
-	
+import java.io.Serializable;
+
+public enum CheckoutStatus implements Serializable {
+
+    NEW, ANALYSING, INQUEUE, COMPLETE
+
 }

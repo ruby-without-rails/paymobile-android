@@ -44,7 +44,6 @@ public class WhereActivity extends BaseActivity {
     @Override
     public void doCastComponents() {
 
-
     }
 
     @Override
@@ -57,9 +56,16 @@ public class WhereActivity extends BaseActivity {
 
         super.doConfigure();
 
-        actionBar.setSubtitle("Where Activity");
+        if (actionBar != null) {
+            actionBar.setSubtitle("Where Activity");
+        }
+
 
     }
 
 
+    @Override
+    public void onNetworkConnectionChanged(boolean isConnected) {
+
+    }
 }

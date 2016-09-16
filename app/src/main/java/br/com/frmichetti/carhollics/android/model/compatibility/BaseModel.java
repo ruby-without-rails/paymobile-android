@@ -1,20 +1,18 @@
 package br.com.frmichetti.carhollics.android.model.compatibility;
 
-import java.io.Serializable;
+import android.os.Parcelable;
+
 import java.util.Date;
 
-public abstract class BaseModel implements Serializable {
+public abstract class BaseModel implements Parcelable {
 
-    private static final long serialVersionUID = 1L;
+    private transient int version;
 
-    private int version;
+    private transient Date createdAt;
 
-    private Date createdAt;
+    private transient Date updatedAt;
 
-    private Date updatedAt;
-
-    public BaseModel() {
-    }
+    public BaseModel() {}
 
     public int getVersion() {
         return this.version;

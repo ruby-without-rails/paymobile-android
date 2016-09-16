@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import br.com.frmichetti.carhollics.android.R;
-import br.com.frmichetti.carhollics.android.model.compatibility.Customer;
 import br.com.frmichetti.carhollics.android.model.compatibility.Vehicle;
 
 
@@ -32,20 +31,12 @@ public class VehicleCreateActivity extends BaseActivity {
 
         setContentView(R.layout.activity_vehicle_create);
 
-        doCastComponents();
-
-        doCreateListeners();
-
     }
 
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
 
         super.onPostCreate(savedInstanceState);
-
-        customer = (Customer) intent.getSerializableExtra("customer");
-
-        doConfigure();
 
     }
 
@@ -103,7 +94,9 @@ public class VehicleCreateActivity extends BaseActivity {
 
         super.doConfigure();
 
-        actionBar.setSubtitle("Cadastrar Veículo");
+        if (actionBar != null) {
+            actionBar.setSubtitle("Cadastrar Veículo");
+        }
 
         vehicle = new Vehicle();
 
@@ -119,6 +112,11 @@ public class VehicleCreateActivity extends BaseActivity {
         v.setBrand(editTextBrand.getText().toString());
 
         return v;
+
+    }
+
+    @Override
+    public void onNetworkConnectionChanged(boolean isConnected) {
 
     }
 }

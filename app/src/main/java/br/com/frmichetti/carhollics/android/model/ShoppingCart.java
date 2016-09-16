@@ -25,6 +25,10 @@ public class ShoppingCart implements Serializable {
 
     private Map<ShoppingItem, Integer> mapItems = new LinkedHashMap<>();
 
+    public ShoppingCart(){
+
+    }
+
     public Integer getQuantityOfItens(ShoppingItem shoppingItem) {
 
         if (!mapItems.containsKey(shoppingItem)) {
@@ -122,11 +126,10 @@ public class ShoppingCart implements Serializable {
                         .put("total", getTotal(shoppingItem))
                 );
             } catch (JSONException e) {
-                Log.e("JSON-CONVERSION", "Não foi possível criar objeto JSon", e);
+                Log.e("JSON-CONVERSION", "Não foi possível criar objeto Json", e);
             }
         }
 
         return itens.toString();
     }
-
 }

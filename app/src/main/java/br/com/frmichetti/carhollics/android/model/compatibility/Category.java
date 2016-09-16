@@ -1,14 +1,25 @@
 package br.com.frmichetti.carhollics.android.model.compatibility;
 
-public class Category extends BaseModel {
+import android.os.Parcel;
+import android.os.Parcelable;
 
-    private static final long serialVersionUID = 1L;
+public class Category extends BaseModel {
 
     private Long id;
 
     private String description;
 
     public Category() {
+    }
+
+    public Category(Parcel parcel) {
+
+        if (parcel != null) {
+
+            this.id = parcel.readLong();
+
+            this.description = parcel.readString();
+        }
     }
 
     public Long getId() {
@@ -61,4 +72,31 @@ public class Category extends BaseModel {
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+
+        if (id != null) {
+            parcel.writeLong(id);
+        }
+
+        if (description != null) {
+            parcel.writeString(description);
+        }
+    }
+
+    public static final Parcelable.Creator<Category> CREATOR = new Parcelable.Creator<Category>() {
+
+        public Category createFromParcel(Parcel parcel) {
+            return new Category(parcel);
+        }
+
+        public Category[] newArray(int size) {
+            return new Category[size];
+        }
+    };
 }

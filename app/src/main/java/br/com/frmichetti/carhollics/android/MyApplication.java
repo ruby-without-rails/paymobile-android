@@ -8,8 +8,6 @@ package br.com.frmichetti.carhollics.android;
 
 import android.support.multidex.MultiDexApplication;
 
-import br.com.frmichetti.carhollics.android.util.ConnectivityReceiver;
-
 public class MyApplication extends MultiDexApplication {
 
     private static MyApplication myApplication;
@@ -25,11 +23,6 @@ public class MyApplication extends MultiDexApplication {
         super.onCreate();
 
         myApplication = this;
-    }
-
-    public void setConnectivityListener(ConnectivityReceiver.ConnectivityReceiverListener listener) {
-
-        ConnectivityReceiver.connectivityReceiverListener = listener;
     }
 
 }

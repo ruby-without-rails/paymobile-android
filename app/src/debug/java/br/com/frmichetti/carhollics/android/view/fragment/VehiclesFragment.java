@@ -112,7 +112,7 @@ public class VehiclesFragment extends Fragment {
 
         doCreateListeners();
 
-        doLoadVeiculos();
+        doLoadVehicles();
 
         // Inflate the layout for this fragment
         return rootView;

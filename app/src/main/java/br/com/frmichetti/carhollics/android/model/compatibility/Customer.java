@@ -1,11 +1,12 @@
 package br.com.frmichetti.carhollics.android.model.compatibility;
 
-import java.util.HashSet;
-import java.util.Set;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Customer extends BaseModel {
-
-    private static final long serialVersionUID = 1L;
 
     private Long id;
 
@@ -19,9 +20,31 @@ public class Customer extends BaseModel {
 
     private long mobilePhone;
 
-    private Set<Vehicle> vehicles = new HashSet<Vehicle>();
+    private List<Vehicle> vehicles = new ArrayList<>();
 
     public Customer() {
+    }
+
+    public Customer(Parcel parcel) {
+
+        if (parcel != null) {
+
+            this.id = parcel.readLong();
+
+            this.user = parcel.readParcelable(User.class.getClassLoader());
+
+            this.name = parcel.readString();
+
+            this.cpf = parcel.readLong();
+
+            this.phone = parcel.readLong();
+
+            this.mobilePhone = parcel.readLong();
+
+            this.vehicles = parcel.readArrayList(Vehicle.class.getClassLoader());
+        }
+
+
     }
 
     public Long getId() {
@@ -108,12 +131,55 @@ public class Customer extends BaseModel {
         return result;
     }
 
-    public Set<Vehicle> getVehicles() {
+    public List<Vehicle> getVehicles() {
         return this.vehicles;
     }
 
-    public void setVehicles(final Set<Vehicle> vehicles) {
+    public void setVehicles(final List<Vehicle> vehicles) {
         this.vehicles = vehicles;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+
+        if (id != null) {
+            parcel.writeLong(id);
+        }
+
+        if (user != null) {
+            parcel.writeParcelable(user, i);
+        }
+
+        if (name != null) {
+            parcel.writeString(name);
+        }
+
+        parcel.writeLong(cpf);
+
+        parcel.writeLong(phone);
+
+        parcel.writeLong(mobilePhone);
+
+        if (vehicles != null) {
+            parcel.writeList(vehicles);
+        }
+
+
+    }
+
+    public static final Parcelable.Creator<Customer> CREATOR = new Parcelable.Creator<Customer>() {
+
+        public Customer createFromParcel(Parcel parcel) {
+            return new Customer(parcel);
+        }
+
+        public Customer[] newArray(int size) {
+            return new Customer[size];
+        }
+    };
 }

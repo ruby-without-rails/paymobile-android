@@ -6,12 +6,18 @@
  */
 package br.com.frmichetti.carhollics.android.view.activity;
 
+import android.content.Context;
+
 public interface MyPattern {
 
     void doCastComponents();
 
     void doCreateListeners();
 
+    void setupToolBar();
+
     void doConfigure();
+
+    void doChangeActivity(Context context, Class clazz);
 
 }
