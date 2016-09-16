@@ -6,8 +6,8 @@
  */
 package br.com.frmichetti.carhollics.android.view.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.frmichetti.carhollics.android.R;
@@ -54,7 +55,6 @@ public class ServicesFragment extends BaseFragment {
 
         doLoadServices();
 
-        // Inflate the layout for this fragment
         return rootView;
     }
 
@@ -81,12 +81,7 @@ public class ServicesFragment extends BaseFragment {
 
                 selectedService = (Service) itemValue;
 
-                startActivity(new Intent(context, ServiceDetailActivity.class)
-                        .putExtra("shoppingCart", shoppingCart)
-                        .putExtra("customer", customer)
-                        .putExtra("vehicle", selectedVehicle)
-                        .putExtra("service", selectedService)
-                );
+                doChangeActivity(context, ServiceDetailActivity.class);
 
             }
         });
@@ -97,19 +92,19 @@ public class ServicesFragment extends BaseFragment {
 
         if (services == null) {
 
-            Log.d("INFO", "Load Services from webservice");
+            Log.d("[DOWNLOAD-SERVICES]", "Load Services from webservice");
 
             TaskDownloadServices taskDownloadServices = new TaskDownloadServices(context,
-                    new AsyncResponse<List<Service>>() {
+                    new AsyncResponse<ArrayList<Service>>() {
 
-                @Override
-                public void processFinish(List<Service> output) {
+                        @Override
+                        public void processFinish(ArrayList<Service> output) {
 
-                    services = output;
+                            services = output;
 
-                    doFillData(services);
-                }
-            });
+                            doFillData(services);
+                        }
+                    });
 
             taskDownloadServices.execute();
 
@@ -126,5 +121,11 @@ public class ServicesFragment extends BaseFragment {
         listView.setAdapter(adpItem);
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
 
+        super.onSaveInstanceState(outState);
+
+        outState.putParcelable("services", (Parcelable) services);
+    }
 }

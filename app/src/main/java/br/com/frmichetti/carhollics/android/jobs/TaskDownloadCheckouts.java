@@ -27,7 +27,7 @@ import br.com.frmichetti.carhollics.android.model.compatibility.Customer;
 import br.com.frmichetti.carhollics.android.util.GsonDateDeserializer;
 
 
-public class TaskDownloadCheckouts extends AsyncTask<Customer, String, List<Checkout>> {
+public class TaskDownloadCheckouts extends AsyncTask<Customer, String, ArrayList<Checkout>> {
 
     public AsyncResponse delegate = null;
 
@@ -35,13 +35,13 @@ public class TaskDownloadCheckouts extends AsyncTask<Customer, String, List<Chec
 
     private String response;
 
-    private List<Checkout> checkouts;
+    private ArrayList<Checkout> checkouts;
 
     private ProgressDialog dialog;
 
     private Context context;
 
-    public TaskDownloadCheckouts(Context context, AsyncResponse<List<Checkout>> delegate) {
+    public TaskDownloadCheckouts(Context context, AsyncResponse<ArrayList<Checkout>> delegate) {
         this(context);
         this.delegate = delegate;
     }
@@ -82,7 +82,7 @@ public class TaskDownloadCheckouts extends AsyncTask<Customer, String, List<Chec
 
 
     @Override
-    protected List<Checkout> doInBackground(Customer... params) {
+    protected ArrayList<Checkout> doInBackground(Customer... params) {
 
         try {
 
@@ -122,7 +122,7 @@ public class TaskDownloadCheckouts extends AsyncTask<Customer, String, List<Chec
 
 
     @Override
-    protected void onPostExecute(List<Checkout> result) {
+    protected void onPostExecute(ArrayList<Checkout> result) {
 
         dialog.setMessage("Tarefa Finalizada!");
 

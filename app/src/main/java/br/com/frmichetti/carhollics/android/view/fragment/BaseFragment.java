@@ -13,6 +13,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
+import java.io.Serializable;
+
 import br.com.frmichetti.carhollics.android.model.ShoppingCart;
 import br.com.frmichetti.carhollics.android.model.compatibility.Address;
 import br.com.frmichetti.carhollics.android.model.compatibility.Customer;
@@ -63,13 +65,58 @@ public abstract class BaseFragment extends Fragment {
     //TODO FIXME VERIFYME
     protected void doLoadExtras(Intent intent) {
 
-        customer = intent.getParcelableExtra("customer");
+        if (intent != null) {
 
-        shoppingCart = (ShoppingCart) intent.getSerializableExtra("shoppingCart");
+            shoppingCart = (ShoppingCart) intent.getSerializableExtra("shoppingCart");
 
-        selectedAddress = intent.getParcelableExtra("address");
+            customer = (Customer) intent.getSerializableExtra("customer");
 
-        selectedVehicle = intent.getParcelableExtra("vehicle");
+            selectedVehicle = (Vehicle) intent.getSerializableExtra("vehicle");
 
+            selectedService = (Service) intent.getSerializableExtra("service");
+
+            selectedAddress = (Address) intent.getSerializableExtra("address");
+        } else {
+            throw new RuntimeException("Forbidden - Could not get Intent");
+        }
+
+
+    }
+
+    public void doChangeActivity(Context context, Class clazz) {
+
+        if (shoppingCart == null) {
+
+            throw new RuntimeException("Forbidden - Shopping Cart is Null");
+
+        }
+
+        if (customer == null) {
+
+            throw new RuntimeException("Forbidden - Customer is Null");
+        }
+
+        if (selectedVehicle == null) {
+            throw new RuntimeException("Forbidden - SelectedVehicle is Null");
+        }
+
+        if (selectedAddress == null) {
+
+            throw new RuntimeException("Forbidden - SelectedAddress is Null");
+
+        }
+
+        if (selectedService == null) {
+
+            throw new RuntimeException("Forbidden - SelectedService is Null");
+
+        }
+
+        startActivity(new Intent(context, clazz)
+                .putExtra("shoppingCart", shoppingCart)
+                .putExtra("customer", (Serializable) customer)
+                .putExtra("vehicle", (Serializable) selectedVehicle)
+                .putExtra("service", (Serializable) selectedService)
+                .putExtra("address", (Serializable) selectedAddress));
     }
 }

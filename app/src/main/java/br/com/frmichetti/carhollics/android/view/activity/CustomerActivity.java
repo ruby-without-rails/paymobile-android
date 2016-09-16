@@ -215,7 +215,7 @@ public class CustomerActivity extends BaseActivity {
 
         super.doLoadExtras(intent);
 
-        user = intent.getParcelableExtra("user");
+        user = (User) intent.getSerializableExtra("user");
 
     }
 

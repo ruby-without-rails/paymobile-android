@@ -27,12 +27,6 @@ public class ShoppingItem implements Serializable {
         super();
     }
 
-    private static ShoppingItem shoppingItem() {
-        Service service = new Service();
-        service.setPrice(BigDecimal.ZERO);
-        return new ShoppingItem(service);
-    }
-
     public ShoppingItem(Service service) {
         this.service = service;
         this.serviceId = service.getId();

@@ -4,7 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Customer extends BaseModel {
 
@@ -20,7 +19,7 @@ public class Customer extends BaseModel {
 
     private long mobilePhone;
 
-    private List<Vehicle> vehicles = new ArrayList<>();
+    private ArrayList<Vehicle> vehicles = new ArrayList<>();
 
     public Customer() {
     }
@@ -41,7 +40,7 @@ public class Customer extends BaseModel {
 
             this.mobilePhone = parcel.readLong();
 
-            this.vehicles = parcel.readArrayList(Vehicle.class.getClassLoader());
+            parcel.readTypedList(this.vehicles, Vehicle.CREATOR);
         }
 
 
@@ -131,11 +130,11 @@ public class Customer extends BaseModel {
         return result;
     }
 
-    public List<Vehicle> getVehicles() {
+    public ArrayList<Vehicle> getVehicles() {
         return this.vehicles;
     }
 
-    public void setVehicles(final List<Vehicle> vehicles) {
+    public void setVehicles(final ArrayList<Vehicle> vehicles) {
         this.vehicles = vehicles;
     }
 
@@ -166,7 +165,7 @@ public class Customer extends BaseModel {
         parcel.writeLong(mobilePhone);
 
         if (vehicles != null) {
-            parcel.writeList(vehicles);
+            parcel.writeTypedList(vehicles);
         }
 
 

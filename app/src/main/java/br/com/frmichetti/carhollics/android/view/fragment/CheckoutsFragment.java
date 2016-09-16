@@ -16,6 +16,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.frmichetti.carhollics.android.R;
@@ -63,16 +65,16 @@ public class CheckoutsFragment extends BaseFragment {
             Log.d("INFO", "Load Checkouts from webservice");
 
             TaskDownloadCheckouts taskDownloadCheckouts = new TaskDownloadCheckouts(context,
-                    new AsyncResponse<List<Checkout>>() {
+                    new AsyncResponse<ArrayList<Checkout>>() {
 
-                @Override
-                public void processFinish(List<Checkout> output) {
+                        @Override
+                        public void processFinish(ArrayList<Checkout> output) {
 
-                    checkouts = output;
+                            checkouts = output;
 
-                    doFillData(checkouts);
-                }
-            });
+                            doFillData(checkouts);
+                        }
+                    });
 
             taskDownloadCheckouts.execute(customer);
         }
@@ -103,7 +105,7 @@ public class CheckoutsFragment extends BaseFragment {
                 selectedCheckout = (Checkout) itemValue;
 
                 startActivity(new Intent(context, CheckoutDetailActivity.class)
-                        .putExtra("selectedCheckout", selectedCheckout));
+                        .putExtra("selectedCheckout", (Serializable) selectedCheckout));
 
 
             }

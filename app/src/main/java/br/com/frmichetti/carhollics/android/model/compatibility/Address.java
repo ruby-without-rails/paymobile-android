@@ -149,6 +149,8 @@ public class Address extends BaseModel {
 
             e.printStackTrace();
 
+            json = "[ERROR] - [Could not Create a Json]";
+
         }
 
         return json;

@@ -2,9 +2,10 @@ package br.com.frmichetti.carhollics.android.model.compatibility;
 
 import android.os.Parcelable;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public abstract class BaseModel implements Parcelable {
+public abstract class BaseModel implements Parcelable, Serializable {
 
     private transient int version;
 
@@ -12,7 +13,8 @@ public abstract class BaseModel implements Parcelable {
 
     private transient Date updatedAt;
 
-    public BaseModel() {}
+    public BaseModel() {
+    }
 
     public int getVersion() {
         return this.version;

@@ -167,7 +167,7 @@ public class Service extends BaseModel {
             parcel.writeDouble(price.doubleValue());
         }
 
-        parcel.writeByteArray(thumbnail);
+       // parcel.writeByteArray(thumbnail);
 
     }
 

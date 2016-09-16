@@ -46,7 +46,7 @@ public class CheckoutDetailActivity extends BaseActivity {
 
     private void doFillDate(Intent intent) {
 
-        checkout = intent.getParcelableExtra("selectedCheckout");
+        checkout = (Checkout) intent.getSerializableExtra("selectedCheckout");
 
         if (checkout != null) {
 

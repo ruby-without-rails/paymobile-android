@@ -31,6 +31,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.iid.FirebaseInstanceId;
 
+import java.io.Serializable;
+
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.model.ShoppingCart;
 import br.com.frmichetti.carhollics.android.model.compatibility.Address;
@@ -80,7 +82,6 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         Log.d("[ON-CREATE]", "Super On Create");
 
-
     }
 
     @Override
@@ -126,7 +127,6 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
     protected void onStop() {
 
         super.onStop();
-
 
         if (authListener != null) {
 
@@ -312,7 +312,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         intent = getIntent();
 
-        Log.d("DEBUG-DO-CONFIGURE", "Super Do Configure");
+        Log.d("[DO-CONFIGURE]", "Super Do Configure");
 
     }
 
@@ -330,7 +330,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        Log.d("DEBUG-SETUP-TOOLBAR", "Super Setup Toolbar");
+        Log.d("[SETUP-TOOLBAR]", "Super Setup Toolbar");
 
     }
 
@@ -359,7 +359,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
             fragmentId = bundle.getInt("fragmentId");
 
-            Log.d("[INFO-LOAD-BUNDLE]", "Load Saved State");
+            Log.d("[LOAD-BUNDLE]", "Load Saved State");
 
         }
 
@@ -383,7 +383,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         bundle.putInt("fragmentId", fragmentId);
 
-        Log.d("[INFO-SAVE-BUNDLE]", "Saved State");
+        Log.d("[SAVE-BUNDLE]", "Saved State");
 
         return bundle;
     }
@@ -392,11 +392,11 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         shoppingCart = (ShoppingCart) intent.getSerializableExtra("shoppingCart");
 
-        customer = intent.getParcelableExtra("customer");
+        customer = (Customer) intent.getSerializableExtra("customer");
 
-        selectedService = intent.getParcelableExtra("service");
+        selectedService = (Service) intent.getSerializableExtra("service");
 
-        selectedVehicle = intent.getParcelableExtra("vehicle");
+        selectedVehicle = (Vehicle) intent.getSerializableExtra("vehicle");
 
         Log.d("DEBUG-LOAD-EXTRAS", "Load Extras");
     }
@@ -447,12 +447,39 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
     @Override
     public void doChangeActivity(Context context, Class clazz) {
 
+        if (shoppingCart == null) {
+
+            throw new RuntimeException("Forbidden - Shopping Cart is Null");
+
+        }
+
+        if (customer == null) {
+
+            throw new RuntimeException("Forbidden - Customer is Null");
+        }
+
+        if (selectedVehicle == null) {
+            throw new RuntimeException("Forbidden - SelectedVehicle is Null");
+        }
+
+        if (selectedAddress == null) {
+
+            throw new RuntimeException("Forbidden - SelectedAddress is Null");
+
+        }
+
+        if (selectedService == null) {
+
+            throw new RuntimeException("Forbidden - SelectedService is Null");
+
+        }
+
         startActivity(new Intent(context, clazz)
                 .putExtra("shoppingCart", shoppingCart)
-                .putExtra("customer", customer)
-                .putExtra("vehicle", selectedVehicle)
-                .putExtra("service", selectedService)
-                .putExtra("address", selectedAddress));
+                .putExtra("customer", (Serializable) customer)
+                .putExtra("vehicle", (Serializable) selectedVehicle)
+                .putExtra("service", (Serializable) selectedService)
+                .putExtra("address", (Serializable) selectedAddress));
     }
 
 }

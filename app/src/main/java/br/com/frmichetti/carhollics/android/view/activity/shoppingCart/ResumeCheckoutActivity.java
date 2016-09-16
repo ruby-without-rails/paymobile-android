@@ -216,10 +216,10 @@ public class ResumeCheckoutActivity extends BaseActivity {
 
     private void doFillSpinners() {
 
-        TaskDownloadAddress taskDownloadAddress = new TaskDownloadAddress(context, new AsyncResponse<List<Address>>() {
+        TaskDownloadAddress taskDownloadAddress = new TaskDownloadAddress(context, new AsyncResponse<ArrayList<Address>>() {
 
             @Override
-            public void processFinish(List<Address> output) {
+            public void processFinish(ArrayList<Address> output) {
 
                 if (output != null) {
 
@@ -249,10 +249,10 @@ public class ResumeCheckoutActivity extends BaseActivity {
         taskDownloadAddress.execute(customer);
 
 
-        TaskDownloadVehicles taskDownloadVehicles = new TaskDownloadVehicles(context, new AsyncResponse<List<Vehicle>>() {
+        TaskDownloadVehicles taskDownloadVehicles = new TaskDownloadVehicles(context, new AsyncResponse<ArrayList<Vehicle>>() {
 
             @Override
-            public void processFinish(List<Vehicle> output) {
+            public void processFinish(ArrayList<Vehicle> output) {
 
                 if (output != null) {
 

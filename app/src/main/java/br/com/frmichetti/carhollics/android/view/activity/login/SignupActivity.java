@@ -26,6 +26,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.iid.FirebaseInstanceId;
 
+import java.io.Serializable;
+
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
 import br.com.frmichetti.carhollics.android.jobs.TaskCreateUser;
@@ -169,7 +171,7 @@ public class SignupActivity extends BaseActivity {
                                                 //TODO Implementar Logica do Login
 
                                                 startActivity(new Intent(context, CustomerActivity.class)
-                                                        .putExtra("user", output));
+                                                        .putExtra("user", (Serializable) output));
 
                                                 finish();
                                             }

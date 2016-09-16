@@ -18,6 +18,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.frmichetti.carhollics.android.R;
@@ -81,7 +83,7 @@ public class AddressFragment extends BaseFragment {
                 Toast.makeText(context, "New Address Button", Toast.LENGTH_SHORT).show();
 
                 startActivity(new Intent(context, NewAddressActivity.class)
-                        .putExtra("customer", customer)
+                        .putExtra("customer", (Serializable) customer)
 
                 );
             }
@@ -99,8 +101,8 @@ public class AddressFragment extends BaseFragment {
                 selectedAddress = (Address) itemValue;
 
                 startActivity(new Intent(context, NewAddressActivity.class)
-                        .putExtra("customer", customer)
-                        .putExtra("address", selectedAddress)
+                        .putExtra("customer", (Serializable) customer)
+                        .putExtra("address", (Serializable) selectedAddress)
                 );
 
             }
@@ -112,10 +114,10 @@ public class AddressFragment extends BaseFragment {
 
         Log.d("INFO", "Load Addresses from webservice");
 
-        TaskDownloadAddress taskLoadAddresses = new TaskDownloadAddress(context, new AsyncResponse<List<Address>>() {
+        TaskDownloadAddress taskLoadAddresses = new TaskDownloadAddress(context, new AsyncResponse<ArrayList<Address>>() {
 
             @Override
-            public void processFinish(List<Address> output) {
+            public void processFinish(ArrayList<Address> output) {
 
                 addresses = output;
 

@@ -23,19 +23,19 @@ import br.com.frmichetti.carhollics.android.dao.HTTP;
 import br.com.frmichetti.carhollics.android.model.compatibility.Vehicle;
 
 
-public class TaskDownloadVehicles extends AsyncTask<Void, String, List<Vehicle>> {
+public class TaskDownloadVehicles extends AsyncTask<Void, String, ArrayList<Vehicle>> {
 
     public AsyncResponse delegate = null;
 
     private String url;
 
-    private List<Vehicle> vehicles;
+    private ArrayList<Vehicle> vehicles;
 
     private ProgressDialog dialog;
 
     private Context context;
 
-    public TaskDownloadVehicles(Context context, AsyncResponse<List<Vehicle>> delegate) {
+    public TaskDownloadVehicles(Context context, AsyncResponse<ArrayList<Vehicle>> delegate) {
         this(context);
         this.delegate = delegate;
     }
@@ -76,7 +76,7 @@ public class TaskDownloadVehicles extends AsyncTask<Void, String, List<Vehicle>>
 
 
     @Override
-    protected List<Vehicle> doInBackground(Void... params) {
+    protected ArrayList<Vehicle> doInBackground(Void... params) {
 
         String response = "";
 
@@ -114,7 +114,7 @@ public class TaskDownloadVehicles extends AsyncTask<Void, String, List<Vehicle>>
 
 
     @Override
-    protected void onPostExecute(List<Vehicle> result) {
+    protected void onPostExecute(ArrayList<Vehicle> result) {
 
         dialog.setMessage("Tarefa Finalizada!");
 

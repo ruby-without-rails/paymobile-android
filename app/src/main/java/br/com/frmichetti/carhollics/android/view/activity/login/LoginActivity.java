@@ -9,7 +9,6 @@ package br.com.frmichetti.carhollics.android.view.activity.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.text.TextUtils;
 import android.util.Log;
@@ -23,6 +22,8 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+
+import java.io.Serializable;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
@@ -51,13 +52,6 @@ public class LoginActivity extends BaseActivity {
         doCreateListeners();
 
         setupToolBar();
-
-    }
-
-    @Override
-    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
-
-        super.onPostCreate(savedInstanceState);
 
     }
 
@@ -165,7 +159,7 @@ public class LoginActivity extends BaseActivity {
                                                 if (output != null) {
 
                                                     startActivity(new Intent(context, MainActivity.class)
-                                                            .putExtra("customer", output));
+                                                            .putExtra("customer", (Serializable) output));
 
                                                     finish();
 

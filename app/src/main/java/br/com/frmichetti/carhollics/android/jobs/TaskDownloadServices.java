@@ -23,19 +23,19 @@ import br.com.frmichetti.carhollics.android.dao.HTTP;
 import br.com.frmichetti.carhollics.android.model.compatibility.Service;
 
 
-public class TaskDownloadServices extends AsyncTask<Void, String, List<Service>> {
+public class TaskDownloadServices extends AsyncTask<Void, String, ArrayList<Service>> {
 
     public AsyncResponse delegate = null;
 
     private String url;
 
-    private List<Service> services;
+    private ArrayList<Service> services;
 
     private ProgressDialog dialog;
 
     private Context context;
 
-    public TaskDownloadServices(Context context, AsyncResponse<List<Service>> delegate) {
+    public TaskDownloadServices(Context context, AsyncResponse<ArrayList<Service>> delegate) {
         this(context);
         this.delegate = delegate;
     }
@@ -76,7 +76,7 @@ public class TaskDownloadServices extends AsyncTask<Void, String, List<Service>>
 
 
     @Override
-    protected List<Service> doInBackground(Void... params) {
+    protected ArrayList<Service> doInBackground(Void... params) {
 
         String response = "";
 
@@ -116,7 +116,7 @@ public class TaskDownloadServices extends AsyncTask<Void, String, List<Service>>
 
 
     @Override
-    protected void onPostExecute(List<Service> result) {
+    protected void onPostExecute(ArrayList<Service> result) {
 
         dialog.setMessage("Tarefa Finalizada!");
 

@@ -16,7 +16,6 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.dao.HTTP;
@@ -24,19 +23,19 @@ import br.com.frmichetti.carhollics.android.model.compatibility.Address;
 import br.com.frmichetti.carhollics.android.model.compatibility.Customer;
 
 
-public class TaskDownloadAddress extends AsyncTask<Customer, String, List<Address>> {
+public class TaskDownloadAddress extends AsyncTask<Customer, String, ArrayList<Address>> {
 
     public AsyncResponse delegate = null;
 
     private String url;
 
-    private List<Address> addresses;
+    private ArrayList<Address> addresses;
 
     private ProgressDialog dialog;
 
     private Context context;
 
-    public TaskDownloadAddress(Context context, AsyncResponse<List<Address>> delegate) {
+    public TaskDownloadAddress(Context context, AsyncResponse<ArrayList<Address>> delegate) {
         this(context);
         this.delegate = delegate;
     }
@@ -77,7 +76,7 @@ public class TaskDownloadAddress extends AsyncTask<Customer, String, List<Addres
 
 
     @Override
-    protected List<Address> doInBackground(Customer ... params) {
+    protected ArrayList<Address> doInBackground(Customer... params) {
 
         String response = "";
 
@@ -85,7 +84,7 @@ public class TaskDownloadAddress extends AsyncTask<Customer, String, List<Addres
 
             publishProgress("Enviando Requisição para o Servidor");
 
-            response = HTTP.sendRequest(url,"POST",
+            response = HTTP.sendRequest(url, "POST",
                     new Gson().toJson(params[0]));
 
         } catch (IOException e) {
@@ -99,14 +98,15 @@ public class TaskDownloadAddress extends AsyncTask<Customer, String, List<Addres
 
         //TODO FIXME Receive a JSON ARRAy
 
-        addresses = new Gson().fromJson(response, new TypeToken<List<Address>>(){}.getType());
+        addresses = new Gson().fromJson(response, new TypeToken<ArrayList<Address>>() {
+        }.getType());
 
         return (addresses != null) ? addresses : new ArrayList<Address>();
     }
 
 
     @Override
-    protected void onProgressUpdate(String ... values) {
+    protected void onProgressUpdate(String... values) {
 
         super.onProgressUpdate(values);
 
@@ -115,7 +115,7 @@ public class TaskDownloadAddress extends AsyncTask<Customer, String, List<Addres
 
 
     @Override
-    protected void onPostExecute(List<Address> result) {
+    protected void onPostExecute(ArrayList<Address> result) {
 
         dialog.setMessage("Tarefa Finalizada!");
 

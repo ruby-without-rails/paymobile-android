@@ -21,12 +21,9 @@ import java.util.Map;
 
 public class ShoppingCart implements Serializable {
 
-    private static final long serialVersionUID = -2804186734546390662L;
-
     private Map<ShoppingItem, Integer> mapItems = new LinkedHashMap<>();
 
-    public ShoppingCart(){
-
+    public ShoppingCart() {
     }
 
     public Integer getQuantityOfItens(ShoppingItem shoppingItem) {
@@ -70,7 +67,6 @@ public class ShoppingCart implements Serializable {
     }
 
     public void add(ShoppingItem shoppingItem) {
-
         mapItems.put(shoppingItem, getQuantityOfItens(shoppingItem) + 1);
     }
 

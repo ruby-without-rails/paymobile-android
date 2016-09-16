@@ -51,8 +51,7 @@ public class Checkout extends BaseModel {
 
             this.total = new BigDecimal(parcel.readDouble());
 
-            //TODO FIXME read status
-            this.status = (CheckoutStatus) parcel.readSerializable();
+            this.status = parcel.readParcelable(CheckoutStatus.class.getClassLoader());
         }
 
 
@@ -193,7 +192,7 @@ public class Checkout extends BaseModel {
         }
 
         if (vehicle != null) {
-            parcel.writeParcelable(vehicle, i + 1);
+            parcel.writeParcelable(vehicle, i);
         }
 
         if (address != null) {
@@ -209,7 +208,7 @@ public class Checkout extends BaseModel {
         }
 
         if (status != null) {
-            parcel.writeSerializable(status);
+            parcel.writeParcelable(status, i);
         }
 
     }

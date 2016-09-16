@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.frmichetti.carhollics.android.R;
@@ -95,10 +96,10 @@ public class VehiclesFragment extends BaseFragment {
 
             Log.d("INFO", "Load Services from webservice");
 
-            TaskDownloadVehicles taskDownloadVehicles = new TaskDownloadVehicles(context, new AsyncResponse<List<Vehicle>>() {
+            TaskDownloadVehicles taskDownloadVehicles = new TaskDownloadVehicles(context, new AsyncResponse<ArrayList<Vehicle>>() {
 
                 @Override
-                public void processFinish(List<Vehicle> output) {
+                public void processFinish(ArrayList<Vehicle> output) {
 
                     vehicles = output;
 
