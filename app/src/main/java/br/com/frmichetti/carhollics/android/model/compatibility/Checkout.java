@@ -166,7 +166,7 @@ public class Checkout extends BaseModel {
         return result;
     }
 
-
+/*
     @Override
     public int describeContents() {
         return 0;
@@ -224,4 +224,6 @@ public class Checkout extends BaseModel {
             return new Checkout[size];
         }
     };
+
+    */
 }

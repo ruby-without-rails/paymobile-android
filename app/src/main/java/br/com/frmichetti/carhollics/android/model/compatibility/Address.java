@@ -155,7 +155,7 @@ public class Address extends BaseModel {
 
         return json;
     }
-
+/*
     @Override
     public int describeContents() {
         return 0;
@@ -203,4 +203,6 @@ public class Address extends BaseModel {
             return new Address[size];
         }
     };
+
+    */
 }

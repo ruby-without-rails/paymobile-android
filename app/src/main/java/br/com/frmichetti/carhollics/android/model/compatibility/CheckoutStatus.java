@@ -5,11 +5,11 @@ import android.os.Parcelable;
 
 import java.io.Serializable;
 
-public enum CheckoutStatus implements Parcelable,Serializable {
+public enum CheckoutStatus implements Serializable {
 
     NEW, ANALYSING, INQUEUE, COMPLETE;
 
-
+/*
     public static final Creator<CheckoutStatus> CREATOR = new Creator<CheckoutStatus>() {
         @Override
         public CheckoutStatus createFromParcel(Parcel in) {
@@ -31,6 +31,6 @@ public enum CheckoutStatus implements Parcelable,Serializable {
     public void writeToParcel(Parcel out, int flags) {
         out.writeInt(ordinal());
     }
-
+*/
 
 }

@@ -71,7 +71,7 @@ public class Category extends BaseModel {
         return result;
     }
 
-
+/*
     @Override
     public int describeContents() {
         return 0;
@@ -99,4 +99,5 @@ public class Category extends BaseModel {
             return new Category[size];
         }
     };
+    */
 }

@@ -30,7 +30,7 @@ public class CheckoutsFragment extends BaseFragment {
 
     private Checkout selectedCheckout;
 
-    private List<Checkout> checkouts;
+    private ArrayList<Checkout> checkouts;
 
     private ListView listView;
 

@@ -5,7 +5,7 @@ import android.os.Parcelable;
 import java.io.Serializable;
 import java.util.Date;
 
-public abstract class BaseModel implements Parcelable, Serializable {
+public abstract class BaseModel implements Serializable {
 
     private transient int version;
 

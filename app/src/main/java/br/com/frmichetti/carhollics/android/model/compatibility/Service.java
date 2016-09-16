@@ -134,7 +134,7 @@ public class Service extends BaseModel {
         return title;
     }
 
-
+/*
     @Override
     public int describeContents() {
         return 0;
@@ -181,4 +181,5 @@ public class Service extends BaseModel {
             return new Service[size];
         }
     };
+    */
 }

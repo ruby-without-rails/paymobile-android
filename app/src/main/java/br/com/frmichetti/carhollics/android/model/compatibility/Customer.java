@@ -40,7 +40,7 @@ public class Customer extends BaseModel {
 
             this.mobilePhone = parcel.readLong();
 
-            parcel.readTypedList(this.vehicles, Vehicle.CREATOR);
+     //       parcel.readTypedList(this.vehicles, Vehicle.CREATOR);
         }
 
 
@@ -137,7 +137,7 @@ public class Customer extends BaseModel {
     public void setVehicles(final ArrayList<Vehicle> vehicles) {
         this.vehicles = vehicles;
     }
-
+/*
     @Override
     public int describeContents() {
         return 0;
@@ -181,4 +181,5 @@ public class Customer extends BaseModel {
             return new Customer[size];
         }
     };
+    */
 }

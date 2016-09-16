@@ -41,8 +41,6 @@ public class ResumeCheckoutActivity extends BaseActivity {
 
     private Button buttonConfirm;
 
-    private Checkout checkout;
-
     private List<Vehicle> vehicles;
 
     private List<Address> addresses;
@@ -81,6 +79,8 @@ public class ResumeCheckoutActivity extends BaseActivity {
 
             @Override
             public void onClick(View view) {
+
+                Checkout checkout = new Checkout();
 
                 checkout.setPurchaseDate(new Date());
 

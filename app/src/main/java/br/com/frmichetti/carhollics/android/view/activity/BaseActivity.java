@@ -144,15 +144,15 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         super.onSaveInstanceState(outState);
 
-        outState.putParcelable("customer", customer);
+        outState.putSerializable("customer", customer);
 
         outState.putSerializable("shoppingCart", shoppingCart);
 
-        outState.putParcelable("service", selectedService);
+        outState.putSerializable("service", selectedService);
 
-        outState.putParcelable("vehicle", selectedVehicle);
+        outState.putSerializable("vehicle", selectedVehicle);
 
-        outState.putParcelable("address", selectedAddress);
+        outState.putSerializable("address", selectedAddress);
 
         outState.putInt("fragmentId", fragmentId);
 
@@ -351,11 +351,11 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
             //TODO CHANGE TO PARCELABLE
             shoppingCart = (ShoppingCart) bundle.getSerializable("shoppingCart");
 
-            selectedService = bundle.getParcelable("service");
+            selectedService = (Service) bundle.getSerializable("service");
 
-            selectedVehicle = bundle.getParcelable("vehicle");
+            selectedVehicle = (Vehicle) bundle.getSerializable("vehicle");
 
-            selectedAddress = bundle.getParcelable("address");
+            selectedAddress = (Address) bundle.getSerializable("address");
 
             fragmentId = bundle.getInt("fragmentId");
 
@@ -370,16 +370,16 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         Bundle bundle = new Bundle();
 
-        bundle.putParcelable("customer", customer);
+        bundle.putSerializable("customer", customer);
 
         //TODO CHANGE TO PARCELABLE
         bundle.putSerializable("shoppingCart", shoppingCart);
 
-        bundle.putParcelable("service", selectedService);
+        bundle.putSerializable("service", selectedService);
 
-        bundle.putParcelable("vehicle", selectedVehicle);
+        bundle.putSerializable("vehicle", selectedVehicle);
 
-        bundle.putParcelable("address", selectedAddress);
+        bundle.putSerializable("address", selectedAddress);
 
         bundle.putInt("fragmentId", fragmentId);
 
@@ -390,13 +390,46 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
     public void doLoadExtras(Intent intent) {
 
-        shoppingCart = (ShoppingCart) intent.getSerializableExtra("shoppingCart");
+        if (intent != null) {
 
-        customer = (Customer) intent.getSerializableExtra("customer");
+            shoppingCart = (ShoppingCart) intent.getSerializableExtra("shoppingCart");
 
-        selectedService = (Service) intent.getSerializableExtra("service");
+            customer = (Customer) intent.getSerializableExtra("customer");
 
-        selectedVehicle = (Vehicle) intent.getSerializableExtra("vehicle");
+            selectedService = (Service) intent.getSerializableExtra("service");
+
+            selectedVehicle = (Vehicle) intent.getSerializableExtra("vehicle");
+
+        }
+
+        /*
+        if (shoppingCart == null) {
+
+            throw new RuntimeException("Forbidden - Shopping Cart is Null");
+
+        }
+
+        if (customer == null) {
+
+            throw new RuntimeException("Forbidden - Customer is Null");
+        }
+
+        if (selectedVehicle == null) {
+            throw new RuntimeException("Forbidden - SelectedVehicle is Null");
+        }
+
+        if (selectedAddress == null) {
+
+            throw new RuntimeException("Forbidden - SelectedAddress is Null");
+
+        }
+
+        if (selectedService == null) {
+
+            throw new RuntimeException("Forbidden - SelectedService is Null");
+
+        }
+*/
 
         Log.d("DEBUG-LOAD-EXTRAS", "Load Extras");
     }
@@ -446,33 +479,6 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
     @Override
     public void doChangeActivity(Context context, Class clazz) {
-
-        if (shoppingCart == null) {
-
-            throw new RuntimeException("Forbidden - Shopping Cart is Null");
-
-        }
-
-        if (customer == null) {
-
-            throw new RuntimeException("Forbidden - Customer is Null");
-        }
-
-        if (selectedVehicle == null) {
-            throw new RuntimeException("Forbidden - SelectedVehicle is Null");
-        }
-
-        if (selectedAddress == null) {
-
-            throw new RuntimeException("Forbidden - SelectedAddress is Null");
-
-        }
-
-        if (selectedService == null) {
-
-            throw new RuntimeException("Forbidden - SelectedService is Null");
-
-        }
 
         startActivity(new Intent(context, clazz)
                 .putExtra("shoppingCart", shoppingCart)

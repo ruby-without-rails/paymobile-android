@@ -141,6 +141,7 @@ public class User extends BaseModel {
         return result;
     }
 
+    /*
 
     @Override
     public int describeContents() {
@@ -182,4 +183,5 @@ public class User extends BaseModel {
             return new User[size];
         }
     };
+    */
 }

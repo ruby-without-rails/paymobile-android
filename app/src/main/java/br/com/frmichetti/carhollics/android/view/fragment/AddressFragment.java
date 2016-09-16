@@ -35,7 +35,7 @@ public class AddressFragment extends BaseFragment {
 
     private ListView listView;
 
-    private List<Address> addresses;
+    private ArrayList<Address> addresses;
 
     public AddressFragment() {
     }

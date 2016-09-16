@@ -7,7 +7,6 @@
 package br.com.frmichetti.carhollics.android.view.fragment;
 
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +33,7 @@ public class ServicesFragment extends BaseFragment {
 
     private ListView listView;
 
-    private List<Service> services;
+    private ArrayList<Service> services;
 
     public ServicesFragment() {
     }
@@ -44,7 +44,7 @@ public class ServicesFragment extends BaseFragment {
 
 
         if (savedInstanceState != null) {
-            services = savedInstanceState.getParcelable("services");
+            services = (ArrayList<Service>) savedInstanceState.getSerializable("services");
         }
 
         View rootView = inflater.inflate(R.layout.fragment_services, container, false);
@@ -113,7 +113,7 @@ public class ServicesFragment extends BaseFragment {
 
     }
 
-    private void doFillData(List<Service> services) {
+    private void doFillData(ArrayList<Service> services) {
 
         ArrayAdapter<Service> adpItem = new ArrayAdapter<>(context,
                 android.R.layout.simple_list_item_1, services);
@@ -126,6 +126,6 @@ public class ServicesFragment extends BaseFragment {
 
         super.onSaveInstanceState(outState);
 
-        outState.putParcelable("services", (Parcelable) services);
+        outState.putSerializable("services", (Serializable) services);
     }
 }

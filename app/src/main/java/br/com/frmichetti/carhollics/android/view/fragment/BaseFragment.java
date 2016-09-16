@@ -79,11 +79,7 @@ public abstract class BaseFragment extends Fragment {
         } else {
             throw new RuntimeException("Forbidden - Could not get Intent");
         }
-
-
-    }
-
-    public void doChangeActivity(Context context, Class clazz) {
+/*
 
         if (shoppingCart == null) {
 
@@ -111,6 +107,10 @@ public abstract class BaseFragment extends Fragment {
             throw new RuntimeException("Forbidden - SelectedService is Null");
 
         }
+*/
+    }
+
+    public void doChangeActivity(Context context, Class clazz) {
 
         startActivity(new Intent(context, clazz)
                 .putExtra("shoppingCart", shoppingCart)

@@ -14,9 +14,9 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import br.com.frmichetti.carhollics.android.R;
+import br.com.frmichetti.carhollics.android.model.ShoppingCart;
 import br.com.frmichetti.carhollics.android.model.ShoppingItem;
 import br.com.frmichetti.carhollics.android.view.activity.shoppingCart.ShoppingCartActivity;
 
@@ -49,6 +49,10 @@ public class ServiceDetailActivity extends BaseActivity {
         super.onPostCreate(savedInstanceState);
 
         doFillData();
+
+        if (shoppingCart == null) {
+            shoppingCart = new ShoppingCart();
+        }
 
     }
 
@@ -88,8 +92,6 @@ public class ServiceDetailActivity extends BaseActivity {
 
             @Override
             public void onClick(View v) {
-
-                Toast.makeText(context,"Clicou no FAb",Toast.LENGTH_SHORT).show();
 
                 shoppingCart.add(new ShoppingItem(selectedService));
 

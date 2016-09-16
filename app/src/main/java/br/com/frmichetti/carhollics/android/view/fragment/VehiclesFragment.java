@@ -32,7 +32,7 @@ public class VehiclesFragment extends BaseFragment {
 
     private ListView listView;
 
-    private List<Vehicle> vehicles;
+    private ArrayList<Vehicle> vehicles;
 
     public VehiclesFragment() {
     }

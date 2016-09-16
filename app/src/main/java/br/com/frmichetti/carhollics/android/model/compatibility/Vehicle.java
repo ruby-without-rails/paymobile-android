@@ -108,7 +108,7 @@ public class Vehicle extends BaseModel {
         return result;
     }
 
-
+/*
     @Override
     public int describeContents() {
         return 0;
@@ -146,4 +146,5 @@ public class Vehicle extends BaseModel {
             return new Vehicle[size];
         }
     };
+    */
 }
