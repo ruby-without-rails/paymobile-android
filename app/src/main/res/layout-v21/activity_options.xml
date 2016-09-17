@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/coordlayoutOptions"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-<include layout="@layout/collapse_toolbar"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content" />
+    <include layout="@layout/collapse_toolbar" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -68,10 +67,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:backgroundTint="@color/colorPrimaryDark"
             android:text="@string/btn_change"
             android:textColor="@android:color/white"
-            android:textStyle="bold"
-            android:backgroundTint="@color/colorPrimaryDark" />
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/changePass"
@@ -79,10 +78,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:backgroundTint="@color/colorPrimaryDark"
             android:text="@string/btn_change"
             android:textColor="@android:color/white"
-            android:textStyle="bold"
-            android:backgroundTint="@color/colorPrimaryDark" />
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/send"
@@ -90,10 +89,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:backgroundTint="@color/colorPrimaryDark"
             android:text="@string/btn_send"
             android:textColor="@android:color/white"
-            android:textStyle="bold"
-            android:backgroundTint="@color/colorPrimaryDark" />
+            android:textStyle="bold" />
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -107,10 +106,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:backgroundTint="@color/colorPrimaryDark"
             android:text="@string/btn_remove"
             android:textColor="@android:color/white"
-            android:textStyle="bold"
-            android:backgroundTint="@color/colorPrimaryDark" />
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/change_email_button"

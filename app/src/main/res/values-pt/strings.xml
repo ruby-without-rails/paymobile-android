@@ -104,4 +104,6 @@
     <string name="hint_phone">Insira um Número de Telefone</string>
     <string name="hint_street">Insira uma Rua</string>
     <string name="logo">Logotipo</string>
+    <string name="Save">Salvar</string>
+    <string name="Delete">Deletar</string>
 </resources>

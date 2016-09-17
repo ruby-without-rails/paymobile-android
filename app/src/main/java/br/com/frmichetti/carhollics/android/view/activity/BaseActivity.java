@@ -320,7 +320,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         if (bundle != null) {
 
-            customer = bundle.getParcelable("customer");
+            customer = (Customer) bundle.getSerializable("customer");
 
             //TODO CHANGE TO PARCELABLE
             shoppingCart = (ShoppingCart) bundle.getSerializable("shoppingCart");

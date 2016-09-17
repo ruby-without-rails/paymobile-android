@@ -165,7 +165,7 @@ public class ServiceDetailActivity extends BaseActivity {
     @Override
     public void onNetworkConnectionChanged(boolean isConnected) {
 
-        showSnack((CoordinatorLayout) findViewById(R.id.coordlayoutservicodetail), isConnected);
+        showSnack((CoordinatorLayout) findViewById(R.id.coordLayoutServiceDetail), isConnected);
     }
 
 

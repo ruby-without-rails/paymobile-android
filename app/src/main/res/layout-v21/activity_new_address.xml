@@ -8,7 +8,6 @@
     android:fitsSystemWindows="true"
     tools:context=".view.activity.NewAddressActivity">
 
-
     <include layout="@layout/toolbar" />
 
     <RelativeLayout
@@ -92,6 +91,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_number"
+                android:inputType="number"
                 android:singleLine="true" />
 
         </android.support.design.widget.TextInputLayout>
@@ -109,7 +109,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="false"
-            android:layout_alignParentRight="true"
             android:layout_below="@+id/buttonSave"
             android:text="@string/Delete" />
 

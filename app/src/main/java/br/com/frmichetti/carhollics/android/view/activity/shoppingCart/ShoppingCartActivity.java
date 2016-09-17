@@ -217,7 +217,7 @@ public class ShoppingCartActivity extends BaseActivity {
     @Override
     public void onNetworkConnectionChanged(boolean isConnected) {
 
-        showSnack((CoordinatorLayout) findViewById(R.id.coordlayoutcart), isConnected);
+        showSnack((CoordinatorLayout) findViewById(R.id.coordLayoutShoppingCart), isConnected);
     }
 
 }

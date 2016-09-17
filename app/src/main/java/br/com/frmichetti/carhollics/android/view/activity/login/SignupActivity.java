@@ -97,7 +97,7 @@ public class SignupActivity extends AppCompatActivity implements MyPattern,
     @Override
     public void doCastComponents() {
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_dark);
 
         setSupportActionBar(toolbar);
 

@@ -13,7 +13,7 @@ android {
     buildToolsVersion "23.0.3"
     defaultConfig {
         applicationId "br.com.frmichetti.carhollics.android"
-        minSdkVersion 10
+        minSdkVersion 11
         targetSdkVersion 24
         versionCode 15
         versionName "0.2.3"

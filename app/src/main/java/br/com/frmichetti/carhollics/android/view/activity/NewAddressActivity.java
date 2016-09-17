@@ -258,7 +258,7 @@ public class NewAddressActivity extends BaseActivity {
 
         super.doLoadExtras(intent);
 
-        selectedAddress = intent.getParcelableExtra("address");
+        selectedAddress = (Address) intent.getSerializableExtra("address");
 
     }
 

@@ -127,6 +127,8 @@
     <string name="err_msg_neighborhood">Invalid String for Neighborhood</string>
     <string name="err_msg_complement">Invalid Value for Complement</string>
     <string name="err_msg_number">Invalid Value for Street</string>
+    <string name="Save">Save</string>
+    <string name="Delete">Delete</string>
 </resources>
 
 
