@@ -82,6 +82,8 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
 
         doShowInfo();
 
+
+
     }
 
     private void doPrepareItems() {

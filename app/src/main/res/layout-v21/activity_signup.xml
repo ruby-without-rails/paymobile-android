@@ -75,7 +75,7 @@
                 android:textColor="@android:color/black"
                 android:textStyle="bold"
                 android:backgroundTint="@color/colorAccent"
-                android:background="@drawable/ripple_rect" />
+                 />
 
             <Button
                 android:id="@+id/btn_reset_password"

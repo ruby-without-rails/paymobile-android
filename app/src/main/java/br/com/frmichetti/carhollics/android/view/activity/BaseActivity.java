@@ -29,9 +29,6 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.iid.FirebaseInstanceId;
-
-import java.io.Serializable;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.model.ShoppingCart;
@@ -80,6 +77,12 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         super.onCreate(savedInstanceState);
 
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        firebaseUser = firebaseAuth.getCurrentUser();
+
+        doRegisterFirebaseListener();
+
         Log.d("[ON-CREATE]", "Super On Create");
 
     }
@@ -114,11 +117,9 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         super.onStart();
 
-        doRegisterFirebaseListener();
+        firebaseAuth.addAuthStateListener(authListener);
 
-        Log.i("[Firebase-ID]", FirebaseInstanceId.getInstance().getToken());
-
-        Log.d("[DEBUG-AUTH-LISTENER]", "Registered Authentication Listener");
+        Log.d("[AUTH-LISTENER]", "Registered Authentication Listener");
 
     }
 
@@ -132,7 +133,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
             firebaseAuth.removeAuthStateListener(authListener);
 
-            Log.d("[DEBUG-AUTH-LISTENER]", "Removed Authentication Listener");
+            Log.d("[AUTH-LISTENER]", "Removed Authentication Listener");
 
         }
 
@@ -259,33 +260,6 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
         return true;
     }
 
-    private void doRegisterFirebaseListener() {
-
-        firebaseAuth = FirebaseAuth.getInstance();
-
-        firebaseUser = firebaseAuth.getCurrentUser();
-
-        authListener = new FirebaseAuth.AuthStateListener() {
-
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-
-                final FirebaseUser user = firebaseAuth.getCurrentUser();
-
-                if (user == null) {
-
-                    startActivity(new Intent(context, LoginActivity.class));
-
-                    finish();
-
-                    Log.d("[DEBUG-INFO]", "User Null, Send to LoginActivity");
-
-                }
-            }
-        };
-
-        firebaseAuth.addAuthStateListener(authListener);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -472,6 +446,31 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
     }
 
+
+    private void doRegisterFirebaseListener() {
+
+        authListener = new FirebaseAuth.AuthStateListener() {
+
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+
+                final FirebaseUser user = firebaseAuth.getCurrentUser();
+
+                if (user == null) {
+
+                    startActivity(new Intent(context, LoginActivity.class));
+
+                    finish();
+
+                    Log.d("[DEBUG-INFO]", "User Null, Send to LoginActivity");
+
+                }
+            }
+        };
+
+
+    }
+
     private void setConnectivityListener(ConnectivityReceiver.ConnectivityReceiverListener listener) {
 
         ConnectivityReceiver.connectivityReceiverListener = listener;
@@ -482,10 +481,10 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         startActivity(new Intent(context, clazz)
                 .putExtra("shoppingCart", shoppingCart)
-                .putExtra("customer", (Serializable) customer)
-                .putExtra("vehicle", (Serializable) selectedVehicle)
-                .putExtra("service", (Serializable) selectedService)
-                .putExtra("address", (Serializable) selectedAddress));
+                .putExtra("customer", customer)
+                .putExtra("vehicle", selectedVehicle)
+                .putExtra("service", selectedService)
+                .putExtra("address", selectedAddress));
     }
 
 }

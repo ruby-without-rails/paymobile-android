@@ -6,37 +6,50 @@
  */
 package br.com.frmichetti.carhollics.android.view.activity.login;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.CoordinatorLayout;
+import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.iid.FirebaseInstanceId;
-
-import java.io.Serializable;
 
 import br.com.frmichetti.carhollics.android.R;
 import br.com.frmichetti.carhollics.android.jobs.AsyncResponse;
 import br.com.frmichetti.carhollics.android.jobs.TaskCreateUser;
 import br.com.frmichetti.carhollics.android.model.compatibility.User;
-import br.com.frmichetti.carhollics.android.view.activity.BaseActivity;
+import br.com.frmichetti.carhollics.android.util.ConnectivityReceiver;
 import br.com.frmichetti.carhollics.android.view.activity.CustomerActivity;
+import br.com.frmichetti.carhollics.android.view.activity.MyPattern;
 
 
-public class SignupActivity extends BaseActivity {
+public class SignupActivity extends AppCompatActivity implements MyPattern,
+        ConnectivityReceiver.ConnectivityReceiverListener {
+
+    private FirebaseAuth auth;
+
+    private ActionBar actionBar;
+
+    private Context context;
 
     private EditText editTextEmail, editTextPassword;
 
@@ -49,15 +62,24 @@ public class SignupActivity extends BaseActivity {
 
         super.onCreate(savedInstanceState);
 
+        auth = FirebaseAuth.getInstance();
+
         setContentView(R.layout.activity_signup);
 
         doCastComponents();
 
         doCreateListeners();
 
-        setupToolBar();
+    }
 
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
 
+        super.onPostCreate(savedInstanceState);
+
+        doConfigure();
+
+        doCheckConnection();
     }
 
     @Override
@@ -67,12 +89,17 @@ public class SignupActivity extends BaseActivity {
 
         progressBar.setVisibility(View.GONE);
 
+        // register connection status listener
+        this.setConnectivityListener(this);
+
     }
 
     @Override
     public void doCastComponents() {
 
-        super.doCastComponents();
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        setSupportActionBar(toolbar);
 
         btnSignIn = (Button) findViewById(R.id.sign_in_button);
 
@@ -138,12 +165,12 @@ public class SignupActivity extends BaseActivity {
                     return;
                 }
 
-                if (doCheckConnection(context)) {
+                if (doCheckConnection()) {
 
                     progressBar.setVisibility(View.VISIBLE);
 
                     //create firebaseUser
-                    firebaseAuth.createUserWithEmailAndPassword(email, password)
+                    auth.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
 
                                 @Override
@@ -171,13 +198,13 @@ public class SignupActivity extends BaseActivity {
                                                 //TODO Implementar Logica do Login
 
                                                 startActivity(new Intent(context, CustomerActivity.class)
-                                                        .putExtra("user", (Serializable) output));
+                                                        .putExtra("user", output));
 
                                                 finish();
                                             }
                                         });
 
-                                        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                                        FirebaseUser firebaseUser = auth.getCurrentUser();
 
                                         User usuario = new User();
 
@@ -194,7 +221,7 @@ public class SignupActivity extends BaseActivity {
 
                 } else {
 
-                    doCheckConnection(context);
+                    showSnack(doCheckConnection());
 
                 }
 
@@ -206,17 +233,26 @@ public class SignupActivity extends BaseActivity {
     @Override
     public void setupToolBar() {
 
-        super.setupToolBar();
-
-        actionBar.setDisplayHomeAsUpEnabled(true);
-
-        actionBar.setSubtitle(R.string.register);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        //return super.onCreateOptionsMenu(menu);
-        return true;
+    public void doConfigure() {
+
+        context = this;
+
+        actionBar = getSupportActionBar();
+
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+        actionBar.setTitle(R.string.app_name);
+
+        actionBar.setSubtitle(R.string.register);
+
+    }
+
+    @Override
+    public void doChangeActivity(Context context, Class clazz) {
+
     }
 
     @Override
@@ -225,10 +261,53 @@ public class SignupActivity extends BaseActivity {
         int id = item.getItemId();
 
         if (id == android.R.id.home) {
+
             finish();
+
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    // Method to manually check connection status
+    private boolean doCheckConnection() {
+
+        boolean isConnected = ConnectivityReceiver.isConnected(context);
+
+        return isConnected;
+    }
+
+    // Showing the status in Snackbar
+    private void showSnack(boolean isConnected) {
+
+        String message;
+
+        int color;
+
+        if (isConnected) {
+
+            message = getString(R.string.connected_on_internet);
+
+            color = Color.GREEN;
+
+        } else {
+
+            message = getString(R.string.not_connected_on_internet);
+
+            color = Color.RED;
+        }
+
+        Snackbar snackbar = Snackbar
+                .make(findViewById(R.id.coordlayoutsignup), message, Snackbar.LENGTH_LONG);
+
+        View sbView = snackbar.getView();
+
+        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+
+        textView.setTextColor(color);
+
+        snackbar.show();
+
     }
 
 
@@ -239,8 +318,12 @@ public class SignupActivity extends BaseActivity {
     @Override
     public void onNetworkConnectionChanged(boolean isConnected) {
 
-        showSnack((CoordinatorLayout) findViewById(R.id.coordlayoutsignup), isConnected);
+        showSnack(isConnected);
     }
 
 
+    public void setConnectivityListener(ConnectivityReceiver.ConnectivityReceiverListener listener) {
+
+        ConnectivityReceiver.connectivityReceiverListener = listener;
+    }
 }

@@ -71,8 +71,7 @@
             android:text="@string/btn_change"
             android:textColor="@android:color/white"
             android:textStyle="bold"
-            android:backgroundTint="@color/colorPrimaryDark"
-            android:background="@drawable/ripple_rect_dark" />
+            android:backgroundTint="@color/colorPrimaryDark" />
 
         <Button
             android:id="@+id/changePass"
@@ -83,8 +82,7 @@
             android:text="@string/btn_change"
             android:textColor="@android:color/white"
             android:textStyle="bold"
-            android:backgroundTint="@color/colorPrimaryDark"
-            android:background="@drawable/ripple_rect_dark" />
+            android:backgroundTint="@color/colorPrimaryDark" />
 
         <Button
             android:id="@+id/send"
@@ -95,8 +93,7 @@
             android:text="@string/btn_send"
             android:textColor="@android:color/white"
             android:textStyle="bold"
-            android:backgroundTint="@color/colorPrimaryDark"
-            android:background="@drawable/ripple_rect_dark" />
+            android:backgroundTint="@color/colorPrimaryDark" />
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -113,8 +110,7 @@
             android:text="@string/btn_remove"
             android:textColor="@android:color/white"
             android:textStyle="bold"
-            android:backgroundTint="@color/colorPrimaryDark"
-            android:background="@drawable/ripple_rect_dark" />
+            android:backgroundTint="@color/colorPrimaryDark" />
 
         <Button
             android:id="@+id/change_email_button"
@@ -159,7 +155,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:backgroundTint="@color/colorPrimary"
-            android:background="@drawable/ripple_rect"
             android:text="@string/btn_sign_out"
             android:textColor="@android:color/white"
             android:textStyle="bold" />
