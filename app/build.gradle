@@ -15,8 +15,8 @@ android {
         applicationId "br.com.frmichetti.carhollics.android"
         minSdkVersion 11
         targetSdkVersion 24
-        versionCode 15
-        versionName "0.2.3"
+        versionCode 17
+        versionName "0.2.5"
         // Enabling multidex support.
         multiDexEnabled true
         //Enable this for Java 8 support

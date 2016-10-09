@@ -37,6 +37,7 @@ import br.com.frmichetti.carhollics.android.model.ShoppingCart;
 import br.com.frmichetti.carhollics.android.model.compatibility.Address;
 import br.com.frmichetti.carhollics.android.model.compatibility.Service;
 import br.com.frmichetti.carhollics.android.model.compatibility.Vehicle;
+import br.com.frmichetti.carhollics.android.view.activity.shoppingCart.ShoppingCartActivity;
 import br.com.frmichetti.carhollics.android.view.fragment.AddressFragment;
 import br.com.frmichetti.carhollics.android.view.fragment.CheckoutsFragment;
 import br.com.frmichetti.carhollics.android.view.fragment.FragmentDrawer;
@@ -169,7 +170,7 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
 
             if (!shoppingCart.isEmpty()) {
 
-                doChangeActivity(context, ShoppingCart.class);
+                doChangeActivity(context, ShoppingCartActivity.class);
 
             } else {
 

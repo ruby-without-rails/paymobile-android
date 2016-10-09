@@ -13,7 +13,7 @@ import com.google.firebase.iid.FirebaseInstanceIdService;
 
 public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 
-    private static String TAG = "Registration - TOKEN";
+    private static String TAG = "Regist - TOKEN";
 
     @Override
     public void onTokenRefresh() {
@@ -21,10 +21,10 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
         // Get updated InstanceID token.
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
 
-        Log.v(TAG, "Refreshed token: " + refreshedToken);
+        Log.i(TAG, "[Refreshed token] \n" + refreshedToken);
 
         // TODO: Implement this method to send any registration to your app's servers.
-        Log.v(TAG + "TOKEN: ", refreshedToken);
+        Log.i(TAG + "[TOKEN] \n", refreshedToken);
 
         //Update where FIREBASE ID
 
