@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="br.com.frmichetti.carhollics.android" >
+    package="br.com.frmichetti.paymobile.android" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name=".MyApplication"
+        android:name="br.com.frmichetti.paymobile.android.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme" >
-        <service android:name=".fcm.MyFirebaseMessagingService" >
+        <service android:name="br.com.frmichetti.paymobile.android.fcm.MyFirebaseMessagingService" >
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service android:name=".fcm.MyFirebaseInstanceIDService" >
+        <service android:name="br.com.frmichetti.paymobile.android.fcm.MyFirebaseInstanceIDService" >
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
 
         <receiver
-            android:name=".util.ConnectivityReceiver"
+            android:name="br.com.frmichetti.paymobile.android.util.ConnectivityReceiver"
             android:enabled="true" >
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
@@ -32,7 +32,7 @@
         </receiver>
 
         <activity
-            android:name=".view.activity.login.LoginActivity"
+            android:name="br.com.frmichetti.paymobile.android.view.activity.login.LoginActivity"
             android:launchMode="singleTop" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,37 +41,37 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.activity.ServiceDetailActivity"
+            android:name="br.com.frmichetti.paymobile.android.view.activity.ServiceDetailActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".view.activity.shoppingCart.ShoppingCartActivity"
+            android:name="br.com.frmichetti.paymobile.android.view.activity.shoppingCart.ShoppingCartActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".view.activity.login.ResetPasswordActivity"
+            android:name="br.com.frmichetti.paymobile.android.view.activity.login.ResetPasswordActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".view.activity.login.SignupActivity"
+            android:name="br.com.frmichetti.paymobile.android.view.activity.login.SignupActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".view.activity.OptionsActivity"
+            android:name="br.com.frmichetti.paymobile.android.view.activity.OptionsActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".view.activity.CustomerActivity"
+            android:name="br.com.frmichetti.paymobile.android.view.activity.CustomerActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".view.activity.VehicleCreateActivity"
+            android:name="br.com.frmichetti.paymobile.android.view.activity.VehicleCreateActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".view.activity.MainActivity"
+            android:name="br.com.frmichetti.paymobile.android.view.activity.MainActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".view.activity.shoppingCart.ResumeCheckoutActivity"
+            android:name="br.com.frmichetti.paymobile.android.view.activity.shoppingCart.ResumeCheckoutActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".view.activity.CheckoutDetailActivity"
+            android:name="br.com.frmichetti.paymobile.android.view.activity.CheckoutDetailActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".view.activity.NewAddressActivity"
+            android:name="br.com.frmichetti.paymobile.android.view.activity.NewAddressActivity"
             android:launchMode="singleTop" />
 
         <meta-data

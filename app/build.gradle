@@ -9,12 +9,11 @@ android {
             storePassword 'S394asc9@'
         }
     }
-    compileSdkVersion 24
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 27
     defaultConfig {
-        applicationId "br.com.frmichetti.openjobs.android"
+        applicationId "br.com.frmichetti.paymobile.android"
         minSdkVersion 11
-        targetSdkVersion 24
+        targetSdkVersion 27
         versionCode 17
         versionName "0.2.5"
         // Enabling multidex support.

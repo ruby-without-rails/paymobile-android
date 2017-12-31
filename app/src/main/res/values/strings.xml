@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Carhollics CallCenter</string>
+    <string name="app_name">Pay Mobile</string>
 
     <!-- Strings related to login -->
     <string name="prompt_password">Password (optional)</string>
@@ -21,7 +21,7 @@
     <string name="hint_password">Password</string>
     <string name="hint_name">Fullname</string>
     <string name="btn_login">Login</string>
-    <string name="btn_link_to_register">Not a member? Get registered in Carhollics now!</string>
+    <string name="btn_link_to_register">Not a member? Get registered in Pay Mobile now!</string>
     <string name="btn_link_to_login">Already registered. Login Me!</string>
     <string name="btn_forgot_password">Forgot your password?</string>
     <string name="btn_reset_password">Reset Password</string>
