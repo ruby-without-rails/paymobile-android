@@ -70,17 +70,17 @@ public class ServiceDetailActivity extends BaseActivity {
 
         super.doCastComponents();
 
-        textViewTitle = (TextView) findViewById(R.id.textViewTitle);
+        textViewTitle = findViewById(R.id.textViewTitle);
 
-        textViewDescription = (TextView) findViewById(R.id.textViewDescricaoVar);
+        textViewDescription = findViewById(R.id.textViewDescricaoVar);
 
-        textViewDuration = (TextView) findViewById(R.id.textViewDurationVar);
+        textViewDuration = findViewById(R.id.textViewDurationVar);
 
-        textViewObservation = (TextView) findViewById(R.id.textViewObservationVar);
+        textViewObservation = findViewById(R.id.textViewObservationVar);
 
-        textViewPrice = (TextView) findViewById(R.id.textViewPriceVar);
+        textViewPrice = findViewById(R.id.textViewPriceVar);
 
-        floatButtonAddCart = (FloatingActionButton) findViewById(R.id.fab_add_to_cart);
+        floatButtonAddCart = findViewById(R.id.fab_add_to_cart);
 
 
     }

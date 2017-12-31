@@ -43,11 +43,11 @@ public class VehicleCreateActivity extends BaseActivity {
     @Override
     public void doCastComponents() {
 
-        editTextName = (EditText) findViewById(R.id.editTextNomeVeículo);
+        editTextName = findViewById(R.id.editTextNomeVeículo);
 
-        editTextBrand = (EditText) findViewById(R.id.editTextMarcaVeiculo);
+        editTextBrand = findViewById(R.id.editTextMarcaVeiculo);
 
-        buttonRegister = (Button) findViewById(R.id.buttonCadastrarVeiculo);
+        buttonRegister = findViewById(R.id.buttonCadastrarVeiculo);
 
     }
 

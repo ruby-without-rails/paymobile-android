@@ -114,9 +114,9 @@ public abstract class BaseFragment extends Fragment {
 
         startActivity(new Intent(context, clazz)
                 .putExtra("shoppingCart", shoppingCart)
-                .putExtra("customer", (Serializable) customer)
-                .putExtra("vehicle", (Serializable) selectedVehicle)
-                .putExtra("service", (Serializable) selectedService)
-                .putExtra("address", (Serializable) selectedAddress));
+                .putExtra("customer", customer)
+                .putExtra("vehicle", selectedVehicle)
+                .putExtra("service", selectedService)
+                .putExtra("address", selectedAddress));
     }
 }

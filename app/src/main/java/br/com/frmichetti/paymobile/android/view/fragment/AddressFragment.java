@@ -66,9 +66,9 @@ public class AddressFragment extends BaseFragment {
     @Override
     protected void doCastComponents(View rootView) {
 
-        listView = (ListView) rootView.findViewById(R.id.lvAddresses);
+        listView = rootView.findViewById(R.id.lvAddresses);
 
-        fab = (FloatingActionButton) rootView.findViewById(R.id.fab_new_address);
+        fab = rootView.findViewById(R.id.fab_new_address);
 
     }
 
@@ -83,7 +83,7 @@ public class AddressFragment extends BaseFragment {
                 Toast.makeText(context, "New Address Button", Toast.LENGTH_SHORT).show();
 
                 startActivity(new Intent(context, NewAddressActivity.class)
-                        .putExtra("customer", (Serializable) customer)
+                        .putExtra("customer", customer)
 
                 );
             }
@@ -94,15 +94,13 @@ public class AddressFragment extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                int itemPosition = position;
-
                 Object itemValue = listView.getItemAtPosition(position);
 
                 selectedAddress = (Address) itemValue;
 
                 startActivity(new Intent(context, NewAddressActivity.class)
-                        .putExtra("customer", (Serializable) customer)
-                        .putExtra("address", (Serializable) selectedAddress)
+                        .putExtra("customer", customer)
+                        .putExtra("address", selectedAddress)
                 );
 
             }

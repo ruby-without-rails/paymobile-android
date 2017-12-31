@@ -70,23 +70,23 @@ public class CustomerActivity extends BaseActivity {
 
         super.doCastComponents();
 
-        editTextName = (EditText) findViewById(R.id.editTextName);
+        editTextName = findViewById(R.id.editTextName);
 
-        txtInputLayoutName = (TextInputLayout) findViewById(R.id.input_layout_name);
+        txtInputLayoutName = findViewById(R.id.input_layout_name);
 
-        editTextCPF = (EditText) findViewById(R.id.editTextCPF);
+        editTextCPF = findViewById(R.id.editTextCPF);
 
-        txtInputLayoutCPF = (TextInputLayout) findViewById(R.id.input_layout_cpf);
+        txtInputLayoutCPF = findViewById(R.id.input_layout_cpf);
 
-        editTextPhone = (EditText) findViewById(R.id.editTextPhone);
+        editTextPhone = findViewById(R.id.editTextPhone);
 
-        txtInputLayoutPhone = (TextInputLayout) findViewById(R.id.input_layout_phone);
+        txtInputLayoutPhone = findViewById(R.id.input_layout_phone);
 
-        editTextMobilePhone = (EditText) findViewById(R.id.editTextMobilePhone);
+        editTextMobilePhone = findViewById(R.id.editTextMobilePhone);
 
-        txtInputLayoutMobilePhone = (TextInputLayout) findViewById(R.id.input_layout_mobilePhone);
+        txtInputLayoutMobilePhone = findViewById(R.id.input_layout_mobilePhone);
 
-        fabConfirm = (FloatingActionButton) findViewById(R.id.fab_action_done);
+        fabConfirm = findViewById(R.id.fab_action_done);
 
     }
 

@@ -317,9 +317,9 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
 
         super.doCastComponents();
 
-        imageView = (ImageView) findViewById(R.id.imageViewAccountImage);
+        imageView = findViewById(R.id.imageViewAccountImage);
 
-        textView = (TextView) findViewById(R.id.textViewTitle);
+        textView = findViewById(R.id.textViewTitle);
     }
 
     @Override

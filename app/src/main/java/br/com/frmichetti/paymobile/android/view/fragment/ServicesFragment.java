@@ -60,9 +60,9 @@ public class ServicesFragment extends BaseFragment {
     @Override
     protected void doCastComponents(View rootView) {
 
-        textView = (TextView) rootView.findViewById(R.id.tvSelectedService);
+        textView = rootView.findViewById(R.id.tvSelectedService);
 
-        listView = (ListView) rootView.findViewById(R.id.listViewCheckouts);
+        listView = rootView.findViewById(R.id.listViewCheckouts);
 
     }
 
@@ -73,8 +73,6 @@ public class ServicesFragment extends BaseFragment {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                int itemPosition = position;
 
                 Object itemValue = listView.getItemAtPosition(position);
 
@@ -125,6 +123,6 @@ public class ServicesFragment extends BaseFragment {
 
         super.onSaveInstanceState(outState);
 
-        outState.putSerializable("services", (Serializable) services);
+        outState.putSerializable("services", services);
     }
 }

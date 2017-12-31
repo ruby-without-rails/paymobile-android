@@ -273,7 +273,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
     @Override
     public void doCastComponents() {
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
 
         Log.d("[DO-CAST-COMP]", "Super Do Cast Components");
 
@@ -438,7 +438,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         View sbView = snackbar.getView();
 
-        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+        TextView textView = sbView.findViewById(android.support.design.R.id.snackbar_text);
 
         textView.setTextColor(color);
 

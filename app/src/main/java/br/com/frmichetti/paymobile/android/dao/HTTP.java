@@ -52,7 +52,7 @@ public final class HTTP {
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(con.getInputStream()));
 
-            StringBuffer response = new StringBuffer();
+            StringBuilder response = new StringBuilder();
 
             String inputLine;
 
@@ -113,7 +113,7 @@ public final class HTTP {
 
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 
-            StringBuffer response = new StringBuffer();
+            StringBuilder response = new StringBuilder();
 
             String inputLine;
 

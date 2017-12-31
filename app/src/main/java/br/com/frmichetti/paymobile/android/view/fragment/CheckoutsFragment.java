@@ -55,7 +55,7 @@ public class CheckoutsFragment extends BaseFragment {
 
     @Override
     public void doCastComponents(View rootView) {
-        listView = (ListView) rootView.findViewById(R.id.listViewCheckouts);
+        listView = rootView.findViewById(R.id.listViewCheckouts);
     }
 
     private void doLoadCheckouts() {
@@ -98,14 +98,12 @@ public class CheckoutsFragment extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                int itemPosition = position;
-
                 Object itemValue = listView.getItemAtPosition(position);
 
                 selectedCheckout = (Checkout) itemValue;
 
                 startActivity(new Intent(context, CheckoutDetailActivity.class)
-                        .putExtra("selectedCheckout", (Serializable) selectedCheckout));
+                        .putExtra("selectedCheckout", selectedCheckout));
 
 
             }

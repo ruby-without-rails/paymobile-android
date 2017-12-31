@@ -180,15 +180,15 @@ public class ResumeCheckoutActivity extends BaseActivity {
 
         super.doCastComponents();
 
-        listViewShoppingCart = (ListView) findViewById(R.id.listViewShoppingCart);
+        listViewShoppingCart = findViewById(R.id.listViewShoppingCart);
 
-        spinnerAddresses = (Spinner) findViewById(R.id.spinnerAddresses);
+        spinnerAddresses = findViewById(R.id.spinnerAddresses);
 
-        spinnerVehicles = (Spinner) findViewById(R.id.spinnerVehicles);
+        spinnerVehicles = findViewById(R.id.spinnerVehicles);
 
-        buttonConfirm = (Button) findViewById(R.id.buttonConfirmCheckout);
+        buttonConfirm = findViewById(R.id.buttonConfirmCheckout);
 
-        tvTotal = (TextView) findViewById(R.id.tvTotalVar);
+        tvTotal = findViewById(R.id.tvTotalVar);
 
     }
 

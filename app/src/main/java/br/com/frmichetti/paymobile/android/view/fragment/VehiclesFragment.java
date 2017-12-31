@@ -67,8 +67,6 @@ public class VehiclesFragment extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                int itemPosition = position;
-
                 Object itemValue = listView.getItemAtPosition(position);
 
                 selectedVehicle = (Vehicle) itemValue;
@@ -84,9 +82,9 @@ public class VehiclesFragment extends BaseFragment {
     @Override
     protected void doCastComponents(View rootView) {
 
-        textView = (TextView) rootView.findViewById(R.id.textView14);
+        textView = rootView.findViewById(R.id.textView14);
 
-        listView = (ListView) rootView.findViewById(R.id.listViewVeiculos);
+        listView = rootView.findViewById(R.id.listViewVeiculos);
 
     }
 

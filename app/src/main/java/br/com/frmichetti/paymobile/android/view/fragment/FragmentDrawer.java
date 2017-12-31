@@ -51,12 +51,12 @@ public class FragmentDrawer extends Fragment {
 
     public static List<NavDrawerItem> getData() {
 
-        List<NavDrawerItem> data = new ArrayList<NavDrawerItem>();
+        List<NavDrawerItem> data = new ArrayList<>();
 
         // preparing navigation drawer items
-        for (int i = 0; i < titles.length; i++) {
+        for (String title : titles) {
             NavDrawerItem navItem = new NavDrawerItem();
-            navItem.setTitle(titles[i]);
+            navItem.setTitle(title);
             data.add(navItem);
         }
         return data;
@@ -80,7 +80,7 @@ public class FragmentDrawer extends Fragment {
         // Inflating view layout
         View layout = inflater.inflate(R.layout.navigation_drawer, container, false);
 
-        recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
+        recyclerView = layout.findViewById(R.id.drawerList);
 
         adapter = new NavigationDrawerAdapter(getActivity(), getData());
 

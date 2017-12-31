@@ -97,21 +97,21 @@ public class SignupActivity extends AppCompatActivity implements MyPattern,
     @Override
     public void doCastComponents() {
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_dark);
+        Toolbar toolbar = findViewById(R.id.toolbar_dark);
 
         setSupportActionBar(toolbar);
 
-        btnSignIn = (Button) findViewById(R.id.sign_in_button);
+        btnSignIn = findViewById(R.id.sign_in_button);
 
-        btnSignUp = (Button) findViewById(R.id.sign_up_button);
+        btnSignUp = findViewById(R.id.sign_up_button);
 
-        editTextEmail = (EditText) findViewById(R.id.email);
+        editTextEmail = findViewById(R.id.email);
 
-        editTextPassword = (EditText) findViewById(R.id.password);
+        editTextPassword = findViewById(R.id.password);
 
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar = findViewById(R.id.progressBar);
 
-        btnResetPassword = (Button) findViewById(R.id.btn_reset_password);
+        btnResetPassword = findViewById(R.id.btn_reset_password);
     }
 
     @Override
@@ -272,9 +272,7 @@ public class SignupActivity extends AppCompatActivity implements MyPattern,
     // Method to manually check connection status
     private boolean doCheckConnection() {
 
-        boolean isConnected = ConnectivityReceiver.isConnected(context);
-
-        return isConnected;
+        return ConnectivityReceiver.isConnected(context);
     }
 
     // Showing the status in Snackbar
@@ -302,7 +300,7 @@ public class SignupActivity extends AppCompatActivity implements MyPattern,
 
         View sbView = snackbar.getView();
 
-        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+        TextView textView = sbView.findViewById(android.support.design.R.id.snackbar_text);
 
         textView.setTextColor(color);
 

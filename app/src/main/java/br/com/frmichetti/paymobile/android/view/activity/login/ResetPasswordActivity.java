@@ -76,17 +76,17 @@ public class ResetPasswordActivity extends AppCompatActivity implements MyPatter
     @Override
     public void doCastComponents() {
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
 
-        inputEmail = (EditText) findViewById(R.id.email);
+        inputEmail = findViewById(R.id.email);
 
-        btnReset = (Button) findViewById(R.id.btn_reset_password);
+        btnReset = findViewById(R.id.btn_reset_password);
 
-        btnBack = (Button) findViewById(R.id.btn_back);
+        btnBack = findViewById(R.id.btn_back);
 
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar = findViewById(R.id.progressBar);
 
     }
 
@@ -186,9 +186,7 @@ public class ResetPasswordActivity extends AppCompatActivity implements MyPatter
     // Method to manually check connection status
     private boolean doCheckConnection() {
 
-        boolean isConnected = ConnectivityReceiver.isConnected(context);
-
-        return isConnected;
+        return ConnectivityReceiver.isConnected(context);
     }
 
     // Showing the status in Snackbar
@@ -211,7 +209,7 @@ public class ResetPasswordActivity extends AppCompatActivity implements MyPatter
 
         View sbView = snackbar.getView();
 
-        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+        TextView textView = sbView.findViewById(android.support.design.R.id.snackbar_text);
 
         textView.setTextColor(color);
 

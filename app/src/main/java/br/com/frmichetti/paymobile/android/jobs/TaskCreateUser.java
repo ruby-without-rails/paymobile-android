@@ -94,9 +94,7 @@ public class TaskCreateUser extends AsyncTask<User, String, User> {
 
         //TODO FIXME Receive a Json
 
-        User u  = new Gson().fromJson(response, new TypeToken<User>(){}.getType());
-
-        return u;
+        return new Gson().fromJson(response, new TypeToken<User>(){}.getType());
 
     }
 

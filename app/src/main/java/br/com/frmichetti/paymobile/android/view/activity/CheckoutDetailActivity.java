@@ -22,11 +22,11 @@ public class CheckoutDetailActivity extends BaseActivity {
 
         super.doCastComponents();
 
-        textViewUUID = (TextView) findViewById(R.id.textViewCheckoutUUIDvar);
+        textViewUUID = findViewById(R.id.textViewCheckoutUUIDvar);
 
-        textViewDate = (TextView) findViewById(R.id.textViewCheckoutDateVar);
+        textViewDate = findViewById(R.id.textViewCheckoutDateVar);
 
-        textViewStatus = (TextView) findViewById(R.id.textViewCheckoutStatusVar);
+        textViewStatus = findViewById(R.id.textViewCheckoutStatusVar);
 
     }
 

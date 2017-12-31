@@ -62,33 +62,33 @@ public class OptionsActivity extends BaseActivity {
 
         super.doCastComponents();
 
-        btnChangeEmail = (Button) findViewById(R.id.change_email_button);
+        btnChangeEmail = findViewById(R.id.change_email_button);
 
-        btnChangePassword = (Button) findViewById(R.id.change_password_button);
+        btnChangePassword = findViewById(R.id.change_password_button);
 
-        btnSendResetEmail = (Button) findViewById(R.id.sending_pass_reset_button);
+        btnSendResetEmail = findViewById(R.id.sending_pass_reset_button);
 
-        btnRemoveUser = (Button) findViewById(R.id.remove_user_button);
+        btnRemoveUser = findViewById(R.id.remove_user_button);
 
-        changeEmail = (Button) findViewById(R.id.changeEmail);
+        changeEmail = findViewById(R.id.changeEmail);
 
-        changePassword = (Button) findViewById(R.id.changePass);
+        changePassword = findViewById(R.id.changePass);
 
-        sendEmail = (Button) findViewById(R.id.send);
+        sendEmail = findViewById(R.id.send);
 
-        remove = (Button) findViewById(R.id.remove);
+        remove = findViewById(R.id.remove);
 
-        signOut = (Button) findViewById(R.id.sign_out);
+        signOut = findViewById(R.id.sign_out);
 
-        oldEmail = (EditText) findViewById(R.id.old_email);
+        oldEmail = findViewById(R.id.old_email);
 
-        newEmail = (EditText) findViewById(R.id.new_email);
+        newEmail = findViewById(R.id.new_email);
 
-        password = (EditText) findViewById(R.id.password);
+        password = findViewById(R.id.password);
 
-        newPassword = (EditText) findViewById(R.id.newPassword);
+        newPassword = findViewById(R.id.newPassword);
 
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar = findViewById(R.id.progressBar);
 
         oldEmail.setVisibility(View.GONE);
 

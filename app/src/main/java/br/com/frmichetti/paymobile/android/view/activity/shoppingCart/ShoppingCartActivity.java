@@ -102,21 +102,21 @@ public class ShoppingCartActivity extends BaseActivity {
 
         super.doCastComponents();
 
-        fabRemoveItem = (FloatingActionButton) findViewById(R.id.fab_remove_item_from_cart);
+        fabRemoveItem = findViewById(R.id.fab_remove_item_from_cart);
 
-        fabPurchase = (FloatingActionButton) findViewById(R.id.fab_buy);
+        fabPurchase = findViewById(R.id.fab_buy);
 
-        listViewShoppingCart = (ListView) findViewById(R.id.lvShoppingCartItems);
+        listViewShoppingCart = findViewById(R.id.lvShoppingCartItems);
 
-        textViewSelectedItem = (TextView) findViewById(R.id.tvSelectedServiceVar);
+        textViewSelectedItem = findViewById(R.id.tvSelectedServiceVar);
 
-        textViewQuantity = (TextView) findViewById(R.id.tvQuantityVar);
+        textViewQuantity = findViewById(R.id.tvQuantityVar);
 
-        textViewPrice = (TextView) findViewById(R.id.tvPriceVar);
+        textViewPrice = findViewById(R.id.tvPriceVar);
 
-        textViewSubTotal = (TextView) findViewById(R.id.tvSubtotalVar);
+        textViewSubTotal = findViewById(R.id.tvSubtotalVar);
 
-        textViewTotal = (TextView) findViewById(R.id.tvTotalVar);
+        textViewTotal = findViewById(R.id.tvTotalVar);
 
 
     }
@@ -128,8 +128,6 @@ public class ShoppingCartActivity extends BaseActivity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                int itemPosition = position;
 
                 Object itemValue = listViewShoppingCart.getItemAtPosition(position);
 

@@ -182,29 +182,29 @@ public class NewAddressActivity extends BaseActivity {
 
         super.doCastComponents();
 
-        edtCep = (EditText) findViewById(R.id.editTextCep);
+        edtCep = findViewById(R.id.editTextCep);
 
-        txtInputLayoutCep = (TextInputLayout) findViewById(R.id.input_layout_cep);
+        txtInputLayoutCep = findViewById(R.id.input_layout_cep);
 
-        edtStreet = (EditText) findViewById(R.id.editTextStreet);
+        edtStreet = findViewById(R.id.editTextStreet);
 
-        txtInputLayoutStreet = (TextInputLayout) findViewById(R.id.input_layout_street);
+        txtInputLayoutStreet = findViewById(R.id.input_layout_street);
 
-        edtNeighborhood = (EditText) findViewById(R.id.editTextNeighborhood);
+        edtNeighborhood = findViewById(R.id.editTextNeighborhood);
 
-        txtInputLayoutNeighborhood = (TextInputLayout) findViewById(R.id.input_layout_neighborhood);
+        txtInputLayoutNeighborhood = findViewById(R.id.input_layout_neighborhood);
 
-        edtComplement = (EditText) findViewById(R.id.editTextComplement);
+        edtComplement = findViewById(R.id.editTextComplement);
 
-        txtInputLayoutComplement = (TextInputLayout) findViewById(R.id.input_layout_complement);
+        txtInputLayoutComplement = findViewById(R.id.input_layout_complement);
 
-        edtNumber = (EditText) findViewById(R.id.editTextNumber);
+        edtNumber = findViewById(R.id.editTextNumber);
 
-        txtInputLayoutNumber = (TextInputLayout) findViewById(R.id.input_layout_number);
+        txtInputLayoutNumber = findViewById(R.id.input_layout_number);
 
-        buttonSave = (Button) findViewById(R.id.buttonSave);
+        buttonSave = findViewById(R.id.buttonSave);
 
-        buttonDelete = (Button) findViewById(R.id.buttonDelete);
+        buttonDelete = findViewById(R.id.buttonDelete);
 
     }
 

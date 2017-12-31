@@ -94,9 +94,7 @@ public class TaskCreateCustomer extends AsyncTask<Customer, String, Customer> {
 
         //TODO FIXME Receive a JSON
 
-        Customer c = new Gson().fromJson(response, new TypeToken<Customer>(){}.getType());
-
-        return c;
+        return new Gson().fromJson(response, new TypeToken<Customer>(){}.getType());
 
     }
 

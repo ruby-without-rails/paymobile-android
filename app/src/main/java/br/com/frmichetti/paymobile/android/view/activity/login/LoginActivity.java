@@ -83,21 +83,21 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
     @Override
     public void doCastComponents() {
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
 
-        editTextEmail = (EditText) findViewById(R.id.email);
+        editTextEmail = findViewById(R.id.email);
 
-        editTextPassword = (EditText) findViewById(R.id.password);
+        editTextPassword = findViewById(R.id.password);
 
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar = findViewById(R.id.progressBar);
 
-        btnSignup = (Button) findViewById(R.id.btn_signup);
+        btnSignup = findViewById(R.id.btn_signup);
 
-        btnLogin = (Button) findViewById(R.id.btn_login);
+        btnLogin = findViewById(R.id.btn_login);
 
-        btnReset = (Button) findViewById(R.id.btn_reset_password);
+        btnReset = findViewById(R.id.btn_reset_password);
     }
 
     @Override
@@ -241,9 +241,7 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
     // Method to manually check connection status
     private boolean doCheckConnection() {
 
-        boolean isConnected = ConnectivityReceiver.isConnected(context);
-
-        return isConnected;
+        return ConnectivityReceiver.isConnected(context);
     }
 
     // Showing the status in Snackbar
@@ -272,7 +270,7 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
 
         View sbView = snackbar.getView();
 
-        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+        TextView textView = sbView.findViewById(android.support.design.R.id.snackbar_text);
 
         textView.setTextColor(color);
 
