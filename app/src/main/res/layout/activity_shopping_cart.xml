@@ -51,7 +51,7 @@
             android:layout_marginBottom="40dp"
             android:elevation="6dp"
             android:src="@drawable/ic_action_remove_from_cart"
-            app:backgroundTint="@color/colorPrimaryDark"
+            app:backgroundTint="@color/color_primary_dark"
             app:fabSize="normal" />
 
         <TextView

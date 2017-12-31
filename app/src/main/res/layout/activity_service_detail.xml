@@ -32,7 +32,7 @@
             android:layout_marginTop="59dp"
             android:text="Nome Serviço"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="@color/color_primary" />
 
         <TextView
             android:id="@+id/textViewDescription"
@@ -44,7 +44,7 @@
             android:layout_marginTop="30dp"
             android:text="Descrição"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="@color/color_primary" />
 
         <TextView
             android:id="@+id/textViewDescricaoVar"
@@ -67,7 +67,7 @@
             android:layout_marginTop="30dp"
             android:text="Observação"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="@color/color_primary" />
 
         <TextView
             android:id="@+id/textViewObservationVar"
@@ -91,7 +91,7 @@
             android:layout_marginTop="30dp"
             android:text="Tempo de Execução"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="@color/color_primary" />
 
         <TextView
             android:id="@+id/textViewDurationVar"
@@ -115,7 +115,7 @@
             android:layout_marginTop="30dp"
             android:text="Preço"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="@color/color_primary" />
 
         <TextView
             android:id="@+id/textViewPriceVar"
