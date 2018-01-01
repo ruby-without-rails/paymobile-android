@@ -25,8 +25,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import br.com.frmichetti.paymobile.android.R;
-import br.com.frmichetti.paymobile.android.jobs.AsyncResponse;
-import br.com.frmichetti.paymobile.android.jobs.TaskCreateCustomer;
+import br.com.frmichetti.paymobile.android.tasks.AsyncResponse;
+import br.com.frmichetti.paymobile.android.tasks.TaskCreateCustomer;
 import br.com.frmichetti.paymobile.android.model.compatibility.Customer;
 import br.com.frmichetti.paymobile.android.model.compatibility.User;
 

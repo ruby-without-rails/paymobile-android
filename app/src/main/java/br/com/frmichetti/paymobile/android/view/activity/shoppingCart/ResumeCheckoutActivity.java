@@ -19,10 +19,10 @@ import java.util.Date;
 import java.util.List;
 
 import br.com.frmichetti.paymobile.android.R;
-import br.com.frmichetti.paymobile.android.jobs.AsyncResponse;
-import br.com.frmichetti.paymobile.android.jobs.TaskCreateCheckout;
-import br.com.frmichetti.paymobile.android.jobs.TaskDownloadAddress;
-import br.com.frmichetti.paymobile.android.jobs.TaskDownloadVehicles;
+import br.com.frmichetti.paymobile.android.tasks.AsyncResponse;
+import br.com.frmichetti.paymobile.android.tasks.TaskCreateCheckout;
+import br.com.frmichetti.paymobile.android.tasks.TaskDownloadAddress;
+import br.com.frmichetti.paymobile.android.tasks.TaskDownloadVehicles;
 import br.com.frmichetti.paymobile.android.model.ShoppingCart;
 import br.com.frmichetti.paymobile.android.model.ShoppingItem;
 import br.com.frmichetti.paymobile.android.model.compatibility.Address;

@@ -4,7 +4,7 @@
  * @see http://www.codecode.com.br
  * @see mailto:frmichetti@gmail.com
  */
-package br.com.frmichetti.paymobile.android.jobs;
+package br.com.frmichetti.paymobile.android.tasks;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -12,17 +12,14 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 
 import br.com.frmichetti.paymobile.android.R;
 import br.com.frmichetti.paymobile.android.dao.HTTP;
-import br.com.frmichetti.paymobile.android.model.compatibility.User;
+import br.com.frmichetti.paymobile.android.model.compatibility.Address;
 
-public class TaskCreateUser extends AsyncTask<User, String, User> {
-
-    public AsyncResponse delegate = null;
+public class TaskDeleteAddress extends AsyncTask<Address, String, Void> {
 
     private String url;
 
@@ -32,21 +29,14 @@ public class TaskCreateUser extends AsyncTask<User, String, User> {
 
     private String response;
 
+    private TaskDeleteAddress() {
 
-    private TaskCreateUser() {
-
-        Log.d("DEBUG-TASK", "create TaskCreateUser");
-
+        Log.d("DEBUG-TASK", "create TaskDeleteAddress");
     }
 
-    private TaskCreateUser(Context context) {
+    public TaskDeleteAddress(Context context) {
         this();
         this.context = context;
-    }
-
-    public TaskCreateUser(Context context, AsyncResponse<User> delegate) {
-        this(context);
-        this.delegate = delegate;
     }
 
     @Override
@@ -54,34 +44,32 @@ public class TaskCreateUser extends AsyncTask<User, String, User> {
 
         super.onPreExecute();
 
-        url = context.getResources().getString(R.string.server) + "save/user";
+        url = context.getResources().getString(R.string.server) + "delete/address";
 
         Log.d("DEBUG-TASK", "server config -> " + url);
 
         dialog = new ProgressDialog(context);
 
-        dialog.setTitle(context.getString(R.string.processing));
+        dialog.setTitle("Processando");
 
         dialog.setIndeterminate(true);
 
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
-        dialog.setMessage("Iniciando a Tarefa Criar Novo Login");
+        dialog.setMessage("Iniciando a Tarefa Deletar Endereço");
 
         dialog.show();
 
     }
 
     @Override
-    protected User doInBackground(User ... params) {
+    protected Void doInBackground(Address ... params) {
 
         try {
 
             publishProgress("Enviando Requisição para o Servidor");
 
-            //TODO FIXME Make a Json
-
-            response = HTTP.sendRequest(url,"POST", new Gson().toJson(params[0]));
+            response = HTTP.sendRequest(url,"DELETE",new Gson().toJson(params[0]));
 
         } catch (IOException e) {
 
@@ -90,16 +78,12 @@ public class TaskCreateUser extends AsyncTask<User, String, User> {
             Log.e("Erro", e.getMessage());
         }
 
-        publishProgress("Item recebido !");
-
-        //TODO FIXME Receive a Json
-
-        return new Gson().fromJson(response, new TypeToken<User>(){}.getType());
+        return null;
 
     }
 
     @Override
-    protected void onProgressUpdate(String... values) {
+    protected void onProgressUpdate(String ... values) {
 
         super.onProgressUpdate(values);
 
@@ -108,13 +92,12 @@ public class TaskCreateUser extends AsyncTask<User, String, User> {
 
 
     @Override
-    protected void onPostExecute(User result) {
+    protected void onPostExecute(Void result) {
 
-        dialog.setMessage(context.getString(R.string.process_finish));
+        dialog.setMessage("Tarefa Finalizada!");
 
         dialog.dismiss();
 
-        delegate.processFinish(result);
 
     }
 }

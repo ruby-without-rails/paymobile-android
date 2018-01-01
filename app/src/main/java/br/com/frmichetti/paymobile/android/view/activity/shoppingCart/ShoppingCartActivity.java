@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import br.com.frmichetti.paymobile.android.R;
 import br.com.frmichetti.paymobile.android.model.ShoppingItem;
 import br.com.frmichetti.paymobile.android.model.compatibility.Checkout;
-import br.com.frmichetti.paymobile.android.model.compatibility.Service;
+import br.com.frmichetti.paymobile.android.model.compatibility.Product;
 import br.com.frmichetti.paymobile.android.view.activity.BaseActivity;
 import br.com.frmichetti.paymobile.android.view.activity.MainActivity;
 
@@ -155,7 +155,7 @@ public class ShoppingCartActivity extends BaseActivity {
 
                     textViewSelectedItem.setText("");
 
-                    selectedService = new Service();
+                    selectedService = new Product();
 
                 } else {
 

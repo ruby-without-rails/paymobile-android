@@ -11,18 +11,25 @@ import android.support.multidex.MultiDexApplication;
 public class MyApplication extends MultiDexApplication {
 
     private static MyApplication myApplication;
+    private static String sessionToken;
 
     public static synchronized MyApplication getInstance() {
-
         return myApplication;
     }
 
     @Override
     public void onCreate() {
-
         super.onCreate();
 
         myApplication = this;
+    }
+
+    public static String getSessionToken() {
+        return sessionToken;
+    }
+
+    public static void setSessionToken(String sessionToken) {
+        MyApplication.sessionToken = sessionToken;
     }
 
 }

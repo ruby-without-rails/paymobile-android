@@ -38,8 +38,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import br.com.frmichetti.paymobile.android.R;
-import br.com.frmichetti.paymobile.android.jobs.AsyncResponse;
-import br.com.frmichetti.paymobile.android.jobs.TaskCreateCustomer;
+import br.com.frmichetti.paymobile.android.tasks.AsyncResponse;
+import br.com.frmichetti.paymobile.android.tasks.TaskCreateCustomer;
 import br.com.frmichetti.paymobile.android.model.compatibility.Customer;
 import br.com.frmichetti.paymobile.android.util.ConnectivityReceiver;
 import br.com.frmichetti.paymobile.android.view.activity.CustomerActivity;

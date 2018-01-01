@@ -16,34 +16,31 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
+import br.com.frmichetti.paymobile.android.MyApplication;
 import br.com.frmichetti.paymobile.android.R;
-import br.com.frmichetti.paymobile.android.jobs.AsyncResponse;
-import br.com.frmichetti.paymobile.android.jobs.TaskDownloadServices;
-import br.com.frmichetti.paymobile.android.model.compatibility.Service;
+import br.com.frmichetti.paymobile.android.tasks.AsyncResponse;
+import br.com.frmichetti.paymobile.android.tasks.TaskDownloadProducts;
+import br.com.frmichetti.paymobile.android.model.compatibility.Product;
 import br.com.frmichetti.paymobile.android.view.activity.ServiceDetailActivity;
 
+import static br.com.frmichetti.paymobile.android.MyApplication.getSessionToken;
+import static br.com.frmichetti.paymobile.android.model.IntentKeys.PRODUCTS_BUNDLE_KEY;
 
-public class ServicesFragment extends BaseFragment {
-
+public class ProductsFragment extends BaseFragment {
     private TextView textView;
-
     private ListView listView;
+    private ArrayList<Product> products;
 
-    private ArrayList<Service> services;
-
-    public ServicesFragment() {
-    }
+    public ProductsFragment(){}
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
 
-
         if (savedInstanceState != null) {
-            services = (ArrayList<Service>) savedInstanceState.getSerializable("services");
+            products = (ArrayList<Product>) savedInstanceState.getSerializable(PRODUCTS_BUNDLE_KEY);
         }
 
         View rootView = inflater.inflate(R.layout.fragment_services, container, false);
@@ -52,23 +49,19 @@ public class ServicesFragment extends BaseFragment {
 
         doCreateListeners();
 
-        doLoadServices();
+        doLoadServices(getSessionToken());
 
         return rootView;
     }
 
     @Override
     protected void doCastComponents(View rootView) {
-
         textView = rootView.findViewById(R.id.tvSelectedService);
-
         listView = rootView.findViewById(R.id.listViewCheckouts);
-
     }
 
     @Override
     protected void doCreateListeners() {
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -76,53 +69,40 @@ public class ServicesFragment extends BaseFragment {
 
                 Object itemValue = listView.getItemAtPosition(position);
 
-                selectedService = (Service) itemValue;
+                selectedService = (Product) itemValue;
 
                 doChangeActivity(context, ServiceDetailActivity.class);
-
             }
         });
-
     }
 
-    private void doLoadServices() {
+    private void doLoadServices(String sessionToken) {
+        if (products == null) {
+            Log.d("[DOWNLOAD-PRODUCTS]", "Load Products from webservice");
 
-        if (services == null) {
-
-            Log.d("[DOWNLOAD-SERVICES]", "Load Services from webservice");
-
-            TaskDownloadServices taskDownloadServices = new TaskDownloadServices(context,
-                    new AsyncResponse<ArrayList<Service>>() {
+            new TaskDownloadProducts(context,
+                    new AsyncResponse<ArrayList<Product>>() {
 
                         @Override
-                        public void processFinish(ArrayList<Service> output) {
+                        public void processFinish(ArrayList<Product> output) {
+                            products = output;
 
-                            services = output;
-
-                            doFillData(services);
+                            doFillData(products);
                         }
-                    });
-
-            taskDownloadServices.execute();
-
+                    }).execute(sessionToken);
         }
-
-
     }
 
-    private void doFillData(ArrayList<Service> services) {
-
-        ArrayAdapter<Service> adpItem = new ArrayAdapter<>(context,
-                android.R.layout.simple_list_item_1, services);
+    private void doFillData(ArrayList<Product> products) {
+        ArrayAdapter<Product> adpItem = new ArrayAdapter<>(context,
+                android.R.layout.simple_list_item_1, products);
 
         listView.setAdapter(adpItem);
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-
         super.onSaveInstanceState(outState);
-
-        outState.putSerializable("services", services);
+        outState.putSerializable(PRODUCTS_BUNDLE_KEY, products);
     }
 }

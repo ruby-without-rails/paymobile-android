@@ -18,13 +18,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.frmichetti.paymobile.android.R;
-import br.com.frmichetti.paymobile.android.jobs.AsyncResponse;
-import br.com.frmichetti.paymobile.android.jobs.TaskDownloadAddress;
+import br.com.frmichetti.paymobile.android.tasks.AsyncResponse;
+import br.com.frmichetti.paymobile.android.tasks.TaskDownloadAddress;
 import br.com.frmichetti.paymobile.android.model.compatibility.Address;
 import br.com.frmichetti.paymobile.android.view.activity.NewAddressActivity;
 

@@ -109,10 +109,10 @@ public class ServiceDetailActivity extends BaseActivity {
 
         textViewDescription.setText(selectedService.getDescription());
 
-        textViewDuration.setText(String.valueOf((selectedService.getDuration() >= 60) ?
-                (selectedService.getDuration() / 60) : (selectedService.getDuration())));
+//        textViewDuration.setText(String.valueOf((selectedService.getDuration() >= 60) ?
+//                (selectedService.getDuration() / 60) : (selectedService.getDuration())));
 
-        textViewObservation.setText(selectedService.getObservation());
+        textViewObservation.setText(selectedService.getNotes());
 
         textViewPrice.setText(String.valueOf(selectedService.getPrice()));
     }

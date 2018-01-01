@@ -16,9 +16,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import br.com.frmichetti.paymobile.android.R;
-import br.com.frmichetti.paymobile.android.jobs.AsyncResponse;
-import br.com.frmichetti.paymobile.android.jobs.TaskCreateAddress;
-import br.com.frmichetti.paymobile.android.jobs.TaskDeleteAddress;
+import br.com.frmichetti.paymobile.android.tasks.AsyncResponse;
+import br.com.frmichetti.paymobile.android.tasks.TaskCreateAddress;
+import br.com.frmichetti.paymobile.android.tasks.TaskDeleteAddress;
 import br.com.frmichetti.paymobile.android.model.compatibility.Address;
 
 public class NewAddressActivity extends BaseActivity {

@@ -4,7 +4,7 @@
  * @see http://www.codecode.com.br
  * @see mailto:frmichetti@gmail.com
  */
-package br.com.frmichetti.paymobile.android.jobs;
+package br.com.frmichetti.paymobile.android.tasks;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

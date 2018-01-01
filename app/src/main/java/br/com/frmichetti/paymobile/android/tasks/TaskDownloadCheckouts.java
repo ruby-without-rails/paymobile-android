@@ -4,7 +4,7 @@
  * @see http://www.codecode.com.br
  * @see mailto:frmichetti@gmail.com
  */
-package br.com.frmichetti.paymobile.android.jobs;
+package br.com.frmichetti.paymobile.android.tasks;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -52,7 +52,7 @@ public class TaskDownloadCheckouts extends AsyncTask<Customer, String, ArrayList
     }
 
     private TaskDownloadCheckouts() {
-        Log.d("DEBUG-TASK", "create TaskDownloadServices");
+        Log.d("DEBUG-TASK", "create TaskDownloadProducts");
     }
 
     @Override

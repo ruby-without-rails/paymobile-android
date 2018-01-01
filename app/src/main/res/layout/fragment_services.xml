@@ -12,7 +12,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:gravity="center_horizontal"
-        android:text="SERVIÇOS"
+        android:text="PRODUTOS"
         android:textSize="45dp"
         android:textStyle="bold" />
 

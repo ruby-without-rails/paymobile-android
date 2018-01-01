@@ -34,7 +34,7 @@ import br.com.frmichetti.paymobile.android.R;
 import br.com.frmichetti.paymobile.android.model.ShoppingCart;
 import br.com.frmichetti.paymobile.android.model.compatibility.Address;
 import br.com.frmichetti.paymobile.android.model.compatibility.Customer;
-import br.com.frmichetti.paymobile.android.model.compatibility.Service;
+import br.com.frmichetti.paymobile.android.model.compatibility.Product;
 import br.com.frmichetti.paymobile.android.model.compatibility.Vehicle;
 import br.com.frmichetti.paymobile.android.util.ConnectivityReceiver;
 import br.com.frmichetti.paymobile.android.view.activity.login.LoginActivity;
@@ -60,7 +60,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
     protected Customer customer;
 
-    protected Service selectedService;
+    protected Product selectedService;
 
     protected Vehicle selectedVehicle;
 
@@ -325,7 +325,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
             //TODO CHANGE TO PARCELABLE
             shoppingCart = (ShoppingCart) bundle.getSerializable("shoppingCart");
 
-            selectedService = (Service) bundle.getSerializable("service");
+            selectedService = (Product) bundle.getSerializable("service");
 
             selectedVehicle = (Vehicle) bundle.getSerializable("vehicle");
 
@@ -370,7 +370,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
             customer = (Customer) intent.getSerializableExtra("customer");
 
-            selectedService = (Service) intent.getSerializableExtra("service");
+            selectedService = (Product) intent.getSerializableExtra("service");
 
             selectedVehicle = (Vehicle) intent.getSerializableExtra("vehicle");
 

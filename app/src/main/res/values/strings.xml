@@ -40,14 +40,14 @@
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
 
-    <string name="nav_item_services">Services</string>
+    <string name="nav_item_products">Services</string>
     <string name="nav_item_address">Adresses</string>
     <string name="nav_item_vehicles">Vehicles</string>
     <string name="nav_item_checkouts">Checkouts</string>
 
 
     <string name="title_vehicles">Vehicle</string>
-    <string name="title_services">Service</string>
+    <string name="title_products">Service</string>
     <string name="title_address">Address</string>
     <string name="title_checkouts">Checkouts</string>
     <string name="contact_developer">Contact Developer</string>
@@ -76,7 +76,7 @@
 
     <!-- navigation drawer item labels  -->
     <string-array name="nav_drawer_labels">
-        <item>@string/nav_item_services</item>
+        <item>@string/nav_item_products</item>
         <item>@string/nav_item_address</item>
         <item>@string/nav_item_vehicles</item>
         <item>@string/nav_item_checkouts</item>

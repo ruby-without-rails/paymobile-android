@@ -30,7 +30,7 @@
             android:layout_alignParentTop="true"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="59dp"
-            android:text="Nome Serviço"
+            android:text="Nome Produto"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/color_primary" />
 

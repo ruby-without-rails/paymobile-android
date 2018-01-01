@@ -33,10 +33,10 @@
     <string name="drawer_close">Fechar</string>
     <string name="drawer_open">Abrir</string>
     <string name="nav_item_address">Endereços</string>
-    <string name="nav_item_services">Serviços</string>
+    <string name="nav_item_products">Produtos</string>
     <string name="nav_item_vehicles">Veículos</string>
     <string name="title_address">Endereços</string>
-    <string name="title_services">Serviços</string>
+    <string name="title_products">Produtos</string>
     <string name="title_vehicles">Veículos</string>
     <string name="contact_developer">Contate o Desenvolvedor</string>
     <string name="title_checkouts">Pedidos</string>

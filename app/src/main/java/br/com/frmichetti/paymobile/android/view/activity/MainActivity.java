@@ -32,16 +32,16 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import br.com.frmichetti.paymobile.android.R;
-import br.com.frmichetti.paymobile.android.jobs.DownloadImageTask;
+import br.com.frmichetti.paymobile.android.tasks.DownloadImageTask;
 import br.com.frmichetti.paymobile.android.model.ShoppingCart;
 import br.com.frmichetti.paymobile.android.model.compatibility.Address;
-import br.com.frmichetti.paymobile.android.model.compatibility.Service;
+import br.com.frmichetti.paymobile.android.model.compatibility.Product;
 import br.com.frmichetti.paymobile.android.model.compatibility.Vehicle;
 import br.com.frmichetti.paymobile.android.view.activity.shoppingCart.ShoppingCartActivity;
 import br.com.frmichetti.paymobile.android.view.fragment.AddressFragment;
 import br.com.frmichetti.paymobile.android.view.fragment.CheckoutsFragment;
 import br.com.frmichetti.paymobile.android.view.fragment.FragmentDrawer;
-import br.com.frmichetti.paymobile.android.view.fragment.ServicesFragment;
+import br.com.frmichetti.paymobile.android.view.fragment.ProductsFragment;
 import br.com.frmichetti.paymobile.android.view.fragment.VehiclesFragment;
 
 
@@ -96,7 +96,7 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
 
         if (selectedService == null) {
 
-            selectedService = new Service();
+            selectedService = new Product();
         }
 
         if (selectedVehicle == null) {
@@ -259,8 +259,8 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
         switch (position) {
 
             case 0:
-                fragment = new ServicesFragment();
-                title = getString(R.string.title_services);
+                fragment = new ProductsFragment();
+                title = getString(R.string.title_products);
                 break;
             case 1:
                 fragment = new AddressFragment();

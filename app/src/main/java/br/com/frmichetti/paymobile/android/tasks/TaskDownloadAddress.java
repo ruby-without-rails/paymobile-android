@@ -4,7 +4,7 @@
  * @see http://www.codecode.com.br
  * @see mailto:frmichetti@gmail.com
  */
-package br.com.frmichetti.paymobile.android.jobs;
+package br.com.frmichetti.paymobile.android.tasks;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -12,31 +12,42 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import br.com.frmichetti.paymobile.android.R;
 import br.com.frmichetti.paymobile.android.dao.HTTP;
 import br.com.frmichetti.paymobile.android.model.compatibility.Address;
+import br.com.frmichetti.paymobile.android.model.compatibility.Customer;
 
-public class TaskDeleteAddress extends AsyncTask<Address, String, Void> {
+
+public class TaskDownloadAddress extends AsyncTask<Customer, String, ArrayList<Address>> {
+
+    public AsyncResponse delegate = null;
 
     private String url;
+
+    private ArrayList<Address> addresses;
 
     private ProgressDialog dialog;
 
     private Context context;
 
-    private String response;
-
-    private TaskDeleteAddress() {
-
-        Log.d("DEBUG-TASK", "create TaskDeleteAddress");
+    public TaskDownloadAddress(Context context, AsyncResponse<ArrayList<Address>> delegate) {
+        this(context);
+        this.delegate = delegate;
     }
 
-    public TaskDeleteAddress(Context context) {
+    private TaskDownloadAddress(Context context) {
         this();
         this.context = context;
+    }
+
+    private TaskDownloadAddress() {
+        Log.d("DEBUG-TASK", "create TaskDownloadAddresses");
+
     }
 
     @Override
@@ -44,7 +55,7 @@ public class TaskDeleteAddress extends AsyncTask<Address, String, Void> {
 
         super.onPreExecute();
 
-        url = context.getResources().getString(R.string.server) + "delete/address";
+        url = context.getResources().getString(R.string.server) + "find/addrbycus";
 
         Log.d("DEBUG-TASK", "server config -> " + url);
 
@@ -56,20 +67,25 @@ public class TaskDeleteAddress extends AsyncTask<Address, String, Void> {
 
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
-        dialog.setMessage("Iniciando a Tarefa Deletar Endereço");
+        dialog.setMessage("Iniciando a Tarefa Obter Lista de Endereços");
 
         dialog.show();
 
+
     }
 
+
     @Override
-    protected Void doInBackground(Address ... params) {
+    protected ArrayList<Address> doInBackground(Customer... params) {
+
+        String response = "";
 
         try {
 
             publishProgress("Enviando Requisição para o Servidor");
 
-            response = HTTP.sendRequest(url,"DELETE",new Gson().toJson(params[0]));
+            response = HTTP.sendRequest(url, "POST",
+                    new Gson().toJson(params[0]));
 
         } catch (IOException e) {
 
@@ -78,12 +94,19 @@ public class TaskDeleteAddress extends AsyncTask<Address, String, Void> {
             Log.e("Erro", e.getMessage());
         }
 
-        return null;
+        publishProgress("Itens recebidos !");
 
+        //TODO FIXME Receive a JSON ARRAy
+
+        addresses = new Gson().fromJson(response, new TypeToken<ArrayList<Address>>() {
+        }.getType());
+
+        return (addresses != null) ? addresses : new ArrayList<Address>();
     }
 
+
     @Override
-    protected void onProgressUpdate(String ... values) {
+    protected void onProgressUpdate(String... values) {
 
         super.onProgressUpdate(values);
 
@@ -92,12 +115,15 @@ public class TaskDeleteAddress extends AsyncTask<Address, String, Void> {
 
 
     @Override
-    protected void onPostExecute(Void result) {
+    protected void onPostExecute(ArrayList<Address> result) {
 
         dialog.setMessage("Tarefa Finalizada!");
 
         dialog.dismiss();
 
+        delegate.processFinish(result);
 
     }
+
+
 }

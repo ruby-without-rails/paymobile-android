@@ -13,12 +13,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
-import java.io.Serializable;
-
 import br.com.frmichetti.paymobile.android.model.ShoppingCart;
 import br.com.frmichetti.paymobile.android.model.compatibility.Address;
 import br.com.frmichetti.paymobile.android.model.compatibility.Customer;
-import br.com.frmichetti.paymobile.android.model.compatibility.Service;
+import br.com.frmichetti.paymobile.android.model.compatibility.Product;
 import br.com.frmichetti.paymobile.android.model.compatibility.Vehicle;
 
 public abstract class BaseFragment extends Fragment {
@@ -35,7 +33,7 @@ public abstract class BaseFragment extends Fragment {
 
     protected Vehicle selectedVehicle;
 
-    protected Service selectedService;
+    protected Product selectedService;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -73,7 +71,7 @@ public abstract class BaseFragment extends Fragment {
 
             selectedVehicle = (Vehicle) intent.getSerializableExtra("vehicle");
 
-            selectedService = (Service) intent.getSerializableExtra("service");
+            selectedService = (Product) intent.getSerializableExtra("service");
 
             selectedAddress = (Address) intent.getSerializableExtra("address");
         } else {

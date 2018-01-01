@@ -4,7 +4,7 @@
  * @see http://www.codecode.com.br
  * @see mailto:frmichetti@gmail.com
  */
-package br.com.frmichetti.paymobile.android.jobs;
+package br.com.frmichetti.paymobile.android.tasks;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -20,33 +20,33 @@ import java.util.List;
 
 import br.com.frmichetti.paymobile.android.R;
 import br.com.frmichetti.paymobile.android.dao.HTTP;
-import br.com.frmichetti.paymobile.android.model.compatibility.Service;
+import br.com.frmichetti.paymobile.android.model.compatibility.Vehicle;
 
 
-public class TaskDownloadServices extends AsyncTask<Void, String, ArrayList<Service>> {
+public class TaskDownloadVehicles extends AsyncTask<Void, String, ArrayList<Vehicle>> {
 
     public AsyncResponse delegate = null;
 
     private String url;
 
-    private ArrayList<Service> services;
+    private ArrayList<Vehicle> vehicles;
 
     private ProgressDialog dialog;
 
     private Context context;
 
-    public TaskDownloadServices(Context context, AsyncResponse<ArrayList<Service>> delegate) {
+    public TaskDownloadVehicles(Context context, AsyncResponse<ArrayList<Vehicle>> delegate) {
         this(context);
         this.delegate = delegate;
     }
 
-    private TaskDownloadServices(Context context) {
+    private TaskDownloadVehicles(Context context) {
         this();
         this.context = context;
     }
 
-    private TaskDownloadServices() {
-        Log.d("DEBUG-TASK", "create TaskDownloadServices");
+    private TaskDownloadVehicles() {
+        Log.d("DEBUG-TASK", "create TaskDownloadVehicles");
 
     }
 
@@ -55,7 +55,7 @@ public class TaskDownloadServices extends AsyncTask<Void, String, ArrayList<Serv
 
         super.onPreExecute();
 
-        url = context.getResources().getString(R.string.server) + "services";
+        url = context.getResources().getString(R.string.server) + "vehicles";
 
         Log.d("DEBUG-TASK", "server config -> " + url);
 
@@ -67,7 +67,7 @@ public class TaskDownloadServices extends AsyncTask<Void, String, ArrayList<Serv
 
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
-        dialog.setMessage("Iniciando a Tarefa Obter Lista de Serviços");
+        dialog.setMessage("Iniciando a Tarefa Obter Lista de Veiculos");
 
         dialog.show();
 
@@ -76,15 +76,13 @@ public class TaskDownloadServices extends AsyncTask<Void, String, ArrayList<Serv
 
 
     @Override
-    protected ArrayList<Service> doInBackground(Void... params) {
+    protected ArrayList<Vehicle> doInBackground(Void... params) {
 
         String response = "";
 
         try {
 
             publishProgress("Enviando Requisição para o Servidor");
-
-            //TODO FIXME Receive JSON
 
             response = HTTP.sendGet(url);
 
@@ -97,12 +95,12 @@ public class TaskDownloadServices extends AsyncTask<Void, String, ArrayList<Serv
 
         publishProgress("Itens recebidos !");
 
-        //TODO FIXME Response Json
+        //TODO FIXME Receive a JSON ARRAy
 
-        services = new Gson().fromJson(response, new TypeToken<List<Service>>() {
+        vehicles = new Gson().fromJson(response, new TypeToken<List<Vehicle>>() {
         }.getType());
 
-        return (services != null) ? services : new ArrayList<Service>();
+        return (vehicles != null) ? vehicles : new ArrayList<Vehicle>();
     }
 
 
@@ -116,7 +114,7 @@ public class TaskDownloadServices extends AsyncTask<Void, String, ArrayList<Serv
 
 
     @Override
-    protected void onPostExecute(ArrayList<Service> result) {
+    protected void onPostExecute(ArrayList<Vehicle> result) {
 
         dialog.setMessage("Tarefa Finalizada!");
 

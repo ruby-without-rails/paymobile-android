@@ -9,7 +9,7 @@ package br.com.frmichetti.paymobile.android.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import br.com.frmichetti.paymobile.android.model.compatibility.Service;
+import br.com.frmichetti.paymobile.android.model.compatibility.Product;
 
 /**
  * ShoppingItem Model
@@ -21,18 +21,18 @@ public class ShoppingItem implements Serializable {
 
     private Long serviceId;
 
-    private Service service;
+    private Product service;
 
     private ShoppingItem() {
         super();
     }
 
-    public ShoppingItem(Service service) {
+    public ShoppingItem(Product service) {
         this.service = service;
         this.serviceId = service.getId();
     }
 
-    public Service getService() {
+    public Product getService() {
         return service;
     }
 

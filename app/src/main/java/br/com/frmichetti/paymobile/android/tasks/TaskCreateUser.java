@@ -4,7 +4,7 @@
  * @see http://www.codecode.com.br
  * @see mailto:frmichetti@gmail.com
  */
-package br.com.frmichetti.paymobile.android.jobs;
+package br.com.frmichetti.paymobile.android.tasks;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -18,9 +18,9 @@ import java.io.IOException;
 
 import br.com.frmichetti.paymobile.android.R;
 import br.com.frmichetti.paymobile.android.dao.HTTP;
-import br.com.frmichetti.paymobile.android.model.compatibility.Address;
+import br.com.frmichetti.paymobile.android.model.compatibility.User;
 
-public class TaskCreateAddress extends AsyncTask<Address, String, Address> {
+public class TaskCreateUser extends AsyncTask<User, String, User> {
 
     public AsyncResponse delegate = null;
 
@@ -32,17 +32,19 @@ public class TaskCreateAddress extends AsyncTask<Address, String, Address> {
 
     private String response;
 
-    private TaskCreateAddress() {
+
+    private TaskCreateUser() {
 
         Log.d("DEBUG-TASK", "create TaskCreateUser");
+
     }
 
-    private TaskCreateAddress(Context context) {
+    private TaskCreateUser(Context context) {
         this();
         this.context = context;
     }
 
-    public TaskCreateAddress(Context context, AsyncResponse<Address> delegate) {
+    public TaskCreateUser(Context context, AsyncResponse<User> delegate) {
         this(context);
         this.delegate = delegate;
     }
@@ -52,32 +54,34 @@ public class TaskCreateAddress extends AsyncTask<Address, String, Address> {
 
         super.onPreExecute();
 
-        url = context.getResources().getString(R.string.server) + "save/address";
+        url = context.getResources().getString(R.string.server) + "save/user";
 
         Log.d("DEBUG-TASK", "server config -> " + url);
 
         dialog = new ProgressDialog(context);
 
-        dialog.setTitle("Processando");
+        dialog.setTitle(context.getString(R.string.processing));
 
         dialog.setIndeterminate(true);
 
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
-        dialog.setMessage("Iniciando a Tarefa Criar Novo Endereço");
+        dialog.setMessage("Iniciando a Tarefa Criar Novo Login");
 
         dialog.show();
 
     }
 
     @Override
-    protected Address doInBackground(Address ... params) {
+    protected User doInBackground(User ... params) {
 
         try {
 
             publishProgress("Enviando Requisição para o Servidor");
 
-            response = HTTP.sendRequest(url,"POST",new Gson().toJson(params[0]));
+            //TODO FIXME Make a Json
+
+            response = HTTP.sendRequest(url,"POST", new Gson().toJson(params[0]));
 
         } catch (IOException e) {
 
@@ -88,14 +92,14 @@ public class TaskCreateAddress extends AsyncTask<Address, String, Address> {
 
         publishProgress("Item recebido !");
 
-        Address a = new Gson().fromJson(response, new TypeToken<Address>(){}.getType());
+        //TODO FIXME Receive a Json
 
-        return (a != null) ? (a) : (new Address());
+        return new Gson().fromJson(response, new TypeToken<User>(){}.getType());
 
     }
 
     @Override
-    protected void onProgressUpdate(String ... values) {
+    protected void onProgressUpdate(String... values) {
 
         super.onProgressUpdate(values);
 
@@ -104,9 +108,9 @@ public class TaskCreateAddress extends AsyncTask<Address, String, Address> {
 
 
     @Override
-    protected void onPostExecute(Address result) {
+    protected void onPostExecute(User result) {
 
-        dialog.setMessage("Tarefa Finalizada!");
+        dialog.setMessage(context.getString(R.string.process_finish));
 
         dialog.dismiss();
 

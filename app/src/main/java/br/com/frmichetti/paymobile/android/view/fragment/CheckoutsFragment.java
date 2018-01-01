@@ -16,13 +16,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.frmichetti.paymobile.android.R;
-import br.com.frmichetti.paymobile.android.jobs.AsyncResponse;
-import br.com.frmichetti.paymobile.android.jobs.TaskDownloadCheckouts;
+import br.com.frmichetti.paymobile.android.tasks.AsyncResponse;
+import br.com.frmichetti.paymobile.android.tasks.TaskDownloadCheckouts;
 import br.com.frmichetti.paymobile.android.model.compatibility.Checkout;
 import br.com.frmichetti.paymobile.android.view.activity.CheckoutDetailActivity;
 

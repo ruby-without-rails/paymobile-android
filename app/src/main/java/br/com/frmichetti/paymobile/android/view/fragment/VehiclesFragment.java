@@ -21,8 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.frmichetti.paymobile.android.R;
-import br.com.frmichetti.paymobile.android.jobs.AsyncResponse;
-import br.com.frmichetti.paymobile.android.jobs.TaskDownloadVehicles;
+import br.com.frmichetti.paymobile.android.tasks.AsyncResponse;
+import br.com.frmichetti.paymobile.android.tasks.TaskDownloadVehicles;
 import br.com.frmichetti.paymobile.android.model.compatibility.Vehicle;
 
 

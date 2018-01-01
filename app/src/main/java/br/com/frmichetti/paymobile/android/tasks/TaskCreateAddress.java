@@ -4,7 +4,7 @@
  * @see http://www.codecode.com.br
  * @see mailto:frmichetti@gmail.com
  */
-package br.com.frmichetti.paymobile.android.jobs;
+package br.com.frmichetti.paymobile.android.tasks;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -15,39 +15,36 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import br.com.frmichetti.paymobile.android.R;
 import br.com.frmichetti.paymobile.android.dao.HTTP;
-import br.com.frmichetti.paymobile.android.model.compatibility.Vehicle;
+import br.com.frmichetti.paymobile.android.model.compatibility.Address;
 
-
-public class TaskDownloadVehicles extends AsyncTask<Void, String, ArrayList<Vehicle>> {
+public class TaskCreateAddress extends AsyncTask<Address, String, Address> {
 
     public AsyncResponse delegate = null;
 
     private String url;
 
-    private ArrayList<Vehicle> vehicles;
-
     private ProgressDialog dialog;
 
     private Context context;
 
-    public TaskDownloadVehicles(Context context, AsyncResponse<ArrayList<Vehicle>> delegate) {
-        this(context);
-        this.delegate = delegate;
+    private String response;
+
+    private TaskCreateAddress() {
+
+        Log.d("DEBUG-TASK", "create TaskCreateUser");
     }
 
-    private TaskDownloadVehicles(Context context) {
+    private TaskCreateAddress(Context context) {
         this();
         this.context = context;
     }
 
-    private TaskDownloadVehicles() {
-        Log.d("DEBUG-TASK", "create TaskDownloadVehicles");
-
+    public TaskCreateAddress(Context context, AsyncResponse<Address> delegate) {
+        this(context);
+        this.delegate = delegate;
     }
 
     @Override
@@ -55,7 +52,7 @@ public class TaskDownloadVehicles extends AsyncTask<Void, String, ArrayList<Vehi
 
         super.onPreExecute();
 
-        url = context.getResources().getString(R.string.server) + "vehicles";
+        url = context.getResources().getString(R.string.server) + "save/address";
 
         Log.d("DEBUG-TASK", "server config -> " + url);
 
@@ -67,24 +64,20 @@ public class TaskDownloadVehicles extends AsyncTask<Void, String, ArrayList<Vehi
 
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
-        dialog.setMessage("Iniciando a Tarefa Obter Lista de Veiculos");
+        dialog.setMessage("Iniciando a Tarefa Criar Novo Endereço");
 
         dialog.show();
 
-
     }
 
-
     @Override
-    protected ArrayList<Vehicle> doInBackground(Void... params) {
-
-        String response = "";
+    protected Address doInBackground(Address ... params) {
 
         try {
 
             publishProgress("Enviando Requisição para o Servidor");
 
-            response = HTTP.sendGet(url);
+            response = HTTP.sendRequest(url,"POST",new Gson().toJson(params[0]));
 
         } catch (IOException e) {
 
@@ -93,19 +86,16 @@ public class TaskDownloadVehicles extends AsyncTask<Void, String, ArrayList<Vehi
             Log.e("Erro", e.getMessage());
         }
 
-        publishProgress("Itens recebidos !");
+        publishProgress("Item recebido !");
 
-        //TODO FIXME Receive a JSON ARRAy
+        Address a = new Gson().fromJson(response, new TypeToken<Address>(){}.getType());
 
-        vehicles = new Gson().fromJson(response, new TypeToken<List<Vehicle>>() {
-        }.getType());
+        return (a != null) ? (a) : (new Address());
 
-        return (vehicles != null) ? vehicles : new ArrayList<Vehicle>();
     }
 
-
     @Override
-    protected void onProgressUpdate(String... values) {
+    protected void onProgressUpdate(String ... values) {
 
         super.onProgressUpdate(values);
 
@@ -114,7 +104,7 @@ public class TaskDownloadVehicles extends AsyncTask<Void, String, ArrayList<Vehi
 
 
     @Override
-    protected void onPostExecute(ArrayList<Vehicle> result) {
+    protected void onPostExecute(Address result) {
 
         dialog.setMessage("Tarefa Finalizada!");
 
@@ -123,6 +113,4 @@ public class TaskDownloadVehicles extends AsyncTask<Void, String, ArrayList<Vehi
         delegate.processFinish(result);
 
     }
-
-
 }
