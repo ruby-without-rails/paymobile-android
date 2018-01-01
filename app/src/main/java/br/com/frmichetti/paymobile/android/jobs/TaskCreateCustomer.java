@@ -11,32 +11,27 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 
-import java.io.IOException;
+import org.json.JSONObject;
 
 import br.com.frmichetti.paymobile.android.R;
-import br.com.frmichetti.paymobile.android.dao.HTTP;
+import br.com.frmichetti.paymobile.android.model.MySingleton;
 import br.com.frmichetti.paymobile.android.model.compatibility.Customer;
 
-public class TaskCreateCustomer extends AsyncTask<Customer, String, Customer> {
-
+public class TaskCreateCustomer extends AsyncTask<JSONObject, String, Customer> {
     public AsyncResponse delegate = null;
-
     private String url;
-
     private ProgressDialog dialog;
-
     private Context context;
-
-    private String response;
-
+    private Customer customer;
 
     private TaskCreateCustomer() {
-
         Log.d("DEBUG-TASK", "create TaskCreateCustomer");
-
     }
 
     private TaskCreateCustomer(Context context) {
@@ -51,10 +46,9 @@ public class TaskCreateCustomer extends AsyncTask<Customer, String, Customer> {
 
     @Override
     protected void onPreExecute() {
-
         super.onPreExecute();
 
-        url = context.getResources().getString(R.string.server) + "save/customer";
+        url = context.getResources().getString(R.string.server) + "/api/customer";
 
         Log.d("DEBUG-TASK", "server config -> " + url);
 
@@ -73,48 +67,60 @@ public class TaskCreateCustomer extends AsyncTask<Customer, String, Customer> {
     }
 
     @Override
-    protected Customer doInBackground(Customer... params) {
+    protected Customer doInBackground(JSONObject... params) {
+        publishProgress("Enviando Requisição para o Servidor");
+
+        // Get a RequestQueue
+        RequestQueue queue = MySingleton.getInstance(context).getRequestQueue();
 
         try {
+            JSONObject jsonBody = params[0];
 
-            publishProgress("Enviando Requisição para o Servidor");
+            Log.d("DEBUG", "PAYLOAD");
+            Log.d("DEBUG", jsonBody.toString());
 
-            //TODO FIXME Create a JSON
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, jsonBody, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject jsonObject) {
+                    publishProgress("Item recebido !");
+                    if (jsonObject.has("validation_errors")) {
+                        throw new RuntimeException("Invalid response from server - Incorrect Payload -> \n" + jsonObject.toString());
+                    }
+                    customer = new Customer(jsonObject);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    publishProgress("Item não recebido !");
+                    publishProgress("Ocorreu uma falha ao contactar o servidor !");
+                    customer = null;
+                }
+            });
 
-            response = HTTP.sendRequest(url, "POST" ,new Gson().toJson(params[0]));
+            // Add the request to the RequestQueue.
+            queue.add(jsonObjectRequest);
 
-        } catch (IOException e) {
-
+        } catch (Exception e) {
+            e.printStackTrace();
             publishProgress("Falha ao Obter Resposta");
-
             Log.e("Erro", e.getMessage());
         }
-
-        publishProgress("Item recebido !");
-
-        //TODO FIXME Receive a JSON
-
-        return new Gson().fromJson(response, new TypeToken<Customer>(){}.getType());
-
+        return customer;
     }
 
     @Override
-    protected void onProgressUpdate(String ... values) {
-
+    protected void onProgressUpdate(String... values) {
         super.onProgressUpdate(values);
 
         dialog.setMessage(String.valueOf(values[0]));
     }
 
-
     @Override
     protected void onPostExecute(Customer result) {
-
         dialog.setMessage("Tarefa Finalizada!");
 
         dialog.dismiss();
 
         delegate.processFinish(result);
-
     }
 }

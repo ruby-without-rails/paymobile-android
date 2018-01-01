@@ -27,39 +27,35 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.iid.FirebaseInstanceId;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import br.com.frmichetti.paymobile.android.R;
 import br.com.frmichetti.paymobile.android.jobs.AsyncResponse;
-import br.com.frmichetti.paymobile.android.jobs.TaskCreateUser;
-import br.com.frmichetti.paymobile.android.model.compatibility.User;
+import br.com.frmichetti.paymobile.android.jobs.TaskCreateCustomer;
+import br.com.frmichetti.paymobile.android.model.compatibility.Customer;
 import br.com.frmichetti.paymobile.android.util.ConnectivityReceiver;
 import br.com.frmichetti.paymobile.android.view.activity.CustomerActivity;
 import br.com.frmichetti.paymobile.android.view.activity.MyPattern;
 
-
 public class SignupActivity extends AppCompatActivity implements MyPattern,
         ConnectivityReceiver.ConnectivityReceiverListener {
-
     private FirebaseAuth auth;
-
     private ActionBar actionBar;
-
     private Context context;
-
     private EditText editTextEmail, editTextPassword;
-
     private Button btnSignIn, btnSignUp, btnResetPassword;
-
     private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
 
         auth = FirebaseAuth.getInstance();
@@ -69,12 +65,10 @@ public class SignupActivity extends AppCompatActivity implements MyPattern,
         doCastComponents();
 
         doCreateListeners();
-
     }
 
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
-
         super.onPostCreate(savedInstanceState);
 
         doConfigure();
@@ -84,19 +78,16 @@ public class SignupActivity extends AppCompatActivity implements MyPattern,
 
     @Override
     protected void onResume() {
-
         super.onResume();
 
         progressBar.setVisibility(View.GONE);
 
         // register connection status listener
         this.setConnectivityListener(this);
-
     }
 
     @Override
     public void doCastComponents() {
-
         Toolbar toolbar = findViewById(R.id.toolbar_dark);
 
         setSupportActionBar(toolbar);
@@ -116,7 +107,6 @@ public class SignupActivity extends AppCompatActivity implements MyPattern,
 
     @Override
     public void doCreateListeners() {
-
         btnResetPassword.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -126,12 +116,9 @@ public class SignupActivity extends AppCompatActivity implements MyPattern,
         });
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-
                 finish();
-
             }
         });
 
@@ -139,7 +126,6 @@ public class SignupActivity extends AppCompatActivity implements MyPattern,
 
             @Override
             public void onClick(View v) {
-
                 String email = editTextEmail.getText().toString().trim();
 
                 String password = editTextPassword.getText().toString().trim();
@@ -166,16 +152,13 @@ public class SignupActivity extends AppCompatActivity implements MyPattern,
                 }
 
                 if (doCheckConnection()) {
-
                     progressBar.setVisibility(View.VISIBLE);
 
                     //create firebaseUser
                     auth.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
-
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
-
                                     progressBar.setVisibility(View.GONE);
 
                                     // If sign in fails, display a message to the firebaseUser. If sign in succeeds
@@ -189,14 +172,9 @@ public class SignupActivity extends AppCompatActivity implements MyPattern,
                                         Log.d("DEBUG-LOGIN", getString(R.string.auth_error) + task.getException().toString());
 
                                     } else {
-
-                                        TaskCreateUser taskCreateUsuario = new TaskCreateUser(context, new AsyncResponse<User>() {
-
+                                        TaskCreateCustomer taskCreateCustomer = new TaskCreateCustomer(context, new AsyncResponse<Customer>() {
                                             @Override
-                                            public void processFinish(User output) {
-
-                                                //TODO Implementar Logica do Login
-
+                                            public void processFinish(Customer output) {
                                                 startActivity(new Intent(context, CustomerActivity.class)
                                                         .putExtra("user", output));
 
@@ -205,27 +183,35 @@ public class SignupActivity extends AppCompatActivity implements MyPattern,
                                         });
 
                                         FirebaseUser firebaseUser = auth.getCurrentUser();
+                                        JSONObject payload = new JSONObject();
 
-                                        User usuario = new User();
+                                        try {
+                                            payload.put("fcm_id", firebaseUser.getUid());
+                                            payload.put("email", firebaseUser.getEmail());
+                                            payload.put("name", "fcm-new-user");
+                                            payload.put("cpf", "cpf-new-user");
+                                            payload.put("fcm_message_token", FirebaseInstanceId.getInstance().getToken());
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
 
-                                        usuario.setFirebaseUUID(firebaseUser.getUid());
-
-                                        usuario.setEmail(firebaseUser.getEmail());
-
-                                        usuario.setFirebaseMessageToken(FirebaseInstanceId.getInstance().getToken());
-
-                                        taskCreateUsuario.execute(usuario);
+                                        taskCreateCustomer.execute(payload);
                                     }
                                 }
-                            });
+                            }).addOnFailureListener(SignupActivity.this, new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(context, getString(R.string.auth_error) + e.getMessage(),
+                                    Toast.LENGTH_LONG).show();
+
+                            Log.d("DEBUG-LOGIN", getString(R.string.auth_error) + e.getMessage().toString());
+
+                        }
+                    });
 
                 } else {
-
                     showSnack(doCheckConnection());
-
                 }
-
-
             }
         });
     }

@@ -32,18 +32,13 @@ import br.com.frmichetti.paymobile.android.model.compatibility.User;
 
 
 public class CustomerActivity extends BaseActivity {
-
     private FloatingActionButton fabConfirm;
-
     private EditText editTextName, editTextCPF, editTextPhone, editTextMobilePhone;
-
     private TextInputLayout txtInputLayoutName, txtInputLayoutCPF, txtInputLayoutPhone, txtInputLayoutMobilePhone;
-
     private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_customer);
@@ -58,7 +53,6 @@ public class CustomerActivity extends BaseActivity {
 
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
-
         super.onPostCreate(savedInstanceState);
 
         doLoadCustomer(customer);
@@ -67,7 +61,6 @@ public class CustomerActivity extends BaseActivity {
 
     @Override
     public void doCastComponents() {
-
         super.doCastComponents();
 
         editTextName = findViewById(R.id.editTextName);
@@ -116,7 +109,7 @@ public class CustomerActivity extends BaseActivity {
 
                             customer = output;
 
-                            doChangeActivity(context,MainActivity.class);
+                            doChangeActivity(context, MainActivity.class);
 
                             finish();
                         }
@@ -124,7 +117,6 @@ public class CustomerActivity extends BaseActivity {
 
                     customer = doLoadFields();
 
-                    taskCreateCustomer.execute(customer);
 
                 }
 
@@ -134,16 +126,15 @@ public class CustomerActivity extends BaseActivity {
     }
 
     private Customer doLoadCustomer(Customer customer) {
-
         if (customer != null) {
 
             editTextName.setText(customer.getName());
 
             editTextCPF.setText(String.valueOf(customer.getCpf()));
 
-            editTextPhone.setText(String.valueOf(customer.getPhone()));
+            //  editTextPhone.setText(String.valueOf(customer.getPhone()));
 
-            editTextMobilePhone.setText(String.valueOf(customer.getMobilePhone()));
+            //  editTextMobilePhone.setText(String.valueOf(customer.getMobilePhone()));
 
         } else {
 
@@ -162,45 +153,23 @@ public class CustomerActivity extends BaseActivity {
     }
 
     private Customer doLoadFields() {
-
-        Customer c;
+        Customer c = new Customer();
 
         if (customer != null) {
-
             c = customer;
 
-            if (c.getUser() != null) {
+            c.setFcmMessageToken(FirebaseInstanceId.getInstance().getToken());
 
-                c.getUser().setFirebaseMessageToken(FirebaseInstanceId.getInstance().getToken());
-
-                c.getUser().setFirebaseUUID(FirebaseAuth.getInstance().getCurrentUser().getUid());
-
-            } else {
-
-                Toast.makeText(context, "Usuário parece estar corrompido, por favor contate o Administrador ...", Toast.LENGTH_LONG).show();
-
-                finish();
-            }
+            c.setFcmId(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
         } else {
+            Toast.makeText(context, "Usuário parece estar corrompido, por favor contate o Administrador ...", Toast.LENGTH_LONG).show();
 
-            c = new Customer();
-
-            c.setUser(user);
-
+            finish();
         }
-
-        c.setName(editTextName.getText().toString());
-
-        c.setCpf(Long.parseLong(editTextCPF.getText().toString()));
-
-        c.setPhone(Long.parseLong(editTextPhone.getText().toString()));
-
-        c.setMobilePhone(Long.parseLong(editTextMobilePhone.getText().toString()));
-
         return c;
-
     }
+
 
     @Override
     public void setupToolBar() {

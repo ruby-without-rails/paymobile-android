@@ -26,9 +26,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import br.com.frmichetti.paymobile.android.R;
 import br.com.frmichetti.paymobile.android.jobs.AsyncResponse;
@@ -38,25 +42,17 @@ import br.com.frmichetti.paymobile.android.util.ConnectivityReceiver;
 import br.com.frmichetti.paymobile.android.view.activity.MainActivity;
 import br.com.frmichetti.paymobile.android.view.activity.MyPattern;
 
-
 public class LoginActivity extends AppCompatActivity implements MyPattern,
         ConnectivityReceiver.ConnectivityReceiverListener {
-
     private Context context;
-
     private ActionBar actionBar;
-
     private EditText editTextEmail, editTextPassword;
-
     private FirebaseAuth auth;
-
     private ProgressBar progressBar;
-
     private Button btnSignup, btnLogin, btnReset;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
 
         auth = FirebaseAuth.getInstance();
@@ -66,13 +62,11 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
         doCastComponents();
 
         doCreateListeners();
-
     }
 
 
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
-
         super.onPostCreate(savedInstanceState);
 
         doConfigure();
@@ -82,7 +76,6 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
 
     @Override
     public void doCastComponents() {
-
         Toolbar toolbar = findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
@@ -102,7 +95,6 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
 
     @Override
     public void doCreateListeners() {
-
         btnSignup.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -122,7 +114,6 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
         });
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
 
@@ -146,7 +137,6 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
 
 
                 if (doCheckConnection()) {
-
 
                     progressBar.setVisibility(View.VISIBLE);
 
@@ -177,15 +167,13 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
                                         }
 
                                     } else {
-
                                         TaskLoginFirebase taskLoginFirebase = new TaskLoginFirebase(context, new AsyncResponse<Customer>() {
-
                                             @Override
                                             public void processFinish(Customer output) {
-
                                                 if (output != null) {
 
-                                                    startActivity(new Intent(context, MainActivity.class).putExtra("customer", output));
+                                                    startActivity(new Intent(context, MainActivity.class)
+                                                            .putExtra("customer", output));
 
                                                     finish();
 
@@ -194,23 +182,32 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
                                                     Toast.makeText(context, getString(R.string.could_not_authorize), Toast.LENGTH_LONG).show();
                                                 }
                                             }
-                                        });
+                                        },false);
 
-                                        taskLoginFirebase.execute(auth.getCurrentUser().getUid());
+                                        JSONObject payload = new JSONObject();
+
+                                        try {
+                                            payload.put("fcm_id", auth.getCurrentUser().getUid());
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+
+                                        taskLoginFirebase.execute(payload);
 
                                     }
                                 }
-                            });
+                            }).addOnFailureListener(LoginActivity.this, new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(context, getString(R.string.could_not_authorize), Toast.LENGTH_LONG).show();
+                        }
+
+                    });
                 } else {
-
                     showSnack(doCheckConnection());
-
                 }
-
             }
-
         });
-
     }
 
     @Override
@@ -220,7 +217,6 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
 
     @Override
     public void doConfigure() {
-
         context = this;
 
         actionBar = getSupportActionBar();
@@ -246,7 +242,6 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
 
     // Showing the status in Snackbar
     private void showSnack(boolean isConnected) {
-
         String message;
 
         int color;
@@ -280,7 +275,6 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
 
     @Override
     protected void onResume() {
-
         super.onResume();
 
         // register connection status listener
@@ -293,13 +287,11 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
      */
     @Override
     public void onNetworkConnectionChanged(boolean isConnected) {
-
         showSnack(isConnected);
     }
 
 
     public void setConnectivityListener(ConnectivityReceiver.ConnectivityReceiverListener listener) {
-
         ConnectivityReceiver.connectivityReceiverListener = listener;
     }
 }

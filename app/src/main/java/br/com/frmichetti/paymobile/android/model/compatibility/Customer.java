@@ -2,47 +2,54 @@ package br.com.frmichetti.paymobile.android.model.compatibility;
 
 import android.os.Parcel;
 
+import com.google.gson.JsonObject;
+import com.google.gson.annotations.SerializedName;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class Customer extends BaseModel {
-
+    @SerializedName("id")
     private Long id;
-
-    private User user;
-
+    @SerializedName("name")
     private String name;
-
-    private long cpf;
-
-    private long phone;
-
-    private long mobilePhone;
-
-    private ArrayList<Vehicle> vehicles = new ArrayList<>();
+    @SerializedName("cpf")
+    private String cpf;
+    @SerializedName("fcm_id")
+    private String fcmId;
+    @SerializedName("fcm_message_token")
+    private String fcmMessageToken;
+    @SerializedName("email")
+    private String email;
+    @SerializedName("token")
+    private String token;
 
     public Customer() {
     }
 
-    public Customer(Parcel parcel) {
-
-        if (parcel != null) {
-
-            this.id = parcel.readLong();
-
-            this.user = parcel.readParcelable(User.class.getClassLoader());
-
-            this.name = parcel.readString();
-
-            this.cpf = parcel.readLong();
-
-            this.phone = parcel.readLong();
-
-            this.mobilePhone = parcel.readLong();
-
-     //       parcel.readTypedList(this.vehicles, Vehicle.CREATOR);
+    public Customer(JSONObject jsonObject) {
+        try {
+            this.id = jsonObject.getLong("id");
+            this.cpf = jsonObject.getString("cpf");
+            this.fcmId = jsonObject.getString("fcm_id");
+            this.email = jsonObject.getString("email");
+            this.name = jsonObject.getString("name");
+            this.token = jsonObject.getString("token");
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
+    }
 
-
+    public Customer(Parcel parcel) {
+        this.id = parcel.readLong();
+        this.cpf = parcel.readString();
+        this.fcmMessageToken = parcel.readString();
+        this.fcmId = parcel.readString();
+        this.email = parcel.readString();
+        this.name = parcel.readString();
+        this.token = parcel.readString();
     }
 
     public Long getId() {
@@ -53,14 +60,6 @@ public class Customer extends BaseModel {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public String getName() {
         return name;
     }
@@ -69,28 +68,36 @@ public class Customer extends BaseModel {
         this.name = name;
     }
 
-    public long getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(long cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
-    public long getPhone() {
-        return phone;
+    public String getFcmId() {
+        return fcmId;
     }
 
-    public void setPhone(long phone) {
-        this.phone = phone;
+    public void setFcmId(String fcmId) {
+        this.fcmId = fcmId;
     }
 
-    public long getMobilePhone() {
-        return mobilePhone;
+    public String getEmail() {
+        return email;
     }
 
-    public void setMobilePhone(long mobilePhone) {
-        this.mobilePhone = mobilePhone;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     @Override
@@ -99,8 +106,6 @@ public class Customer extends BaseModel {
         if (name != null && !name.trim().isEmpty())
             result += "name: " + name;
         result += ", cpf: " + cpf;
-        result += ", phone: " + phone;
-        result += ", mobilePhone: " + mobilePhone;
         return result;
     }
 
@@ -129,13 +134,14 @@ public class Customer extends BaseModel {
         return result;
     }
 
-    public ArrayList<Vehicle> getVehicles() {
-        return this.vehicles;
+    public String getFcmMessageToken() {
+        return fcmMessageToken;
     }
 
-    public void setVehicles(final ArrayList<Vehicle> vehicles) {
-        this.vehicles = vehicles;
+    public void setFcmMessageToken(String fcmMessageToken) {
+        this.fcmMessageToken = fcmMessageToken;
     }
+
 /*
     @Override
     public int describeContents() {
@@ -144,7 +150,6 @@ public class Customer extends BaseModel {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-
         if (id != null) {
             parcel.writeLong(id);
         }
@@ -171,7 +176,6 @@ public class Customer extends BaseModel {
     }
 
     public static final Parcelable.Creator<Customer> CREATOR = new Parcelable.Creator<Customer>() {
-
         public Customer createFromParcel(Parcel parcel) {
             return new Customer(parcel);
         }
