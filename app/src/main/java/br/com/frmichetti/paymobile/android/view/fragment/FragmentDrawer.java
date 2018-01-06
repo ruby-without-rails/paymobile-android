@@ -7,6 +7,7 @@
 package br.com.frmichetti.paymobile.android.view.fragment;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
@@ -33,6 +34,7 @@ public class FragmentDrawer extends Fragment {
     private static String TAG = FragmentDrawer.class.getSimpleName();
 
     private static String[] titles = null;
+    private static TypedArray icons = null;
 
     private RecyclerView recyclerView;
 
@@ -49,19 +51,6 @@ public class FragmentDrawer extends Fragment {
     public FragmentDrawer() {
     }
 
-    public static List<NavDrawerItem> getData() {
-
-        List<NavDrawerItem> data = new ArrayList<>();
-
-        // preparing navigation drawer items
-        for (String title : titles) {
-            NavDrawerItem navItem = new NavDrawerItem();
-            navItem.setTitle(title);
-            data.add(navItem);
-        }
-        return data;
-    }
-
     public void setDrawerListener(FragmentDrawerListener listener) {
         this.drawerListener = listener;
     }
@@ -70,8 +59,9 @@ public class FragmentDrawer extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // drawer labels
-        titles = getActivity().getResources().getStringArray(R.array.nav_drawer_labels);
+        // drawer labels and icons
+        titles = getResources().getStringArray(R.array.nav_drawer_labels);
+        icons = getResources().obtainTypedArray(R.array.nav_drawer_icons);
     }
 
     @Override
@@ -103,6 +93,22 @@ public class FragmentDrawer extends Fragment {
         }));
 
         return layout;
+    }
+
+    public static List<NavDrawerItem> getData() {
+        List<NavDrawerItem> data = new ArrayList<>();
+
+        // preparing navigation drawer items
+        for (int i = 0; i < titles.length; i++) {
+            String title = titles[i];
+            NavDrawerItem navItem = new NavDrawerItem();
+            navItem.setTitle(title);
+            navItem.setResourceId(icons.getDrawable(i));
+            data.add(navItem);
+        }
+
+
+        return data;
     }
 
 

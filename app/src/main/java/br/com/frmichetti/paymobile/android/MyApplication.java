@@ -24,11 +24,11 @@ public class MyApplication extends MultiDexApplication {
         myApplication = this;
     }
 
-    public static String getSessionToken() {
+    public static synchronized String getSessionToken() {
         return sessionToken;
     }
 
-    public static void setSessionToken(String sessionToken) {
+    public static synchronized void setSessionToken(String sessionToken) {
         MyApplication.sessionToken = sessionToken;
     }
 

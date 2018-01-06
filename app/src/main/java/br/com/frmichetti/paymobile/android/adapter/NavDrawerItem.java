@@ -6,18 +6,23 @@
  */
 package br.com.frmichetti.paymobile.android.adapter;
 
+import android.graphics.drawable.Drawable;
+
 public class NavDrawerItem {
 
     private boolean showNotify;
 
     private String title;
 
+    private Drawable resourceId;
+
     public NavDrawerItem() {
     }
 
-    public NavDrawerItem(boolean showNotify, String title) {
+    public NavDrawerItem(boolean showNotify, String title, Drawable resourceId) {
         this.showNotify = showNotify;
         this.title = title;
+        this.resourceId = resourceId;
     }
 
     public boolean isShowNotify() {
@@ -36,4 +41,11 @@ public class NavDrawerItem {
         this.title = title;
     }
 
+    public Drawable getResourceId() {
+        return resourceId;
+    }
+
+    public void setResourceId(Drawable resourceId) {
+        this.resourceId = resourceId;
+    }
 }
