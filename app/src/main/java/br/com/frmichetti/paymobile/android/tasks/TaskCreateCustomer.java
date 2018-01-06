@@ -19,7 +19,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import org.json.JSONObject;
 
 import br.com.frmichetti.paymobile.android.R;
-import br.com.frmichetti.paymobile.android.model.MySingleton;
+import br.com.frmichetti.paymobile.android.model.RequestQueuer;
 import br.com.frmichetti.paymobile.android.model.compatibility.Customer;
 
 public class TaskCreateCustomer extends AsyncTask<JSONObject, String, Customer> {
@@ -70,7 +70,7 @@ public class TaskCreateCustomer extends AsyncTask<JSONObject, String, Customer> 
         publishProgress("Enviando Requisição para o Servidor");
 
         // Get a RequestQueue
-        RequestQueue queue = MySingleton.getInstance(context).getRequestQueue();
+        RequestQueue queue = RequestQueuer.getInstance(context).getRequestQueue();
 
         try {
             JSONObject jsonBody = params[0];

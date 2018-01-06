@@ -14,6 +14,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -31,6 +32,7 @@ import android.widget.Toast;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import br.com.frmichetti.paymobile.android.helper.BottomNavigationBehavior;
 import br.com.frmichetti.paymobile.android.R;
 import br.com.frmichetti.paymobile.android.tasks.DownloadImageTask;
 import br.com.frmichetti.paymobile.android.model.ShoppingCart;
@@ -42,6 +44,7 @@ import br.com.frmichetti.paymobile.android.view.fragment.AddressFragment;
 import br.com.frmichetti.paymobile.android.view.fragment.CheckoutsFragment;
 import br.com.frmichetti.paymobile.android.view.fragment.FragmentDrawer;
 import br.com.frmichetti.paymobile.android.view.fragment.ProductsFragment;
+import br.com.frmichetti.paymobile.android.view.fragment.StoreFragment;
 import br.com.frmichetti.paymobile.android.view.fragment.VehiclesFragment;
 
 
@@ -82,7 +85,6 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
         doSetFragment();
 
         doShowInfo();
-
 
 
     }
@@ -279,6 +281,38 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
                 break;
         }
 
+        loadFragment(fragment, title);
+    }
+
+    private void displayView(MenuItem menuItem) {
+
+        Fragment fragment = null;
+
+        String title = getString(R.string.app_name);
+
+        switch (menuItem.getItemId()) {
+            case R.id.navigation_shop:
+                fragment = new StoreFragment();
+                title = getString(R.string.title_shop);
+                break;
+            case R.id.navigation_gifts:
+                fragment = new AddressFragment();
+                title = getString(R.string.title_address);
+                break;
+            case R.id.navigation_cart:
+                fragment = new VehiclesFragment();
+                title = getString(R.string.title_vehicles);
+                break;
+            case R.id.navigation_profile:
+                fragment = new CheckoutsFragment();
+                title = getString(R.string.title_checkouts);
+                break;
+        }
+
+        loadFragment(fragment, title);
+    }
+
+    private void loadFragment(Fragment fragment, String title) {
         if (fragment != null) {
 
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -295,7 +329,8 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
 
 
     @Override
-    public void doCreateListeners() {}
+    public void doCreateListeners() {
+    }
 
 
     private void doSetFragment() {
@@ -320,7 +355,24 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
         imageView = findViewById(R.id.imageViewAccountImage);
 
         textView = findViewById(R.id.textViewTitle);
+
+        BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        // attaching bottom sheet behaviour - hide / show on scroll
+        CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) navigation.getLayoutParams();
+        layoutParams.setBehavior(new BottomNavigationBehavior());
     }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            displayView(item);
+
+            return false;
+        }
+    };
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -351,10 +403,8 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
 
     @Override
     public void onNetworkConnectionChanged(boolean isConnected) {
-
         showSnack((CoordinatorLayout) findViewById(R.id.coordLayoutMain), isConnected);
     }
-
 }
 
 

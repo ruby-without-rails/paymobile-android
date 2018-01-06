@@ -8,31 +8,20 @@ package br.com.frmichetti.paymobile.android.tasks;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.support.annotation.NonNull;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
-
 import br.com.frmichetti.paymobile.android.MyApplication;
 import br.com.frmichetti.paymobile.android.R;
-import br.com.frmichetti.paymobile.android.dao.GsonRequest;
-import br.com.frmichetti.paymobile.android.dto.CustomerDTO;
-import br.com.frmichetti.paymobile.android.model.MySingleton;
-import br.com.frmichetti.paymobile.android.model.compatibility.Customer;
+import br.com.frmichetti.paymobile.android.model.RequestQueuer;
 
 public class TaskLogin extends AsyncTask<String, String, String> {
     public AsyncResponse delegate = null;
@@ -77,7 +66,7 @@ public class TaskLogin extends AsyncTask<String, String, String> {
         dialog.show();
 
         // Get a RequestQueue
-        requestQueue = MySingleton.getInstance(context).getRequestQueue();
+        requestQueue = RequestQueuer.getInstance(context).getRequestQueue();
     }
 
     @Override

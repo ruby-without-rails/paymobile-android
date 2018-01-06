@@ -116,7 +116,7 @@ public class ShoppingCart implements Serializable {
 
             try {
                 itens.put(new JSONObject()
-                        .put("title", shoppingItem.getService().getTitle())
+                        .put("title", shoppingItem.getService().getName())
                         .put("price", shoppingItem.getService().getPrice())
                         .put("quantity", getQuantityOfItens(shoppingItem).intValue())
                         .put("total", getTotal(shoppingItem))

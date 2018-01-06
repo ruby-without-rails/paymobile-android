@@ -8,7 +8,7 @@
         android:id="@+id/action_vehicle"
         android:icon="@drawable/ic_action_car"
         android:orderInCategory="100"
-        android:title="@string/action_vehicle"
+        android:name="@string/action_vehicle"
         app:showAsAction="ifRoom" />
 
 
@@ -16,42 +16,42 @@
         android:id="@+id/action_cart"
         android:icon="@drawable/ic_action_cart"
         android:orderInCategory="100"
-        android:title="@string/action_cart"
+        android:name="@string/action_cart"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/action_personal_data"
         android:icon="@drawable/ic_action_account"
         android:orderInCategory="100"
-        android:title="@string/action_personal_data"
+        android:name="@string/action_personal_data"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_settings"
         android:icon="@drawable/ic_action_settings"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:name="@string/action_settings"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_contact_developer"
         android:icon="@drawable/ic_action_contact_code"
         android:orderInCategory="100"
-        android:title="@string/contact_developer"
+        android:name="@string/contact_developer"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_about"
         android:icon="@drawable/ic_action_contact_code"
         android:orderInCategory="100"
-        android:title="@string/about"
+        android:name="@string/about"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_map"
         android:orderInCategory="100"
 
-        android:title="@string/map"
+        android:name="@string/map"
         app:showAsAction="never" />
 
 </menu>

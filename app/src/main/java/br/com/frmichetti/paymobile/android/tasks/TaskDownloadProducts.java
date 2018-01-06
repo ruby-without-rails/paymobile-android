@@ -9,32 +9,20 @@ package br.com.frmichetti.paymobile.android.tasks;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.support.annotation.NonNull;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import br.com.frmichetti.paymobile.android.R;
 import br.com.frmichetti.paymobile.android.dao.GsonRequest;
-import br.com.frmichetti.paymobile.android.dao.HTTP;
-import br.com.frmichetti.paymobile.android.dto.CustomerDTO;
 import br.com.frmichetti.paymobile.android.dto.ProductDTO;
-import br.com.frmichetti.paymobile.android.model.MySingleton;
+import br.com.frmichetti.paymobile.android.model.RequestQueuer;
 import br.com.frmichetti.paymobile.android.model.compatibility.Product;
 
 public class TaskDownloadProducts extends AsyncTask<String, String, ArrayList<Product>> {
@@ -80,7 +68,7 @@ public class TaskDownloadProducts extends AsyncTask<String, String, ArrayList<Pr
         dialog.show();
 
         // Get a RequestQueue
-        requestQueue = MySingleton.getInstance(context).getRequestQueue();
+        requestQueue = RequestQueuer.getInstance(context).getRequestQueue();
 
     }
 
@@ -94,7 +82,7 @@ public class TaskDownloadProducts extends AsyncTask<String, String, ArrayList<Pr
         GsonRequest<ProductDTO> requestCustomer = new GsonRequest<>(url, ProductDTO.class, headers, new Response.Listener<ProductDTO>() {
             @Override
             public void onResponse(ProductDTO response) {
-                publishProgress("Criando Objeto Cliente");
+                publishProgress("Criando Objetos Produto");
                 publishProgress("Itens recebidos !");
                 products = response.products;
                 delegate.processFinish(products);

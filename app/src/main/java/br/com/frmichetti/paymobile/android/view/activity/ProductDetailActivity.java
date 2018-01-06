@@ -105,7 +105,7 @@ public class ProductDetailActivity extends BaseActivity {
 
     private void doFillData() {
 
-        textViewTitle.setText(selectedService.getTitle());
+        textViewTitle.setText(selectedService.getName());
 
         textViewDescription.setText(selectedService.getDescription());
 

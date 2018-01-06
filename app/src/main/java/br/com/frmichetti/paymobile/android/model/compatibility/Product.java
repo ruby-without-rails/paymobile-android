@@ -9,14 +9,17 @@ public class Product extends BaseModel {
     @SerializedName("id")
     private Long id;
 
-    @SerializedName("title")
-    private String title;
+    @SerializedName("name")
+    private String name;
 
     @SerializedName("description")
     private String description;
 
     @SerializedName("notes")
     private String notes;
+
+    @SerializedName("image")
+    private String image;
 
     @SerializedName("price")
     private BigDecimal price;
@@ -36,12 +39,12 @@ public class Product extends BaseModel {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -76,6 +79,14 @@ public class Product extends BaseModel {
         this.category = category;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -103,8 +114,8 @@ public class Product extends BaseModel {
 
     @Override
     public String toString() {
-        if (title != null && title.isEmpty()){
-            return title;
+        if (name != null && name.isEmpty()) {
+            return name;
         }
         return description;
     }
