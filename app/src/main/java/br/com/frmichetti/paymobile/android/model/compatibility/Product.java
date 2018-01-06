@@ -5,16 +5,24 @@ import com.google.gson.annotations.SerializedName;
 import java.math.BigDecimal;
 
 public class Product extends BaseModel {
+
     @SerializedName("id")
     private Long id;
+
     @SerializedName("title")
     private String title;
+
     @SerializedName("description")
     private String description;
+
     @SerializedName("notes")
     private String notes;
+
     @SerializedName("price")
     private BigDecimal price;
+
+    @SerializedName("category")
+    private Category category;
 
     public Product() {
     }
@@ -58,6 +66,14 @@ public class Product extends BaseModel {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     @Override

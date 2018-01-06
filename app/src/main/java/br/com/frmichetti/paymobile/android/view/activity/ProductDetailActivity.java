@@ -20,9 +20,9 @@ import br.com.frmichetti.paymobile.android.model.ShoppingCart;
 import br.com.frmichetti.paymobile.android.model.ShoppingItem;
 import br.com.frmichetti.paymobile.android.view.activity.shoppingCart.ShoppingCartActivity;
 
-public class ServiceDetailActivity extends BaseActivity {
+public class ProductDetailActivity extends BaseActivity {
 
-    private TextView textViewTitle, textViewDescription, textViewDuration,
+    private TextView textViewTitle, textViewDescription, textCategoryDescription,
             textViewObservation, textViewPrice;
 
     private FloatingActionButton floatButtonAddCart;
@@ -33,7 +33,7 @@ public class ServiceDetailActivity extends BaseActivity {
 
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_service_detail);
+        setContentView(R.layout.activity_product_detail);
 
         doCastComponents();
 
@@ -74,7 +74,7 @@ public class ServiceDetailActivity extends BaseActivity {
 
         textViewDescription = findViewById(R.id.textViewDescricaoVar);
 
-        textViewDuration = findViewById(R.id.textViewDurationVar);
+        textCategoryDescription = findViewById(R.id.textViewDurationVar);
 
         textViewObservation = findViewById(R.id.textViewObservationVar);
 
@@ -109,8 +109,7 @@ public class ServiceDetailActivity extends BaseActivity {
 
         textViewDescription.setText(selectedService.getDescription());
 
-//        textViewDuration.setText(String.valueOf((selectedService.getDuration() >= 60) ?
-//                (selectedService.getDuration() / 60) : (selectedService.getDuration())));
+        textCategoryDescription.setText(selectedService.getCategory().getName());
 
         textViewObservation.setText(selectedService.getNotes());
 

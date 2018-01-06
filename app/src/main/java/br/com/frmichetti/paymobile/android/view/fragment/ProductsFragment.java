@@ -18,12 +18,11 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import br.com.frmichetti.paymobile.android.MyApplication;
 import br.com.frmichetti.paymobile.android.R;
 import br.com.frmichetti.paymobile.android.tasks.AsyncResponse;
 import br.com.frmichetti.paymobile.android.tasks.TaskDownloadProducts;
 import br.com.frmichetti.paymobile.android.model.compatibility.Product;
-import br.com.frmichetti.paymobile.android.view.activity.ServiceDetailActivity;
+import br.com.frmichetti.paymobile.android.view.activity.ProductDetailActivity;
 
 import static br.com.frmichetti.paymobile.android.MyApplication.getSessionToken;
 import static br.com.frmichetti.paymobile.android.model.IntentKeys.PRODUCTS_BUNDLE_KEY;
@@ -71,7 +70,7 @@ public class ProductsFragment extends BaseFragment {
 
                 selectedService = (Product) itemValue;
 
-                doChangeActivity(context, ServiceDetailActivity.class);
+                doChangeActivity(context, ProductDetailActivity.class);
             }
         });
     }

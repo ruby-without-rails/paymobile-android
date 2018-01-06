@@ -18,6 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -106,6 +107,13 @@ public class ResetPasswordActivity extends AppCompatActivity implements MyPatter
 
             @Override
             public void onClick(View v) {
+
+                try  {
+                    InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                } catch (Exception e) {
+
+                }
 
                 String email = inputEmail.getText().toString().trim();
 

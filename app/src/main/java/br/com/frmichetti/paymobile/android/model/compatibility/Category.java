@@ -2,11 +2,15 @@ package br.com.frmichetti.paymobile.android.model.compatibility;
 
 import android.os.Parcel;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Category extends BaseModel {
 
+    @SerializedName("id")
     private Long id;
 
-    private String description;
+    @SerializedName("name")
+    private String name;
 
     public Category() {
     }
@@ -17,7 +21,7 @@ public class Category extends BaseModel {
 
             this.id = parcel.readLong();
 
-            this.description = parcel.readString();
+            this.name = parcel.readString();
         }
     }
 
@@ -29,19 +33,19 @@ public class Category extends BaseModel {
         this.id = id;
     }
 
-    public String getDescription() {
-        return description;
+    public String getName() {
+        return name;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
     public String toString() {
         String result = getClass().getSimpleName() + " ";
-        if (description != null && !description.trim().isEmpty())
-            result += "description: " + description;
+        if (name != null && !name.trim().isEmpty())
+            result += "name: " + name;
         return result;
     }
 
@@ -83,8 +87,8 @@ public class Category extends BaseModel {
             parcel.writeLong(id);
         }
 
-        if (description != null) {
-            parcel.writeString(description);
+        if (name != null) {
+            parcel.writeString(name);
         }
     }
 

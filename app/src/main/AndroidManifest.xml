@@ -41,7 +41,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="br.com.frmichetti.paymobile.android.view.activity.ServiceDetailActivity"
+            android:name="br.com.frmichetti.paymobile.android.view.activity.ProductDetailActivity"
             android:launchMode="singleTop" />
         <activity
             android:name="br.com.frmichetti.paymobile.android.view.activity.shoppingCart.ShoppingCartActivity"
