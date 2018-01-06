@@ -80,7 +80,7 @@ public class ResetPasswordActivity extends AppCompatActivity implements MyPatter
 
         setSupportActionBar(toolbar);
 
-        inputEmail = findViewById(R.id.email);
+        inputEmail = findViewById(R.id.edt_email);
 
         btnReset = findViewById(R.id.btn_reset_password);
 
@@ -205,7 +205,7 @@ public class ResetPasswordActivity extends AppCompatActivity implements MyPatter
         }
 
         Snackbar snackbar = Snackbar
-                .make(findViewById(R.id.coordlayoutResetPassword), message, Snackbar.LENGTH_LONG);
+                .make(findViewById(R.id.coord_layout_reset_password), message, Snackbar.LENGTH_LONG);
 
         View sbView = snackbar.getView();
 

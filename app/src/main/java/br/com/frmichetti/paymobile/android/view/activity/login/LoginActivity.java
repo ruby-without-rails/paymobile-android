@@ -82,9 +82,9 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
 
         setSupportActionBar(toolbar);
 
-        editTextEmail = findViewById(R.id.email);
+        editTextEmail = findViewById(R.id.edt_email);
 
-        editTextPassword = findViewById(R.id.password);
+        editTextPassword = findViewById(R.id.edt_password);
 
         progressBar = findViewById(R.id.progressBar);
 
@@ -259,7 +259,7 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
         }
 
         Snackbar snackbar = Snackbar
-                .make(findViewById(R.id.coordlayoutLogin), message, Snackbar.LENGTH_LONG);
+                .make(findViewById(R.id.coordinator_layout_login), message, Snackbar.LENGTH_LONG);
 
         View sbView = snackbar.getView();
 

@@ -96,9 +96,9 @@ public class SignupActivity extends AppCompatActivity implements MyPattern,
 
         btnSignUp = findViewById(R.id.sign_up_button);
 
-        editTextEmail = findViewById(R.id.email);
+        editTextEmail = findViewById(R.id.edt_email);
 
-        editTextPassword = findViewById(R.id.password);
+        editTextPassword = findViewById(R.id.edt_password);
 
         progressBar = findViewById(R.id.progressBar);
 

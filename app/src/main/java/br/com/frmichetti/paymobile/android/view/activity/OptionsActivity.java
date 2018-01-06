@@ -84,7 +84,7 @@ public class OptionsActivity extends BaseActivity {
 
         newEmail = findViewById(R.id.new_email);
 
-        password = findViewById(R.id.password);
+        password = findViewById(R.id.edt_password);
 
         newPassword = findViewById(R.id.newPassword);
 
