@@ -56,7 +56,7 @@ public class ProductsFragment extends BaseFragment {
 
     @Override
     protected void doCastComponents(View rootView) {
-        textView = rootView.findViewById(R.id.tvSelectedService);
+        textView = rootView.findViewById(R.id.tv_product_label);
         listView = rootView.findViewById(R.id.listViewCheckouts);
     }
 

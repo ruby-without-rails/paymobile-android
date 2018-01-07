@@ -195,7 +195,7 @@ public class ResumeCheckoutActivity extends BaseActivity {
 
         buttonConfirm = findViewById(R.id.buttonConfirmCheckout);
 
-        tvTotal = findViewById(R.id.tvTotalVar);
+        tvTotal = findViewById(R.id.tv_total_var);
 
     }
 

@@ -24,10 +24,9 @@
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="59dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="60dp"
             android:text="Itens no Carrinho"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -44,128 +43,16 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/tvSelectedService"
-            android:layout_alignEnd="@+id/tvPriceVar"
-            android:layout_alignRight="@+id/tvPriceVar"
+            android:layout_height="200dp"
+            android:layout_above="@+id/tv_product_var"
+            android:layout_alignEnd="@+id/tv_price_var"
+            android:layout_alignRight="@+id/tv_price_var"
             android:layout_below="@+id/textView5"
+            android:layout_marginBottom="14dp"
+            android:animateLayoutChanges="true"
             android:scrollbars="vertical" />
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_remove_item_from_cart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tvSelectedService"
-            android:layout_alignParentBottom="true"
-            android:layout_alignStart="@+id/tvSelectedService"
-            android:layout_gravity="bottom|end"
-            android:layout_marginBottom="40dp"
-            android:elevation="4dp"
-            android:src="@drawable/ic_action_remove_from_cart"
-            app:backgroundTint="@color/color_primary_dark"
-            app:fabSize="normal" />
-
-        <TextView
-            android:id="@+id/tvSelectedServiceVar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/fab_remove_item_from_cart"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="3dp"
-            android:text="Item Selecionado" />
-
-        <TextView
-            android:id="@+id/tvQuantityVar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/tvQuantity"
-            android:text="Quantidade" />
-
-        <TextView
-            android:id="@+id/tvPriceVar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/tvSelectedServiceVar"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:text="PreçoVar"
-            android:textAlignment="textEnd" />
-
-        <TextView
-            android:id="@+id/tvSubtotal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/tvSubtotalVar"
-            android:layout_marginRight="16dp"
-            android:layout_toLeftOf="@+id/fab_remove_item_from_cart"
-            android:layout_toStartOf="@+id/fab_remove_item_from_cart"
-            android:text="Subtotal"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <TextView
-            android:id="@+id/tvSubtotalVar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/fab_remove_item_from_cart"
-            android:layout_alignLeft="@+id/tvSubtotal"
-            android:layout_alignStart="@+id/tvSubtotal"
-            android:text="SubtotalVar"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <TextView
-            android:id="@+id/textViewTotal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/tvSubtotal"
-            android:layout_marginLeft="16dp"
-            android:layout_toEndOf="@+id/tvSelectedService"
-            android:layout_toRightOf="@+id/tvSelectedService"
-            android:singleLine="false"
-            android:text="Total"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <TextView
-            android:id="@+id/tvTotalVar"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textViewTotal"
-            android:layout_alignStart="@+id/textViewTotal"
-            android:layout_below="@+id/textViewTotal"
-            android:layout_toLeftOf="@+id/tvPriceVar"
-            android:layout_toStartOf="@+id/tvPriceVar"
-            android:singleLine="true"
-            android:text="TotalVar"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <TextView
-            android:id="@+id/tvSelectedService"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/tvSelectedServiceVar"
-            android:layout_centerHorizontal="true"
-            android:text="Serviço"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/tvSelectedServiceVar"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:text="Preço"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <TextView
-            android:id="@+id/tvQuantity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/tvSelectedServiceVar"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:text="Quantidade"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+        <include layout="@layout/resume_item_shopping_cart" />
 
 
     </RelativeLayout>
@@ -174,14 +61,17 @@
         android:id="@+id/fab_buy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/tvTotalVar"
+        android:layout_alignEnd="@+id/tv_total_var"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/tvTotalVar"
+        android:layout_alignRight="@+id/tv_total_var"
         android:layout_gravity="right|bottom|end"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="66dp"
         android:layout_marginRight="16dp"
-        android:elevation="6dp"
+        android:elevation="4dp"
         android:src="@drawable/ic_action_buy"
         app:fabSize="normal" />
+
+    <!-- Adding bottom sheet after main content -->
+    <include layout="@layout/bottom_sheet" />
 
 </android.support.design.widget.CoordinatorLayout>

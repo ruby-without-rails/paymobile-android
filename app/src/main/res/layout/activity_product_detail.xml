@@ -110,7 +110,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
-                android:id="@+id/tvPriceVar"
+                android:id="@+id/tv_price_var"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -139,7 +139,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/tvPriceVar"
+                android:layout_below="@+id/tv_price_var"
                 android:text="R$ "
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 

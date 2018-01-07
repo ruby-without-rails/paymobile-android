@@ -8,7 +8,9 @@ package br.com.frmichetti.paymobile.android.view.activity.shoppingCart;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -19,9 +21,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +43,9 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
     private FloatingActionButton fabRemoveItem, fabPurchase;
 
     private TextView textViewSelectedItem, textViewQuantity, textViewPrice, textViewSubTotal, textViewTotal;
+
+    private LinearLayout layoutBottomSheet;
+    private BottomSheetBehavior sheetBehavior;
 
     // private ListView listViewShoppingCart;
 
@@ -111,8 +114,8 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
 
         shoppingItem = new ShoppingItem(selectedService);
 
-        ArrayAdapter<ShoppingItem> adpItem = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1,
-                new ArrayList<>(shoppingCart.getList()));
+//        ArrayAdapter<ShoppingItem> adpItem = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1,
+//                new ArrayList<>(shoppingCart.getList()));
 
        // listViewShoppingCart.setAdapter(adpItem);
 
@@ -149,15 +152,17 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
 
       //  listViewShoppingCart = findViewById(R.id.lvShoppingCartItems);
 
-        textViewSelectedItem = findViewById(R.id.tvSelectedServiceVar);
+        textViewSelectedItem = findViewById(R.id.tv_product_var);
 
-        textViewQuantity = findViewById(R.id.tvQuantityVar);
+        textViewQuantity = findViewById(R.id.tv_quantity_var);
 
-        textViewPrice = findViewById(R.id.tvPriceVar);
+        textViewPrice = findViewById(R.id.tv_price_var);
 
-        textViewSubTotal = findViewById(R.id.tvSubtotalVar);
+        textViewSubTotal = findViewById(R.id.tv_subtotal_var);
 
-        textViewTotal = findViewById(R.id.tvTotalVar);
+        textViewTotal = findViewById(R.id.tv_total_var);
+
+        layoutBottomSheet = findViewById(R.id.bottom_sheet);
 
 
     }
@@ -216,6 +221,39 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
                 doChangeActivity(context, ResumeCheckoutActivity.class);
 
                 finish();
+            }
+        });
+
+        sheetBehavior = BottomSheetBehavior.from(layoutBottomSheet);
+
+        /**
+         * bottom sheet state change listener
+         * we are changing button text when sheet changed state
+         * */
+        sheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                switch (newState) {
+                    case BottomSheetBehavior.STATE_HIDDEN:
+                        break;
+                    case BottomSheetBehavior.STATE_EXPANDED: {
+                      //  btnBottomSheet.setText("Close Sheet");
+                    }
+                    break;
+                    case BottomSheetBehavior.STATE_COLLAPSED: {
+                     //   btnBottomSheet.setText("Expand Sheet");
+                    }
+                    break;
+                    case BottomSheetBehavior.STATE_DRAGGING:
+                        break;
+                    case BottomSheetBehavior.STATE_SETTLING:
+                        break;
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
             }
         });
 
@@ -290,6 +328,19 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
             });
             snackbar.setActionTextColor(Color.YELLOW);
             snackbar.show();
+        }
+    }
+
+    /**
+     * manually opening / closing bottom sheet on button click
+     */
+    public void toggleBottomSheet() {
+        if (sheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
+            sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+           // btnBottomSheet.setText("Close sheet");
+        } else {
+            sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+           // btnBottomSheet.setText("Expand sheet");
         }
     }
 }
