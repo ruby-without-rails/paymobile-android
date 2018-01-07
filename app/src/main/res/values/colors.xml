@@ -9,7 +9,7 @@
     <color name="color_secondary_text">#757575</color>
     <color name="color_icons">#FFFFFF</color>
     <color name="color_divider">#BDBDBD</color>
-    <color name="bgBottomNavigation">#fe485a</color>
+    <color name="bottom_navigation_bar">#fe485a</color>
     <!-- Material Design Color -->
     <color name="white">#ffffff</color>
 </resources>

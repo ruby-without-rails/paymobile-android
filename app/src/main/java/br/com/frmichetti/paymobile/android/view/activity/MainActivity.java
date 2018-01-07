@@ -321,6 +321,8 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
 
             fragmentTransaction.replace(R.id.container_body, fragment);
 
+            fragmentTransaction.addToBackStack(null);
+
             fragmentTransaction.commit();
 
             actionBar.setSubtitle(title);
@@ -343,7 +345,7 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
 
         drawerFragment.setDrawerListener(this);
 
-        // display the first navigation drawer view on app launch
+        // display the first bottom_navigation drawer view on app launch
         displayView(fragmentId);
     }
 
@@ -403,7 +405,7 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
 
     @Override
     public void onNetworkConnectionChanged(boolean isConnected) {
-        showSnack((CoordinatorLayout) findViewById(R.id.coordLayoutMain), isConnected);
+        showSnack((CoordinatorLayout) findViewById(R.id.coord_layout_main), isConnected);
     }
 }
 

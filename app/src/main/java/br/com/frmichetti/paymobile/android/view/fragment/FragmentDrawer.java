@@ -98,7 +98,7 @@ public class FragmentDrawer extends Fragment {
     public static List<NavDrawerItem> getData() {
         List<NavDrawerItem> data = new ArrayList<>();
 
-        // preparing navigation drawer items
+        // preparing bottom_navigation drawer items
         for (int i = 0; i < titles.length; i++) {
             String title = titles[i];
             NavDrawerItem navItem = new NavDrawerItem();
