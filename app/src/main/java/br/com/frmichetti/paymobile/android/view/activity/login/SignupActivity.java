@@ -40,9 +40,9 @@ import org.json.JSONObject;
 
 import br.com.frmichetti.paymobile.android.R;
 import br.com.frmichetti.paymobile.android.dto.CustomerDTO;
-import br.com.frmichetti.paymobile.android.tasks.AsyncResponse;
-import br.com.frmichetti.paymobile.android.tasks.TaskCreateCustomer;
 import br.com.frmichetti.paymobile.android.model.compatibility.Customer;
+import br.com.frmichetti.paymobile.android.tasks.AsyncResponse;
+import br.com.frmichetti.paymobile.android.tasks.TaskSaveCustomer;
 import br.com.frmichetti.paymobile.android.util.ConnectivityReceiver;
 import br.com.frmichetti.paymobile.android.view.activity.CustomerActivity;
 import br.com.frmichetti.paymobile.android.view.activity.MyPattern;
@@ -184,9 +184,9 @@ public class SignupActivity extends AppCompatActivity implements MyPattern,
                                         Log.d("DEBUG-LOGIN", getString(R.string.auth_error) + task.getException().toString());
 
                                     } else {
-                                        TaskCreateCustomer taskCreateCustomer = new TaskCreateCustomer(context, new AsyncResponse<CustomerDTO>() {
+                                        TaskSaveCustomer taskSaveCustomer = new TaskSaveCustomer(context, new AsyncResponse<Customer>() {
                                             @Override
-                                            public void onSuccess(CustomerDTO output) {
+                                            public void onSuccess(Customer output) {
                                                 if (output != null){
                                                     startActivity(new Intent(context, CustomerActivity.class)
                                                             .putExtra(CUSTOMER_BUNDLE_KEY, output));
@@ -218,7 +218,7 @@ public class SignupActivity extends AppCompatActivity implements MyPattern,
                                             e.printStackTrace();
                                         }
 
-                                        taskCreateCustomer.execute(payload);
+                                        taskSaveCustomer.execute(payload);
                                     }
                                 }
                             }).addOnFailureListener(SignupActivity.this, new OnFailureListener() {

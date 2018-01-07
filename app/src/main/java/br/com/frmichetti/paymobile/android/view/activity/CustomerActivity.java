@@ -36,7 +36,7 @@ import br.com.frmichetti.paymobile.android.dto.CustomerDTO;
 import br.com.frmichetti.paymobile.android.model.Token;
 import br.com.frmichetti.paymobile.android.model.compatibility.Customer;
 import br.com.frmichetti.paymobile.android.tasks.AsyncResponse;
-import br.com.frmichetti.paymobile.android.tasks.TaskCreateCustomer;
+import br.com.frmichetti.paymobile.android.tasks.TaskSaveCustomer;
 
 import static br.com.frmichetti.paymobile.android.model.IntentKeys.CUSTOMER_BUNDLE_KEY;
 
@@ -124,13 +124,11 @@ public class CustomerActivity extends BaseActivity {
                         e.printStackTrace();
                     }
 
-                    new TaskCreateCustomer(context, new AsyncResponse<CustomerDTO>() {
+                    new TaskSaveCustomer(context, new AsyncResponse<Customer>() {
                         @Override
-                        public void onSuccess(CustomerDTO output) {
+                        public void onSuccess(Customer output) {
                             if (output != null) {
-                                customer = output.customer;
-                                Token token = output.token;
-                                MyApplication.setSessionToken(token);
+                                customer = output;
 
                                 doChangeActivity(context, MainActivity.class);
                                 finish();

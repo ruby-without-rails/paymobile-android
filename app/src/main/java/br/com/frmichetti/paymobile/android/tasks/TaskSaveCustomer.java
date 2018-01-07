@@ -16,32 +16,36 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.HashMap;
 
 import br.com.frmichetti.paymobile.android.MyApplication;
 import br.com.frmichetti.paymobile.android.R;
+import br.com.frmichetti.paymobile.android.dao.GsonPostRequest;
 import br.com.frmichetti.paymobile.android.dto.CustomerDTO;
 import br.com.frmichetti.paymobile.android.model.RequestQueuer;
 import br.com.frmichetti.paymobile.android.model.Token;
 import br.com.frmichetti.paymobile.android.model.compatibility.Customer;
 
-public class TaskCreateCustomer extends AsyncTask<JSONObject, String, Customer> {
+public class TaskSaveCustomer extends AsyncTask<JSONObject, String, Customer> {
     public AsyncResponse asyncResponse = null;
     private String url;
     private ProgressDialog dialog;
     private Context context;
     private Customer customer;
 
-    private TaskCreateCustomer() {
-        Log.d("DEBUG-TASK", "create TaskCreateCustomer");
+    private TaskSaveCustomer() {
+        Log.d("DEBUG-TASK", "create TaskSaveCustomer");
     }
 
-    private TaskCreateCustomer(Context context) {
+    private TaskSaveCustomer(Context context) {
         this();
         this.context = context;
     }
 
-    public TaskCreateCustomer(Context context, AsyncResponse<CustomerDTO> asyncResponse) {
+    public TaskSaveCustomer(Context context, AsyncResponse<Customer> asyncResponse) {
         this(context);
         this.asyncResponse = asyncResponse;
     }
@@ -81,23 +85,37 @@ public class TaskCreateCustomer extends AsyncTask<JSONObject, String, Customer> 
             Log.d("DEBUG", "PAYLOAD");
             Log.d("DEBUG", jsonBody.toString());
 
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, jsonBody, new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject jsonObject) {
-                    publishProgress("Item recebido !");
-                    if (jsonObject.has("validation_errors")) {
-                        throw new RuntimeException("Invalid response from server - Incorrect Payload -> \n" + jsonObject.toString());
-                    }
-                    if (jsonObject.has("token")) {
-                        publishProgress("Token recebido !");
-                        publishProgress("Atualizando Token...");
-                        MyApplication.setSessionToken(new Token(jsonObject));
-                    }
-                    customer = new Customer(jsonObject);
-                    asyncResponse.onSuccess(customer);
+            HashMap<String, String> headers = new HashMap<>();
+            headers.put("PayWithRuby-Auth-Token", MyApplication.getSessionToken().getKey());
+            headers.put("Content-type", "application/json; charset=utf-8");
 
-                }
-            }, new Response.ErrorListener() {
+            HashMap<String, String> parameters = new HashMap<>();
+            parameters.put("id", jsonBody.getString("id"));
+            parameters.put("cpf", jsonBody.getString("cpf"));
+            parameters.put("name", jsonBody.getString("name"));
+            parameters.put("fcm_id", jsonBody.getString("fcm_id"));
+            parameters.put("fcm_message_token", jsonBody.getString("fcm_message_token"));
+            parameters.put("email", jsonBody.getString("email"));
+            parameters.put("mobile_phone_number", jsonBody.getString("mobile_phone_number"));
+
+            GsonPostRequest<CustomerDTO> gsonPostRequest = new GsonPostRequest<>(url, CustomerDTO.class, headers, parameters,
+                    new Response.Listener<CustomerDTO>() {
+                        @Override
+                        public void onResponse(CustomerDTO customerDTO) {
+                            publishProgress("Item recebido !");
+                            if (customerDTO.validationErrors != null && !customerDTO.validationErrors.isEmpty()) {
+                                throw new RuntimeException("Invalid response from server - Incorrect Payload -> \n" + customerDTO.toString());
+                            }
+                            if (customerDTO.token != null) {
+                                publishProgress("Token recebido !");
+                                publishProgress("Atualizando Token...");
+                                MyApplication.setSessionToken(customerDTO.token);
+                            }
+                            customer = customerDTO.customer;
+                            asyncResponse.onSuccess(customer);
+
+                        }
+                    }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     publishProgress("Item não recebido !");
@@ -108,7 +126,7 @@ public class TaskCreateCustomer extends AsyncTask<JSONObject, String, Customer> 
             });
 
             // Add the request to the RequestQueue.
-            queue.add(jsonObjectRequest);
+            queue.add(gsonPostRequest);
 
         } catch (Exception e) {
             e.printStackTrace();

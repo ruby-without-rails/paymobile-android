@@ -24,7 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.HashMap;
 
 import br.com.frmichetti.paymobile.android.R;
-import br.com.frmichetti.paymobile.android.dao.GsonRequest;
+import br.com.frmichetti.paymobile.android.dao.GsonGetRequest;
 import br.com.frmichetti.paymobile.android.dto.CustomerDTO;
 import br.com.frmichetti.paymobile.android.model.RequestQueuer;
 import br.com.frmichetti.paymobile.android.model.compatibility.Customer;
@@ -85,7 +85,7 @@ public class TaskRequestCustomerData extends AsyncTask<String, String, Customer>
 
         HashMap<String, String> headers = new HashMap<>();
         headers.put("PayWithRuby-Auth-Token", params[0]);
-        GsonRequest<CustomerDTO> requestCustomer = new GsonRequest<>(url, CustomerDTO.class, headers, new Response.Listener<CustomerDTO>() {
+        GsonGetRequest<CustomerDTO> requestCustomer = new GsonGetRequest<>(url, CustomerDTO.class, headers, new Response.Listener<CustomerDTO>() {
             @Override
             public void onResponse(CustomerDTO response) {
                 publishProgress("Criando Objeto Cliente");

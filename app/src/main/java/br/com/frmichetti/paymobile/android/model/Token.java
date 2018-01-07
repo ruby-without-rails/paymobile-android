@@ -26,7 +26,7 @@ import br.com.frmichetti.paymobile.android.helper.ApplicationDateFormater;
  */
 public class Token implements Serializable {
 
-    @SerializedName("expires_at")
+    //@SerializedName("expires_at")
     private Date expiresAt;
 
     @SerializedName("key")
@@ -39,10 +39,8 @@ public class Token implements Serializable {
         try {
             this.key = jsonObject.has("key") ? jsonObject.getString("key") : jsonObject.getString("token");
             SimpleDateFormat formatter = ApplicationDateFormater.getDefaultFormater();
-            this.expiresAt = formatter.parse(jsonObject.getString("expires_at"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
+            this.expiresAt = jsonObject.has("expires_at") ? formatter.parse(jsonObject.getString("expires_at")) : new Date();
+        } catch (JSONException | ParseException e) {
             e.printStackTrace();
         }
     }

@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import br.com.frmichetti.paymobile.android.R;
-import br.com.frmichetti.paymobile.android.dao.GsonRequest;
+import br.com.frmichetti.paymobile.android.dao.GsonGetRequest;
 import br.com.frmichetti.paymobile.android.dto.ProductDTO;
 import br.com.frmichetti.paymobile.android.model.RequestQueuer;
 import br.com.frmichetti.paymobile.android.model.compatibility.Product;
@@ -79,7 +79,7 @@ public class TaskDownloadProducts extends AsyncTask<String, String, ArrayList<Pr
 
         HashMap<String, String> headers = new HashMap<>();
         headers.put("PayWithRuby-Auth-Token", params[0]);
-        GsonRequest<ProductDTO> requestCustomer = new GsonRequest<>(url, ProductDTO.class, headers, new Response.Listener<ProductDTO>() {
+        GsonGetRequest<ProductDTO> requestCustomer = new GsonGetRequest<>(url, ProductDTO.class, headers, new Response.Listener<ProductDTO>() {
             @Override
             public void onResponse(ProductDTO response) {
                 publishProgress("Criando Objetos Produto");
