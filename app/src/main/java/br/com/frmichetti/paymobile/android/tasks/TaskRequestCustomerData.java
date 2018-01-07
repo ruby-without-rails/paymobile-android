@@ -29,8 +29,8 @@ import br.com.frmichetti.paymobile.android.dto.CustomerDTO;
 import br.com.frmichetti.paymobile.android.model.RequestQueuer;
 import br.com.frmichetti.paymobile.android.model.compatibility.Customer;
 
-public class TaskUserData extends AsyncTask<String, String, Customer> {
-    public AsyncResponse delegate = null;
+public class TaskRequestCustomerData extends AsyncTask<String, String, Customer> {
+    public AsyncResponse asyncResponse = null;
     protected Customer customer;
     private ProgressDialog dialog;
     private String url;
@@ -38,18 +38,18 @@ public class TaskUserData extends AsyncTask<String, String, Customer> {
     private boolean removeOnFail;
     private RequestQueue requestQueue;
 
-    public TaskUserData(Context context, boolean removeOnFail, AsyncResponse<Customer> delegate) {
+    public TaskRequestCustomerData(Context context, boolean removeOnFail, AsyncResponse<Customer> asyncResponse) {
         this(context);
         this.removeOnFail = removeOnFail;
-        this.delegate = delegate;
+        this.asyncResponse = asyncResponse;
     }
 
-    private TaskUserData(Context context) {
+    private TaskRequestCustomerData(Context context) {
         this();
         this.context = context;
     }
 
-    private TaskUserData() {
+    private TaskRequestCustomerData() {
         Log.d("DEBUG-TASK", "create TaskLogin");
     }
 
@@ -94,7 +94,7 @@ public class TaskUserData extends AsyncTask<String, String, Customer> {
                 publishProgress("Login Validado!");
                 publishProgress("Entrando...");
 
-                delegate.processFinish(customer);
+                asyncResponse.onSuccess(customer);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -123,7 +123,7 @@ public class TaskUserData extends AsyncTask<String, String, Customer> {
                             publishProgress("Falha ao desvincular objeto no Firebase contate o Administrador do sistema.");
                         }
                     });
-                    delegate.processFinish(customer);
+                    asyncResponse.onFails(error);
                 }
             }
         });

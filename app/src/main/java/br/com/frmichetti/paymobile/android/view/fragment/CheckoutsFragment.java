@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,8 @@ import br.com.frmichetti.paymobile.android.tasks.AsyncResponse;
 import br.com.frmichetti.paymobile.android.tasks.TaskDownloadCheckouts;
 import br.com.frmichetti.paymobile.android.model.compatibility.Checkout;
 import br.com.frmichetti.paymobile.android.view.activity.CheckoutDetailActivity;
+
+import static br.com.frmichetti.paymobile.android.model.IntentKeys.SELECTED_CHECKOUT_KEY;
 
 public class CheckoutsFragment extends BaseFragment {
 
@@ -67,11 +70,17 @@ public class CheckoutsFragment extends BaseFragment {
                     new AsyncResponse<ArrayList<Checkout>>() {
 
                         @Override
-                        public void processFinish(ArrayList<Checkout> output) {
+                        public void onSuccess(ArrayList<Checkout> output) {
 
                             checkouts = output;
 
                             doFillData(checkouts);
+                        }
+
+                        @Override
+                        public void onFails(Exception e) {
+                            Toast.makeText(context, e.getMessage(),Toast.LENGTH_LONG).show();
+                            Log.d("Error", e.getMessage());
                         }
                     });
 
@@ -102,7 +111,7 @@ public class CheckoutsFragment extends BaseFragment {
                 selectedCheckout = (Checkout) itemValue;
 
                 startActivity(new Intent(context, CheckoutDetailActivity.class)
-                        .putExtra("selectedCheckout", selectedCheckout));
+                        .putExtra(SELECTED_CHECKOUT_KEY, selectedCheckout));
 
 
             }

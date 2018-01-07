@@ -13,6 +13,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +70,7 @@ public class StoreFragment extends Fragment {
         recyclerView.setAdapter(storeAdapter);
         recyclerView.setNestedScrollingEnabled(false);
 
-        fetchStoreItems(getSessionToken());
+        fetchStoreItems(getSessionToken().getKey());
 
         return view;
     }
@@ -84,12 +85,18 @@ public class StoreFragment extends Fragment {
             new TaskDownloadProducts(context,
                     new AsyncResponse<ArrayList<Product>>() {
                         @Override
-                        public void processFinish(ArrayList<Product> output) {
+                        public void onSuccess(ArrayList<Product> output) {
                             productList.clear();
                             productList.addAll(output);
 
                             // refreshing recycler view
                             storeAdapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onFails(Exception e) {
+                            Toast.makeText(context, e.getMessage(),Toast.LENGTH_LONG).show();
+                            Log.d("Error", e.getMessage());
                         }
                     }).execute(sessionToken);
         }

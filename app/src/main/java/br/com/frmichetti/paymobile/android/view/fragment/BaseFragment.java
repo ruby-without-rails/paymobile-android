@@ -19,6 +19,12 @@ import br.com.frmichetti.paymobile.android.model.compatibility.Customer;
 import br.com.frmichetti.paymobile.android.model.compatibility.Product;
 import br.com.frmichetti.paymobile.android.model.compatibility.Vehicle;
 
+import static br.com.frmichetti.paymobile.android.model.IntentKeys.ADDRESS_BUNDLE_KEY;
+import static br.com.frmichetti.paymobile.android.model.IntentKeys.CUSTOMER_BUNDLE_KEY;
+import static br.com.frmichetti.paymobile.android.model.IntentKeys.SELECTED_SERVICE_BUNDLE_KEY;
+import static br.com.frmichetti.paymobile.android.model.IntentKeys.SHOPPING_CART_BUNDLE_KEY;
+import static br.com.frmichetti.paymobile.android.model.IntentKeys.VEHICLE_BUNDLE_KEY;
+
 public abstract class BaseFragment extends Fragment {
 
     protected Context context;
@@ -111,10 +117,10 @@ public abstract class BaseFragment extends Fragment {
     public void doChangeActivity(Context context, Class clazz) {
 
         startActivity(new Intent(context, clazz)
-                .putExtra("shoppingCart", shoppingCart)
-                .putExtra("customer", customer)
-                .putExtra("vehicle", selectedVehicle)
-                .putExtra("service", selectedService)
-                .putExtra("address", selectedAddress));
+                .putExtra(SHOPPING_CART_BUNDLE_KEY, shoppingCart)
+                .putExtra(CUSTOMER_BUNDLE_KEY, customer)
+                .putExtra(VEHICLE_BUNDLE_KEY, selectedVehicle)
+                .putExtra(SELECTED_SERVICE_BUNDLE_KEY, selectedService)
+                .putExtra(ADDRESS_BUNDLE_KEY, selectedAddress));
     }
 }

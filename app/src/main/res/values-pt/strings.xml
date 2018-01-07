@@ -106,4 +106,9 @@
     <string name="logo">Logotipo</string>
     <string name="Save">Salvar</string>
     <string name="Delete">Deletar</string>
+    <string name="title_settings">Opções</string>
+    <string name="title_shop">Loja</string>
+    <string name="title_gifts">Presentes</string>
+    <string name="title_cart">Carrinho</string>
+    <string name="title_profile">Perfil</string>
 </resources>

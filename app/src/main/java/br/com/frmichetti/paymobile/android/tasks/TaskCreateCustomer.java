@@ -18,12 +18,15 @@ import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONObject;
 
+import br.com.frmichetti.paymobile.android.MyApplication;
 import br.com.frmichetti.paymobile.android.R;
+import br.com.frmichetti.paymobile.android.dto.CustomerDTO;
 import br.com.frmichetti.paymobile.android.model.RequestQueuer;
+import br.com.frmichetti.paymobile.android.model.Token;
 import br.com.frmichetti.paymobile.android.model.compatibility.Customer;
 
 public class TaskCreateCustomer extends AsyncTask<JSONObject, String, Customer> {
-    public AsyncResponse delegate = null;
+    public AsyncResponse asyncResponse = null;
     private String url;
     private ProgressDialog dialog;
     private Context context;
@@ -38,9 +41,9 @@ public class TaskCreateCustomer extends AsyncTask<JSONObject, String, Customer> 
         this.context = context;
     }
 
-    public TaskCreateCustomer(Context context, AsyncResponse<Customer> delegate) {
+    public TaskCreateCustomer(Context context, AsyncResponse<CustomerDTO> asyncResponse) {
         this(context);
-        this.delegate = delegate;
+        this.asyncResponse = asyncResponse;
     }
 
     @Override
@@ -85,7 +88,14 @@ public class TaskCreateCustomer extends AsyncTask<JSONObject, String, Customer> 
                     if (jsonObject.has("validation_errors")) {
                         throw new RuntimeException("Invalid response from server - Incorrect Payload -> \n" + jsonObject.toString());
                     }
+                    if (jsonObject.has("token")) {
+                        publishProgress("Token recebido !");
+                        publishProgress("Atualizando Token...");
+                        MyApplication.setSessionToken(new Token(jsonObject));
+                    }
                     customer = new Customer(jsonObject);
+                    asyncResponse.onSuccess(customer);
+
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -93,6 +103,7 @@ public class TaskCreateCustomer extends AsyncTask<JSONObject, String, Customer> 
                     publishProgress("Item não recebido !");
                     publishProgress("Ocorreu uma falha ao contactar o servidor !");
                     customer = null;
+                    asyncResponse.onFails(error);
                 }
             });
 
@@ -120,6 +131,6 @@ public class TaskCreateCustomer extends AsyncTask<JSONObject, String, Customer> 
 
         dialog.dismiss();
 
-        delegate.processFinish(result);
+        asyncResponse.onSuccess(result);
     }
 }

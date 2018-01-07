@@ -63,13 +63,13 @@ public class VehicleCreateActivity extends BaseActivity {
                 TaskCreateAddress taskCreateVeiculo = new TaskCreateAddress(context, new AsyncResponse<Vehicle>() {
 
                     @Override
-                    public void processFinish(Vehicle output) {
+                    public void onSuccess(Vehicle output) {
 
                         selectedVehicle = output;
 
                         startActivity(new Intent(context, MainActivity.class)
-                                .putExtra("vehicle", selectedVehicle)
-                                .putExtra("customer", customer)
+                                .putExtra(VEHICLE_BUNDLE_KEY, selectedVehicle)
+                                .putExtra(CUSTOMER_BUNDLE_KEY, customer)
                         );
 
                         finish();

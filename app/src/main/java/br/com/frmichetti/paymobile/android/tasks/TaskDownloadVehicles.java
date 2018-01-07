@@ -120,7 +120,7 @@ public class TaskDownloadVehicles extends AsyncTask<Void, String, ArrayList<Vehi
 
         dialog.dismiss();
 
-        delegate.processFinish(result);
+        delegate.onSuccess(result);
 
     }
 

@@ -39,12 +39,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import br.com.frmichetti.paymobile.android.R;
+import br.com.frmichetti.paymobile.android.dto.CustomerDTO;
 import br.com.frmichetti.paymobile.android.tasks.AsyncResponse;
 import br.com.frmichetti.paymobile.android.tasks.TaskCreateCustomer;
 import br.com.frmichetti.paymobile.android.model.compatibility.Customer;
 import br.com.frmichetti.paymobile.android.util.ConnectivityReceiver;
 import br.com.frmichetti.paymobile.android.view.activity.CustomerActivity;
 import br.com.frmichetti.paymobile.android.view.activity.MyPattern;
+
+import static br.com.frmichetti.paymobile.android.model.IntentKeys.CUSTOMER_BUNDLE_KEY;
 
 public class SignupActivity extends AppCompatActivity implements MyPattern,
         ConnectivityReceiver.ConnectivityReceiverListener {
@@ -181,13 +184,24 @@ public class SignupActivity extends AppCompatActivity implements MyPattern,
                                         Log.d("DEBUG-LOGIN", getString(R.string.auth_error) + task.getException().toString());
 
                                     } else {
-                                        TaskCreateCustomer taskCreateCustomer = new TaskCreateCustomer(context, new AsyncResponse<Customer>() {
+                                        TaskCreateCustomer taskCreateCustomer = new TaskCreateCustomer(context, new AsyncResponse<CustomerDTO>() {
                                             @Override
-                                            public void processFinish(Customer output) {
-                                                startActivity(new Intent(context, CustomerActivity.class)
-                                                        .putExtra("user", output));
+                                            public void onSuccess(CustomerDTO output) {
+                                                if (output != null){
+                                                    startActivity(new Intent(context, CustomerActivity.class)
+                                                            .putExtra(CUSTOMER_BUNDLE_KEY, output));
 
-                                                finish();
+                                                    finish();
+                                                }else{
+                                                    Toast.makeText(context, "Authentication Failed", Toast.LENGTH_LONG).show();
+                                                }
+
+                                            }
+
+                                            @Override
+                                            public void onFails(Exception e) {
+                                                Toast.makeText(context, e.getMessage(),Toast.LENGTH_LONG).show();
+                                                Log.d("Error", e.getMessage());
                                             }
                                         });
 

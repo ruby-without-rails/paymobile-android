@@ -121,7 +121,7 @@ public class TaskDownloadAddress extends AsyncTask<Customer, String, ArrayList<A
 
         dialog.dismiss();
 
-        delegate.processFinish(result);
+        delegate.onSuccess(result);
 
     }
 

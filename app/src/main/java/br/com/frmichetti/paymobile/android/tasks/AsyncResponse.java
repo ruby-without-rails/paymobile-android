@@ -7,5 +7,7 @@
 package br.com.frmichetti.paymobile.android.tasks;
 
 public interface AsyncResponse<T> {
-    void processFinish(T output);
+    void onSuccess(T output);
+
+    void onFails(Exception e);
 }

@@ -114,7 +114,7 @@ public class TaskCreateUser extends AsyncTask<User, String, User> {
 
         dialog.dismiss();
 
-        delegate.processFinish(result);
+        delegate.onSuccess(result);
 
     }
 }

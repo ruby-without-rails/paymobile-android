@@ -85,7 +85,7 @@ public class TaskDownloadProducts extends AsyncTask<String, String, ArrayList<Pr
                 publishProgress("Criando Objetos Produto");
                 publishProgress("Itens recebidos !");
                 products = response.products;
-                delegate.processFinish(products);
+                delegate.onSuccess(products);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -96,6 +96,7 @@ public class TaskDownloadProducts extends AsyncTask<String, String, ArrayList<Pr
                 publishProgress("Itens não recebidos !");
                 publishProgress("Ocorreu uma falha ao contactar o servidor !");
                 NetworkResponse networkResponse = error.networkResponse;
+                delegate.onFails(error);
 
             }
         });
@@ -119,6 +120,6 @@ public class TaskDownloadProducts extends AsyncTask<String, String, ArrayList<Pr
 
         dialog.dismiss();
 
-        delegate.processFinish(result);
+        delegate.onSuccess(result);
     }
 }

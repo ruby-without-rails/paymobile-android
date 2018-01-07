@@ -113,7 +113,7 @@ public class TaskCreateCheckout extends AsyncTask<Checkout, String, Boolean> {
 
         dialog.dismiss();
 
-        delegate.processFinish(param);
+        delegate.onSuccess(param);
 
     }
 

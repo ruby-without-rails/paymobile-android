@@ -27,6 +27,9 @@ import br.com.frmichetti.paymobile.android.tasks.TaskDownloadAddress;
 import br.com.frmichetti.paymobile.android.model.compatibility.Address;
 import br.com.frmichetti.paymobile.android.view.activity.NewAddressActivity;
 
+import static br.com.frmichetti.paymobile.android.model.IntentKeys.ADDRESS_BUNDLE_KEY;
+import static br.com.frmichetti.paymobile.android.model.IntentKeys.CUSTOMER_BUNDLE_KEY;
+
 
 public class AddressFragment extends BaseFragment {
 
@@ -82,7 +85,7 @@ public class AddressFragment extends BaseFragment {
                 Toast.makeText(context, "New Address Button", Toast.LENGTH_SHORT).show();
 
                 startActivity(new Intent(context, NewAddressActivity.class)
-                        .putExtra("customer", customer)
+                        .putExtra(CUSTOMER_BUNDLE_KEY, customer)
 
                 );
             }
@@ -98,8 +101,8 @@ public class AddressFragment extends BaseFragment {
                 selectedAddress = (Address) itemValue;
 
                 startActivity(new Intent(context, NewAddressActivity.class)
-                        .putExtra("customer", customer)
-                        .putExtra("address", selectedAddress)
+                        .putExtra(CUSTOMER_BUNDLE_KEY, customer)
+                        .putExtra(ADDRESS_BUNDLE_KEY, selectedAddress)
                 );
 
             }
@@ -114,11 +117,17 @@ public class AddressFragment extends BaseFragment {
         TaskDownloadAddress taskLoadAddresses = new TaskDownloadAddress(context, new AsyncResponse<ArrayList<Address>>() {
 
             @Override
-            public void processFinish(ArrayList<Address> output) {
+            public void onSuccess(ArrayList<Address> output) {
 
                 addresses = output;
 
                 doFillData(addresses);
+            }
+
+            @Override
+            public void onFails(Exception e) {
+                Toast.makeText(context, e.getMessage(),Toast.LENGTH_LONG).show();
+                Log.d("Error", e.getMessage());
             }
         });
 

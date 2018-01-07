@@ -7,6 +7,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TextInputLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +21,8 @@ import br.com.frmichetti.paymobile.android.tasks.AsyncResponse;
 import br.com.frmichetti.paymobile.android.tasks.TaskCreateAddress;
 import br.com.frmichetti.paymobile.android.tasks.TaskDeleteAddress;
 import br.com.frmichetti.paymobile.android.model.compatibility.Address;
+
+import static br.com.frmichetti.paymobile.android.model.IntentKeys.ADDRESS_BUNDLE_KEY;
 
 public class NewAddressActivity extends BaseActivity {
 
@@ -138,7 +141,7 @@ public class NewAddressActivity extends BaseActivity {
         TaskCreateAddress taskCreateAddress = new TaskCreateAddress(context, new AsyncResponse<Address>() {
 
             @Override
-            public void processFinish(Address output) {
+            public void onSuccess(Address output) {
 
                 if (output.getId() != null) {
 
@@ -154,6 +157,12 @@ public class NewAddressActivity extends BaseActivity {
                     }
                 }
 
+            }
+
+            @Override
+            public void onFails(Exception e) {
+                Toast.makeText(context, e.getMessage(),Toast.LENGTH_LONG).show();
+                Log.d("Error", e.getMessage());
             }
         });
 
@@ -258,7 +267,7 @@ public class NewAddressActivity extends BaseActivity {
 
         super.doLoadExtras(intent);
 
-        selectedAddress = (Address) intent.getSerializableExtra("address");
+        selectedAddress = (Address) intent.getSerializableExtra(ADDRESS_BUNDLE_KEY);
 
     }
 

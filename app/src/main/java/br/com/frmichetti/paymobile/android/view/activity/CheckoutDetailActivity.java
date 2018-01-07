@@ -11,6 +11,8 @@ import android.widget.TextView;
 import br.com.frmichetti.paymobile.android.R;
 import br.com.frmichetti.paymobile.android.model.compatibility.Checkout;
 
+import static br.com.frmichetti.paymobile.android.model.IntentKeys.SELECTED_CHECKOUT_KEY;
+
 public class CheckoutDetailActivity extends BaseActivity {
 
     private TextView textViewUUID, textViewDate, textViewStatus;
@@ -46,7 +48,7 @@ public class CheckoutDetailActivity extends BaseActivity {
 
     private void doFillDate(Intent intent) {
 
-        checkout = (Checkout) intent.getSerializableExtra("selectedCheckout");
+        checkout = (Checkout) intent.getSerializableExtra(SELECTED_CHECKOUT_KEY);
 
         if (checkout != null) {
 

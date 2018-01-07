@@ -32,18 +32,16 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import br.com.frmichetti.paymobile.android.R;
-import br.com.frmichetti.paymobile.android.model.IntentKeys;
 import br.com.frmichetti.paymobile.android.tasks.AsyncResponse;
 import br.com.frmichetti.paymobile.android.tasks.TaskLogin;
 import br.com.frmichetti.paymobile.android.model.compatibility.Customer;
-import br.com.frmichetti.paymobile.android.tasks.TaskUserData;
+import br.com.frmichetti.paymobile.android.tasks.TaskRequestCustomerData;
 import br.com.frmichetti.paymobile.android.util.ConnectivityReceiver;
 import br.com.frmichetti.paymobile.android.view.activity.MainActivity;
 import br.com.frmichetti.paymobile.android.view.activity.MyPattern;
+
+import static br.com.frmichetti.paymobile.android.model.IntentKeys.CUSTOMER_BUNDLE_KEY;
 
 public class LoginActivity extends AppCompatActivity implements MyPattern,
         ConnectivityReceiver.ConnectivityReceiverListener {
@@ -180,17 +178,23 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
 
                                         new TaskLogin(context, new AsyncResponse<String>() {
                                             @Override
-                                            public void processFinish(String token) {
+                                            public void onSuccess(String token) {
                                                 if (token != null) {
-                                                    new TaskUserData(context, false, new AsyncResponse<Customer>() {
+                                                    new TaskRequestCustomerData(context, false, new AsyncResponse<Customer>() {
                                                         @Override
-                                                        public void processFinish(Customer customer) {
+                                                        public void onSuccess(Customer customer) {
                                                             if (customer != null) {
                                                                 startActivity(new Intent(context, MainActivity.class)
-                                                                        .putExtra(IntentKeys.CUSTOMER_BUNDLE_KEY, customer));
+                                                                        .putExtra(CUSTOMER_BUNDLE_KEY, customer));
 
                                                                 finish();
                                                             }
+                                                        }
+
+                                                        @Override
+                                                        public void onFails(Exception e) {
+                                                            Toast.makeText(context, e.getMessage(),Toast.LENGTH_LONG).show();
+                                                            Log.d("Error", e.getMessage());
                                                         }
                                                     }).execute(token);
 
@@ -198,6 +202,12 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
 
                                                     Toast.makeText(context, getString(R.string.could_not_authorize), Toast.LENGTH_LONG).show();
                                                 }
+                                            }
+
+                                            @Override
+                                            public void onFails(Exception e) {
+                                                Toast.makeText(context, e.getMessage(),Toast.LENGTH_LONG).show();
+                                                Log.d("Error", e.getMessage());
                                             }
                                         }).execute(auth.getCurrentUser().getUid());
                                     }

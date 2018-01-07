@@ -11,32 +11,39 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class Customer extends BaseModel {
+
     @SerializedName("id")
     private Long id;
+
     @SerializedName("name")
     private String name;
+
     @SerializedName("cpf")
     private String cpf;
+
     @SerializedName("fcm_id")
     private String fcmId;
+
     @SerializedName("fcm_message_token")
     private String fcmMessageToken;
+
     @SerializedName("email")
     private String email;
-    @SerializedName("token")
-    private String token;
 
-    public Customer() {
-    }
+    @SerializedName("mobile_phone_number")
+    private String mobilePhone;
+
+    public Customer(){}
 
     public Customer(JSONObject jsonObject) {
         try {
             this.id = jsonObject.getLong("id");
             this.cpf = jsonObject.getString("cpf");
             this.fcmId = jsonObject.getString("fcm_id");
+            this.fcmMessageToken = jsonObject.getString("fcm_message_token");
             this.email = jsonObject.getString("email");
             this.name = jsonObject.getString("name");
-            this.token = jsonObject.getString("token");
+            this.mobilePhone = jsonObject.getString("mobile_phone_number");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -49,7 +56,7 @@ public class Customer extends BaseModel {
         this.fcmId = parcel.readString();
         this.email = parcel.readString();
         this.name = parcel.readString();
-        this.token = parcel.readString();
+        this.mobilePhone = parcel.readString();
     }
 
     public Long getId() {
@@ -92,12 +99,12 @@ public class Customer extends BaseModel {
         this.email = email;
     }
 
-    public String getToken() {
-        return token;
+    public String getMobilePhone() {
+        return mobilePhone;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setMobilePhone(String mobilePhone) {
+        this.mobilePhone = mobilePhone;
     }
 
     @Override

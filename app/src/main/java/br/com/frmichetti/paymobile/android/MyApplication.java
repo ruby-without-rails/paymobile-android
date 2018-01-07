@@ -8,10 +8,12 @@ package br.com.frmichetti.paymobile.android;
 
 import android.support.multidex.MultiDexApplication;
 
+import br.com.frmichetti.paymobile.android.model.Token;
+
 public class MyApplication extends MultiDexApplication {
 
     private static MyApplication myApplication;
-    private static String sessionToken;
+    private static Token sessionToken;
 
     public static synchronized MyApplication getInstance() {
         return myApplication;
@@ -24,12 +26,11 @@ public class MyApplication extends MultiDexApplication {
         myApplication = this;
     }
 
-    public static synchronized String getSessionToken() {
+    public static synchronized Token getSessionToken() {
         return sessionToken;
     }
 
-    public static synchronized void setSessionToken(String sessionToken) {
+    public static synchronized void setSessionToken(Token sessionToken) {
         MyApplication.sessionToken = sessionToken;
     }
-
 }

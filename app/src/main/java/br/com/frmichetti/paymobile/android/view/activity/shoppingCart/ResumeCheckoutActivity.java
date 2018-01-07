@@ -3,6 +3,7 @@ package br.com.frmichetti.paymobile.android.view.activity.shoppingCart;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -101,7 +102,7 @@ public class ResumeCheckoutActivity extends BaseActivity {
                 TaskCreateCheckout taskCreateCheckout = new TaskCreateCheckout(context, new AsyncResponse<Boolean>() {
 
                     @Override
-                    public void processFinish(Boolean output) {
+                    public void onSuccess(Boolean output) {
 
                         if (output != null && output == true) {
 
@@ -119,6 +120,12 @@ public class ResumeCheckoutActivity extends BaseActivity {
 
                         }
 
+                    }
+
+                    @Override
+                    public void onFails(Exception e) {
+                        Toast.makeText(context, e.getMessage(),Toast.LENGTH_LONG).show();
+                        Log.d("Error", e.getMessage());
                     }
                 });
 
@@ -219,7 +226,7 @@ public class ResumeCheckoutActivity extends BaseActivity {
         TaskDownloadAddress taskDownloadAddress = new TaskDownloadAddress(context, new AsyncResponse<ArrayList<Address>>() {
 
             @Override
-            public void processFinish(ArrayList<Address> output) {
+            public void onSuccess(ArrayList<Address> output) {
 
                 if (output != null) {
 
@@ -244,6 +251,12 @@ public class ResumeCheckoutActivity extends BaseActivity {
                 spinnerAddresses.setAdapter(adapterAddresses);
 
             }
+
+            @Override
+            public void onFails(Exception e) {
+                Toast.makeText(context, e.getMessage(),Toast.LENGTH_LONG).show();
+                Log.d("Error", e.getMessage());
+            }
         });
 
         taskDownloadAddress.execute(customer);
@@ -252,7 +265,7 @@ public class ResumeCheckoutActivity extends BaseActivity {
         TaskDownloadVehicles taskDownloadVehicles = new TaskDownloadVehicles(context, new AsyncResponse<ArrayList<Vehicle>>() {
 
             @Override
-            public void processFinish(ArrayList<Vehicle> output) {
+            public void onSuccess(ArrayList<Vehicle> output) {
 
                 if (output != null) {
 
@@ -276,6 +289,12 @@ public class ResumeCheckoutActivity extends BaseActivity {
                 spinnerVehicles.setAdapter(adapterVehicles);
 
 
+            }
+
+            @Override
+            public void onFails(Exception e) {
+                Toast.makeText(context, e.getMessage(),Toast.LENGTH_LONG).show();
+                Log.d("Error", e.getMessage());
             }
         });
 

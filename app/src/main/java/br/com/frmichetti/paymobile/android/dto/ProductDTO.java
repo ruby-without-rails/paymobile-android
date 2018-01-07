@@ -11,6 +11,7 @@ import br.com.frmichetti.paymobile.android.model.compatibility.Product;
  */
 
 public class ProductDTO {
+
     @SerializedName("products")
     public ArrayList<Product> products;
 }

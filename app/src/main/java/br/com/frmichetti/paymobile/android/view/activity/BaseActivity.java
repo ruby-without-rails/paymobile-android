@@ -39,6 +39,13 @@ import br.com.frmichetti.paymobile.android.model.compatibility.Vehicle;
 import br.com.frmichetti.paymobile.android.util.ConnectivityReceiver;
 import br.com.frmichetti.paymobile.android.view.activity.login.LoginActivity;
 
+import static br.com.frmichetti.paymobile.android.model.IntentKeys.ADDRESS_BUNDLE_KEY;
+import static br.com.frmichetti.paymobile.android.model.IntentKeys.CUSTOMER_BUNDLE_KEY;
+import static br.com.frmichetti.paymobile.android.model.IntentKeys.PRODUCTS_BUNDLE_KEY;
+import static br.com.frmichetti.paymobile.android.model.IntentKeys.SELECTED_SERVICE_BUNDLE_KEY;
+import static br.com.frmichetti.paymobile.android.model.IntentKeys.SHOPPING_CART_BUNDLE_KEY;
+import static br.com.frmichetti.paymobile.android.model.IntentKeys.VEHICLE_BUNDLE_KEY;
+
 public abstract class BaseActivity extends AppCompatActivity implements MyPattern,
         ConnectivityReceiver.ConnectivityReceiverListener {
 
@@ -366,13 +373,13 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         if (intent != null) {
 
-            shoppingCart = (ShoppingCart) intent.getSerializableExtra("shoppingCart");
+            shoppingCart = (ShoppingCart) intent.getSerializableExtra(SHOPPING_CART_BUNDLE_KEY);
 
-            customer = (Customer) intent.getSerializableExtra("customer");
+            customer = (Customer) intent.getSerializableExtra(CUSTOMER_BUNDLE_KEY);
 
-            selectedService = (Product) intent.getSerializableExtra("service");
+            selectedService = (Product) intent.getSerializableExtra(SELECTED_SERVICE_BUNDLE_KEY);
 
-            selectedVehicle = (Vehicle) intent.getSerializableExtra("vehicle");
+            selectedVehicle = (Vehicle) intent.getSerializableExtra(VEHICLE_BUNDLE_KEY);
 
         }
 
@@ -454,9 +461,9 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
-                final FirebaseUser user = firebaseAuth.getCurrentUser();
+                final FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
-                if (user == null) {
+                if (firebaseUser == null) {
 
                     startActivity(new Intent(context, LoginActivity.class));
 
@@ -480,11 +487,11 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
     public void doChangeActivity(Context context, Class clazz) {
 
         startActivity(new Intent(context, clazz)
-                .putExtra("shoppingCart", shoppingCart)
-                .putExtra("customer", customer)
-                .putExtra("vehicle", selectedVehicle)
-                .putExtra("service", selectedService)
-                .putExtra("address", selectedAddress));
+                .putExtra(PRODUCTS_BUNDLE_KEY, shoppingCart)
+                .putExtra(CUSTOMER_BUNDLE_KEY, customer)
+                .putExtra(VEHICLE_BUNDLE_KEY, selectedVehicle)
+                .putExtra(SELECTED_SERVICE_BUNDLE_KEY, selectedService)
+                .putExtra(ADDRESS_BUNDLE_KEY, selectedAddress));
     }
 
 }

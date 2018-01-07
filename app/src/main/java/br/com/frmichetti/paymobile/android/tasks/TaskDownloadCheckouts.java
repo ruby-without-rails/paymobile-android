@@ -128,7 +128,7 @@ public class TaskDownloadCheckouts extends AsyncTask<Customer, String, ArrayList
 
         dialog.dismiss();
 
-        delegate.processFinish(result);
+        delegate.onSuccess(result);
 
     }
 

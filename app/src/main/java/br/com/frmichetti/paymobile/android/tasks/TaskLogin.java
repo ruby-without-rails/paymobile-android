@@ -10,7 +10,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.android.volley.NetworkResponse;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -22,18 +21,19 @@ import org.json.JSONObject;
 import br.com.frmichetti.paymobile.android.MyApplication;
 import br.com.frmichetti.paymobile.android.R;
 import br.com.frmichetti.paymobile.android.model.RequestQueuer;
+import br.com.frmichetti.paymobile.android.model.Token;
 
 public class TaskLogin extends AsyncTask<String, String, String> {
-    public AsyncResponse delegate = null;
+    public AsyncResponse asyncResponse = null;
     protected String token;
     private ProgressDialog dialog;
     private String url;
     private Context context;
     private RequestQueue requestQueue;
 
-    public TaskLogin(Context context, AsyncResponse<String> delegate) {
+    public TaskLogin(Context context, AsyncResponse<String> asyncResponse) {
         this(context);
-        this.delegate = delegate;
+        this.asyncResponse = asyncResponse;
     }
 
     private TaskLogin(Context context) {
@@ -86,14 +86,9 @@ public class TaskLogin extends AsyncTask<String, String, String> {
             @Override
             public void onResponse(JSONObject jsonObject) {
                 if (jsonObject.has("token")) {
-                    try {
-                        publishProgress("Token recebido !");
-                        token = jsonObject.getString("token");
-                        MyApplication.setSessionToken(token);
-                        delegate.processFinish(token);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                    publishProgress("Token recebido !");
+                    MyApplication.setSessionToken(new Token(jsonObject));
+                    asyncResponse.onSuccess(MyApplication.getSessionToken().getKey());
                 }
             }
         }, new Response.ErrorListener() {
@@ -104,8 +99,7 @@ public class TaskLogin extends AsyncTask<String, String, String> {
 
                 Log.d("DEBUG", "ID Existente no Firebase");
                 Log.d("DEBUG", "Cliente Vazio");
-                NetworkResponse networkResponse = error.networkResponse;
-                delegate.processFinish(token);
+                asyncResponse.onFails(error);
             }
         });
 

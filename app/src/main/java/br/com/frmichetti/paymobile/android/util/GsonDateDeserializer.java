@@ -17,6 +17,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
+import br.com.frmichetti.paymobile.android.helper.ApplicationDateFormater;
+
 public class GsonDateDeserializer implements JsonDeserializer<Date> {
 
     @Override
@@ -24,9 +26,7 @@ public class GsonDateDeserializer implements JsonDeserializer<Date> {
 
         String date = element.getAsString();
 
-        SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy'T'HH:mm:ss");
-
-        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+        SimpleDateFormat formatter = ApplicationDateFormater.getDefaultFormater();
 
         try {
 

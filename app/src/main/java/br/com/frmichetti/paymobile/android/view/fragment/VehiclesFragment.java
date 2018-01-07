@@ -97,11 +97,17 @@ public class VehiclesFragment extends BaseFragment {
             TaskDownloadVehicles taskDownloadVehicles = new TaskDownloadVehicles(context, new AsyncResponse<ArrayList<Vehicle>>() {
 
                 @Override
-                public void processFinish(ArrayList<Vehicle> output) {
+                public void onSuccess(ArrayList<Vehicle> output) {
 
                     vehicles = output;
 
                     doFillData(vehicles);
+                }
+
+                @Override
+                public void onFails(Exception e) {
+                    Toast.makeText(context, e.getMessage(),Toast.LENGTH_LONG).show();
+                    Log.d("Error", e.getMessage());
                 }
             });
 

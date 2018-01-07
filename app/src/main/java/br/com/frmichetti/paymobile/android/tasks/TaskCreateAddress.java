@@ -110,7 +110,7 @@ public class TaskCreateAddress extends AsyncTask<Address, String, Address> {
 
         dialog.dismiss();
 
-        delegate.processFinish(result);
+        delegate.onSuccess(result);
 
     }
 }

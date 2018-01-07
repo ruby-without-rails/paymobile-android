@@ -22,20 +22,29 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.iid.FirebaseInstanceId;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+
+import br.com.frmichetti.paymobile.android.MyApplication;
 import br.com.frmichetti.paymobile.android.R;
+import br.com.frmichetti.paymobile.android.dto.CustomerDTO;
+import br.com.frmichetti.paymobile.android.model.Token;
+import br.com.frmichetti.paymobile.android.model.compatibility.Customer;
 import br.com.frmichetti.paymobile.android.tasks.AsyncResponse;
 import br.com.frmichetti.paymobile.android.tasks.TaskCreateCustomer;
-import br.com.frmichetti.paymobile.android.model.compatibility.Customer;
-import br.com.frmichetti.paymobile.android.model.compatibility.User;
+
+import static br.com.frmichetti.paymobile.android.model.IntentKeys.CUSTOMER_BUNDLE_KEY;
 
 
 public class CustomerActivity extends BaseActivity {
     private FloatingActionButton fabConfirm;
-    private EditText editTextName, editTextCPF, editTextPhone, editTextMobilePhone;
-    private TextInputLayout txtInputLayoutName, txtInputLayoutCPF, txtInputLayoutPhone, txtInputLayoutMobilePhone;
-    private User user;
+    private EditText editTextName, editTextCPF, editTextMobilePhone;
+    private TextInputLayout txtInputLayoutName, txtInputLayoutCPF, txtInputLayoutMobilePhone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,19 +72,15 @@ public class CustomerActivity extends BaseActivity {
     public void doCastComponents() {
         super.doCastComponents();
 
-        editTextName = findViewById(R.id.editTextName);
+        editTextName = findViewById(R.id.edt_name);
 
         txtInputLayoutName = findViewById(R.id.input_layout_name);
 
-        editTextCPF = findViewById(R.id.editTextCPF);
+        editTextCPF = findViewById(R.id.edt_cpf);
 
         txtInputLayoutCPF = findViewById(R.id.input_layout_cpf);
 
-        editTextPhone = findViewById(R.id.editTextPhone);
-
-        txtInputLayoutPhone = findViewById(R.id.input_layout_phone);
-
-        editTextMobilePhone = findViewById(R.id.editTextMobilePhone);
+        editTextMobilePhone = findViewById(R.id.edt_mobile_phone);
 
         txtInputLayoutMobilePhone = findViewById(R.id.input_layout_mobilePhone);
 
@@ -90,8 +95,6 @@ public class CustomerActivity extends BaseActivity {
 
         editTextCPF.addTextChangedListener(new MyTextWatcher(txtInputLayoutCPF));
 
-        editTextPhone.addTextChangedListener(new MyTextWatcher(txtInputLayoutPhone));
-
         editTextMobilePhone.addTextChangedListener(new MyTextWatcher(txtInputLayoutMobilePhone));
 
         fabConfirm.setOnClickListener(new View.OnClickListener() {
@@ -102,18 +105,44 @@ public class CustomerActivity extends BaseActivity {
 
                 if (submitForm()) {
 
-                    TaskCreateCustomer taskCreateCustomer = new TaskCreateCustomer(context, new AsyncResponse<Customer>() {
+                    HashMap<String, String> headers = new HashMap<>();
+                    headers.put("PayWithRuby-Auth-Token", MyApplication.getSessionToken().getKey());
+
+                    FirebaseAuth auth = FirebaseAuth.getInstance();
+                    FirebaseUser firebaseUser = auth.getCurrentUser();
+                    JSONObject payload = new JSONObject();
+
+                    try {
+                        payload.put("id", customer.getId());
+                        payload.put("fcm_id", firebaseUser.getUid());
+                        payload.put("email", firebaseUser.getEmail());
+                        payload.put("name", customer.getName());
+                        payload.put("cpf", customer.getCpf());
+                        payload.put("mobile_phone_number", customer.getMobilePhone());
+                        payload.put("fcm_message_token", FirebaseInstanceId.getInstance().getToken());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    new TaskCreateCustomer(context, new AsyncResponse<CustomerDTO>() {
+                        @Override
+                        public void onSuccess(CustomerDTO output) {
+                            if (output != null) {
+                                customer = output.customer;
+                                Token token = output.token;
+                                MyApplication.setSessionToken(token);
+
+                                doChangeActivity(context, MainActivity.class);
+                                finish();
+                            }
+                        }
 
                         @Override
-                        public void processFinish(Customer output) {
+                        public void onFails(Exception e) {
+                            Toast.makeText(context, "Error on Update Customer info.", Toast.LENGTH_LONG).show();
 
-                            customer = output;
-
-                            doChangeActivity(context, MainActivity.class);
-
-                            finish();
                         }
-                    });
+                    }).execute(payload);
 
                     customer = doLoadFields();
 
@@ -132,9 +161,7 @@ public class CustomerActivity extends BaseActivity {
 
             editTextCPF.setText(String.valueOf(customer.getCpf()));
 
-            //  editTextPhone.setText(String.valueOf(customer.getPhone()));
-
-            //  editTextMobilePhone.setText(String.valueOf(customer.getMobilePhone()));
+            editTextMobilePhone.setText(String.valueOf(customer.getMobilePhone()));
 
         } else {
 
@@ -144,7 +171,7 @@ public class CustomerActivity extends BaseActivity {
 
             } catch (NullPointerException e) {
 
-                Log.d("DEBUG-USER", "Usuario sem Valores na conta");
+                Log.d("DEBUG-USER", "Usuário sem Valores na conta");
             }
 
         }
@@ -184,7 +211,7 @@ public class CustomerActivity extends BaseActivity {
 
         super.doLoadExtras(intent);
 
-        user = (User) intent.getSerializableExtra("user");
+        customer = (Customer) intent.getSerializableExtra(CUSTOMER_BUNDLE_KEY);
 
     }
 
@@ -197,10 +224,9 @@ public class CustomerActivity extends BaseActivity {
 
         if (id == android.R.id.home) {
 
-            if (user == null) {
+            if (customer == null) {
                 finish();
             }
-
         }
 
         return true;
@@ -209,7 +235,7 @@ public class CustomerActivity extends BaseActivity {
     @Override
     public void onNetworkConnectionChanged(boolean isConnected) {
 
-        showSnack((CoordinatorLayout) findViewById(R.id.coordlayoutCustomer), isConnected);
+        showSnack((CoordinatorLayout) findViewById(R.id.coord_layout_customer), isConnected);
     }
 
 
@@ -219,17 +245,23 @@ public class CustomerActivity extends BaseActivity {
     private boolean submitForm() {
         if (!validateName()) {
             return false;
+        } else {
+            customer.setName(editTextName.getText().toString());
         }
 
         if (!validateCPF()) {
             return false;
+        } else {
+            customer.setCpf(editTextCPF.getText().toString());
         }
 
-        if (!validatePhone()) {
+        if (!validateMobilePhone()) {
             return false;
+        } else {
+            customer.setMobilePhone(editTextMobilePhone.getText().toString());
         }
 
-        return validateMobilePhone();
+        return true;
 
     }
 
@@ -264,24 +296,6 @@ public class CustomerActivity extends BaseActivity {
         } else {
 
             txtInputLayoutCPF.setErrorEnabled(false);
-        }
-
-        return true;
-    }
-
-    private boolean validatePhone() {
-
-        if (editTextPhone.getText().toString().trim().isEmpty()) {
-
-            txtInputLayoutPhone.setError(getString(R.string.err_msg_phone));
-
-            requestFocus(editTextPhone);
-
-            return false;
-
-        } else {
-
-            txtInputLayoutPhone.setErrorEnabled(false);
         }
 
         return true;
@@ -328,19 +342,14 @@ public class CustomerActivity extends BaseActivity {
         }
 
         public void afterTextChanged(Editable editable) {
-
             switch (view.getId()) {
-
-                case R.id.editTextName:
+                case R.id.edt_name:
                     validateName();
                     break;
-                case R.id.editTextCPF:
+                case R.id.edt_cpf:
                     validateCPF();
                     break;
-                case R.id.editTextPhone:
-                    validatePhone();
-                    break;
-                case R.id.editTextMobilePhone:
+                case R.id.edt_mobile_phone:
                     validateMobilePhone();
                     break;
             }

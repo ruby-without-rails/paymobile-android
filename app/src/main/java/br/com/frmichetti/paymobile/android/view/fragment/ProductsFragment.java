@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -48,7 +49,7 @@ public class ProductsFragment extends BaseFragment {
 
         doCreateListeners();
 
-        doLoadServices(getSessionToken());
+        doLoadServices(getSessionToken().getKey());
 
         return rootView;
     }
@@ -83,10 +84,16 @@ public class ProductsFragment extends BaseFragment {
                     new AsyncResponse<ArrayList<Product>>() {
 
                         @Override
-                        public void processFinish(ArrayList<Product> output) {
+                        public void onSuccess(ArrayList<Product> output) {
                             products = output;
 
                             doFillData(products);
+                        }
+
+                        @Override
+                        public void onFails(Exception e) {
+                            Toast.makeText(context, e.getMessage(),Toast.LENGTH_LONG).show();
+                            Log.d("Error", e.getMessage());
                         }
                     }).execute(sessionToken);
         }

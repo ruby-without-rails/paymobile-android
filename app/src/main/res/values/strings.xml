@@ -101,7 +101,7 @@
     <string name="repeat_register_operation">Please Repeat the Signup Operation</string>
     <string name="process_finish">Process Finish</string>
     <string name="processing">Processing</string>
-    <string name="logo">logo</string>
+    <string name="logo">Logo</string>
     <string name="hint_cep">Insert a New Cep</string>
     <string name="hint_street">Insert a New Street</string>
     <string name="hint_neighborhood">Insert a New Neighborhood</string>
@@ -125,6 +125,7 @@
     <string name="title_gifts">Gifts</string>
     <string name="title_cart">Cart</string>
     <string name="title_profile">Profile</string>
+    <string name="title_settings">Opções</string>
 </resources>
 
 

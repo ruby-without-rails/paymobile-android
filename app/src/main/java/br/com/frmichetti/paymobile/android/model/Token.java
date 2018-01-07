@@ -6,30 +6,53 @@
  */
 package br.com.frmichetti.paymobile.android.model;
 
+import com.google.gson.annotations.SerializedName;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import br.com.frmichetti.paymobile.android.helper.ApplicationDateFormater;
 
 /**
  * Token Model
  *
  * @author felipe
  * @since 1.0
- * @version
  */
-public class Token {
+public class Token implements Serializable {
 
-    private Date createdAt = new Date();
+    @SerializedName("expires_at")
+    private Date expiresAt;
 
+    @SerializedName("key")
     private String key;
 
     public Token() {
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
+    public Token(JSONObject jsonObject) {
+        try {
+            this.key = jsonObject.has("key") ? jsonObject.getString("key") : jsonObject.getString("token");
+            SimpleDateFormat formatter = ApplicationDateFormater.getDefaultFormater();
+            this.expiresAt = formatter.parse(jsonObject.getString("expires_at"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
-    private void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
+    public Date getExpiresAt() {
+        return expiresAt;
+    }
+
+    private void setExpiresAt(Date expiresAt) {
+        this.expiresAt = expiresAt;
     }
 
     public String getKey() {
@@ -42,7 +65,7 @@ public class Token {
 
     @Override
     public String toString() {
-        return "Token [createdAt=" + createdAt + ", key=" + key + "]";
+        return "Token [expiresAt=" + expiresAt + ", key=" + key + "]";
     }
 
 }
