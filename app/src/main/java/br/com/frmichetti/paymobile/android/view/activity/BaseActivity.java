@@ -31,6 +31,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import br.com.frmichetti.paymobile.android.R;
+import br.com.frmichetti.paymobile.android.model.IntentKeys;
 import br.com.frmichetti.paymobile.android.model.ShoppingCart;
 import br.com.frmichetti.paymobile.android.model.compatibility.Address;
 import br.com.frmichetti.paymobile.android.model.compatibility.Customer;
@@ -41,6 +42,7 @@ import br.com.frmichetti.paymobile.android.view.activity.login.LoginActivity;
 
 import static br.com.frmichetti.paymobile.android.model.IntentKeys.ADDRESS_BUNDLE_KEY;
 import static br.com.frmichetti.paymobile.android.model.IntentKeys.CUSTOMER_BUNDLE_KEY;
+import static br.com.frmichetti.paymobile.android.model.IntentKeys.FRAGMENT_ID;
 import static br.com.frmichetti.paymobile.android.model.IntentKeys.PRODUCTS_BUNDLE_KEY;
 import static br.com.frmichetti.paymobile.android.model.IntentKeys.SELECTED_SERVICE_BUNDLE_KEY;
 import static br.com.frmichetti.paymobile.android.model.IntentKeys.SHOPPING_CART_BUNDLE_KEY;
@@ -152,17 +154,17 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         super.onSaveInstanceState(outState);
 
-        outState.putSerializable("customer", customer);
+        outState.putSerializable(CUSTOMER_BUNDLE_KEY, customer);
 
-        outState.putSerializable("shoppingCart", shoppingCart);
+        outState.putSerializable(SHOPPING_CART_BUNDLE_KEY, shoppingCart);
 
-        outState.putSerializable("service", selectedService);
+        outState.putSerializable(SELECTED_SERVICE_BUNDLE_KEY, selectedService);
 
-        outState.putSerializable("vehicle", selectedVehicle);
+        outState.putSerializable(VEHICLE_BUNDLE_KEY, selectedVehicle);
 
-        outState.putSerializable("address", selectedAddress);
+        outState.putSerializable(ADDRESS_BUNDLE_KEY, selectedAddress);
 
-        outState.putInt("fragmentId", fragmentId);
+        outState.putInt(FRAGMENT_ID, fragmentId);
 
         Log.d("[INFO-SAVE-BUNDLE]", "Save State");
 
@@ -327,18 +329,17 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         if (bundle != null) {
 
-            customer = (Customer) bundle.getSerializable("customer");
+            customer = (Customer) bundle.getSerializable(CUSTOMER_BUNDLE_KEY);
 
-            //TODO CHANGE TO PARCELABLE
-            shoppingCart = (ShoppingCart) bundle.getSerializable("shoppingCart");
+            shoppingCart = (ShoppingCart) bundle.getSerializable(SHOPPING_CART_BUNDLE_KEY);
 
-            selectedService = (Product) bundle.getSerializable("service");
+            selectedService = (Product) bundle.getSerializable(SELECTED_SERVICE_BUNDLE_KEY);
 
-            selectedVehicle = (Vehicle) bundle.getSerializable("vehicle");
+            selectedVehicle = (Vehicle) bundle.getSerializable(VEHICLE_BUNDLE_KEY);
 
-            selectedAddress = (Address) bundle.getSerializable("address");
+            selectedAddress = (Address) bundle.getSerializable(ADDRESS_BUNDLE_KEY);
 
-            fragmentId = bundle.getInt("fragmentId");
+            fragmentId = bundle.getInt(FRAGMENT_ID);
 
             Log.d("[LOAD-BUNDLE]", "Load Saved State");
 
@@ -351,18 +352,17 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         Bundle bundle = new Bundle();
 
-        bundle.putSerializable("customer", customer);
+        bundle.putSerializable(CUSTOMER_BUNDLE_KEY, customer);
 
-        //TODO CHANGE TO PARCELABLE
-        bundle.putSerializable("shoppingCart", shoppingCart);
+        bundle.putSerializable(SHOPPING_CART_BUNDLE_KEY, shoppingCart);
 
-        bundle.putSerializable("service", selectedService);
+        bundle.putSerializable(SELECTED_SERVICE_BUNDLE_KEY, selectedService);
 
-        bundle.putSerializable("vehicle", selectedVehicle);
+        bundle.putSerializable(VEHICLE_BUNDLE_KEY, selectedVehicle);
 
-        bundle.putSerializable("address", selectedAddress);
+        bundle.putSerializable(ADDRESS_BUNDLE_KEY, selectedAddress);
 
-        bundle.putInt("fragmentId", fragmentId);
+        bundle.putInt(FRAGMENT_ID, fragmentId);
 
         Log.d("[SAVE-BUNDLE]", "Saved State");
 
@@ -385,13 +385,10 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         /*
         if (shoppingCart == null) {
-
             throw new RuntimeException("Forbidden - Shopping Cart is Null");
-
         }
 
         if (customer == null) {
-
             throw new RuntimeException("Forbidden - Customer is Null");
         }
 
@@ -400,15 +397,11 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
         }
 
         if (selectedAddress == null) {
-
             throw new RuntimeException("Forbidden - SelectedAddress is Null");
-
         }
 
         if (selectedService == null) {
-
             throw new RuntimeException("Forbidden - SelectedService is Null");
-
         }
 */
 
@@ -487,7 +480,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
     public void doChangeActivity(Context context, Class clazz) {
 
         startActivity(new Intent(context, clazz)
-                .putExtra(PRODUCTS_BUNDLE_KEY, shoppingCart)
+                .putExtra(SHOPPING_CART_BUNDLE_KEY, shoppingCart)
                 .putExtra(CUSTOMER_BUNDLE_KEY, customer)
                 .putExtra(VEHICLE_BUNDLE_KEY, selectedVehicle)
                 .putExtra(SELECTED_SERVICE_BUNDLE_KEY, selectedService)

@@ -296,16 +296,25 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
                 title = getString(R.string.title_shop);
                 break;
             case R.id.navigation_gifts:
-                fragment = new AddressFragment();
-                title = getString(R.string.title_address);
+                fragment = new ProductsFragment();
+                title = getString(R.string.title_products);
                 break;
             case R.id.navigation_cart:
-                fragment = new VehiclesFragment();
-                title = getString(R.string.title_vehicles);
+                if (!shoppingCart.isEmpty()) {
+
+                    doChangeActivity(context, ShoppingCartActivity.class);
+
+                } else {
+
+                    Toast.makeText(context, getString(R.string.cart_is_empty), Toast.LENGTH_SHORT).show();
+                }
+                // fragment = new VehiclesFragment();
+                // title = getString(R.string.title_vehicles);
                 break;
-            case R.id.navigation_profile:
-                fragment = new CheckoutsFragment();
-                title = getString(R.string.title_checkouts);
+            case R.id.navigation_settings:
+                doChangeActivity(context, OptionsActivity.class);
+                // fragment = new CheckoutsFragment();
+                // title = getString(R.string.title_checkouts);
                 break;
         }
 

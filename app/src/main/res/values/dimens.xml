@@ -19,6 +19,12 @@
     <dimen name="card_cover_height">130dp</dimen>
     <dimen name="card_title_padding">10dp</dimen>
     <dimen name="card_price_padding_bottom">5dp</dimen>
+
+    <dimen name="activity_padding_horizontal">16dp</dimen>
+    <dimen name="padd_10">10dp</dimen>
+    <dimen name="ic_delete">30dp</dimen>
+    <dimen name="thumbnail">90dp</dimen>
+
 </resources>
 
 

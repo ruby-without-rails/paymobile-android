@@ -19,7 +19,7 @@ import br.com.frmichetti.paymobile.android.model.compatibility.Product;
  */
 public class ShoppingItem implements Serializable {
 
-    private Long serviceId;
+    private Long productId;
 
     private Product service;
 
@@ -27,12 +27,12 @@ public class ShoppingItem implements Serializable {
         super();
     }
 
-    public ShoppingItem(Product service) {
-        this.service = service;
-        this.serviceId = service.getId();
+    public ShoppingItem(Product product) {
+        this.service = product;
+        this.productId = product.getId();
     }
 
-    public Product getService() {
+    public Product getProduct() {
         return service;
     }
 
@@ -41,7 +41,7 @@ public class ShoppingItem implements Serializable {
     }
 
     public Long getProductId() {
-        return serviceId;
+        return productId;
     }
 
     public BigDecimal getTotal(Integer quantity) {
@@ -52,7 +52,7 @@ public class ShoppingItem implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((serviceId == null) ? 0 : serviceId.hashCode());
+        result = prime * result + ((productId == null) ? 0 : productId.hashCode());
         return result;
     }
 
@@ -65,10 +65,10 @@ public class ShoppingItem implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         ShoppingItem other = (ShoppingItem) obj;
-        if (serviceId == null) {
-            if (other.serviceId != null)
+        if (productId == null) {
+            if (other.productId != null)
                 return false;
-        } else if (!serviceId.equals(other.serviceId))
+        } else if (!productId.equals(other.productId))
             return false;
         return true;
     }

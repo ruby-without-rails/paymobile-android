@@ -3,11 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/coordLayoutShoppingCart"
+    android:id="@+id/coord_layout_shopping_cart"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/background_light"
     android:fitsSystemWindows="true"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".view.activity.shoppingCart.ShoppingCartActivity">
 
     <include layout="@layout/toolbar" />
@@ -30,15 +31,25 @@
             android:text="Itens no Carrinho"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        <ListView
-            android:id="@+id/lvShoppingCartItems"
-            android:layout_width="wrap_content"
-            android:layout_height="250dp"
+        <!--<ListView-->
+            <!--android:id="@+id/lvShoppingCartItems"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="250dp"-->
+            <!--android:layout_above="@+id/tvSelectedService"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_below="@+id/textView5"-->
+            <!--android:choiceMode="singleChoice" />-->
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_above="@+id/tvSelectedService"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
+            android:layout_alignEnd="@+id/tvPriceVar"
+            android:layout_alignRight="@+id/tvPriceVar"
             android:layout_below="@+id/textView5"
-            android:choiceMode="singleChoice" />
+            android:scrollbars="vertical" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab_remove_item_from_cart"
@@ -49,7 +60,7 @@
             android:layout_alignStart="@+id/tvSelectedService"
             android:layout_gravity="bottom|end"
             android:layout_marginBottom="40dp"
-            android:elevation="6dp"
+            android:elevation="4dp"
             android:src="@drawable/ic_action_remove_from_cart"
             app:backgroundTint="@color/color_primary_dark"
             app:fabSize="normal" />

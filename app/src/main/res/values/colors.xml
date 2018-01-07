@@ -12,4 +12,8 @@
     <color name="bottom_navigation_bar">#fe485a</color>
     <!-- Material Design Color -->
     <color name="white">#ffffff</color>
+
+    <color name="bg_row_background">#fa315b</color>
+    <color name="item_name">#535353</color>
+    <color name="description">#a9a9a9</color>
 </resources>

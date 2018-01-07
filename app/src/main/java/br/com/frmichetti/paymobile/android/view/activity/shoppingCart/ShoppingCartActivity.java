@@ -6,10 +6,17 @@
  */
 package br.com.frmichetti.paymobile.android.view.activity.shoppingCart;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,8 +26,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import br.com.frmichetti.paymobile.android.R;
+import br.com.frmichetti.paymobile.android.adapter.CartListAdapter;
+import br.com.frmichetti.paymobile.android.helper.RecyclerItemTouchHelper;
 import br.com.frmichetti.paymobile.android.model.ShoppingItem;
 import br.com.frmichetti.paymobile.android.model.compatibility.Checkout;
 import br.com.frmichetti.paymobile.android.model.compatibility.Product;
@@ -28,17 +38,22 @@ import br.com.frmichetti.paymobile.android.view.activity.BaseActivity;
 import br.com.frmichetti.paymobile.android.view.activity.MainActivity;
 
 
-public class ShoppingCartActivity extends BaseActivity {
+public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener {
 
     private FloatingActionButton fabRemoveItem, fabPurchase;
 
     private TextView textViewSelectedItem, textViewQuantity, textViewPrice, textViewSubTotal, textViewTotal;
 
-    private ListView listViewShoppingCart;
+    // private ListView listViewShoppingCart;
 
     private ShoppingItem shoppingItem;
 
     private Checkout checkout;
+
+    private RecyclerView recyclerView;
+    private CartListAdapter mAdapter;
+    private CoordinatorLayout coordinatorLayout;
+    private List<ShoppingItem> cartList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +67,12 @@ public class ShoppingCartActivity extends BaseActivity {
         doCreateListeners();
 
         setupToolBar();
+
+
+        recyclerView = findViewById(R.id.recycler_view);
+        coordinatorLayout = findViewById(R.id.coord_layout_shopping_cart);
+
+
 
     }
 
@@ -78,7 +99,7 @@ public class ShoppingCartActivity extends BaseActivity {
 
             textViewTotal.setText(String.valueOf(shoppingCart.getTotal()));
 
-            textViewPrice.setText(String.valueOf(shoppingItem.getService().getPrice()));
+            textViewPrice.setText(String.valueOf(shoppingItem.getProduct().getPrice()));
 
             textViewQuantity.setText(String.valueOf(shoppingCart.getQuantityOfItens(shoppingItem)));
         }
@@ -90,10 +111,30 @@ public class ShoppingCartActivity extends BaseActivity {
 
         shoppingItem = new ShoppingItem(selectedService);
 
-        ArrayAdapter<ShoppingItem> adpItem = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
+        ArrayAdapter<ShoppingItem> adpItem = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1,
                 new ArrayList<>(shoppingCart.getList()));
 
-        listViewShoppingCart.setAdapter(adpItem);
+       // listViewShoppingCart.setAdapter(adpItem);
+
+        cartList = new ArrayList<>();
+
+        cartList.addAll(shoppingCart.getList());
+
+        mAdapter = new CartListAdapter(context, cartList);
+
+
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        recyclerView.setAdapter(mAdapter);
+
+        // adding item touch helper
+        // only ItemTouchHelper.LEFT added to detect Right to Left swipe
+        // if you want both Right -> Left and Left -> Right
+        // add pass ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT as param
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
 
     }
 
@@ -106,7 +147,7 @@ public class ShoppingCartActivity extends BaseActivity {
 
         fabPurchase = findViewById(R.id.fab_buy);
 
-        listViewShoppingCart = findViewById(R.id.lvShoppingCartItems);
+      //  listViewShoppingCart = findViewById(R.id.lvShoppingCartItems);
 
         textViewSelectedItem = findViewById(R.id.tvSelectedServiceVar);
 
@@ -124,21 +165,21 @@ public class ShoppingCartActivity extends BaseActivity {
 
     public void doCreateListeners() {
 
-        listViewShoppingCart.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Object itemValue = listViewShoppingCart.getItemAtPosition(position);
-
-                shoppingItem = (ShoppingItem) itemValue;
-
-                Toast.makeText(context, getString(R.string.service_selected) + shoppingItem.toString(), Toast.LENGTH_SHORT).show();
-
-                doRefresh();
-
-            }
-        });
+//        listViewShoppingCart.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//                Object itemValue = listViewShoppingCart.getItemAtPosition(position);
+//
+//                shoppingItem = (ShoppingItem) itemValue;
+//
+//                Toast.makeText(context, getString(R.string.service_selected) + shoppingItem.toString(), Toast.LENGTH_SHORT).show();
+//
+//                doRefresh();
+//
+//            }
+//        });
 
         fabRemoveItem.setOnClickListener(new View.OnClickListener() {
 
@@ -215,7 +256,40 @@ public class ShoppingCartActivity extends BaseActivity {
     @Override
     public void onNetworkConnectionChanged(boolean isConnected) {
 
-        showSnack((CoordinatorLayout) findViewById(R.id.coordLayoutShoppingCart), isConnected);
+        showSnack((CoordinatorLayout) findViewById(R.id.coord_layout_shopping_cart), isConnected);
     }
 
+    /**
+     * callback when recycler view is swiped
+     * item will be removed on swiped
+     * undo option will be provided in snackbar to restore the item
+     */
+    @Override
+    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
+        if (viewHolder instanceof CartListAdapter.MyViewHolder) {
+            // get the removed item name to display it in snack bar
+            String name = cartList.get(viewHolder.getAdapterPosition()).getProduct().getName();
+
+            // backup of removed item for undo purpose
+            final ShoppingItem deletedItem = cartList.get(viewHolder.getAdapterPosition());
+            final int deletedIndex = viewHolder.getAdapterPosition();
+
+            // remove the item from recycler view
+            mAdapter.removeItem(viewHolder.getAdapterPosition());
+
+            // showing snack bar with Undo option
+            Snackbar snackbar = Snackbar
+                    .make(coordinatorLayout, name + " removed from cart!", Snackbar.LENGTH_LONG);
+            snackbar.setAction("UNDO", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    // undo is selected, restore the deleted item
+                    mAdapter.restoreItem(deletedItem, deletedIndex);
+                }
+            });
+            snackbar.setActionTextColor(Color.YELLOW);
+            snackbar.show();
+        }
+    }
 }

@@ -15,7 +15,8 @@
         android:layout_marginLeft="18dp"
         android:layout_marginRight="12dp"
         android:layout_marginStart="18dp"
-        android:layout_marginTop="11dp" />
+        android:layout_marginTop="11dp"
+        android:visibility="invisible" />
 
     <TextView
         android:id="@+id/tv_title"

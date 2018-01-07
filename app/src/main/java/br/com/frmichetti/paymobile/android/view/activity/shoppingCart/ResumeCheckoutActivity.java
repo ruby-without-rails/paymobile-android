@@ -137,7 +137,7 @@ public class ResumeCheckoutActivity extends BaseActivity {
 
                     } else {
 
-                        showSnack((CoordinatorLayout) findViewById(R.id.coordLayoutShoppingCart), doCheckConnection(context));
+                        showSnack((CoordinatorLayout) findViewById(R.id.coord_layout_shopping_cart), doCheckConnection(context));
                     }
 
                 } else {
