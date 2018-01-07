@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".MainActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/action_vehicle"
         android:icon="@drawable/ic_action_car"
         android:orderInCategory="100"
         android:name="@string/action_vehicle"
+        android:title="@string/action_vehicle"
         app:showAsAction="ifRoom" />
 
 
@@ -17,6 +16,7 @@
         android:icon="@drawable/ic_action_cart"
         android:orderInCategory="100"
         android:name="@string/action_cart"
+        android:title="@string/action_cart"
         app:showAsAction="always" />
 
     <item
@@ -24,6 +24,7 @@
         android:icon="@drawable/ic_action_account"
         android:orderInCategory="100"
         android:name="@string/action_personal_data"
+        android:title="@string/action_personal_data"
         app:showAsAction="ifRoom" />
 
     <item
@@ -31,6 +32,7 @@
         android:icon="@drawable/ic_action_settings"
         android:orderInCategory="100"
         android:name="@string/action_settings"
+        android:title="@string/action_settings"
         app:showAsAction="never" />
 
     <item
@@ -38,6 +40,7 @@
         android:icon="@drawable/ic_action_contact_code"
         android:orderInCategory="100"
         android:name="@string/contact_developer"
+        android:title="@string/contact_developer"
         app:showAsAction="never" />
 
     <item
@@ -45,6 +48,7 @@
         android:icon="@drawable/ic_action_contact_code"
         android:orderInCategory="100"
         android:name="@string/about"
+        android:title="@string/about"
         app:showAsAction="never" />
 
 

@@ -372,7 +372,7 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             displayView(item);
 
-            return false;
+            return true;
         }
     };
 
