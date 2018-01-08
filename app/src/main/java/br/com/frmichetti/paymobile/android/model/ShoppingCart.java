@@ -23,8 +23,7 @@ public class ShoppingCart implements Serializable {
 
     private Map<ShoppingItem, Integer> mapItems = new LinkedHashMap<>();
 
-    public ShoppingCart() {
-    }
+    public ShoppingCart(){}
 
     public Integer getQuantityOfItens(ShoppingItem shoppingItem) {
 

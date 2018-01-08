@@ -96,9 +96,9 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
             shoppingCart = new ShoppingCart();
         }
 
-        if (selectedService == null) {
+        if (selectedProduct == null) {
 
-            selectedService = new Product();
+            selectedProduct = new Product();
         }
 
         if (selectedVehicle == null) {
@@ -315,6 +315,9 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
                 doChangeActivity(context, OptionsActivity.class);
                 // fragment = new CheckoutsFragment();
                 // title = getString(R.string.title_checkouts);
+                break;
+            case R.id.navigation_profile:
+                doChangeActivity(context, CustomerActivity.class);
                 break;
         }
 

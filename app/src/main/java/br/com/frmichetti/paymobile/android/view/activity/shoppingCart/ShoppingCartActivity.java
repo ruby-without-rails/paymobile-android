@@ -47,8 +47,6 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
     private LinearLayout layoutBottomSheet;
     private BottomSheetBehavior sheetBehavior;
 
-    // private ListView listViewShoppingCart;
-
     private ShoppingItem shoppingItem;
 
     private Checkout checkout;
@@ -71,11 +69,8 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
 
         setupToolBar();
 
-
         recyclerView = findViewById(R.id.recycler_view);
         coordinatorLayout = findViewById(R.id.coord_layout_shopping_cart);
-
-
 
     }
 
@@ -112,12 +107,7 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
 
     private void doFillData() {
 
-        shoppingItem = new ShoppingItem(selectedService);
-
-//        ArrayAdapter<ShoppingItem> adpItem = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1,
-//                new ArrayList<>(shoppingCart.getList()));
-
-       // listViewShoppingCart.setAdapter(adpItem);
+        shoppingItem = new ShoppingItem(selectedProduct);
 
         cartList = new ArrayList<>();
 
@@ -149,8 +139,6 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
         fabRemoveItem = findViewById(R.id.fab_remove_item_from_cart);
 
         fabPurchase = findViewById(R.id.fab_buy);
-
-      //  listViewShoppingCart = findViewById(R.id.lvShoppingCartItems);
 
         textViewSelectedItem = findViewById(R.id.tv_product_var);
 
@@ -201,7 +189,7 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
 
                     textViewSelectedItem.setText("");
 
-                    selectedService = new Product();
+                    selectedProduct = new Product();
 
                 } else {
 

@@ -65,7 +65,7 @@
     <string name="checkout_success">Pedido Solicitado com sucesso! Entraremos em contato para Confirmar Agendamento.</string>
     <string name="checkout_failed">Não foi possível concluir o pedido, Tente Novamente mais tarde.</string>
     <string name="cart_is_empty">Carrinho Vazio</string>
-    <string name="service_details">Detalhes do Serviço</string>
+    <string name="product_details">Detalhes do Serviço</string>
     <string name="update_email_sucess">Endereço de email foi atualizado. Por favor entre com o novo ID de e-mail!</string>
     <string name="update_email_failed">Falha ao Atualizar Email!</string>
     <string name="password_update_sucess">Senha foi atualizada, entre com a nova senha!</string>

@@ -8,7 +8,6 @@
 
     <RelativeLayout
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:focusable="true"
         android:layout_gravity="top"
         android:layout_height="match_parent"
         android:layout_width="match_parent">
@@ -42,8 +41,6 @@
 
         <ImageView
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:focusable="true"
             android:id="@+id/more_actions"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"

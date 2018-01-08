@@ -13,7 +13,10 @@ import android.support.design.widget.FloatingActionButton;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import br.com.frmichetti.paymobile.android.R;
 import br.com.frmichetti.paymobile.android.model.ShoppingCart;
@@ -24,6 +27,8 @@ public class ProductDetailActivity extends BaseActivity {
 
     private TextView textViewTitle, textViewDescription, textCategoryDescription,
             textViewObservation, textViewPrice;
+
+    private ImageView imageView;
 
     private FloatingActionButton floatButtonAddCart;
 
@@ -62,7 +67,7 @@ public class ProductDetailActivity extends BaseActivity {
 
         super.setupToolBar();
 
-        actionBar.setSubtitle(getString(R.string.service_details));
+        actionBar.setSubtitle(getString(R.string.product_details));
     }
 
     @Override
@@ -82,6 +87,8 @@ public class ProductDetailActivity extends BaseActivity {
 
         floatButtonAddCart = findViewById(R.id.fab_add_to_cart);
 
+        imageView = findViewById(R.id.imv_large);
+
 
     }
 
@@ -93,7 +100,7 @@ public class ProductDetailActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
-                shoppingCart.add(new ShoppingItem(selectedService));
+                shoppingCart.add(new ShoppingItem(selectedProduct));
 
                 doChangeActivity(context, ShoppingCartActivity.class);
 
@@ -105,15 +112,20 @@ public class ProductDetailActivity extends BaseActivity {
 
     private void doFillData() {
 
-        textViewTitle.setText(selectedService.getName());
+        textViewTitle.setText(selectedProduct.getName());
 
-        textViewDescription.setText(selectedService.getDescription());
+        textViewDescription.setText(selectedProduct.getDescription());
 
-        textCategoryDescription.setText(selectedService.getCategory().getName());
+        textCategoryDescription.setText(selectedProduct.getCategory().getName());
 
-        textViewObservation.setText(selectedService.getNotes());
+        textViewObservation.setText(selectedProduct.getNotes());
 
-        textViewPrice.setText(String.valueOf(selectedService.getPrice()));
+        textViewPrice.setText(String.valueOf(selectedProduct.getPrice()));
+
+        Glide.with(context)
+                .load(selectedProduct.getImage())
+                .into(imageView);
+
     }
 
     @Override

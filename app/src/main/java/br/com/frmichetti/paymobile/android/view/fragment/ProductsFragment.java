@@ -44,16 +44,16 @@ import br.com.frmichetti.paymobile.android.view.activity.ProductDetailActivity;
 import static br.com.frmichetti.paymobile.android.MyApplication.getSessionToken;
 import static br.com.frmichetti.paymobile.android.model.IntentKeys.PRODUCTS_BUNDLE_KEY;
 
-public class ProductsFragment extends BaseFragment implements SimpleItemSelectionListener, ItemAdapterListener, PopupMenu.OnMenuItemClickListener  {
+public class ProductsFragment extends BaseFragment implements SimpleItemSelectionListener, ItemAdapterListener, PopupMenu.OnMenuItemClickListener {
     private TextView textView;
-    // private ListView listView;
     private ArrayList<Product> products;
     private RecyclerView recyclerView;
     private SimpleCardItemAdapter simpleCardItemAdapter;
     private SimpleItemSelectionListener simpleItemSelectionListener;
     private int lastItemSelected;
 
-    public ProductsFragment(){}
+    public ProductsFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
@@ -79,25 +79,12 @@ public class ProductsFragment extends BaseFragment implements SimpleItemSelectio
     @Override
     protected void doCastComponents(View rootView) {
         textView = rootView.findViewById(R.id.tv_product_label);
-        //listView = rootView.findViewById(R.id.listViewCheckouts);
         recyclerView = rootView.findViewById(R.id.recycler_view);
     }
 
     @Override
     protected void doCreateListeners() {
-      /*  listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Object itemValue = listView.getItemAtPosition(position);
-
-                selectedService = (Product) itemValue;
-
-                doChangeActivity(context, ProductDetailActivity.class);
-            }
-        });
-*/
     }
 
     private void doLoadServices(String sessionToken) {
@@ -116,7 +103,7 @@ public class ProductsFragment extends BaseFragment implements SimpleItemSelectio
 
                         @Override
                         public void onFails(Exception e) {
-                            Toast.makeText(context, e.getMessage(),Toast.LENGTH_LONG).show();
+                            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
                             Log.d("Error", e.getMessage());
                         }
                     }).execute(sessionToken);
@@ -124,11 +111,6 @@ public class ProductsFragment extends BaseFragment implements SimpleItemSelectio
     }
 
     private void doFillData(ArrayList<Product> products) {
-     //   ArrayAdapter<Product> adpItem = new ArrayAdapter<>(context,
-       //         android.R.layout.simple_list_item_1, products);
-
-      //  listView.setAdapter(adpItem);
-
         if (products != null) {
 
             createFileAdapter(products);
@@ -136,7 +118,6 @@ public class ProductsFragment extends BaseFragment implements SimpleItemSelectio
             notifyData(simpleCardItemAdapter);
 
             configureRecyclerView(context, simpleCardItemAdapter);
-
         }
     }
 
@@ -168,28 +149,15 @@ public class ProductsFragment extends BaseFragment implements SimpleItemSelectio
          */
         };
     }
+
     protected void configureRecyclerView(final Context context, final SimpleCardItemAdapter fileFolderAdapter) {
         // white background notification bar
-        whiteNotificationBar(recyclerView);
+        // whiteNotificationBar(recyclerView);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemDecoration(context, LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(fileFolderAdapter);
-
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-           /*     if (dy > 0 && fab.getVisibility() == View.VISIBLE) {
-                    fab.hide();
-                } else if (dy < 0 && fab.getVisibility() != View.VISIBLE) {
-                    fab.show();
-                }
-           */
-            }
-        });
-
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(context,
                 recyclerView, new CardItemClickListener() {
             @Override

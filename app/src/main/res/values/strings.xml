@@ -40,14 +40,14 @@
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
 
-    <string name="nav_item_products">Services</string>
+    <string name="nav_item_products">Products</string>
     <string name="nav_item_address">Adresses</string>
     <string name="nav_item_vehicles">Vehicles</string>
     <string name="nav_item_checkouts">Checkouts</string>
 
 
     <string name="title_vehicles">Vehicle</string>
-    <string name="title_products">Service</string>
+    <string name="title_products">Product</string>
     <string name="title_address">Address</string>
     <string name="title_checkouts">Checkouts</string>
     <string name="contact_developer">Contact Developer</string>
@@ -79,7 +79,7 @@
     <string name="checkout_success">Order successfully Requested! We will contact you to confirm scheduling.</string>
     <string name="checkout_failed">Could not complete your request, try again later.</string>
     <string name="cart_is_empty">Empty Cart</string>
-    <string name="service_details">Details of Service</string>
+    <string name="product_details">Product Details</string>
     <string name="update_email_sucess">Email address has been updated. Please enter the new email id!</string>
     <string name="update_email_failed">Failed to update Email!</string>
     <string name="password_update_sucess">Password Updated, Enter new Password!</string>

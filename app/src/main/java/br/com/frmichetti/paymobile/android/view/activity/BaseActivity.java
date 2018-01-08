@@ -31,7 +31,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import br.com.frmichetti.paymobile.android.R;
-import br.com.frmichetti.paymobile.android.model.IntentKeys;
 import br.com.frmichetti.paymobile.android.model.ShoppingCart;
 import br.com.frmichetti.paymobile.android.model.compatibility.Address;
 import br.com.frmichetti.paymobile.android.model.compatibility.Customer;
@@ -43,8 +42,7 @@ import br.com.frmichetti.paymobile.android.view.activity.login.LoginActivity;
 import static br.com.frmichetti.paymobile.android.model.IntentKeys.ADDRESS_BUNDLE_KEY;
 import static br.com.frmichetti.paymobile.android.model.IntentKeys.CUSTOMER_BUNDLE_KEY;
 import static br.com.frmichetti.paymobile.android.model.IntentKeys.FRAGMENT_ID;
-import static br.com.frmichetti.paymobile.android.model.IntentKeys.PRODUCTS_BUNDLE_KEY;
-import static br.com.frmichetti.paymobile.android.model.IntentKeys.SELECTED_SERVICE_BUNDLE_KEY;
+import static br.com.frmichetti.paymobile.android.model.IntentKeys.SELECTED_PRODUCT_BUNDLE_KEY;
 import static br.com.frmichetti.paymobile.android.model.IntentKeys.SHOPPING_CART_BUNDLE_KEY;
 import static br.com.frmichetti.paymobile.android.model.IntentKeys.VEHICLE_BUNDLE_KEY;
 
@@ -69,7 +67,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
     protected Customer customer;
 
-    protected Product selectedService;
+    protected Product selectedProduct;
 
     protected Vehicle selectedVehicle;
 
@@ -158,7 +156,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         outState.putSerializable(SHOPPING_CART_BUNDLE_KEY, shoppingCart);
 
-        outState.putSerializable(SELECTED_SERVICE_BUNDLE_KEY, selectedService);
+        outState.putSerializable(SELECTED_PRODUCT_BUNDLE_KEY, selectedProduct);
 
         outState.putSerializable(VEHICLE_BUNDLE_KEY, selectedVehicle);
 
@@ -333,7 +331,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
             shoppingCart = (ShoppingCart) bundle.getSerializable(SHOPPING_CART_BUNDLE_KEY);
 
-            selectedService = (Product) bundle.getSerializable(SELECTED_SERVICE_BUNDLE_KEY);
+            selectedProduct = (Product) bundle.getSerializable(SELECTED_PRODUCT_BUNDLE_KEY);
 
             selectedVehicle = (Vehicle) bundle.getSerializable(VEHICLE_BUNDLE_KEY);
 
@@ -356,7 +354,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         bundle.putSerializable(SHOPPING_CART_BUNDLE_KEY, shoppingCart);
 
-        bundle.putSerializable(SELECTED_SERVICE_BUNDLE_KEY, selectedService);
+        bundle.putSerializable(SELECTED_PRODUCT_BUNDLE_KEY, selectedProduct);
 
         bundle.putSerializable(VEHICLE_BUNDLE_KEY, selectedVehicle);
 
@@ -377,7 +375,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
             customer = (Customer) intent.getSerializableExtra(CUSTOMER_BUNDLE_KEY);
 
-            selectedService = (Product) intent.getSerializableExtra(SELECTED_SERVICE_BUNDLE_KEY);
+            selectedProduct = (Product) intent.getSerializableExtra(SELECTED_PRODUCT_BUNDLE_KEY);
 
             selectedVehicle = (Vehicle) intent.getSerializableExtra(VEHICLE_BUNDLE_KEY);
 
@@ -400,7 +398,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
             throw new RuntimeException("Forbidden - SelectedAddress is Null");
         }
 
-        if (selectedService == null) {
+        if (selectedProduct == null) {
             throw new RuntimeException("Forbidden - SelectedService is Null");
         }
 */
@@ -483,7 +481,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
                 .putExtra(SHOPPING_CART_BUNDLE_KEY, shoppingCart)
                 .putExtra(CUSTOMER_BUNDLE_KEY, customer)
                 .putExtra(VEHICLE_BUNDLE_KEY, selectedVehicle)
-                .putExtra(SELECTED_SERVICE_BUNDLE_KEY, selectedService)
+                .putExtra(SELECTED_PRODUCT_BUNDLE_KEY, selectedProduct)
                 .putExtra(ADDRESS_BUNDLE_KEY, selectedAddress));
     }
 
