@@ -16,14 +16,25 @@
         android:textSize="45dp"
         android:textStyle="bold" />
 
-    <ListView
-        android:id="@+id/listViewCheckouts"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:choiceMode="singleChoice"
-        tools:listitem="@android:layout/simple_list_item_1"
-        android:layout_below="@id/label"
-        android:layout_centerInParent="true" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_above="@+id/tv_product_var"
+        android:layout_alignEnd="@+id/tv_price_var"
+        android:layout_alignRight="@+id/tv_price_var"
+        android:layout_below="@+id/textView5"
+        android:layout_marginBottom="14dp"
+        android:scrollbars="vertical" />
+
+    <!--<ListView-->
+        <!--android:id="@+id/listViewCheckouts"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:choiceMode="singleChoice"-->
+        <!--tools:listitem="@android:layout/simple_list_item_1"-->
+        <!--android:layout_below="@id/label"-->
+        <!--android:layout_centerInParent="true" />-->
 
 </RelativeLayout>

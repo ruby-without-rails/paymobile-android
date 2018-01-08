@@ -6,20 +6,36 @@
  */
 package br.com.frmichetti.paymobile.android.view.fragment;
 
+import android.content.Context;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import br.com.frmichetti.paymobile.android.R;
+import br.com.frmichetti.paymobile.android.adapter.SimpleCardItemAdapter;
+import br.com.frmichetti.paymobile.android.listener.CardItemClickListener;
+import br.com.frmichetti.paymobile.android.listener.ItemAdapterListener;
+import br.com.frmichetti.paymobile.android.listener.SimpleItemSelectionListener;
+import br.com.frmichetti.paymobile.android.listener.RecyclerTouchListener;
 import br.com.frmichetti.paymobile.android.tasks.AsyncResponse;
 import br.com.frmichetti.paymobile.android.tasks.TaskDownloadProducts;
 import br.com.frmichetti.paymobile.android.model.compatibility.Product;
@@ -28,10 +44,14 @@ import br.com.frmichetti.paymobile.android.view.activity.ProductDetailActivity;
 import static br.com.frmichetti.paymobile.android.MyApplication.getSessionToken;
 import static br.com.frmichetti.paymobile.android.model.IntentKeys.PRODUCTS_BUNDLE_KEY;
 
-public class ProductsFragment extends BaseFragment {
+public class ProductsFragment extends BaseFragment implements SimpleItemSelectionListener, ItemAdapterListener, PopupMenu.OnMenuItemClickListener  {
     private TextView textView;
-    private ListView listView;
+    // private ListView listView;
     private ArrayList<Product> products;
+    private RecyclerView recyclerView;
+    private SimpleCardItemAdapter simpleCardItemAdapter;
+    private SimpleItemSelectionListener simpleItemSelectionListener;
+    private int lastItemSelected;
 
     public ProductsFragment(){}
 
@@ -51,18 +71,21 @@ public class ProductsFragment extends BaseFragment {
 
         doLoadServices(getSessionToken().getKey());
 
+        simpleItemSelectionListener = this;
+
         return rootView;
     }
 
     @Override
     protected void doCastComponents(View rootView) {
         textView = rootView.findViewById(R.id.tv_product_label);
-        listView = rootView.findViewById(R.id.listViewCheckouts);
+        //listView = rootView.findViewById(R.id.listViewCheckouts);
+        recyclerView = rootView.findViewById(R.id.recycler_view);
     }
 
     @Override
     protected void doCreateListeners() {
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+      /*  listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -74,6 +97,7 @@ public class ProductsFragment extends BaseFragment {
                 doChangeActivity(context, ProductDetailActivity.class);
             }
         });
+*/
     }
 
     private void doLoadServices(String sessionToken) {
@@ -100,15 +124,175 @@ public class ProductsFragment extends BaseFragment {
     }
 
     private void doFillData(ArrayList<Product> products) {
-        ArrayAdapter<Product> adpItem = new ArrayAdapter<>(context,
-                android.R.layout.simple_list_item_1, products);
+     //   ArrayAdapter<Product> adpItem = new ArrayAdapter<>(context,
+       //         android.R.layout.simple_list_item_1, products);
 
-        listView.setAdapter(adpItem);
+      //  listView.setAdapter(adpItem);
+
+        if (products != null) {
+
+            createFileAdapter(products);
+
+            notifyData(simpleCardItemAdapter);
+
+            configureRecyclerView(context, simpleCardItemAdapter);
+
+        }
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putSerializable(PRODUCTS_BUNDLE_KEY, products);
+    }
+
+    protected void createFileAdapter(List<Product> productList) {
+        simpleCardItemAdapter = new SimpleCardItemAdapter(productList, getActivity(), this) {
+         /*   @Override
+            public Filter getFilter() {
+                return new Filter() {
+                    @Override
+                    protected FilterResults performFiltering(CharSequence constraint) {
+                        makeToast("filter for " + constraint.toString());
+                        FilterResults filterResults = new FilterResults();
+                        filterResults.values = new ArrayList<>();
+                        return filterResults;
+                    }
+
+                    @Override
+                    protected void publishResults(CharSequence constraint, FilterResults results) {
+                        //  fileListFiltered = (ArrayList<JsonFile>) results.values;
+                        notifyDataSetChanged();
+                    }};
+            }};
+         */
+        };
+    }
+    protected void configureRecyclerView(final Context context, final SimpleCardItemAdapter fileFolderAdapter) {
+        // white background notification bar
+        whiteNotificationBar(recyclerView);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.addItemDecoration(new DividerItemDecoration(context, LinearLayoutManager.VERTICAL));
+        recyclerView.setAdapter(fileFolderAdapter);
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+           /*     if (dy > 0 && fab.getVisibility() == View.VISIBLE) {
+                    fab.hide();
+                } else if (dy < 0 && fab.getVisibility() != View.VISIBLE) {
+                    fab.show();
+                }
+           */
+            }
+        });
+
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(context,
+                recyclerView, new CardItemClickListener() {
+            @Override
+            public void onClick(View view, final int position) {
+                lastItemSelected = position;
+                //Values are passing to activity & to fragment as well
+                makeToast("Single Click on position :" + position);
+                RelativeLayout relativeLayout = (RelativeLayout) ((CardView) view).getChildAt(0);
+                View dotsIcon = relativeLayout.getChildAt(2);
+                showPopupMenu(dotsIcon);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+                lastItemSelected = position;
+                makeToast("Long press on position :" + position);
+                RelativeLayout relativeLayout = (RelativeLayout) ((CardView) view).getChildAt(0);
+                View dotsIcon = relativeLayout.getChildAt(2);
+                showPopupMenu(dotsIcon);
+            }
+        }));
+    }
+
+    @Override
+    public void onItemSelected(Product product) {
+        Toast.makeText(context, "Selected: " + product.getName(), Toast.LENGTH_LONG).show();
+
+        selectedService = product;
+
+        doChangeActivity(context, ProductDetailActivity.class);
+    }
+
+    @Override
+    public void onDownload(Product product) {
+        makeToast("Click on Download Button : " + product.getName());
+    }
+
+    @Override
+    public void onShare(Product product) {
+        makeToast("Click on Share Button : " + product.getName());
+    }
+
+    @Override
+    public void onRename(Product product) {
+        makeToast("Click on Rename Button : " + product.getName());
+    }
+
+    @Override
+    public void onDelete(Product product) {
+        makeToast("Click on Delete Button : " + product.getName());
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        int i = item.getItemId();
+        Product product = simpleCardItemAdapter.completeListFiltered.get(lastItemSelected);
+
+        // Handle the menu item selection
+        if (i == R.id.download) {
+            simpleItemSelectionListener.onDownload(product);
+            return true;
+        } else if (i == R.id.share) {
+            simpleItemSelectionListener.onShare(product);
+            return true;
+        } else if (i == R.id.rename) {
+            simpleItemSelectionListener.onRename(product);
+            return true;
+        } else if (i == R.id.delete) {
+            simpleItemSelectionListener.onDelete(product);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    protected void notifyData(SimpleCardItemAdapter simpleCardItemAdapter) {
+        if (simpleCardItemAdapter != null)
+            simpleCardItemAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * Showing popup menu when tapping on 3 dots
+     */
+    private void showPopupMenu(View view) {
+        // inflate menu
+        PopupMenu popup = new PopupMenu(getActivity(), view);
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.simple_item_context_menu, popup.getMenu());
+        popup.setOnMenuItemClickListener(this);
+        popup.show();
+    }
+
+
+    protected void makeToast(String message) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+    }
+
+    private void whiteNotificationBar(View view) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            int flags = view.getSystemUiVisibility();
+            flags |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+            view.setSystemUiVisibility(flags);
+            getActivity().getWindow().setStatusBarColor(Color.WHITE);
+        }
     }
 }

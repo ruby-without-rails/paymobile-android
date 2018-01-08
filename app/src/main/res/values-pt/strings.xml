@@ -111,4 +111,8 @@
     <string name="title_gifts">Presentes</string>
     <string name="title_cart">Carrinho</string>
     <string name="title_profile">Perfil</string>
+    <string name="download">Download</string>
+    <string name="share">Share</string>
+    <string name="rename">Rename</string>
+    <string name="delete">Delete</string>
 </resources>

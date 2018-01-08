@@ -126,6 +126,10 @@
     <string name="title_cart">Cart</string>
     <string name="title_profile">Profile</string>
     <string name="title_settings">Opções</string>
+    <string name="download">Download</string>
+    <string name="share">Share</string>
+    <string name="rename">Rename</string>
+    <string name="delete">Delete</string>
 </resources>
 
 
