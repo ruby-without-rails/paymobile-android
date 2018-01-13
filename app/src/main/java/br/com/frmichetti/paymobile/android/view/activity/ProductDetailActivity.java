@@ -28,7 +28,7 @@ public class ProductDetailActivity extends BaseActivity {
     private TextView textViewTitle, textViewDescription, textCategoryDescription,
             textViewObservation, textViewPrice;
 
-    private ImageView imageView;
+    private ImageView imageView, imageViewBackCollapse;
 
     private FloatingActionButton floatButtonAddCart;
 
@@ -38,7 +38,8 @@ public class ProductDetailActivity extends BaseActivity {
 
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_product_detail);
+//        setContentView(R.layout.activity_product_detail);
+        setContentView(R.layout.activity_product_detail_collapse);
 
         doCastComponents();
 
@@ -88,7 +89,7 @@ public class ProductDetailActivity extends BaseActivity {
         floatButtonAddCart = findViewById(R.id.fab_add_to_cart);
 
         imageView = findViewById(R.id.imv_large);
-
+        imageViewBackCollapse = findViewById(R.id.backdrop);
 
     }
 
@@ -125,6 +126,10 @@ public class ProductDetailActivity extends BaseActivity {
         Glide.with(context)
                 .load(selectedProduct.getImage())
                 .into(imageView);
+
+        Glide.with(context)
+                .load(selectedProduct.getImage())
+                .into(imageViewBackCollapse);
 
     }
 

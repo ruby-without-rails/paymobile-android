@@ -119,6 +119,6 @@
     <string name="action_search">Search</string>
     <string name="backdrop_title">Title Subtitle</string>
     <string name="backdrop_subtitle">Subtitle</string>
-    <string name="my_firstname">Felipe</string>
-    <string name="text_content">Texto</string>
+    <string name="stub_text_title">Title</string>
+    <string name="stub_text_content">Texto</string>
 </resources>
