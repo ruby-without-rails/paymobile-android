@@ -244,7 +244,6 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
 
             }
         });
-
     }
 
     @Override
