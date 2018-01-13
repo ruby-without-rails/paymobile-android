@@ -126,11 +126,16 @@
     <string name="title_cart">Cart</string>
     <string name="title_profile">Profile</string>
     <string name="title_settings">Opções</string>
-    <string name="action_details">Download</string>
+    <string name="action_details">Details</string>
     <string name="action_share">Share</string>
     <string name="action_photo_library">Photo Library</string>
     <string name="delete">Delete</string>
     <string name="produtos">PRODUTOS</string>
+    <string name="action_search">Search</string>
+    <string name="backdrop_title">Title Subtitle</string>
+    <string name="backdrop_subtitle">Subtitle</string>
+    <string name="my_firstname">Felipe</string>
+    <string name="text_content">Texto</string>
 </resources>
 
 

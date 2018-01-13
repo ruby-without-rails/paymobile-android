@@ -27,6 +27,12 @@
 
     <dimen name="activity_margin">16dp</dimen>
 
+    <dimen name="detail_backdrop_height">250dp</dimen>
+    <dimen name="backdrop_title">30sp</dimen>
+    <dimen name="backdrop_subtitle">18sp</dimen>
+
+    <dimen name="spacing_large">16dp</dimen>
+
 </resources>
 
 
