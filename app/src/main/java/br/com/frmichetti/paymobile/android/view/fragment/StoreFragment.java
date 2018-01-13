@@ -21,13 +21,15 @@ import java.util.List;
 import br.com.frmichetti.paymobile.android.R;
 import br.com.frmichetti.paymobile.android.adapter.StoreAdapter;
 import br.com.frmichetti.paymobile.android.helper.GridSpacingItemDecoration;
+import br.com.frmichetti.paymobile.android.listener.ItemAdapterListener;
+import br.com.frmichetti.paymobile.android.listener.SimpleItemSelectionListener;
 import br.com.frmichetti.paymobile.android.model.compatibility.Product;
 import br.com.frmichetti.paymobile.android.tasks.AsyncResponse;
 import br.com.frmichetti.paymobile.android.tasks.TaskDownloadProducts;
 
 import static br.com.frmichetti.paymobile.android.MyApplication.getSessionToken;
 
-public class StoreFragment extends Fragment {
+public class StoreFragment extends Fragment implements ItemAdapterListener {
 
     private static final String TAG = StoreFragment.class.getSimpleName();
 
@@ -61,7 +63,7 @@ public class StoreFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recycler_view);
         productList = new ArrayList<>();
-        storeAdapter = new StoreAdapter(context, productList);
+        storeAdapter = new StoreAdapter(context, productList, this);
 
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(context, 3);
         recyclerView.setLayoutManager(mLayoutManager);
@@ -95,7 +97,7 @@ public class StoreFragment extends Fragment {
 
                         @Override
                         public void onFails(Exception e) {
-                            Toast.makeText(context, e.getMessage(),Toast.LENGTH_LONG).show();
+                            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
                             Log.d("Error", e.getMessage());
                         }
                     }).execute(sessionToken);
@@ -111,4 +113,8 @@ public class StoreFragment extends Fragment {
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
 
+    @Override
+    public void onItemSelected(Product product) {
+        Toast.makeText(context, "Click on Product " + product.getName(), Toast.LENGTH_LONG).show();
+    }
 }

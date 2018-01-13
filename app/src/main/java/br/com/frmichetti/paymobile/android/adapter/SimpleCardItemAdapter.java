@@ -33,14 +33,14 @@ public abstract class SimpleCardItemAdapter extends RecyclerView.Adapter<SimpleC
 
     private Activity activity;
     private List<Product> completeList;
-    public List<Product> completeListFiltered;
+    private List<Product> completeListFiltered;
     private PopupMenu popup;
 
 
     public SimpleCardItemAdapter(List<Product> productList, Activity activity, ItemAdapterListener itemAdapterListener, SimpleItemSelectionListener simpleItemSelectionListener) {
         this.activity = activity;
         this.completeList = productList;
-        this.completeListFiltered = completeList;
+        this.completeListFiltered = productList;
         this.itemAdapterListener = itemAdapterListener;
         this.simpleItemSelectionListener = simpleItemSelectionListener;
     }
