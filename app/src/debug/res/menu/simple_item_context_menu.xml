@@ -3,21 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     app:popupTheme="@style/PopupMenuStyle"
-    tools:context="br.com.sistemapoliedro.activitymanager.hdvirtual.activity.HDVirtualActivity">
+    tools:context=".view.activity.MainActivity">
     <item
-        android:id="@+id/download"
-        android:icon="@drawable/ic_file_download_white_48dp"
-        android:title="@string/download"
+        android:id="@+id/action_details"
+        android:icon="@drawable/ic_details_white_48dp"
+        android:title="@string/action_details"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/share"
+        android:id="@+id/action_share"
         android:icon="@drawable/ic_share_white_48dp"
-        android:title="@string/share"
+        android:title="@string/action_share"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/rename"
-        android:icon="@drawable/ic_mode_edit_white_48dp"
-        android:title="@string/rename"
+        android:id="@+id/action_photo_library"
+        android:icon="@drawable/ic_photo_library_white_48dp"
+        android:title="@string/action_photo_library"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/delete"

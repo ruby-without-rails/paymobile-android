@@ -291,9 +291,9 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
         String title = getString(R.string.app_name);
 
         switch (menuItem.getItemId()) {
-            case R.id.navigation_shop:
+            case R.id.navigation_news:
                 fragment = new StoreFragment();
-                title = getString(R.string.title_shop);
+                title = getString(R.string.title_news);
                 break;
             case R.id.navigation_gifts:
                 fragment = new ProductsFragment();

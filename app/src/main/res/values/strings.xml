@@ -47,7 +47,7 @@
 
 
     <string name="title_vehicles">Vehicle</string>
-    <string name="title_products">Product</string>
+    <string name="title_products">Products</string>
     <string name="title_address">Address</string>
     <string name="title_checkouts">Checkouts</string>
     <string name="contact_developer">Contact Developer</string>
@@ -121,14 +121,14 @@
     <string name="Save">Save</string>
     <string name="Delete">Delete</string>
 
-    <string name="title_shop">Shop</string>
+    <string name="title_news">News</string>
     <string name="title_gifts">Gifts</string>
     <string name="title_cart">Cart</string>
     <string name="title_profile">Profile</string>
     <string name="title_settings">Opções</string>
-    <string name="download">Download</string>
-    <string name="share">Share</string>
-    <string name="rename">Rename</string>
+    <string name="action_details">Download</string>
+    <string name="action_share">Share</string>
+    <string name="action_photo_library">Photo Library</string>
     <string name="delete">Delete</string>
     <string name="produtos">PRODUTOS</string>
 </resources>

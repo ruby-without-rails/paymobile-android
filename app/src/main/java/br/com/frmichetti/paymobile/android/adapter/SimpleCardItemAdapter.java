@@ -117,15 +117,15 @@ public abstract class SimpleCardItemAdapter extends RecyclerView.Adapter<SimpleC
             Product selectedProduct = completeListFiltered.get(getAdapterPosition());
 
             // Handle the menu item selection
-            if (id == R.id.download) {
+            if (id == R.id.action_details) {
                 simpleItemSelectionListener.onDownload(selectedProduct);
                 this.onDismiss(popup);
                 return true;
-            } else if (id == R.id.share) {
+            } else if (id == R.id.action_share) {
                 simpleItemSelectionListener.onShare(selectedProduct);
                 this.onDismiss(popup);
                 return true;
-            } else if (id == R.id.rename) {
+            } else if (id == R.id.action_photo_library) {
                 simpleItemSelectionListener.onRename(selectedProduct);
                 this.onDismiss(popup);
                 return true;

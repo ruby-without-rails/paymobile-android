@@ -107,13 +107,13 @@
     <string name="Save">Salvar</string>
     <string name="Delete">Deletar</string>
     <string name="title_settings">Opções</string>
-    <string name="title_shop">Loja</string>
+    <string name="title_news">Novidades</string>
     <string name="title_gifts">Presentes</string>
     <string name="title_cart">Carrinho</string>
     <string name="title_profile">Perfil</string>
-    <string name="download">Download</string>
-    <string name="share">Share</string>
-    <string name="rename">Rename</string>
+    <string name="action_details">Download</string>
+    <string name="action_share">Share</string>
+    <string name="action_photo_library">Galeria de Imagens</string>
     <string name="delete">Delete</string>
     <string name="produtos">PRODUTOS</string>
 </resources>

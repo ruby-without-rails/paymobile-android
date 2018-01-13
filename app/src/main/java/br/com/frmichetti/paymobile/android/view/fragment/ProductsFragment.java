@@ -150,7 +150,7 @@ public class ProductsFragment extends BaseFragment implements SimpleItemSelectio
 
     protected void configureRecyclerView(final Context context, final SimpleCardItemAdapter fileFolderAdapter) {
         // white background notification bar
-        whiteNotificationBar(recyclerView);
+        // whiteNotificationBar(recyclerView);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
