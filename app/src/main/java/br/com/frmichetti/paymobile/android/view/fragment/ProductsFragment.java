@@ -22,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -44,12 +45,11 @@ import br.com.frmichetti.paymobile.android.view.activity.ProductDetailActivity;
 import static br.com.frmichetti.paymobile.android.MyApplication.getSessionToken;
 import static br.com.frmichetti.paymobile.android.model.IntentKeys.PRODUCTS_BUNDLE_KEY;
 
-public class ProductsFragment extends BaseFragment implements SimpleItemSelectionListener, ItemAdapterListener, PopupMenu.OnMenuItemClickListener {
+public class ProductsFragment extends BaseFragment implements SimpleItemSelectionListener, ItemAdapterListener {
     private TextView textView;
     private ArrayList<Product> products;
     private RecyclerView recyclerView;
     private SimpleCardItemAdapter simpleCardItemAdapter;
-    private SimpleItemSelectionListener simpleItemSelectionListener;
     private int lastItemSelected;
 
     public ProductsFragment() {
@@ -70,8 +70,6 @@ public class ProductsFragment extends BaseFragment implements SimpleItemSelectio
         doCreateListeners();
 
         doLoadServices(getSessionToken().getKey());
-
-        simpleItemSelectionListener = this;
 
         return rootView;
     }
@@ -128,8 +126,7 @@ public class ProductsFragment extends BaseFragment implements SimpleItemSelectio
     }
 
     protected void createFileAdapter(List<Product> productList) {
-        simpleCardItemAdapter = new SimpleCardItemAdapter(productList, getActivity(), this) {
-         /*   @Override
+        simpleCardItemAdapter = new SimpleCardItemAdapter(productList, getActivity(), this, this) {
             public Filter getFilter() {
                 return new Filter() {
                     @Override
@@ -144,15 +141,16 @@ public class ProductsFragment extends BaseFragment implements SimpleItemSelectio
                     protected void publishResults(CharSequence constraint, FilterResults results) {
                         //  fileListFiltered = (ArrayList<JsonFile>) results.values;
                         notifyDataSetChanged();
-                    }};
-            }};
-         */
+                    }
+                };
+            }
         };
+
     }
 
     protected void configureRecyclerView(final Context context, final SimpleCardItemAdapter fileFolderAdapter) {
         // white background notification bar
-        // whiteNotificationBar(recyclerView);
+        whiteNotificationBar(recyclerView);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -165,20 +163,26 @@ public class ProductsFragment extends BaseFragment implements SimpleItemSelectio
                 lastItemSelected = position;
                 //Values are passing to activity & to fragment as well
                 makeToast("Single Click on position :" + position);
-                RelativeLayout relativeLayout = (RelativeLayout) ((CardView) view).getChildAt(0);
-                View dotsIcon = relativeLayout.getChildAt(2);
-                showPopupMenu(dotsIcon);
             }
 
             @Override
             public void onLongClick(View view, int position) {
                 lastItemSelected = position;
                 makeToast("Long press on position :" + position);
-                RelativeLayout relativeLayout = (RelativeLayout) ((CardView) view).getChildAt(0);
-                View dotsIcon = relativeLayout.getChildAt(2);
-                showPopupMenu(dotsIcon);
             }
         }));
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+//                if (dy > 0 && .getVisibility() == View.VISIBLE) {
+//                    fab.hide();
+//                } else if (dy < 0 && fab.getVisibility() != View.VISIBLE) {
+//                    fab.show();
+//                }
+            }
+        });
     }
 
     @Override
@@ -210,46 +214,10 @@ public class ProductsFragment extends BaseFragment implements SimpleItemSelectio
         makeToast("Click on Delete Button : " + product.getName());
     }
 
-    @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        int i = item.getItemId();
-        Product product = simpleCardItemAdapter.completeListFiltered.get(lastItemSelected);
-
-        // Handle the menu item selection
-        if (i == R.id.download) {
-            simpleItemSelectionListener.onDownload(product);
-            return true;
-        } else if (i == R.id.share) {
-            simpleItemSelectionListener.onShare(product);
-            return true;
-        } else if (i == R.id.rename) {
-            simpleItemSelectionListener.onRename(product);
-            return true;
-        } else if (i == R.id.delete) {
-            simpleItemSelectionListener.onDelete(product);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     protected void notifyData(SimpleCardItemAdapter simpleCardItemAdapter) {
         if (simpleCardItemAdapter != null)
             simpleCardItemAdapter.notifyDataSetChanged();
     }
-
-    /**
-     * Showing popup menu when tapping on 3 dots
-     */
-    private void showPopupMenu(View view) {
-        // inflate menu
-        PopupMenu popup = new PopupMenu(getActivity(), view);
-        MenuInflater inflater = popup.getMenuInflater();
-        inflater.inflate(R.menu.simple_item_context_menu, popup.getMenu());
-        popup.setOnMenuItemClickListener(this);
-        popup.show();
-    }
-
 
     protected void makeToast(String message) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();

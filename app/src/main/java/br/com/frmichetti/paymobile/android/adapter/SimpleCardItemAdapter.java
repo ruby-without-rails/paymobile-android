@@ -5,12 +5,15 @@ package br.com.frmichetti.paymobile.android.adapter;
  */
 
 import android.app.Activity;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filterable;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -19,22 +22,35 @@ import java.util.List;
 
 import br.com.frmichetti.paymobile.android.R;
 import br.com.frmichetti.paymobile.android.listener.ItemAdapterListener;
+import br.com.frmichetti.paymobile.android.listener.SimpleItemSelectionListener;
 import br.com.frmichetti.paymobile.android.model.compatibility.Product;
 
 
-public abstract class SimpleCardItemAdapter extends RecyclerView.Adapter<SimpleCardItemAdapter.MyViewHolder> /* implements Filterable */ {
+public abstract class SimpleCardItemAdapter extends RecyclerView.Adapter<SimpleCardItemAdapter.MyViewHolder> implements Filterable {
 
     private ItemAdapterListener itemAdapterListener;
+    private SimpleItemSelectionListener simpleItemSelectionListener;
+
     private Activity activity;
     private List<Product> completeList;
     public List<Product> completeListFiltered;
+    private PopupMenu popup;
 
 
-    public SimpleCardItemAdapter(List<Product> productList, Activity activity, ItemAdapterListener itemAdapterListener) {
+    public SimpleCardItemAdapter(List<Product> productList, Activity activity, ItemAdapterListener itemAdapterListener, SimpleItemSelectionListener simpleItemSelectionListener) {
         this.activity = activity;
         this.completeList = productList;
         this.completeListFiltered = completeList;
         this.itemAdapterListener = itemAdapterListener;
+        this.simpleItemSelectionListener = simpleItemSelectionListener;
+    }
+
+    public void updateListData(List<Product> productList) {
+        this.completeList.clear();
+        this.completeListFiltered.clear();
+        this.completeList.addAll(productList);
+        this.completeListFiltered.addAll(productList);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -67,25 +83,83 @@ public abstract class SimpleCardItemAdapter extends RecyclerView.Adapter<SimpleC
     /**
      * MyViewHolder
      */
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        public CardView cardView;
+    public class MyViewHolder extends RecyclerView.ViewHolder implements PopupMenu.OnMenuItemClickListener, PopupMenu.OnDismissListener {
         public ImageView dirImage, moreActions;
         public TextView fileDirName;
+        private Product selectedProduct;
 
         public MyViewHolder(View view) {
             super(view);
-            this.cardView = view.findViewById(R.id.simple_item_card_view);
             this.dirImage = view.findViewById(R.id.item_image);
             this.moreActions = view.findViewById(R.id.more_actions);
             this.fileDirName = view.findViewById(R.id.item_name);
 
-            cardView.setOnClickListener(new View.OnClickListener() {
+            view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     // send selected item in onResult
                     itemAdapterListener.onItemSelected(completeListFiltered.get(getAdapterPosition()));
                 }
             });
+
+            this.moreActions.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    selectedProduct = completeListFiltered.get(getAdapterPosition());
+                    showPopupMenu(v, selectedProduct);
+                }
+            });
+        }
+
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+            int id = item.getItemId();
+            Product selectedProduct = completeListFiltered.get(getAdapterPosition());
+
+            // Handle the menu item selection
+            if (id == R.id.download) {
+                simpleItemSelectionListener.onDownload(selectedProduct);
+                this.onDismiss(popup);
+                return true;
+            } else if (id == R.id.share) {
+                simpleItemSelectionListener.onShare(selectedProduct);
+                this.onDismiss(popup);
+                return true;
+            } else if (id == R.id.rename) {
+                simpleItemSelectionListener.onRename(selectedProduct);
+                this.onDismiss(popup);
+                return true;
+            } else if (id == R.id.delete) {
+                simpleItemSelectionListener.onDelete(selectedProduct);
+                this.onDismiss(popup);
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        @Override
+        public void onDismiss(PopupMenu menu) {
+            menu.dismiss();
+            popup = null;
+        }
+
+        /**
+         * Showing popup menu when tapping on 3 dots
+         */
+        private void showPopupMenu(View view, Product product) {
+            if (product != null) {
+                if (popup == null) {
+                    popup = new PopupMenu(activity, view);
+                }
+                // inflate menu
+                MenuInflater inflater = popup.getMenuInflater();
+                inflater.inflate(R.menu.simple_item_context_menu, popup.getMenu());
+
+                popup.setOnMenuItemClickListener(this);
+                popup.setOnDismissListener(this);
+                popup.show();
+            }
         }
     }
 }
