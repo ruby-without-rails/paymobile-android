@@ -19,7 +19,7 @@
                 style="@style/CardLabel"
                 android:text="@string/card_validity"/>
 
-            <com.droidmentor.checkoutflow.Utils.CreditCardEditText
+            <br.com.frmichetti.paymobile.checkoutflow.Utils.CreditCardEditText
                 style="@style/CardInput"
                 android:id="@+id/et_validity"
                 android:hint="Expiry Date"

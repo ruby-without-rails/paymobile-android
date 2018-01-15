@@ -39,6 +39,7 @@ import br.com.frmichetti.paymobile.android.model.compatibility.Product;
 import br.com.frmichetti.paymobile.android.view.activity.BaseActivity;
 import br.com.frmichetti.paymobile.android.view.activity.MainActivity;
 import br.com.frmichetti.paymobile.checkoutflow.CheckOutActivity;
+import br.com.frmichetti.paymobile.checkoutflow.CheckOutActivity_ViewBinding;
 
 
 public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener {
@@ -255,7 +256,7 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
         buttonPayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(context, CheckOutActivity.class));
+                startActivity(new Intent(context, CheckOutActivity_ViewBinding.class));
 
             }
         });

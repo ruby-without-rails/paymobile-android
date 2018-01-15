@@ -19,7 +19,7 @@
                 style="@style/CardLabel"
                 android:text="@string/card_number"/>
 
-            <com.droidmentor.checkoutflow.Utils.CreditCardEditText
+            <br.com.frmichetti.paymobile.checkoutflow.Utils.CreditCardEditText
                 style="@style/CardInput"
                 android:id="@+id/et_number"
                 android:hint="Card Number"
