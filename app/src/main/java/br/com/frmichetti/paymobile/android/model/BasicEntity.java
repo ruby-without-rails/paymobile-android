@@ -13,6 +13,6 @@ package br.com.frmichetti.paymobile.android.model;
  */
 public interface BasicEntity {
 
-    public Long getId();
+    Long getId();
 
 }  
