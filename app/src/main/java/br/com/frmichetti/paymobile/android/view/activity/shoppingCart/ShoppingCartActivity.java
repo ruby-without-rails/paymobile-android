@@ -256,7 +256,7 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
         buttonPayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(context, CheckOutActivity_ViewBinding.class));
+                startActivity(new Intent(context, CheckOutActivity.class));
 
             }
         });
