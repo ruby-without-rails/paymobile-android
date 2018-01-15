@@ -6,6 +6,7 @@
  */
 package br.com.frmichetti.paymobile.android.view.activity.shoppingCart;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -21,6 +22,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +38,7 @@ import br.com.frmichetti.paymobile.android.model.compatibility.Checkout;
 import br.com.frmichetti.paymobile.android.model.compatibility.Product;
 import br.com.frmichetti.paymobile.android.view.activity.BaseActivity;
 import br.com.frmichetti.paymobile.android.view.activity.MainActivity;
+import br.com.frmichetti.paymobile.checkoutflow.CheckOutActivity;
 
 
 public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener {
@@ -55,6 +58,8 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
     private CartListAdapter mAdapter;
     private CoordinatorLayout coordinatorLayout;
     private List<ShoppingItem> cartList;
+
+    private Button buttonPayment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,6 +157,8 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
 
         layoutBottomSheet = findViewById(R.id.bottom_sheet);
 
+        buttonPayment = findViewById(R.id.btn_pay);
+
 
     }
 
@@ -225,11 +232,11 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
                     case BottomSheetBehavior.STATE_HIDDEN:
                         break;
                     case BottomSheetBehavior.STATE_EXPANDED: {
-                      //  btnBottomSheet.setText("Close Sheet");
+                        //  btnBottomSheet.setText("Close Sheet");
                     }
                     break;
                     case BottomSheetBehavior.STATE_COLLAPSED: {
-                     //   btnBottomSheet.setText("Expand Sheet");
+                        //   btnBottomSheet.setText("Expand Sheet");
                     }
                     break;
                     case BottomSheetBehavior.STATE_DRAGGING:
@@ -241,6 +248,14 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
 
             @Override
             public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
+        });
+
+        buttonPayment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(context, CheckOutActivity.class));
 
             }
         });
@@ -324,10 +339,10 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
     public void toggleBottomSheet() {
         if (sheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
             sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-           // btnBottomSheet.setText("Close sheet");
+            // btnBottomSheet.setText("Close sheet");
         } else {
             sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-           // btnBottomSheet.setText("Expand sheet");
+            // btnBottomSheet.setText("Expand sheet");
         }
     }
 }
