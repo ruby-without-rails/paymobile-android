@@ -22,8 +22,10 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,7 +48,7 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
 
     private FloatingActionButton fabRemoveItem, fabPurchase;
 
-    private TextView textViewSelectedItem, textViewQuantity, textViewPrice, textViewSubTotal, textViewTotal;
+    private TextView textViewSelectedItem, textViewQuantity, textViewPrice, textViewSubTotal, textViewTotal, textViewBottomTotal;
 
     private LinearLayout layoutBottomSheet;
     private BottomSheetBehavior sheetBehavior;
@@ -59,6 +61,7 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
     private CartListAdapter mAdapter;
     private CoordinatorLayout coordinatorLayout;
     private List<ShoppingItem> cartList;
+    private ListView listView;
 
     private Button buttonPayment;
 
@@ -106,6 +109,9 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
             textViewPrice.setText(String.valueOf(shoppingItem.getProduct().getPrice()));
 
             textViewQuantity.setText(String.valueOf(shoppingCart.getQuantityOfItens(shoppingItem)));
+
+            textViewBottomTotal.setText(String.valueOf(shoppingCart.getTotal()));
+
         }
 
 
@@ -121,6 +127,9 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
 
         mAdapter = new CartListAdapter(context, cartList);
 
+        ArrayAdapter<ShoppingItem> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, cartList);
+
+        listView.setAdapter(adapter);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -160,6 +169,9 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
 
         buttonPayment = findViewById(R.id.btn_pay);
 
+        listView = findViewById(R.id.lv_bottom_cart_items);
+
+        textViewBottomTotal = findViewById(R.id.tv_bottom_total);
 
     }
 
