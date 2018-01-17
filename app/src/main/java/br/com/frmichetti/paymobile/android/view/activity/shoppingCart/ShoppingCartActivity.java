@@ -22,8 +22,11 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -54,6 +57,8 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
     private BottomSheetBehavior sheetBehavior;
 
     private ShoppingItem shoppingItem;
+
+    private ImageView imageViewTouch;
 
     private Checkout checkout;
 
@@ -93,6 +98,10 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
         doRefresh();
 
         checkout = new Checkout();
+
+        Animation pulse = AnimationUtils.loadAnimation(context, R.anim.pulse_animation);
+
+        imageViewTouch.startAnimation(pulse);
 
     }
 
@@ -172,6 +181,8 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
         listView = findViewById(R.id.lv_bottom_cart_items);
 
         textViewBottomTotal = findViewById(R.id.tv_bottom_total);
+
+        imageViewTouch = findViewById(R.id.iv_bottom_touch);
 
     }
 

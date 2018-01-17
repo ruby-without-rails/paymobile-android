@@ -30,7 +30,7 @@
             android:textStyle="bold" />
 
         <ImageView
-            android:id="@+id/iv_fab"
+            android:id="@+id/iv_bottom_touch"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_centerInParent="true"
