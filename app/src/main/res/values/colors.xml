@@ -25,4 +25,10 @@
     <color name="card_cvv_color">#383838</color>
     <color name="CTA_text">#FFFFFF</color>
     <color name="CTA_bg">#32C25E</color>
+
+    <!-- Finish -->
+    <color name="black">#000</color>
+    <color name="lightorange">#fdf2df</color>
+    <color name="lightorangedark">#ebd6ab</color>
+    <color name="colorAccent">#FF4081</color>
 </resources>
