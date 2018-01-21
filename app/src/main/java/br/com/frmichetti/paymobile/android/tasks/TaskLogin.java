@@ -63,7 +63,10 @@ public class TaskLogin extends AsyncTask<String, String, String> {
 
         dialog.setMessage("Iniciando a Tarefa de Login");
 
-        dialog.show();
+        if (context.getClass() != MyApplication.class) {
+            dialog.show();
+        }
+
 
         // Get a RequestQueue
         requestQueue = RequestQueuer.getInstance(context).getRequestQueue();

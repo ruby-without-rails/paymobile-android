@@ -56,19 +56,17 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
     private Context context;
     private ActionBar actionBar;
     private EditText editTextEmail, editTextPassword;
-    private FirebaseAuth auth;
     private ProgressBar progressBar;
     private Button btnSignup, btnLogin, btnReset;
     private String TAG = "FireBase";
     private MyResources resources;
     private String oldPrimaryColor, oldPrimaryDarkColor, oldAccentColor, primaryColor, primaryDarkColor, accentColor, theme = "defaul";
+    private FirebaseAuth auth;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        auth = FirebaseAuth.getInstance();
 
         reconfigureTheme(theme);
 
@@ -81,6 +79,8 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
         MyApplication.getInstance().setValueEventListener(this);
 
         MyApplication.getInstance().configureFirebase(this);
+
+        auth = MyApplication.getInstance().getFirebaseAuth();
 
     }
 
@@ -371,7 +371,7 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
         if (styleColor != null) {
             if (styleColor.equals("green")) {
                 setTheme(R.style.GreenTheme);
-            }else if (styleColor.equals("default")) {
+            } else if (styleColor.equals("default")) {
                 setTheme(R.style.MyMaterialTheme);
             }
 

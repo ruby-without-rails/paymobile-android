@@ -23,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.HashMap;
 
+import br.com.frmichetti.paymobile.android.MyApplication;
 import br.com.frmichetti.paymobile.android.R;
 import br.com.frmichetti.paymobile.android.dao.GsonGetRequest;
 import br.com.frmichetti.paymobile.android.dto.CustomerDTO;
@@ -71,7 +72,10 @@ public class TaskRequestCustomerData extends AsyncTask<String, String, Customer>
 
         dialog.setMessage("Iniciando a Tarefa de Login");
 
-        dialog.show();
+        if (context.getClass() != MyApplication.class) {
+            dialog.show();
+        }
+
 
         // Get a RequestQueue
         requestQueue = RequestQueuer.getInstance(context).getRequestQueue();
