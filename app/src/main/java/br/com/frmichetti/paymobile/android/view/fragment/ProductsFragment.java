@@ -10,21 +10,15 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Filter;
-import android.widget.PopupMenu;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,7 +63,7 @@ public class ProductsFragment extends BaseFragment implements SimpleItemSelectio
 
         doCreateListeners();
 
-        doLoadServices(getSessionToken().getKey());
+        doLoadProducts(getSessionToken().getKey());
 
         return rootView;
     }
@@ -85,7 +79,7 @@ public class ProductsFragment extends BaseFragment implements SimpleItemSelectio
 
     }
 
-    private void doLoadServices(String sessionToken) {
+    private void doLoadProducts(String sessionToken) {
         if (products == null) {
             Log.d("[DOWNLOAD-PRODUCTS]", "Load Products from webservice");
 
@@ -111,7 +105,7 @@ public class ProductsFragment extends BaseFragment implements SimpleItemSelectio
     private void doFillData(ArrayList<Product> products) {
         if (products != null) {
 
-            createFileAdapter(products);
+            createAdapter(products);
 
             notifyData(simpleCardItemAdapter);
 
@@ -125,7 +119,7 @@ public class ProductsFragment extends BaseFragment implements SimpleItemSelectio
         outState.putSerializable(PRODUCTS_BUNDLE_KEY, products);
     }
 
-    protected void createFileAdapter(List<Product> productList) {
+    protected void createAdapter(List<Product> productList) {
         simpleCardItemAdapter = new SimpleCardItemAdapter(productList, getActivity(), this, this) {
             public Filter getFilter() {
                 return new Filter() {
@@ -148,14 +142,14 @@ public class ProductsFragment extends BaseFragment implements SimpleItemSelectio
 
     }
 
-    protected void configureRecyclerView(final Context context, final SimpleCardItemAdapter fileFolderAdapter) {
+    protected void configureRecyclerView(final Context context, final SimpleCardItemAdapter simpleCardItemAdapter) {
         // white background notification bar
         // whiteNotificationBar(recyclerView);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemDecoration(context, LinearLayoutManager.VERTICAL));
-        recyclerView.setAdapter(fileFolderAdapter);
+        recyclerView.setAdapter(simpleCardItemAdapter);
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(context,
                 recyclerView, new CardItemClickListener() {
             @Override
@@ -189,7 +183,7 @@ public class ProductsFragment extends BaseFragment implements SimpleItemSelectio
     public void onItemSelected(Product product) {
         Toast.makeText(context, "Selected: " + product.getName(), Toast.LENGTH_LONG).show();
 
-        selectedService = product;
+        selectedProduct = product;
 
         doChangeActivity(context, ProductDetailActivity.class);
     }

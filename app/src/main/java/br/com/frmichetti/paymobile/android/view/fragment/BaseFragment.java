@@ -39,7 +39,7 @@ public abstract class BaseFragment extends Fragment {
 
     protected Vehicle selectedVehicle;
 
-    protected Product selectedService;
+    protected Product selectedProduct;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,15 +71,15 @@ public abstract class BaseFragment extends Fragment {
 
         if (intent != null) {
 
-            shoppingCart = (ShoppingCart) intent.getSerializableExtra("shoppingCart");
+            shoppingCart = (ShoppingCart) intent.getSerializableExtra(SHOPPING_CART_BUNDLE_KEY);
 
-            customer = (Customer) intent.getSerializableExtra("customer");
+            customer = (Customer) intent.getSerializableExtra(CUSTOMER_BUNDLE_KEY);
 
-            selectedVehicle = (Vehicle) intent.getSerializableExtra("vehicle");
+            selectedVehicle = (Vehicle) intent.getSerializableExtra(VEHICLE_BUNDLE_KEY);
 
-            selectedService = (Product) intent.getSerializableExtra("service");
+            selectedProduct = (Product) intent.getSerializableExtra(SELECTED_PRODUCT_BUNDLE_KEY);
 
-            selectedAddress = (Address) intent.getSerializableExtra("address");
+            selectedAddress = (Address) intent.getSerializableExtra(ADDRESS_BUNDLE_KEY);
         } else {
             throw new RuntimeException("Forbidden - Could not get Intent");
         }
@@ -120,7 +120,7 @@ public abstract class BaseFragment extends Fragment {
                 .putExtra(SHOPPING_CART_BUNDLE_KEY, shoppingCart)
                 .putExtra(CUSTOMER_BUNDLE_KEY, customer)
                 .putExtra(VEHICLE_BUNDLE_KEY, selectedVehicle)
-                .putExtra(SELECTED_PRODUCT_BUNDLE_KEY, selectedService)
+                .putExtra(SELECTED_PRODUCT_BUNDLE_KEY, selectedProduct)
                 .putExtra(ADDRESS_BUNDLE_KEY, selectedAddress));
     }
 }

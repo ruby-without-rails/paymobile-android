@@ -4,7 +4,6 @@ package br.com.frmichetti.paymobile.android.view.fragment;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,22 +20,26 @@ import java.util.List;
 import br.com.frmichetti.paymobile.android.R;
 import br.com.frmichetti.paymobile.android.adapter.StoreAdapter;
 import br.com.frmichetti.paymobile.android.helper.GridSpacingItemDecoration;
+import br.com.frmichetti.paymobile.android.listener.CardItemClickListener;
 import br.com.frmichetti.paymobile.android.listener.ItemAdapterListener;
-import br.com.frmichetti.paymobile.android.listener.SimpleItemSelectionListener;
+import br.com.frmichetti.paymobile.android.listener.RecyclerTouchListener;
 import br.com.frmichetti.paymobile.android.model.compatibility.Product;
 import br.com.frmichetti.paymobile.android.tasks.AsyncResponse;
 import br.com.frmichetti.paymobile.android.tasks.TaskDownloadProducts;
+import br.com.frmichetti.paymobile.android.view.activity.ProductDetailActivity;
 
 import static br.com.frmichetti.paymobile.android.MyApplication.getSessionToken;
+import static br.com.frmichetti.paymobile.android.model.IntentKeys.PRODUCTS_BUNDLE_KEY;
 
-public class StoreFragment extends Fragment implements ItemAdapterListener {
+public class StoreFragment extends BaseFragment implements ItemAdapterListener {
 
     private static final String TAG = StoreFragment.class.getSimpleName();
 
     private RecyclerView recyclerView;
-    private List<Product> productList;
-    private StoreAdapter storeAdapter;
+    private List<Product> products;
+    private StoreAdapter adapter;
     private Context context;
+    private int lastItemSelected;
 
     public StoreFragment() {
         // Required empty public constructor
@@ -56,23 +59,55 @@ public class StoreFragment extends Fragment implements ItemAdapterListener {
     }
 
     @Override
+    protected void doCastComponents(View rootView) {
+
+    }
+
+    @Override
+    protected void doCreateListeners() {
+
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        if (savedInstanceState != null) {
+            products = (ArrayList<Product>) savedInstanceState.getSerializable(PRODUCTS_BUNDLE_KEY);
+        }
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_store, container, false);
 
         recyclerView = view.findViewById(R.id.recycler_view);
-        productList = new ArrayList<>();
-        storeAdapter = new StoreAdapter(context, productList, this);
+        products = new ArrayList<>();
+        adapter = new StoreAdapter(products,getActivity(), this);
 
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(context, 3);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(8), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(storeAdapter);
+        recyclerView.setAdapter(adapter);
         recyclerView.setNestedScrollingEnabled(false);
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(context,
+                recyclerView, new CardItemClickListener() {
+            @Override
+            public void onClick(View view, final int position) {
+                lastItemSelected = position;
+                //Values are passing to activity & to fragment as well
 
-        fetchStoreItems(getSessionToken().getKey());
+                selectedProduct = products.get(lastItemSelected);
+
+                doChangeActivity(context, ProductDetailActivity.class);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+                lastItemSelected = position;
+            }
+        }));
+
+        doLoadProducts(getSessionToken().getKey());
 
         return view;
     }
@@ -80,19 +115,19 @@ public class StoreFragment extends Fragment implements ItemAdapterListener {
     /**
      * fetching shopping item by making http call
      */
-    private void fetchStoreItems(String sessionToken) {
-        if (productList == null || productList.isEmpty()) {
+    private void doLoadProducts(String sessionToken) {
+        if (products == null || products.isEmpty()) {
             Log.d("[DOWNLOAD-PRODUCTS]", "Load Products from webservice");
 
             new TaskDownloadProducts(context,
                     new AsyncResponse<ArrayList<Product>>() {
                         @Override
                         public void onSuccess(ArrayList<Product> output) {
-                            productList.clear();
-                            productList.addAll(output);
+                            products.clear();
+                            products.addAll(output);
 
                             // refreshing recycler view
-                            storeAdapter.notifyDataSetChanged();
+                            adapter.notifyDataSetChanged();
                         }
 
                         @Override
@@ -116,5 +151,14 @@ public class StoreFragment extends Fragment implements ItemAdapterListener {
     @Override
     public void onItemSelected(Product product) {
         Toast.makeText(context, "Click on Product " + product.getName(), Toast.LENGTH_LONG).show();
+
+        selectedProduct = product;
+
+     //   doChangeActivity(context, ProductDetailActivity.class);
+
+    }
+
+    protected void makeToast(String message) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 }

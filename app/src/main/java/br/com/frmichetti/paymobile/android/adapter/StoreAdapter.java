@@ -4,6 +4,7 @@ package br.com.frmichetti.paymobile.android.adapter;
  * Created by felipe on 06/01/18.
  */
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -29,14 +30,13 @@ import br.com.frmichetti.paymobile.android.model.compatibility.Product;
  * This class can go into another separate class, but for simplicity
  */
 public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreItemViewHolder> implements Filterable {
-    private Context context;
+    private Activity activity;
     private List<Product> completeList;
     private List<Product> completeListFiltered;
     private ItemAdapterListener itemAdapterListener;
-    private SimpleItemSelectionListener simpleItemSelectionListener;
 
-    public StoreAdapter(Context context, List<Product> completeList, ItemAdapterListener itemAdapterListener) {
-        this.context = context;
+    public StoreAdapter(List<Product> completeList, Activity activity, ItemAdapterListener itemAdapterListener) {
+        this.activity = activity;
         this.completeList = completeList;
         this.completeListFiltered = completeList;
         this.itemAdapterListener = itemAdapterListener;
@@ -64,7 +64,7 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreItemVie
         holder.name.setText(product.getName());
         holder.price.setText(String.valueOf(product.getPrice()));
 
-        Glide.with(context)
+        Glide.with(activity.getApplicationContext())
                 .load(product.getImage())
                 .into(holder.thumbnail);
 
