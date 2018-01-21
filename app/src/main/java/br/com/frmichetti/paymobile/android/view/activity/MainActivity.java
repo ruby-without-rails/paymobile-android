@@ -264,7 +264,7 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
                 fragment = new ProductsFragment();
                 title = getString(R.string.title_products);
                 break;
-            case 1:
+            case 3:
                 fragment = new AddressFragment();
                 title = getString(R.string.title_address);
                 break;
@@ -273,7 +273,7 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
                 title = getString(R.string.title_vehicles);
                 break;
 
-            case 3:
+            case 1:
                 fragment = new CheckoutsFragment();
                 title = getString(R.string.title_checkouts);
                 break;

@@ -30,6 +30,7 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import br.com.frmichetti.paymobile.android.MyApplication;
 import br.com.frmichetti.paymobile.android.R;
 import br.com.frmichetti.paymobile.android.model.ShoppingCart;
 import br.com.frmichetti.paymobile.android.model.compatibility.Address;
@@ -84,7 +85,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
 
         super.onCreate(savedInstanceState);
 
-        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuth = MyApplication.getInstance().getFirebaseAuth();
 
         firebaseUser = firebaseAuth.getCurrentUser();
 
