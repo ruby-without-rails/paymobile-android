@@ -299,7 +299,7 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
                 fragment = new ProductsFragment();
                 title = getString(R.string.title_products);
                 break;
-            case R.id.navigation_cart:
+            /*case R.id.navigation_cart:
                 if (!shoppingCart.isEmpty()) {
 
                     doChangeActivity(context, ShoppingCartActivity.class);
@@ -318,7 +318,7 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
                 break;
             case R.id.navigation_profile:
                 doChangeActivity(context, CustomerActivity.class);
-                break;
+                break;*/
         }
 
         loadFragment(fragment, title);

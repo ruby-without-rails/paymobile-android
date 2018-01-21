@@ -12,21 +12,21 @@
         android:title="@string/title_products"
         android:name="@string/title_products" />
 
-    <item
-        android:id="@+id/navigation_cart"
-        android:icon="@drawable/ic_shopping_cart_white_48dp"
-        android:title="@string/title_cart"
-        android:name="@string/title_cart" />
+    <!--<item-->
+        <!--android:id="@+id/navigation_cart"-->
+        <!--android:icon="@drawable/ic_shopping_cart_white_48dp"-->
+        <!--android:title="@string/title_cart"-->
+        <!--android:name="@string/title_cart" />-->
 
-    <item
-        android:id="@+id/navigation_profile"
-        android:icon="@drawable/ic_person_white_48dp"
-        android:title="@string/title_profile"
-        android:name="@string/title_profile" />
+    <!--<item-->
+        <!--android:id="@+id/navigation_profile"-->
+        <!--android:icon="@drawable/ic_person_white_48dp"-->
+        <!--android:title="@string/title_profile"-->
+        <!--android:name="@string/title_profile" />-->
 
-    <item
-        android:id="@+id/navigation_settings"
-        android:icon="@drawable/ic_settings_white_48dp"
-        android:title="@string/title_settings"
-        android:name="@string/title_settings" />
+    <!--<item-->
+        <!--android:id="@+id/navigation_settings"-->
+        <!--android:icon="@drawable/ic_settings_white_48dp"-->
+        <!--android:title="@string/title_settings"-->
+        <!--android:name="@string/title_settings" />-->
 </menu>
