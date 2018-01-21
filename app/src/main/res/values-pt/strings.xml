@@ -122,4 +122,12 @@
     <string name="stub_text_title">Title</string>
     <string name="stub_text_content">Texto</string>
     <string name="proceed_payment">EFETUAR PAGAMENTO</string>
+    <string name="nav_item_store">Novidades</string>
+    <string name="card_validity_label">Válido até</string>
+    <string name="card_validity_sample">MM/AA</string>
+    <string name="card_name_sample">DONO CARTÂO</string>
+    <string name="card_holders_name">Nome do Dono do Cartão</string>
+    <string name="card_number">Número do Cartão</string>
+    <string name="card_validity">Validade</string>
+    <string name="card_cvv">Número CVV</string>
 </resources>

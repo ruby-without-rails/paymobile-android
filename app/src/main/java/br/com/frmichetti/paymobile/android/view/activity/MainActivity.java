@@ -259,23 +259,25 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
         String title = getString(R.string.app_name);
 
         switch (position) {
-
             case 0:
+                fragment = new StoreFragment();
+                title = getString(R.string.title_news);
+                break;
+            case 1:
                 fragment = new ProductsFragment();
                 title = getString(R.string.title_products);
                 break;
-            case 3:
-                fragment = new AddressFragment();
-                title = getString(R.string.title_address);
-                break;
             case 2:
+                fragment = new CheckoutsFragment();
+                title = getString(R.string.title_checkouts);
+                break;
+            case 3:
                 fragment = new VehiclesFragment();
                 title = getString(R.string.title_vehicles);
                 break;
-
-            case 1:
-                fragment = new CheckoutsFragment();
-                title = getString(R.string.title_checkouts);
+            case 4:
+                fragment = new AddressFragment();
+                title = getString(R.string.title_address);
                 break;
             default:
                 break;

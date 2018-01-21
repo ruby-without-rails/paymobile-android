@@ -40,6 +40,7 @@
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
 
+    <string name="nav_item_store">New Releases</string>
     <string name="nav_item_products">Products</string>
     <string name="nav_item_address">Adresses</string>
     <string name="nav_item_vehicles">Vehicles</string>
@@ -139,7 +140,7 @@
 
     <!-- Card -->
     <string name="card_header">NFN CARD</string>
-    <string name="card_number_sample">XXXX XXXX XXXX XXXX</string>
+    <string name="card_number_sample" translatable="false">XXXX XXXX XXXX XXXX</string>
     <string name="card_validity_label">VALID UPTO</string>
     <string name="card_validity_sample">MM/YY</string>
     <string name="card_name_sample">CARD HOLDER</string>

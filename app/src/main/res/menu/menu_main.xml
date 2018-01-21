@@ -9,13 +9,13 @@
         android:icon="@drawable/ic_search_white_48dp"
         app:showAsAction="collapseActionView|always" />
 
-    <item
-        android:id="@+id/action_vehicle"
-        android:icon="@drawable/ic_action_car"
-        android:orderInCategory="100"
-        android:name="@string/action_vehicle"
-        android:title="@string/action_vehicle"
-        app:showAsAction="never" />
+    <!--<item-->
+        <!--android:id="@+id/action_vehicle"-->
+        <!--android:icon="@drawable/ic_action_car"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:name="@string/action_vehicle"-->
+        <!--android:title="@string/action_vehicle"-->
+        <!--app:showAsAction="never" />-->
 
 
     <item

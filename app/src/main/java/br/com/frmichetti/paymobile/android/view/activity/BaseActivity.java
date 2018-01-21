@@ -189,13 +189,13 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
             return true;
         }
 
-        if (id == R.id.action_vehicle) {
-
-            Toast.makeText(context, getString(R.string.click_on_vehicle_button), Toast.LENGTH_SHORT).show();
-
-            return true;
-
-        }
+//        if (id == R.id.action_vehicle) {
+//
+//            Toast.makeText(context, getString(R.string.click_on_vehicle_button), Toast.LENGTH_SHORT).show();
+//
+//            return true;
+//
+//        }
 
         if (id == R.id.action_contact_developer) {
 

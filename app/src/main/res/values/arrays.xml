@@ -2,6 +2,7 @@
 <resources>
     <!-- navigation drawer item labels  -->
     <string-array name="nav_drawer_labels">
+        <item>@string/nav_item_store</item>
         <item>@string/nav_item_products</item>
         <!--<item>@string/nav_item_address</item>-->
         <!--<item>@string/nav_item_vehicles</item>-->
@@ -10,6 +11,7 @@
     <!-- Nav Drawer List Item Icons -->
     <!-- Keep them in order as the titles are in -->
     <array name="nav_drawer_icons">
+        <item>@drawable/ic_account_circle_black_48dp</item>
         <item>@drawable/ic_account_circle_black_48dp</item>
         <!--<item>@drawable/ic_account_circle_black_48dp</item>-->
         <!--<item>@drawable/ic_account_circle_black_48dp</item>-->
