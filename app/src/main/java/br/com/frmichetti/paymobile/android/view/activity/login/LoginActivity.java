@@ -31,7 +31,11 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
+import br.com.frmichetti.paymobile.android.MyApplication;
 import br.com.frmichetti.paymobile.android.R;
 import br.com.frmichetti.paymobile.android.tasks.AsyncResponse;
 import br.com.frmichetti.paymobile.android.tasks.TaskLogin;
@@ -44,13 +48,15 @@ import br.com.frmichetti.paymobile.android.view.activity.MyPattern;
 import static br.com.frmichetti.paymobile.android.model.IntentKeys.CUSTOMER_BUNDLE_KEY;
 
 public class LoginActivity extends AppCompatActivity implements MyPattern,
-        ConnectivityReceiver.ConnectivityReceiverListener {
+        ConnectivityReceiver.ConnectivityReceiverListener, ValueEventListener {
     private Context context;
     private ActionBar actionBar;
     private EditText editTextEmail, editTextPassword;
     private FirebaseAuth auth;
     private ProgressBar progressBar;
     private Button btnSignup, btnLogin, btnReset;
+    private String TAG = "FireBase";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +69,11 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
         doCastComponents();
 
         doCreateListeners();
+
+        MyApplication.getInstance().setValueEventListener(this);
+
+        MyApplication.getInstance().configureFirebase(this);
+
     }
 
 
@@ -193,7 +204,7 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
 
                                                         @Override
                                                         public void onFails(Exception e) {
-                                                            Toast.makeText(context, e.getMessage(),Toast.LENGTH_LONG).show();
+                                                            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
                                                             Log.d("Error", e.getMessage());
                                                         }
                                                     }).execute(token);
@@ -206,7 +217,7 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
 
                                             @Override
                                             public void onFails(Exception e) {
-                                                Toast.makeText(context, e.getMessage(),Toast.LENGTH_LONG).show();
+                                                Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
                                                 Log.d("Error", e.getMessage());
                                             }
                                         }).execute(auth.getCurrentUser().getUid());
@@ -309,5 +320,47 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
 
     public void setConnectivityListener(ConnectivityReceiver.ConnectivityReceiverListener listener) {
         ConnectivityReceiver.connectivityReceiverListener = listener;
+    }
+
+    @Override
+    public void onDataChange(DataSnapshot dataSnapshot) {
+        Log.e(TAG, "App title updated");
+
+        switch (dataSnapshot.getKey()) {
+            case "app_title": {
+                String appTitle = dataSnapshot.getValue(String.class);
+
+                getSupportActionBar().setTitle(appTitle);
+
+                // update toolbar title
+                break;
+            }
+
+            case "primary_color": {
+                String appTitle = dataSnapshot.getValue(String.class);
+
+                // update toolbar title
+                break;
+            }
+
+            case "primary_dark_color": {
+                String appTitle = dataSnapshot.getValue(String.class);
+
+                // update toolbar title
+                break;
+            }
+
+            case "accent_color": {
+                String appTitle = dataSnapshot.getValue(String.class);
+
+                // update toolbar title
+                break;
+            }
+        }
+    }
+
+    @Override
+    public void onCancelled(DatabaseError databaseError) {
+        Log.e(TAG, "Failed to read app title value.", databaseError.toException());
     }
 }
