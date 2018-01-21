@@ -6,9 +6,12 @@
  */
 package br.com.frmichetti.paymobile.android.view.activity.login;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -42,6 +45,7 @@ import br.com.frmichetti.paymobile.android.tasks.TaskLogin;
 import br.com.frmichetti.paymobile.android.model.compatibility.Customer;
 import br.com.frmichetti.paymobile.android.tasks.TaskRequestCustomerData;
 import br.com.frmichetti.paymobile.android.util.ConnectivityReceiver;
+import br.com.frmichetti.paymobile.android.util.MyResources;
 import br.com.frmichetti.paymobile.android.view.activity.MainActivity;
 import br.com.frmichetti.paymobile.android.view.activity.MyPattern;
 
@@ -56,6 +60,8 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
     private ProgressBar progressBar;
     private Button btnSignup, btnLogin, btnReset;
     private String TAG = "FireBase";
+    private MyResources resources;
+    private String oldPrimaryColor, oldPrimaryDarkColor, oldAccentColor, primaryColor, primaryDarkColor, accentColor, theme = "defaul";
 
 
     @Override
@@ -63,6 +69,8 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
         super.onCreate(savedInstanceState);
 
         auth = FirebaseAuth.getInstance();
+
+        reconfigureTheme(theme);
 
         setContentView(R.layout.activity_login);
 
@@ -325,36 +333,51 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
     @Override
     public void onDataChange(DataSnapshot dataSnapshot) {
         Log.e(TAG, "App title updated");
+        Class<String> stringClass = String.class;
+
+        Snackbar.make(findViewById(R.id.coordinator_layout_login), "DB values changed", Snackbar.LENGTH_SHORT).show();
 
         switch (dataSnapshot.getKey()) {
             case "app_title": {
-                String appTitle = dataSnapshot.getValue(String.class);
-
+                String appTitle = dataSnapshot.getValue(stringClass);
                 getSupportActionBar().setTitle(appTitle);
-
-                // update toolbar title
                 break;
             }
 
             case "primary_color": {
-                String appTitle = dataSnapshot.getValue(String.class);
-
-                // update toolbar title
+                primaryColor = dataSnapshot.getValue(stringClass);
                 break;
             }
 
             case "primary_dark_color": {
-                String appTitle = dataSnapshot.getValue(String.class);
-
-                // update toolbar title
+                primaryDarkColor = dataSnapshot.getValue(stringClass);
                 break;
             }
 
             case "accent_color": {
-                String appTitle = dataSnapshot.getValue(String.class);
-
-                // update toolbar title
+                accentColor = dataSnapshot.getValue(stringClass);
                 break;
+            }
+
+            case "app_theme": {
+                theme = dataSnapshot.getValue(stringClass);
+                break;
+            }
+        }
+    }
+
+    // @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void reconfigureTheme(String styleColor) {
+        if (styleColor != null) {
+            if (styleColor.equals("green")) {
+                setTheme(R.style.GreenTheme);
+            }else if (styleColor.equals("default")) {
+                setTheme(R.style.MyMaterialTheme);
+            }
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                getWindow().setNavigationBarColor(getResources().getColor(R.color.color_primary));
+                getWindow().setStatusBarColor(getResources().getColor(R.color.color_primary_dark));
             }
         }
     }
@@ -362,5 +385,13 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
     @Override
     public void onCancelled(DatabaseError databaseError) {
         Log.e(TAG, "Failed to read app title value.", databaseError.toException());
+    }
+
+    @Override
+    public Resources getResources() {
+        if (resources == null) {
+            resources = new MyResources(super.getResources());
+        }
+        return resources;
     }
 }

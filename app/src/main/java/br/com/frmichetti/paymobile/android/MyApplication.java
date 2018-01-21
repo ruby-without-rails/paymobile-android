@@ -6,16 +6,15 @@
  */
 package br.com.frmichetti.paymobile.android;
 
+import android.content.res.Resources;
 import android.support.multidex.MultiDexApplication;
-import android.util.Log;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import br.com.frmichetti.paymobile.android.model.Token;
+import br.com.frmichetti.paymobile.android.util.MyResources;
 
 public class MyApplication extends MultiDexApplication {
 
@@ -49,6 +48,7 @@ public class MyApplication extends MultiDexApplication {
         // firebaseInstance.getReference("primary_color").setValue("#673AB7");
         // firebaseInstance.getReference("primary_dark_color").setValue("#512DA8");
         // firebaseInstance.getReference("accent_color").setValue("#FF4081");
+        // firebaseInstance.getReference("app_theme").setValue("#FF4081");
 
     }
 
@@ -57,6 +57,7 @@ public class MyApplication extends MultiDexApplication {
         firebaseInstance.getReference("primary_color").addValueEventListener(valueEventListener);
         firebaseInstance.getReference("primary_dark_color").addValueEventListener(valueEventListener);
         firebaseInstance.getReference("accent_color").addValueEventListener(valueEventListener);
+        firebaseInstance.getReference("app_theme").addValueEventListener(valueEventListener);
     }
 
     public static synchronized Token getSessionToken() {
