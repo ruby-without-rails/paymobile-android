@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="br.com.frmichetti.paymobile.checkoutflow.CCFragment.CCValidityFragment">
+    tools:context="br.com.codecode.paymobile.checkoutflow.CCFragment.CCValidityFragment">
 
     <android.support.v7.widget.CardView
         card_view:cardCornerRadius="1dp"
@@ -19,7 +19,7 @@
                 style="@style/CardLabel"
                 android:text="@string/card_validity"/>
 
-            <br.com.frmichetti.paymobile.checkoutflow.Utils.CreditCardEditText
+            <br.com.codecode.paymobile.checkoutflow.Utils.CreditCardEditText
                 style="@style/CardInput"
                 android:id="@+id/et_validity"
                 android:hint="Expiry Date"
