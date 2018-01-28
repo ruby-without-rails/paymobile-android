@@ -130,4 +130,9 @@
     <string name="card_number">Número do Cartão</string>
     <string name="card_validity">Validade</string>
     <string name="card_cvv">Número CVV</string>
+    <string name="enter_valid_cc_name">Digite um nome válido</string>
+    <string name="enter_valid_cc_number">Digite um número de Cartão válido</string>
+    <string name="enter_valid_cc_validity">Digite uma validade correta.</string>
+    <string name="enter_valid_cc_cvv">Digite o cvv corretamente.</string>
+    <string name="your_card_is_added">Seu cartão foi adicionado.</string>
 </resources>
