@@ -24,15 +24,17 @@ public class RestApiFactory {
     private long writeTimeout;
     private String version;
 
-    public RestApiFactory(){}
-
-    public RestApiFactory(Context context, String authToken) {
-        this.context = context;
-        this.authToken = authToken;
+    public RestApiFactory(){
         writeTimeout = 30;
         readTimeout = 60;
         version = null;
         retrofit = null;
+    }
+
+    public RestApiFactory(Context context, String authToken) {
+        this();
+        this.context = context;
+        this.authToken = authToken;
     }
 
     public <T> T create(Class<T> service) {
@@ -79,11 +81,11 @@ public class RestApiFactory {
                 Request.Builder builder = chain.request().newBuilder();
 
                 if (authToken != null) {
-                    builder.header("Moneto-Auth-Token", authToken);
+                    builder.header("PayMobile-Auth-Token", authToken);
                 }
 
                 if (version != null) {
-                    builder.header("Moneto-Api-Version", version);
+                    builder.header("PayMobile-Api-Version", version);
                 }
 
                 Request newRequest = builder.build();
@@ -105,7 +107,7 @@ public class RestApiFactory {
         return version;
     }
 
-    public void setVersion(String mVersion) {
-        this.version = mVersion;
+    public void setVersion(String version) {
+        this.version = version;
     }
 }
