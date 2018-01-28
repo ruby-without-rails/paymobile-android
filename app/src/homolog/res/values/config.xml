@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="server" translatable="false">http://paymobile.codecode.com.br:9292</string>
+    <string name="header_version" translatable="false">PayWithRuby-Api-Version</string>
+    <string name="header_token" translatable="false">PayWithRuby-Auth-Token</string>
 </resources>

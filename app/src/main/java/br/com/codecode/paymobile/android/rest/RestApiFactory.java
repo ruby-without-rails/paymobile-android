@@ -49,16 +49,16 @@ public class RestApiFactory {
         return readTimeout;
     }
 
-    public void setReadTimeout(long mReadTimeout) {
-        this.readTimeout = mReadTimeout;
+    public void setReadTimeout(long readTimeout) {
+        this.readTimeout = readTimeout;
     }
 
     public long getWriteTimeout() {
         return writeTimeout;
     }
 
-    public void setWriteTimeout(long mWriteTimeout) {
-        this.writeTimeout = mWriteTimeout;
+    public void setWriteTimeout(long writeTimeout) {
+        this.writeTimeout = writeTimeout;
     }
 
     public String getAuthToken() {
@@ -81,11 +81,11 @@ public class RestApiFactory {
                 Request.Builder builder = chain.request().newBuilder();
 
                 if (authToken != null) {
-                    builder.header("PayMobile-Auth-Token", authToken);
+                    builder.header(context.getString(R.string.header_token), authToken);
                 }
 
                 if (version != null) {
-                    builder.header("PayMobile-Api-Version", version);
+                    builder.header(context.getString(R.string.header_version), version);
                 }
 
                 Request newRequest = builder.build();

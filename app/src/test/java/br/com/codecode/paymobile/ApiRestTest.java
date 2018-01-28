@@ -23,7 +23,7 @@ public class ApiRestTest {
         RestApiFactory restApiFactory = new RestApiFactory();
         RestApi restApi = restApiFactory.create(RestApi.class);
 
-        //restApi.pay();
+        //restApi.paywithCreditCard("");
 
     }
 }
