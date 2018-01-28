@@ -23,7 +23,8 @@ public class ShoppingCart implements Serializable {
 
     private Map<ShoppingItem, Integer> mapItems = new LinkedHashMap<>();
 
-    public ShoppingCart(){}
+    public ShoppingCart() {
+    }
 
     public Integer getQuantityOfItens(ShoppingItem shoppingItem) {
 
@@ -54,6 +55,19 @@ public class ShoppingCart implements Serializable {
 
     public BigDecimal getTotal(ShoppingItem shoppingItem) {
         return shoppingItem.getTotal(getQuantityOfItens(shoppingItem));
+    }
+
+    public BigDecimal getDiscountTotal(ShoppingItem shoppingItem) {
+        return shoppingItem.getDiscountTotal(getQuantityOfItens(shoppingItem));
+    }
+
+    public BigDecimal getDiscountTotal() {
+        BigDecimal discountTotal = BigDecimal.ZERO;
+
+        for (ShoppingItem shoppingItem : mapItems.keySet()) {
+            discountTotal = discountTotal.add(getDiscountTotal(shoppingItem));
+        }
+        return discountTotal;
     }
 
     public BigDecimal getTotal() {

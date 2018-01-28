@@ -24,6 +24,9 @@ public class Product extends BaseModel {
     @SerializedName("price")
     private BigDecimal price;
 
+    @SerializedName("discount")
+    private BigDecimal discount;
+
     @SerializedName("category")
     private Category category;
 
@@ -69,6 +72,14 @@ public class Product extends BaseModel {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public BigDecimal getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(BigDecimal discount) {
+        this.discount = discount;
     }
 
     public Category getCategory() {

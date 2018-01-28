@@ -21,23 +21,28 @@ public class ShoppingItem implements Serializable {
 
     private Long productId;
 
-    private Product service;
+    private Product product;
 
     private ShoppingItem() {
         super();
     }
 
     public ShoppingItem(Product product) {
-        this.service = product;
+        this();
+        this.product = product;
         this.productId = product.getId();
     }
 
     public Product getProduct() {
-        return service;
+        return product;
     }
 
     public BigDecimal getPrice() {
-        return service.getPrice();
+        return product.getPrice();
+    }
+
+    public BigDecimal getDiscount() {
+        return product.getDiscount();
     }
 
     public Long getProductId() {
@@ -46,6 +51,10 @@ public class ShoppingItem implements Serializable {
 
     public BigDecimal getTotal(Integer quantity) {
         return getPrice().multiply(new BigDecimal(quantity));
+    }
+
+    public BigDecimal getDiscountTotal(Integer quantity) {
+        return getDiscount().multiply(new BigDecimal(quantity));
     }
 
     @Override
@@ -75,7 +84,7 @@ public class ShoppingItem implements Serializable {
 
     @Override
     public String toString() {
-        return service.toString();
+        return product.toString();
     }
 
 

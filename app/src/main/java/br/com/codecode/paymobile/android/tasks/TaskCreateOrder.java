@@ -8,6 +8,8 @@ import android.util.Log;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.json.JSONObject;
 
@@ -66,6 +68,8 @@ public class TaskCreateOrder extends AsyncTask<ShoppingCart, String, Order> {
         RequestQueue queue = RequestQueuer.getInstance(context).getRequestQueue();
 
         ShoppingCart shoppingCart = shoppingCarts[0];
+        shoppingCart.getTotal();
+        shoppingCart.getDiscountTotal();
 
         try {
             JSONObject jsonBody = new JSONObject();
