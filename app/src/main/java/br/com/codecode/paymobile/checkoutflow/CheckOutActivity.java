@@ -1,6 +1,8 @@
 package br.com.codecode.paymobile.checkoutflow;
 
 import android.app.FragmentManager;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -11,7 +13,15 @@ import android.widget.Button;
 import android.widget.Toast;
 
 
+import java.util.concurrent.ExecutionException;
+
 import br.com.codecode.paymobile.android.R;
+import br.com.codecode.paymobile.android.model.SelectedPaymentData;
+import br.com.codecode.paymobile.android.model.compatibility.Order;
+import br.com.codecode.paymobile.android.rest.dto.PaymentDTO;
+import br.com.codecode.paymobile.android.rest.payloads.PaymentPayload;
+import br.com.codecode.paymobile.android.tasks.TaskPayWithCreditCard;
+import br.com.codecode.paymobile.android.view.activity.FinishActivity;
 import br.com.codecode.paymobile.checkoutflow.CCFragment.CCNameFragment;
 import br.com.codecode.paymobile.checkoutflow.CCFragment.CCNumberFragment;
 import br.com.codecode.paymobile.checkoutflow.CCFragment.CCSecureCodeFragment;
@@ -24,7 +34,7 @@ import butterknife.ButterKnife;
 public class CheckOutActivity extends FragmentActivity implements FragmentManager.OnBackStackChangedListener {
 
     @BindView(R.id.btnNext)
-    Button btnNext;
+    protected Button btnNext;
 
     public CardFrontFragment cardFrontFragment;
     public CardBackFragment cardBackFragment;
@@ -32,23 +42,30 @@ public class CheckOutActivity extends FragmentActivity implements FragmentManage
     //This is our viewPager
     private ViewPager viewPager;
 
-    CCNumberFragment numberFragment;
-    CCNameFragment nameFragment;
-    CCValidityFragment validityFragment;
-    CCSecureCodeFragment secureCodeFragment;
+    protected CCNumberFragment numberFragment;
+    protected CCNameFragment nameFragment;
+    protected CCValidityFragment validityFragment;
+    protected CCSecureCodeFragment secureCodeFragment;
 
-    int total_item;
-    boolean backTrack = false;
+    private int total_item;
+    private boolean backTrack = false;
 
     private boolean mShowingBack = false;
 
-    String cardNumber, cardCVV, cardValidity, cardName;
+    private String cardNumber, cardCVV, cardValidity, cardName;
+
+    private Context context;
+    private int cardBrand;
+    private Order order;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_out);
+
+        context = this;
+        order = (Order) getIntent().getSerializableExtra("order");
 
         ButterKnife.bind(this);
 
@@ -125,17 +142,35 @@ public class CheckOutActivity extends FragmentActivity implements FragmentManage
         cardNumber = numberFragment.getCardNumber();
         cardValidity = validityFragment.getValidity();
         cardCVV = secureCodeFragment.getValue();
+        cardBrand = CreditCardUtils.getCardType(cardNumber);
 
         if (TextUtils.isEmpty(cardName)) {
-            Toast.makeText(CheckOutActivity.this, "Enter Valid Name", Toast.LENGTH_SHORT).show();
-        } else if (TextUtils.isEmpty(cardNumber) || !CreditCardUtils.isValid(cardNumber.replace(" ",""))) {
-            Toast.makeText(CheckOutActivity.this, "Enter Valid card number", Toast.LENGTH_SHORT).show();
-        } else if (TextUtils.isEmpty(cardValidity)||!CreditCardUtils.isValidDate(cardValidity)) {
-            Toast.makeText(CheckOutActivity.this, "Enter correct validity", Toast.LENGTH_SHORT).show();
-        } else if (TextUtils.isEmpty(cardCVV)||cardCVV.length()<3) {
-            Toast.makeText(CheckOutActivity.this, "Enter valid security number", Toast.LENGTH_SHORT).show();
-        } else
-            Toast.makeText(CheckOutActivity.this, "Your card is added", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, R.string.enter_valid_cc_name, Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(cardNumber) || !CreditCardUtils.isValid(cardNumber.replace(" ", ""))) {
+            Toast.makeText(context, R.string.enter_valid_cc_number, Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(cardValidity) || !CreditCardUtils.isValidDate(cardValidity)) {
+            Toast.makeText(context, R.string.enter_valid_cc_validity, Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(cardCVV) || cardCVV.length() < 3) {
+            Toast.makeText(context, R.string.enter_valid_cc_cvv, Toast.LENGTH_SHORT).show();
+        } else {
+            SelectedPaymentData paymentData = new SelectedPaymentData(cardName, cardNumber, cardValidity, cardCVV, cardBrand);
+
+            try {
+
+                PaymentDTO paymentDTO = new TaskPayWithCreditCard(context, order).execute(paymentData).get();
+                if (paymentDTO.success) {
+                    startActivity(new Intent(context, FinishActivity.class));
+                    finish();
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+
+            Toast.makeText(CheckOutActivity.this, R.string.your_card_is_added, Toast.LENGTH_SHORT).show();
+        }
+
 
     }
 
@@ -166,7 +201,7 @@ public class CheckOutActivity extends FragmentActivity implements FragmentManage
             return;
         }
         // Flip to the back.
-        //setCustomAnimations(int enter, int exit, int popEnter, int popExit)
+        // setCustomAnimations(int enter, int exit, int popEnter, int popExit)
 
         mShowingBack = true;
 

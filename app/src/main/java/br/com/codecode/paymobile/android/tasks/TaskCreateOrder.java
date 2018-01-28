@@ -11,30 +11,38 @@ import com.android.volley.VolleyError;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import br.com.codecode.paymobile.android.MyApplication;
 import br.com.codecode.paymobile.android.R;
 import br.com.codecode.paymobile.android.dao.GsonPostRequest;
+import br.com.codecode.paymobile.android.model.ShoppingItem;
+import br.com.codecode.paymobile.android.rest.RestApi;
+import br.com.codecode.paymobile.android.rest.RestApiFactory;
 import br.com.codecode.paymobile.android.rest.dto.OrderDTO;
 import br.com.codecode.paymobile.android.model.RequestQueuer;
 import br.com.codecode.paymobile.android.model.ShoppingCart;
 import br.com.codecode.paymobile.android.model.compatibility.Order;
+import br.com.codecode.paymobile.android.rest.payloads.OrderPayload;
+import retrofit2.Call;
 
 /**
  * Created by felipe on 28/01/18.
  */
 
-public class TaskCreateOrder extends AsyncTask<ShoppingCart, String, Order> {
+public class TaskCreateOrder extends AsyncTask<ShoppingCart, String, OrderDTO> {
 
-    public AsyncResponse asyncResponse = null;
-    private String url;
+    private RestApiFactory restApiFactory;
+    private RestApi restApi;
     private ProgressDialog dialog;
     private Context context;
-    private Order order;
+    private OrderDTO order;
 
-    public TaskCreateOrder(Context context, AsyncResponse asyncResponse) {
-        this.asyncResponse = asyncResponse;
+    public TaskCreateOrder(Context context) {
         this.context = context;
     }
 
@@ -42,9 +50,8 @@ public class TaskCreateOrder extends AsyncTask<ShoppingCart, String, Order> {
     protected void onPreExecute() {
         super.onPreExecute();
 
-        url = context.getResources().getString(R.string.server) + "/api/orders";
-
-        Log.d("DEBUG-TASK", "server config -> " + url);
+        restApiFactory = new RestApiFactory(context, MyApplication.getSessionToken().getKey());
+        restApi = restApiFactory.create(RestApi.class);
 
         dialog = new ProgressDialog(context);
 
@@ -61,64 +68,20 @@ public class TaskCreateOrder extends AsyncTask<ShoppingCart, String, Order> {
     }
 
     @Override
-    protected Order doInBackground(ShoppingCart... shoppingCarts) {
-        // Get a RequestQueue
-        RequestQueue queue = RequestQueuer.getInstance(context).getRequestQueue();
+    protected OrderDTO doInBackground(ShoppingCart... shoppingCarts) {
 
-        ShoppingCart shoppingCart = shoppingCarts[0];
-        shoppingCart.getTotal();
-        shoppingCart.getDiscountTotal();
+        OrderPayload payload = prepareOrderPayload(shoppingCarts[0]);
+
+        Call<OrderDTO> responseBodyCall = restApi.createOrder(payload);
+        retrofit2.Response<OrderDTO> bodyResponse = null;
 
         try {
-            JSONObject jsonBody = new JSONObject();
-
-            Log.d("DEBUG", "PAYLOAD");
-            Log.d("DEBUG", jsonBody.toString());
-
-            HashMap<String, String> headers = new HashMap<>();
-            headers.put("PayWithRuby-Auth-Token", MyApplication.getSessionToken().getKey());
-            headers.put("Content-type", "application/json; charset=utf-8");
-
-            HashMap<String, String> parameters = new HashMap<>();
-            parameters.put("discount", jsonBody.getString("discount"));
-            parameters.put("total", jsonBody.getString("total"));
-            parameters.put("cart", jsonBody.getString("cart"));
-
-            GsonPostRequest<OrderDTO> gsonPostRequest = new GsonPostRequest<>(url, OrderDTO.class, headers, parameters,
-                    new Response.Listener<OrderDTO>() {
-                        @Override
-                        public void onResponse(OrderDTO orderDTO) {
-                            publishProgress("Item recebido !");
-                            if (orderDTO.validationErrors != null && !orderDTO.validationErrors.isEmpty()) {
-                                throw new RuntimeException("Invalid response from server - Incorrect Payload -> \n" + orderDTO.toString());
-                            }
-                            if (orderDTO.order != null) {
-                                publishProgress("Pedido recebido !");
-
-                            }
-                            order = orderDTO.order;
-                            asyncResponse.onSuccess(order);
-
-                        }
-                    }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    publishProgress("Item não recebido !");
-                    publishProgress("Ocorreu uma falha ao contactar o servidor !");
-                    order = null;
-                    asyncResponse.onFails(error);
-                }
-            });
-
-            // Add the request to the RequestQueue.
-            queue.add(gsonPostRequest);
-
-        } catch (Exception e) {
+            bodyResponse = responseBodyCall.execute();
+        } catch (IOException e) {
             e.printStackTrace();
-            publishProgress("Falha ao Obter Resposta");
-            Log.e("Erro", e.getMessage());
         }
 
+        order = bodyResponse.body();
 
         return order;
     }
@@ -131,11 +94,34 @@ public class TaskCreateOrder extends AsyncTask<ShoppingCart, String, Order> {
     }
 
     @Override
-    protected void onPostExecute(Order result) {
+    protected void onPostExecute(OrderDTO result) {
         dialog.setMessage("Tarefa Finalizada!");
 
         dialog.dismiss();
+    }
 
-        asyncResponse.onSuccess(result);
+    protected OrderPayload prepareOrderPayload(ShoppingCart shoppingCart) {
+
+        List<OrderPayload.PayloadProduct> products = new ArrayList<>();
+        for (ShoppingItem shoppingItem : shoppingCart.getList()) {
+            OrderPayload.PayloadProduct payProduct = new OrderPayload.PayloadProduct();
+            payProduct.description = shoppingItem.getProduct().getDescription();
+            payProduct.name = shoppingItem.getProduct().getName();
+            payProduct.quantity = shoppingCart.getQuantityOfItens(shoppingItem);
+            payProduct.value = shoppingItem.getPrice();
+            products.add(payProduct);
+        }
+
+
+        OrderPayload.PayloadCart payCart = new OrderPayload.PayloadCart();
+        payCart.products = products;
+
+        OrderPayload payload = new OrderPayload();
+        payload.discount = shoppingCart.getDiscountTotal();
+        payload.total = shoppingCart.getTotal();
+        payload.cart = payCart;
+
+        return payload;
+
     }
 }

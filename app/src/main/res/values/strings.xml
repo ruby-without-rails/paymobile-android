@@ -152,6 +152,11 @@
     <string name="card_validity">Expires</string>
     <string name="card_cvv">CVV/CVC Number</string>
     <string name="proceed_payment">PROCEED PAYMENT</string>
+    <string name="enter_valid_cc_name">Enter Valid Name</string>
+    <string name="enter_valid_cc_number">Enter Valid card number</string>
+    <string name="enter_valid_cc_validity">Enter correct validity</string>
+    <string name="enter_valid_cc_cvv">Enter valid security number</string>
+    <string name="your_card_is_added">Your card is added</string>
 </resources>
 
 
