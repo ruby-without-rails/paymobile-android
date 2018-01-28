@@ -7,16 +7,21 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import java.io.Serializable;
+
 import br.com.codecode.paymobile.android.R;
+import br.com.codecode.paymobile.android.rest.dto.PaymentDTO;
 
 public class FinishActivity extends AppCompatActivity {
-    LinearLayout l1, l2;
-    Button btnsub;
-    Animation uptodown, downtoup;
+    private LinearLayout l1, l2;
+    private Button btnsub;
+    private Animation uptodown, downtoup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        PaymentDTO paymentDTO = (PaymentDTO) getIntent().getSerializableExtra("payment_status");
         setContentView(R.layout.finish_activity);
         btnsub = findViewById(R.id.buttonsub);
         l1 = findViewById(R.id.l1);

@@ -282,20 +282,17 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
             @Override
             public void onClick(View v) {
 
-                //TODO create Order and though intent
                 OrderDTO orderDTO = null;
                 try {
                     orderDTO = new TaskCreateOrder(context).execute(shoppingCart).get();
+                    if (orderDTO != null) {
+                        startActivity(new Intent(context, CheckOutActivity.class).putExtra("order", orderDTO.order));
+                    }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 }
-
-                if (orderDTO != null) {
-                    startActivity(new Intent(context, CheckOutActivity.class).putExtra("order", orderDTO.order));
-                }
-
             }
         });
     }

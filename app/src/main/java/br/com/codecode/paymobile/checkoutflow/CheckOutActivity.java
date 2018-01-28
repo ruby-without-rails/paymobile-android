@@ -159,7 +159,7 @@ public class CheckOutActivity extends FragmentActivity implements FragmentManage
 
                 PaymentDTO paymentDTO = new TaskPayWithCreditCard(context, order).execute(paymentData).get();
                 if (paymentDTO.success) {
-                    startActivity(new Intent(context, FinishActivity.class));
+                    startActivity(new Intent(context, FinishActivity.class).putExtra("payment_status", paymentDTO));
                     finish();
                 }
             } catch (InterruptedException e) {
@@ -168,7 +168,7 @@ public class CheckOutActivity extends FragmentActivity implements FragmentManage
                 e.printStackTrace();
             }
 
-            Toast.makeText(CheckOutActivity.this, R.string.your_card_is_added, Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, R.string.your_card_is_added, Toast.LENGTH_SHORT).show();
         }
 
 

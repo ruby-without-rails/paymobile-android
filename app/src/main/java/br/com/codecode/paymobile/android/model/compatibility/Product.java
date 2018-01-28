@@ -22,17 +22,15 @@ public class Product extends BaseModel {
     private String image;
 
     @SerializedName("price")
-    private BigDecimal price;
+    private BigDecimal price = BigDecimal.ZERO;
 
     @SerializedName("discount")
-    private BigDecimal discount;
+    private BigDecimal discount = BigDecimal.ZERO;
 
     @SerializedName("category")
     private Category category;
 
-    public Product() {
-    }
-
+    public Product(){}
 
     public Long getId() {
         return this.id;

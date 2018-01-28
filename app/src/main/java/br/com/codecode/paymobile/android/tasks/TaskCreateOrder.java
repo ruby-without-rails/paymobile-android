@@ -42,7 +42,10 @@ public class TaskCreateOrder extends AsyncTask<ShoppingCart, String, OrderDTO> {
     private Context context;
     private OrderDTO order;
 
+    private TaskCreateOrder(){}
+
     public TaskCreateOrder(Context context) {
+        this();
         this.context = context;
     }
 
@@ -63,7 +66,8 @@ public class TaskCreateOrder extends AsyncTask<ShoppingCart, String, OrderDTO> {
 
         dialog.setMessage("Iniciando a Tarefa Criar Novo Pedido");
 
-        dialog.show();
+        // TODO - FIXME
+       // dialog.show();
 
     }
 
