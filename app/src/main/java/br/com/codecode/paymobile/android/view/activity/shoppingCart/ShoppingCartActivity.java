@@ -39,6 +39,7 @@ import java.util.concurrent.ExecutionException;
 import br.com.codecode.paymobile.android.R;
 import br.com.codecode.paymobile.android.adapter.CartListAdapter;
 import br.com.codecode.paymobile.android.helper.RecyclerItemTouchHelper;
+import br.com.codecode.paymobile.android.model.ShoppingCart;
 import br.com.codecode.paymobile.android.model.ShoppingItem;
 import br.com.codecode.paymobile.android.model.compatibility.Checkout;
 import br.com.codecode.paymobile.android.model.compatibility.Product;
@@ -51,7 +52,7 @@ import br.com.codecode.paymobile.checkoutflow.CheckOutActivity;
 
 public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener {
 
-    private FloatingActionButton fabRemoveItem, fabPurchase;
+    private FloatingActionButton fabRemoveItem, fabEmptyCart;
 
     private TextView textViewSelectedItem, textViewQuantity, textViewPrice, textViewSubTotal, textViewTotal, textViewBottomTotal;
 
@@ -164,7 +165,7 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
 
         fabRemoveItem = findViewById(R.id.fab_remove_item_from_cart);
 
-        fabPurchase = findViewById(R.id.fab_buy);
+        fabEmptyCart = findViewById(R.id.fab_empty_cart);
 
         textViewSelectedItem = findViewById(R.id.tv_product_var);
 
@@ -234,12 +235,16 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
             }
         });
 
-        fabPurchase.setOnClickListener(new View.OnClickListener() {
+        fabEmptyCart.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
-                doChangeActivity(context, ResumeCheckoutActivity.class);
+                shoppingCart = new ShoppingCart();
+
+                Toast.makeText(context, "Your Cart is Empty now", Toast.LENGTH_SHORT).show();
+
+                // doChangeActivity(context, ResumeCheckoutActivity.class);
 
                 finish();
             }

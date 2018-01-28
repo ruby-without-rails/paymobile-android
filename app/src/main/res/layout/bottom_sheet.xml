@@ -39,7 +39,7 @@
             android:layout_marginRight="@dimen/activity_vertical_margin"
             android:paddingLeft="0dp"
             android:paddingRight="0dp"
-            android:src="@drawable/ic_touch_app_black_48dp" />
+            android:src="@drawable/ic_touch_app_white_48dp" />
 
         <TextView
             android:id="@+id/tv_bottom_total"
