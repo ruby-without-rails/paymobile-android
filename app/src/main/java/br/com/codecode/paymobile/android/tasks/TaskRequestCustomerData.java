@@ -26,7 +26,7 @@ import java.util.HashMap;
 import br.com.codecode.paymobile.android.MyApplication;
 import br.com.codecode.paymobile.android.R;
 import br.com.codecode.paymobile.android.dao.GsonGetRequest;
-import br.com.codecode.paymobile.android.dto.CustomerDTO;
+import br.com.codecode.paymobile.android.rest.dto.CustomerDTO;
 import br.com.codecode.paymobile.android.model.RequestQueuer;
 import br.com.codecode.paymobile.android.model.compatibility.Customer;
 

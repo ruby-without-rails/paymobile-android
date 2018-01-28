@@ -8,8 +8,6 @@ import android.util.Log;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import org.json.JSONObject;
 
@@ -18,7 +16,7 @@ import java.util.HashMap;
 import br.com.codecode.paymobile.android.MyApplication;
 import br.com.codecode.paymobile.android.R;
 import br.com.codecode.paymobile.android.dao.GsonPostRequest;
-import br.com.codecode.paymobile.android.dto.OrderDTO;
+import br.com.codecode.paymobile.android.rest.dto.OrderDTO;
 import br.com.codecode.paymobile.android.model.RequestQueuer;
 import br.com.codecode.paymobile.android.model.ShoppingCart;
 import br.com.codecode.paymobile.android.model.compatibility.Order;
