@@ -58,8 +58,13 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.MyView
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         final ShoppingItem item = cartList.get(position);
         holder.name.setText(item.getProduct().getName());
-        holder.description.setText(item.getProduct().getDescription());
-        holder.price.setText("₹" + item.getPrice());
+        String description = "";
+        if(item.getProduct().getDescription().length() > 120){
+            description = item.getProduct().getDescription().substring(0, 120);
+            description+= " ...";
+        }
+        holder.description.setText(description);
+        holder.price.setText("R$ " + item.getPrice());
 
         Glide.with(context)
                 .load(item.getProduct().getImage())

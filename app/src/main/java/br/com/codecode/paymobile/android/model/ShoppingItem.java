@@ -84,7 +84,7 @@ public class ShoppingItem implements Serializable {
 
     @Override
     public String toString() {
-        return product.toString();
+        return product.getName();
     }
 
 

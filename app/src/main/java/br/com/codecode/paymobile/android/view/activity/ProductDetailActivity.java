@@ -25,7 +25,7 @@ import br.com.codecode.paymobile.android.view.activity.shoppingCart.ShoppingCart
 
 public class ProductDetailActivity extends BaseActivity {
 
-    private TextView textViewTitle, textViewDescription, textCategoryDescription,
+    private TextView textViewTitle, textViewInnerTitle, textViewSubtitle, textViewDescription, textCategoryDescription,
             textViewObservation, textViewPrice;
 
     private ImageView imageView, imageViewBackCollapse;
@@ -38,7 +38,7 @@ public class ProductDetailActivity extends BaseActivity {
 
         super.onCreate(savedInstanceState);
 
-//        setContentView(R.layout.activity_product_detail);
+        // setContentView(R.layout.activity_product_detail);
         setContentView(R.layout.activity_product_detail_collapse);
 
         doCastComponents();
@@ -76,7 +76,11 @@ public class ProductDetailActivity extends BaseActivity {
 
         super.doCastComponents();
 
-        textViewTitle = findViewById(R.id.textViewTitle);
+        textViewTitle = findViewById(R.id.tv_title);
+
+        textViewSubtitle = findViewById(R.id.tv_subtitle);
+
+        textViewInnerTitle = findViewById(R.id.textViewTitle);
 
         textViewDescription = findViewById(R.id.textViewDescricaoVar);
 
@@ -113,11 +117,16 @@ public class ProductDetailActivity extends BaseActivity {
 
     private void doFillData() {
 
-        textViewTitle.setText(selectedProduct.getName());
+        textViewTitle.setText(selectedProduct.getCategory().getTitle());
+        textViewSubtitle.setText(selectedProduct.getCategory().getSubtitle());
+        textViewInnerTitle.setText(selectedProduct.getName());
+
+        getSupportActionBar().setTitle(selectedProduct.getName());
+        // getSupportActionBar().setSubtitle(String.valueOf(selectedProduct.getPrice()));
 
         textViewDescription.setText(selectedProduct.getDescription());
 
-        textCategoryDescription.setText(selectedProduct.getCategory().getName());
+        textCategoryDescription.setText(selectedProduct.getCategory().getTitle());
 
         textViewObservation.setText(selectedProduct.getNotes());
 
@@ -127,8 +136,15 @@ public class ProductDetailActivity extends BaseActivity {
                 .load(selectedProduct.getImage())
                 .into(imageView);
 
+        String thumbUrl = selectedProduct.getCategory().getThumb();
+        if (thumbUrl != null) {
+            if (thumbUrl.contains("{host}")) {
+                thumbUrl = thumbUrl.replace("{host}", getString(R.string.server));
+            }
+        }
+
         Glide.with(context)
-                .load(selectedProduct.getImage())
+                .load(thumbUrl)
                 .into(imageViewBackCollapse);
 
     }

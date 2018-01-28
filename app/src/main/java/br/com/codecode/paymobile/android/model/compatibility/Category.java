@@ -12,6 +12,15 @@ public class Category extends BaseModel {
     @SerializedName("name")
     private String name;
 
+    @SerializedName("title")
+    private String title;
+
+    @SerializedName("subtitle")
+    private String subtitle;
+
+    @SerializedName("thumb")
+    private String thumb;
+
     public Category() {
     }
 
@@ -39,6 +48,30 @@ public class Category extends BaseModel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getThumb() {
+        return thumb;
+    }
+
+    public void setThumb(String thumb) {
+        this.thumb = thumb;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getSubtitle() {
+        return subtitle;
+    }
+
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
     }
 
     @Override
