@@ -166,6 +166,8 @@
     <string name="your_cart_is_empty">Your Cart is Empty now</string>
     <string name="action_undo">UNDO</string>
     <string name="removed_from_cart">removed from cart!</string>
+    <string name="order_details">Order Details</string>
+    <string name="delivery_address">Delivery Address</string>
 </resources>
 
 

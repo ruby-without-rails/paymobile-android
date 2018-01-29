@@ -139,4 +139,10 @@
     <string name="expiry_date">Data de validade</string>
     <string name="payment_received">PAGAMENTO RECEBIDO</string>
     <string name="thank_you">OBRIGADO</string>
+    <string name="action_undo">DESFAZER</string>
+    <string name="removed_from_cart">removido do carrinho!</string>
+    <string name="order_id">Número do Pedido</string>
+    <string name="your_cart_is_empty">Seu Carrinho está vazio</string>
+    <string name="order_details">Detalhes do Pedido</string>
+    <string name="delivery_address">Endereço de Entrega</string>
 </resources>
