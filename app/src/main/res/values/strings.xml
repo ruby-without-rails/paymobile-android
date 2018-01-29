@@ -163,6 +163,9 @@
     <string name="payment_received">PAYMENT RECEIVED</string>
     <string name="thank_you">THANK YOU</string>
     <string name="order_id">Order Id</string>
+    <string name="your_cart_is_empty">Your Cart is Empty now</string>
+    <string name="action_undo">UNDO</string>
+    <string name="removed_from_cart">removed from cart!</string>
 </resources>
 
 

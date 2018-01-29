@@ -242,7 +242,7 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
 
                 shoppingCart = new ShoppingCart();
 
-                Toast.makeText(context, "Your Cart is Empty now", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, R.string.your_cart_is_empty, Toast.LENGTH_SHORT).show();
 
                 // doChangeActivity(context, ResumeCheckoutActivity.class);
 
@@ -360,17 +360,23 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
 
             // showing snack bar with Undo option
             Snackbar snackbar = Snackbar
-                    .make(coordinatorLayout, name + " removed from cart!", Snackbar.LENGTH_LONG);
-            snackbar.setAction("UNDO", new View.OnClickListener() {
+                    .make(coordinatorLayout, name + getString(R.string.removed_from_cart), Snackbar.LENGTH_LONG);
+            snackbar.setAction(R.string.action_undo, new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
                     // undo is selected, restore the deleted item
                     mAdapter.restoreItem(deletedItem, deletedIndex);
+                    shoppingCart.add(deletedItem);
+
                 }
             });
             snackbar.setActionTextColor(Color.YELLOW);
             snackbar.show();
+
+            shoppingCart.remove(deletedItem);
+
+            textViewBottomTotal.setText(String.valueOf(shoppingCart.getTotal()));
         }
     }
 
