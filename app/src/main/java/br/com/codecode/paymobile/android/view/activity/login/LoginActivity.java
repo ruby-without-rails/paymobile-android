@@ -25,6 +25,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,6 +62,7 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
     private MyResources resources;
     private String oldPrimaryColor, oldPrimaryDarkColor, oldAccentColor, primaryColor, primaryDarkColor, accentColor, theme = "defaul";
     private FirebaseAuth auth;
+    private ScrollView scrollView;
 
 
     @Override
@@ -110,6 +112,13 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
         btnLogin = findViewById(R.id.btn_login);
 
         btnReset = findViewById(R.id.btn_reset_password);
+
+        if(MyApplication.getInstance().getFirebaseAuth().getCurrentUser() != null){
+            progressBar = findViewById(R.id.progressBar);
+            scrollView = findViewById(R.id.login_scroll);
+            scrollView.setVisibility(View.VISIBLE);
+            scrollView.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override

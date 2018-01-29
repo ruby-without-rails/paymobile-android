@@ -11,6 +11,7 @@
     <include layout="@layout/toolbar" />
 
     <ScrollView
+        android:id="@+id/login_scroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
