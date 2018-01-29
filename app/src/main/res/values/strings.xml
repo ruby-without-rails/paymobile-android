@@ -168,6 +168,7 @@
     <string name="removed_from_cart">removed from cart!</string>
     <string name="order_details">Order Details</string>
     <string name="delivery_address">Delivery Address</string>
+    <string name="cart_items">Cart items</string>
 </resources>
 
 

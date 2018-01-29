@@ -57,7 +57,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cart items"
+        android:text="@string/cart_items"
         android:textAlignment="center" />
 
     <ListView
