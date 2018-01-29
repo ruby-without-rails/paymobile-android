@@ -28,7 +28,7 @@ public class FinishActivity extends AppCompatActivity {
         setContentView(R.layout.finish_activity);
         textViewTotal = findViewById(R.id.tv_total);
         textViewOrderId = findViewById(R.id.tv_order_id);
-        textViewTotal.setText(String.valueOf(paymentDTO.orderResult.orderTotal));
+        textViewTotal.setText(String.valueOf(paymentDTO.orderTotal));
         textViewOrderId.setText(textViewOrderId.getText() + " " + paymentDTO.orderResult.orderReference);
         btnsub = findViewById(R.id.buttonsub);
         l1 = findViewById(R.id.l1);

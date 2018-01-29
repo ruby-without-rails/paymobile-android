@@ -22,6 +22,9 @@ public class PaymentDTO extends BaseJson {
     @SerializedName("order_result")
     public OrderResultDTO orderResult;
 
+    @SerializedName("total")
+    public BigDecimal orderTotal = BigDecimal.ZERO;
+
     public static class OrderResultDTO extends BaseJson {
 
         // @SerializedName("CreateDate")
@@ -32,8 +35,5 @@ public class PaymentDTO extends BaseJson {
 
         @SerializedName("OrderReference")
         public String orderReference;
-
-        @SerializedName("OrderTotal")
-        public BigDecimal orderTotal = BigDecimal.ZERO;
     }
 }
