@@ -17,7 +17,7 @@ public class FinishActivity extends AppCompatActivity {
     private LinearLayout l1, l2;
     private Button btnsub;
     private Animation uptodown, downtoup;
-    private TextView textViewTotal;
+    private TextView textViewTotal, textViewOrderId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +27,9 @@ public class FinishActivity extends AppCompatActivity {
 
         setContentView(R.layout.finish_activity);
         textViewTotal = findViewById(R.id.tv_total);
-        textViewTotal.setText(paymentDTO.orderResult.orderReference);
+        textViewOrderId = findViewById(R.id.tv_order_id);
+        textViewTotal.setText(String.valueOf(paymentDTO.orderResult.orderTotal));
+        textViewOrderId.setText(textViewOrderId.getText() + " " + paymentDTO.orderResult.orderReference);
         btnsub = findViewById(R.id.buttonsub);
         l1 = findViewById(R.id.l1);
         l2 = findViewById(R.id.l2);

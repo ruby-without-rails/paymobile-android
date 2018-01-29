@@ -162,6 +162,7 @@
     <string name="expiry_date">Expiry Date</string>
     <string name="payment_received">PAYMENT RECEIVED</string>
     <string name="thank_you">THANK YOU</string>
+    <string name="order_id">Order Id</string>
 </resources>
 
 

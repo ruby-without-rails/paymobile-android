@@ -2,6 +2,7 @@ package br.com.codecode.paymobile.android.rest.dto;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import br.com.codecode.paymobile.android.rest.BaseJson;
@@ -31,5 +32,8 @@ public class PaymentDTO extends BaseJson {
 
         @SerializedName("OrderReference")
         public String orderReference;
+
+        @SerializedName("OrderTotal")
+        public BigDecimal orderTotal = BigDecimal.ZERO;
     }
 }
