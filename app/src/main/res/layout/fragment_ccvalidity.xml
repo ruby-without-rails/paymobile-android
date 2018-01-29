@@ -22,7 +22,7 @@
             <br.com.codecode.paymobile.checkoutflow.Utils.CreditCardEditText
                 style="@style/CardInput"
                 android:id="@+id/et_validity"
-                android:hint="Expiry Date"
+                android:hint="@string/expiry_date"
                 android:inputType="number"
                 android:maxLength="5"/>
 

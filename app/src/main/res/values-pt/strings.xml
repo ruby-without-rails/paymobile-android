@@ -125,7 +125,7 @@
     <string name="nav_item_store">Novidades</string>
     <string name="card_validity_label">Válido até</string>
     <string name="card_validity_sample">MM/AA</string>
-    <string name="card_name_sample">DONO CARTÂO</string>
+    <string name="card_name_sample">DONO CARTAO</string>
     <string name="card_holders_name">Nome do Dono do Cartão</string>
     <string name="card_number">Número do Cartão</string>
     <string name="card_validity">Validade</string>
@@ -135,4 +135,8 @@
     <string name="enter_valid_cc_validity">Digite uma validade correta.</string>
     <string name="enter_valid_cc_cvv">Digite o cvv corretamente.</string>
     <string name="your_card_is_added">Seu cartão foi adicionado.</string>
+    <string name="name_on_card">Nome no Cartão</string>
+    <string name="expiry_date">Data de validade</string>
+    <string name="payment_received">PAGAMENTO RECEBIDO</string>
+    <string name="thank_you">OBRIGADO</string>
 </resources>

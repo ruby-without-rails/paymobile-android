@@ -157,6 +157,11 @@
     <string name="enter_valid_cc_validity">Enter correct validity</string>
     <string name="enter_valid_cc_cvv">Enter valid security number</string>
     <string name="your_card_is_added">Your card is added</string>
+    <string name="name_on_card">Name on card</string>
+    <string name="cvv_cvc" translatable="false">CVV/CVC</string>
+    <string name="expiry_date">Expiry Date</string>
+    <string name="payment_received">PAYMENT RECEIVED</string>
+    <string name="thank_you">THANK YOU</string>
 </resources>
 
 

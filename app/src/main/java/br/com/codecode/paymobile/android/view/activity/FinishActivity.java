@@ -6,6 +6,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.io.Serializable;
 
@@ -16,13 +17,17 @@ public class FinishActivity extends AppCompatActivity {
     private LinearLayout l1, l2;
     private Button btnsub;
     private Animation uptodown, downtoup;
+    private TextView textViewTotal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         PaymentDTO paymentDTO = (PaymentDTO) getIntent().getSerializableExtra("payment_status");
+
         setContentView(R.layout.finish_activity);
+        textViewTotal = findViewById(R.id.tv_total);
+        textViewTotal.setText(paymentDTO.orderResult.orderReference);
         btnsub = findViewById(R.id.buttonsub);
         l1 = findViewById(R.id.l1);
         l2 = findViewById(R.id.l2);

@@ -24,6 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="35dp"
                 android:text="XXX"
+                android:textAlignment="textEnd"
                 android:minWidth="50dp"
                 android:layout_gravity="right"
                 android:textColor="@color/card_cvv_color"

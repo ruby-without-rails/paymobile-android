@@ -23,7 +23,7 @@
             <br.com.codecode.paymobile.checkoutflow.Utils.CreditCardEditText
                 style="@style/CardInput"
                 android:id="@+id/et_name"
-                android:hint="Name on card"
+                android:hint="@string/name_on_card"
                 android:inputType="text|textNoSuggestions"
                 android:maxLength="22"
                 android:privateImeOptions="nm"/>

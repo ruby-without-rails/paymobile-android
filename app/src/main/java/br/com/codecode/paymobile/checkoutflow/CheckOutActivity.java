@@ -167,8 +167,6 @@ public class CheckOutActivity extends FragmentActivity implements FragmentManage
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
-
-            Toast.makeText(context, R.string.your_card_is_added, Toast.LENGTH_SHORT).show();
         }
 
 
