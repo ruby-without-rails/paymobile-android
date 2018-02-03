@@ -87,7 +87,7 @@ public class TaskCreateUser extends AsyncTask<User, String, User> {
 
             publishProgress("Falha ao Obter Resposta");
 
-            Log.e("Erro", e.getMessage());
+            Log.e("Erro", e.toString());
         }
 
         publishProgress("Item recebido !");

@@ -91,7 +91,7 @@ public class TaskDownloadProducts extends AsyncTask<String, String, ArrayList<Pr
             @Override
             public void onErrorResponse(VolleyError error) {
                 publishProgress("Falha ao Obter Resposta");
-                Log.e("Erro", error.getMessage());
+                Log.e("Erro", error.toString());
 
                 publishProgress("Itens não recebidos !");
                 publishProgress("Ocorreu uma falha ao contactar o servidor !");

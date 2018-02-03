@@ -90,7 +90,7 @@ public class TaskDownloadVehicles extends AsyncTask<Void, String, ArrayList<Vehi
 
             publishProgress("Falha ao Obter Resposta");
 
-            Log.e("Erro", e.getMessage());
+            Log.e("Erro", e.toString());
         }
 
         publishProgress("Itens recebidos !");

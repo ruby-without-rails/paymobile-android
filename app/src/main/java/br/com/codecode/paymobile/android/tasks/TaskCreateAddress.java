@@ -83,7 +83,7 @@ public class TaskCreateAddress extends AsyncTask<Address, String, Address> {
 
             publishProgress("Falha ao Obter Resposta");
 
-            Log.e("Erro", e.getMessage());
+            Log.e("Erro", e.toString());
         }
 
         publishProgress("Item recebido !");

@@ -123,7 +123,7 @@ public class TaskRequestCustomerData extends AsyncTask<String, String, Customer>
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             Log.d("DEBUG", "Falha ao desvincular objeto no Firebase contate o Administrador do sistema.");
-                            Log.d("DEBUG", e.getMessage());
+                            Log.d("DEBUG", e.toString());
                             publishProgress("Falha ao desvincular objeto no Firebase contate o Administrador do sistema.");
                         }
                     });

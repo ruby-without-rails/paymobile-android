@@ -77,9 +77,9 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
 
         doCreateListeners();
 
-        // MyApplication.getInstance().setValueEventListener(this);
+         MyApplication.getInstance().setValueEventListener(this);
 
-        // MyApplication.getInstance().configureFirebase(this);
+         MyApplication.getInstance().configureFirebase(this);
 
         auth = MyApplication.getInstance().getFirebaseAuth();
 
@@ -220,8 +220,8 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
 
                                                         @Override
                                                         public void onFails(Exception e) {
-                                                            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
-                                                            Log.d("Error", e.getMessage());
+                                                            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+                                                            Log.d("Error", e.toString());
                                                         }
                                                     }).execute(token);
 
@@ -233,8 +233,8 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
 
                                             @Override
                                             public void onFails(Exception e) {
-                                                Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
-                                                Log.d("Error", e.getMessage());
+                                                Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+                                                Log.d("Error", e.toString());
                                             }
                                         }).execute(auth.getCurrentUser().getUid());
                                     }

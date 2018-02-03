@@ -75,7 +75,7 @@ public class TaskDeleteAddress extends AsyncTask<Address, String, Void> {
 
             publishProgress("Falha ao Obter Resposta");
 
-            Log.e("Erro", e.getMessage());
+            Log.e("Erro", e.toString());
         }
 
         return null;

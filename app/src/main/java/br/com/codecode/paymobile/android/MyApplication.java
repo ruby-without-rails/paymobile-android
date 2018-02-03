@@ -24,6 +24,7 @@ import br.com.codecode.paymobile.android.tasks.TaskLogin;
 import br.com.codecode.paymobile.android.tasks.TaskRequestCustomerData;
 import br.com.codecode.paymobile.android.view.activity.MainActivity;
 
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static br.com.codecode.paymobile.android.model.IntentKeys.CUSTOMER_BUNDLE_KEY;
 
 public class MyApplication extends MultiDexApplication {
@@ -71,15 +72,15 @@ public class MyApplication extends MultiDexApplication {
                             @Override
                             public void onSuccess(Customer customer) {
                                 if (customer != null) {
-                                    startActivity(new Intent(context, MainActivity.class)
+                                    startActivity(new Intent(context, MainActivity.class).setFlags(FLAG_ACTIVITY_NEW_TASK)
                                             .putExtra(CUSTOMER_BUNDLE_KEY, customer));
                                 }
                             }
 
                             @Override
                             public void onFails(Exception e) {
-                                Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
-                                Log.d("Error", e.getMessage());
+                                Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+                                Log.d("Error", e.toString());
                             }
                         }).execute(token);
 
@@ -91,8 +92,8 @@ public class MyApplication extends MultiDexApplication {
 
                 @Override
                 public void onFails(Exception e) {
-                    Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
-                    Log.d("Error", e.getMessage());
+                    Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
+                    Log.d("Error", e.toString());
                 }
             }).execute(firebaseAuth.getCurrentUser().getUid());
         }

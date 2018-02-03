@@ -95,7 +95,7 @@ public class TaskDownloadCheckouts extends AsyncTask<Customer, String, ArrayList
 
             publishProgress("Falha ao Obter Resposta");
 
-            Log.e("Erro", e.getMessage());
+            Log.e("Erro", e.toString());
         }
 
         publishProgress("Itens recebidos !");

@@ -126,8 +126,8 @@ public class AddressFragment extends BaseFragment {
 
             @Override
             public void onFails(Exception e) {
-                Toast.makeText(context, e.getMessage(),Toast.LENGTH_LONG).show();
-                Log.d("Error", e.getMessage());
+                Toast.makeText(context, e.toString(),Toast.LENGTH_LONG).show();
+                Log.d("Error", e.toString());
             }
         });
 

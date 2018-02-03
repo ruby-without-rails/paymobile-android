@@ -128,7 +128,7 @@ public class TaskSaveCustomer extends AsyncTask<JSONObject, String, Customer> {
         } catch (Exception e) {
             e.printStackTrace();
             publishProgress("Falha ao Obter Resposta");
-            Log.e("Erro", e.getMessage());
+            Log.e("Erro", e.toString());
         }
         return customer;
     }

@@ -199,8 +199,8 @@ public class SignupActivity extends AppCompatActivity implements MyPattern,
 
                                             @Override
                                             public void onFails(Exception e) {
-                                                Toast.makeText(context, e.getMessage(),Toast.LENGTH_LONG).show();
-                                                Log.d("Error", e.getMessage());
+                                                Toast.makeText(context, e.toString(),Toast.LENGTH_LONG).show();
+                                                Log.d("Error", e.toString());
                                             }
                                         });
 
@@ -223,10 +223,10 @@ public class SignupActivity extends AppCompatActivity implements MyPattern,
                             }).addOnFailureListener(SignupActivity.this, new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(context, getString(R.string.auth_error) + e.getMessage(),
+                            Toast.makeText(context, getString(R.string.auth_error) + e.toString(),
                                     Toast.LENGTH_LONG).show();
 
-                            Log.d("DEBUG-LOGIN", getString(R.string.auth_error) + e.getMessage().toString());
+                            Log.d("DEBUG-LOGIN", getString(R.string.auth_error) + e.toString().toString());
 
                         }
                     });

@@ -91,7 +91,7 @@ public class TaskDownloadAddress extends AsyncTask<Customer, String, ArrayList<A
 
             publishProgress("Falha ao Obter Resposta");
 
-            Log.e("Erro", e.getMessage());
+            Log.e("Erro", e.toString());
         }
 
         publishProgress("Itens recebidos !");
