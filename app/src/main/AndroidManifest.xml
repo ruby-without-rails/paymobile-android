@@ -77,9 +77,13 @@
         <activity
             android:name="br.com.codecode.paymobile.checkoutflow.CheckOutActivity"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
 
-        <activity android:name="br.com.codecode.paymobile.android.view.activity.FinishActivity" />
+        <activity android:name="br.com.codecode.paymobile.android.view.activity.FinishActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            />
 
         <meta-data
             android:name="com.google.android.gms.version"
