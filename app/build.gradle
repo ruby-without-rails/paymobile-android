@@ -10,8 +10,8 @@ android {
         applicationId "br.com.frmichetti.paymobile.android"
         minSdkVersion 14
         targetSdkVersion targetVersion
-        versionCode 2
-        versionName "0.0.2"
+        versionCode 3
+        versionName "0.0.3"
         // Enabling multidex support.
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
