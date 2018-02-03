@@ -77,9 +77,9 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
 
         doCreateListeners();
 
-        MyApplication.getInstance().setValueEventListener(this);
+        // MyApplication.getInstance().setValueEventListener(this);
 
-        MyApplication.getInstance().configureFirebase(this);
+        // MyApplication.getInstance().configureFirebase(this);
 
         auth = MyApplication.getInstance().getFirebaseAuth();
 
