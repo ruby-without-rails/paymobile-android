@@ -1,5 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -37,6 +38,7 @@
                 android:paddingLeft="@dimen/card_title_padding"
                 android:paddingRight="@dimen/card_title_padding"
                 android:paddingTop="@dimen/card_title_padding"
+                android:text="Product Name"
                 android:textColor="#111"
                 android:textSize="11sp" />
 
@@ -49,7 +51,8 @@
                 android:gravity="end"
                 android:paddingBottom="@dimen/card_price_padding_bottom"
                 android:textColor="@color/color_accent"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                tools:text="R$ 50,00" />
 
         </RelativeLayout>
 

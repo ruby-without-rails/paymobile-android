@@ -11,6 +11,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -374,6 +375,14 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
 
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        //  Enables color Reveal effect
+        // navigation.setColored(true);
+        // Colors for selected (active) and non-selected items (in color reveal mode).
+        // navigation.setColoredModeColors(Color.WHITE, fetchColor(R.color.bottomtab_item_resting));
+
+        // navigation.setTranslucentNavigationEnabled(true);
+
         // attaching bottom sheet behaviour - hide / show on scroll
         CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) navigation.getLayoutParams();
         layoutParams.setBehavior(new BottomNavigationBehavior());

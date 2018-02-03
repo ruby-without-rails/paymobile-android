@@ -30,6 +30,7 @@
             android:paddingLeft="@dimen/card_title_padding"
             android:paddingRight="@dimen/card_title_padding"
             android:paddingTop="@dimen/card_title_padding"
+            android:text="Product Name"
             android:textColor="#111"
             android:textSize="12sp" />
 
@@ -41,6 +42,8 @@
             android:layout_marginRight="10dp"
             android:gravity="end"
             android:paddingBottom="@dimen/card_price_padding_bottom"
+            android:text="R$ 50,00"
+            android:textAlignment="viewEnd"
             android:textColor="@color/color_accent"
             android:textSize="12sp" />
 
