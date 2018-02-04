@@ -284,9 +284,11 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
                     break;
                     case BottomSheetBehavior.STATE_COLLAPSED: {
                         //   btnBottomSheet.setText("Expand Sheet");
+                        fabEmptyCart.show();
                     }
                     break;
                     case BottomSheetBehavior.STATE_DRAGGING:
+                        fabEmptyCart.hide();
                         break;
                     case BottomSheetBehavior.STATE_SETTLING:
                         break;
