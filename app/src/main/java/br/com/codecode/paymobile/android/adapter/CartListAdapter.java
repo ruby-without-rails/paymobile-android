@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.codecode.paymobile.android.R;
@@ -45,10 +46,11 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.MyView
     }
 
 
-    public CartListAdapter(Context context, List<ShoppingItem> cartList, ShoppingCart cart) {
+    public CartListAdapter(Context context, ShoppingCart cart) {
         this.context = context;
-        this.cartList = cartList;
         this.cart = cart;
+        this.cartList = new ArrayList<>();
+        this.cartList.addAll(cart.getList());
     }
 
     @Override

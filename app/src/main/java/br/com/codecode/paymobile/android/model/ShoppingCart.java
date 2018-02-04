@@ -22,9 +22,14 @@ import java.util.Map;
 
 public class ShoppingCart implements Serializable {
 
-    private Map<ShoppingItem, Integer> mapItems = new LinkedHashMap<>();
+    private Map<ShoppingItem, Integer> mapItems;
 
     public ShoppingCart() {
+        this.mapItems = new LinkedHashMap<>();
+    }
+
+    public void clearCart(){
+        this.mapItems = new LinkedHashMap<>();
     }
 
     public Integer getQuantityOfItens(ShoppingItem shoppingItem) {

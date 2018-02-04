@@ -139,7 +139,7 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
 
         cartList.addAll(shoppingCart.getList());
 
-        mAdapter = new CartListAdapter(context, cartList, shoppingCart);
+        mAdapter = new CartListAdapter(context, shoppingCart);
 
         ArrayAdapter<ShoppingItem> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, cartList);
 
@@ -220,39 +220,39 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
 //            }
 //        });
 
-        fabRemoveItem.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                if (!shoppingCart.isEmpty()) {
-
-                    shoppingCart.remove(shoppingItem);
-
-                    Toast.makeText(context, getString(R.string.remove) + shoppingItem.toString(), Toast.LENGTH_SHORT).show();
-
-                    doFillData();
-
-                    textViewSelectedItem.setText("");
-
-                    selectedProduct = new Product();
-
-                } else {
-
-                    Toast.makeText(context, getString(R.string.cart_is_empty), Toast.LENGTH_SHORT).show();
-
-                }
-
-
-            }
-        });
+//        fabRemoveItem.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//
+//                if (!shoppingCart.isEmpty()) {
+//
+//                    shoppingCart.remove(shoppingItem);
+//
+//                    Toast.makeText(context, getString(R.string.remove) + shoppingItem.toString(), Toast.LENGTH_SHORT).show();
+//
+//                    doFillData();
+//
+//                    textViewSelectedItem.setText("");
+//
+//                    selectedProduct = new Product();
+//
+//                } else {
+//
+//                    Toast.makeText(context, getString(R.string.cart_is_empty), Toast.LENGTH_SHORT).show();
+//
+//                }
+//
+//
+//            }
+//        });
 
         fabEmptyCart.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
-                shoppingCart = new ShoppingCart();
+                shoppingCart.clearCart();
 
                 cartList = new ArrayList<>();
 
@@ -365,7 +365,7 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
         if (viewHolder instanceof CartListAdapter.MyViewHolder) {
             // get the removed item name to display it in snack bar
-            String name = cartList.get(viewHolder.getAdapterPosition()).getProduct().getName();
+            String name = cartList.get(viewHolder.getAdapterPosition()).getProduct().getName() + " ";
 
             // backup of removed item for undo purpose
             final ShoppingItem deletedItem = cartList.get(viewHolder.getAdapterPosition());
@@ -384,6 +384,7 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
                     // undo is selected, restore the deleted item
                     mAdapter.restoreItem(deletedItem, deletedIndex);
                     shoppingCart.add(deletedItem);
+                    textViewBottomTotal.setText(String.valueOf(shoppingCart.getTotal()));
 
                 }
             });
