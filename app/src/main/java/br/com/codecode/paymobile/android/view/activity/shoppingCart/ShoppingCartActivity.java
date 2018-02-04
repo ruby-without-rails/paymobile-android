@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -27,7 +28,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,10 +39,8 @@ import java.util.concurrent.ExecutionException;
 import br.com.codecode.paymobile.android.R;
 import br.com.codecode.paymobile.android.adapter.CartListAdapter;
 import br.com.codecode.paymobile.android.helper.RecyclerItemTouchHelper;
-import br.com.codecode.paymobile.android.model.ShoppingCart;
 import br.com.codecode.paymobile.android.model.ShoppingItem;
 import br.com.codecode.paymobile.android.model.compatibility.Checkout;
-import br.com.codecode.paymobile.android.model.compatibility.Product;
 import br.com.codecode.paymobile.android.rest.dto.OrderDTO;
 import br.com.codecode.paymobile.android.tasks.TaskCreateOrder;
 import br.com.codecode.paymobile.android.view.activity.BaseActivity;
@@ -54,11 +52,11 @@ import static br.com.codecode.paymobile.android.model.IntentKeys.ORDER_BUNDLE_KE
 
 public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener {
 
-    private FloatingActionButton fabRemoveItem, fabEmptyCart;
+    private FloatingActionButton fabEmptyCart;
 
     private TextView textViewSelectedItem, textViewQuantity, textViewPrice, textViewSubTotal, textViewTotal, textViewBottomTotal;
 
-    private LinearLayout layoutBottomSheet;
+    private BottomNavigationView bottomSheet;
     private BottomSheetBehavior sheetBehavior;
 
     private ShoppingItem shoppingItem;
@@ -175,8 +173,6 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
 
         super.doCastComponents();
 
-        fabRemoveItem = findViewById(R.id.fab_remove_item_from_cart);
-
         fabEmptyCart = findViewById(R.id.fab_empty_cart);
 
         textViewSelectedItem = findViewById(R.id.tv_product_var);
@@ -189,7 +185,9 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
 
         textViewTotal = findViewById(R.id.tv_total_var);
 
-        layoutBottomSheet = findViewById(R.id.bottom_sheet);
+        bottomSheet = findViewById(R.id.bottom_sheet);
+
+        sheetBehavior = BottomSheetBehavior.from(bottomSheet);
 
         buttonPayment = findViewById(R.id.btn_pay);
 
@@ -203,49 +201,6 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
 
 
     public void doCreateListeners() {
-
-//        listViewShoppingCart.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//
-//                Object itemValue = listViewShoppingCart.getItemAtPosition(position);
-//
-//                shoppingItem = (ShoppingItem) itemValue;
-//
-//                Toast.makeText(context, getString(R.string.service_selected) + shoppingItem.toString(), Toast.LENGTH_SHORT).show();
-//
-//                doRefresh();
-//
-//            }
-//        });
-
-//        fabRemoveItem.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//
-//                if (!shoppingCart.isEmpty()) {
-//
-//                    shoppingCart.remove(shoppingItem);
-//
-//                    Toast.makeText(context, getString(R.string.remove) + shoppingItem.toString(), Toast.LENGTH_SHORT).show();
-//
-//                    doFillData();
-//
-//                    textViewSelectedItem.setText("");
-//
-//                    selectedProduct = new Product();
-//
-//                } else {
-//
-//                    Toast.makeText(context, getString(R.string.cart_is_empty), Toast.LENGTH_SHORT).show();
-//
-//                }
-//
-//
-//            }
-//        });
 
         fabEmptyCart.setOnClickListener(new View.OnClickListener() {
 
@@ -266,7 +221,6 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
             }
         });
 
-        sheetBehavior = BottomSheetBehavior.from(layoutBottomSheet);
 
         /**
          * bottom sheet state change listener
@@ -278,12 +232,9 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
                 switch (newState) {
                     case BottomSheetBehavior.STATE_HIDDEN:
                         break;
-                    case BottomSheetBehavior.STATE_EXPANDED: {
-                        //  btnBottomSheet.setText("Close Sheet");
-                    }
+                    case BottomSheetBehavior.STATE_EXPANDED: {}
                     break;
                     case BottomSheetBehavior.STATE_COLLAPSED: {
-                        //   btnBottomSheet.setText("Expand Sheet");
                         fabEmptyCart.show();
                     }
                     break;
@@ -340,7 +291,6 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
             doChangeActivity(context, MainActivity.class);
 
             finish();
-
 
         }
 
