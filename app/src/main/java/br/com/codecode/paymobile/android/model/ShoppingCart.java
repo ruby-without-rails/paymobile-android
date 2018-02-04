@@ -16,6 +16,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -90,11 +91,6 @@ public class ShoppingCart implements Serializable {
     public boolean isEmpty() {
         return mapItems.isEmpty();
     }
-
-    public void emptyCart() {
-        mapItems.clear();
-    }
-
 
     @Override
     public int hashCode() {

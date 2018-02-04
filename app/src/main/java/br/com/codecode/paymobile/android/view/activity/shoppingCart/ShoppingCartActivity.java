@@ -49,6 +49,8 @@ import br.com.codecode.paymobile.android.view.activity.BaseActivity;
 import br.com.codecode.paymobile.android.view.activity.MainActivity;
 import br.com.codecode.paymobile.checkoutflow.CheckOutActivity;
 
+import static br.com.codecode.paymobile.android.model.IntentKeys.ORDER_BUNDLE_KEY;
+
 
 public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener {
 
@@ -252,11 +254,15 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
 
                 shoppingCart = new ShoppingCart();
 
-                Toast.makeText(context, R.string.your_cart_is_empty, Toast.LENGTH_SHORT).show();
+                cartList = new ArrayList<>();
+
+                selectedProduct = null;
 
                 // doChangeActivity(context, ResumeCheckoutActivity.class);
 
                 finish();
+
+                Toast.makeText(context, R.string.your_cart_is_empty, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -301,7 +307,7 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
                 try {
                     orderDTO = new TaskCreateOrder(context).execute(shoppingCart).get();
                     if (orderDTO != null) {
-                        startActivity(new Intent(context, CheckOutActivity.class).putExtra("order", orderDTO.order));
+                        startActivity(new Intent(context, CheckOutActivity.class).putExtra(ORDER_BUNDLE_KEY, orderDTO.order));
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();

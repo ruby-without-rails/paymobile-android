@@ -31,6 +31,9 @@ import br.com.codecode.paymobile.checkoutflow.Utils.ViewPagerAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static br.com.codecode.paymobile.android.model.IntentKeys.ORDER_BUNDLE_KEY;
+import static br.com.codecode.paymobile.android.model.IntentKeys.PAYMENT_STATUS_BUNDLE_KEY;
+
 public class CheckOutActivity extends FragmentActivity implements FragmentManager.OnBackStackChangedListener {
 
     @BindView(R.id.btnNext)
@@ -65,7 +68,7 @@ public class CheckOutActivity extends FragmentActivity implements FragmentManage
         setContentView(R.layout.activity_check_out);
 
         context = this;
-        order = (Order) getIntent().getSerializableExtra("order");
+        order = (Order) getIntent().getSerializableExtra(ORDER_BUNDLE_KEY);
 
         ButterKnife.bind(this);
 
@@ -159,7 +162,7 @@ public class CheckOutActivity extends FragmentActivity implements FragmentManage
 
                 PaymentDTO paymentDTO = new TaskPayWithCreditCard(context, order).execute(paymentData).get();
                 if (paymentDTO.success) {
-                    startActivity(new Intent(context, FinishActivity.class).putExtra("payment_status", paymentDTO));
+                    startActivity(new Intent(context, FinishActivity.class).putExtra(PAYMENT_STATUS_BUNDLE_KEY, paymentDTO));
                     finish();
                 }
             } catch (InterruptedException e) {

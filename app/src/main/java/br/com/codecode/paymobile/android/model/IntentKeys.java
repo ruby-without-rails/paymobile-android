@@ -14,4 +14,7 @@ public final class IntentKeys {
     public static final String ADDRESS_BUNDLE_KEY = "address";
     public static final String SELECTED_CHECKOUT_KEY = "selectedCheckout";
     public static final String FRAGMENT_ID = "fragmentId";
+    public static final String ORDER_BUNDLE_KEY = "order";
+    public static final String PAYMENT_STATUS_BUNDLE_KEY =  "payment_status";
+
 }

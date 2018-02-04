@@ -11,7 +11,10 @@ import android.widget.TextView;
 import java.io.Serializable;
 
 import br.com.codecode.paymobile.android.R;
+import br.com.codecode.paymobile.android.model.IntentKeys;
 import br.com.codecode.paymobile.android.rest.dto.PaymentDTO;
+
+import static br.com.codecode.paymobile.android.model.IntentKeys.PAYMENT_STATUS_BUNDLE_KEY;
 
 public class FinishActivity extends AppCompatActivity {
     private LinearLayout l1, l2;
@@ -23,7 +26,7 @@ public class FinishActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        PaymentDTO paymentDTO = (PaymentDTO) getIntent().getSerializableExtra("payment_status");
+        PaymentDTO paymentDTO = (PaymentDTO) getIntent().getSerializableExtra(PAYMENT_STATUS_BUNDLE_KEY);
 
         setContentView(R.layout.finish_activity);
         textViewTotal = findViewById(R.id.tv_total);
