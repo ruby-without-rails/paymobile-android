@@ -137,7 +137,7 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
 
         cartList.addAll(shoppingCart.getList());
 
-        mAdapter = new CartListAdapter(context, cartList);
+        mAdapter = new CartListAdapter(context, cartList, shoppingCart);
 
         ArrayAdapter<ShoppingItem> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, cartList);
 

@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import br.com.codecode.paymobile.android.R;
+import br.com.codecode.paymobile.android.model.ShoppingCart;
 import br.com.codecode.paymobile.android.model.ShoppingItem;
 
 /**
@@ -21,11 +22,12 @@ import br.com.codecode.paymobile.android.model.ShoppingItem;
  */
 
 public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.MyViewHolder> {
+    private final ShoppingCart cart;
     private Context context;
     private List<ShoppingItem> cartList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView name, description, price;
+        public TextView name, description, price, quantity, subtotal;
         public ImageView thumbnail;
         public RelativeLayout viewBackground, viewForeground;
 
@@ -34,6 +36,8 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.MyView
             name = view.findViewById(R.id.name);
             description = view.findViewById(R.id.description);
             price = view.findViewById(R.id.price);
+            quantity = view.findViewById(R.id.quantity);
+            subtotal = view.findViewById(R.id.subtotal);
             thumbnail = view.findViewById(R.id.thumbnail);
             viewBackground = view.findViewById(R.id.view_background);
             viewForeground = view.findViewById(R.id.view_foreground);
@@ -41,9 +45,10 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.MyView
     }
 
 
-    public CartListAdapter(Context context, List<ShoppingItem> cartList) {
+    public CartListAdapter(Context context, List<ShoppingItem> cartList, ShoppingCart cart) {
         this.context = context;
         this.cartList = cartList;
+        this.cart = cart;
     }
 
     @Override
@@ -58,6 +63,8 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.MyView
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         final ShoppingItem item = cartList.get(position);
         holder.name.setText(item.getProduct().getName());
+        holder.quantity.setText(cart.getQuantityOfItens(item) + "x");
+        holder.subtotal.setText("R$ " + String.valueOf(cart.getTotal(item)));
         String description = "";
         if(item.getProduct().getDescription().length() > 120){
             description = item.getProduct().getDescription().substring(0, 120);
