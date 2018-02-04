@@ -373,6 +373,7 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
 
         textView = findViewById(R.id.textViewTitle);
 
+
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
