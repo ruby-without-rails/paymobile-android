@@ -28,7 +28,7 @@ public class ShoppingCart implements Serializable {
         this.mapItems = new LinkedHashMap<>();
     }
 
-    public void clearCart(){
+    public void clearCart() {
         this.mapItems = new LinkedHashMap<>();
     }
 
@@ -41,22 +41,21 @@ public class ShoppingCart implements Serializable {
     }
 
     public Integer getQuantity() {
-
         int accumulator = 0;
 
         for (int shoppingItem : mapItems.values()) {
             accumulator += shoppingItem;
         }
 
-        /* TODO FIXME to java > 7
-        return mapItems.values().stream()
-				.reduce(0, (next,accumulator)-> next + accumulator);*/
-
         return accumulator;
     }
 
-    public Collection<ShoppingItem> getList() {
+    public ArrayList<ShoppingItem> getList() {
         return new ArrayList<>(mapItems.keySet());
+    }
+
+    public boolean hasItem(ShoppingItem shoppingItem) {
+        return mapItems.containsKey(shoppingItem);
     }
 
     public BigDecimal getTotal(ShoppingItem shoppingItem) {

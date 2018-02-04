@@ -68,12 +68,14 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.MyView
         holder.quantity.setText(cart.getQuantityOfItens(item) + "x");
         holder.subtotal.setText("R$ " + String.valueOf(cart.getTotal(item)));
         String description = "";
-        if(item.getProduct().getDescription().length() > 120){
+
+        if (item.getProduct().getDescription().length() > 120) {
             description = item.getProduct().getDescription().substring(0, 120);
-            description+= " ...";
-        }else{
+            description += " ...";
+        } else {
             description = item.getProduct().getDescription();
         }
+
         holder.description.setText(description);
         holder.price.setText("R$ " + item.getPrice());
 

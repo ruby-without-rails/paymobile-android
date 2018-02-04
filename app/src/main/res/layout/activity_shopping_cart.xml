@@ -50,13 +50,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/tv_total_var"
-        android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/tv_total_var"
         android:layout_gravity="right|bottom|end"
         android:layout_marginBottom="66dp"
         android:layout_marginRight="16dp"
-        android:elevation="4dp"
         android:src="@drawable/ic_remove_shopping_cart_white_48dp"
+        app:elevation="6dp"
         app:fabSize="normal" />
 
     <!-- Adding bottom sheet after main content -->
