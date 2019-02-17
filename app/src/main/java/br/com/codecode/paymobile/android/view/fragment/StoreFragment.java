@@ -1,15 +1,20 @@
 package br.com.codecode.paymobile.android.view.fragment;
 
 
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -40,6 +45,8 @@ public class StoreFragment extends BaseFragment implements ItemAdapterListener {
     private StoreAdapter adapter;
     private Context context;
     private int lastItemSelected;
+    private SearchView searchView = null;
+    private SearchView.OnQueryTextListener queryTextListener;
 
     public StoreFragment() {
         // Required empty public constructor
@@ -56,6 +63,7 @@ public class StoreFragment extends BaseFragment implements ItemAdapterListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getActivity();
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -69,8 +77,7 @@ public class StoreFragment extends BaseFragment implements ItemAdapterListener {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         if (savedInstanceState != null) {
             products = (ArrayList<Product>) savedInstanceState.getSerializable(PRODUCTS_BUNDLE_KEY);
@@ -112,6 +119,48 @@ public class StoreFragment extends BaseFragment implements ItemAdapterListener {
         return view;
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+
+        MenuItem searchItem = menu.findItem(R.id.action_filter_search);
+        if (searchItem != null) {
+            searchView = (SearchView) searchItem.getActionView();
+        }
+        if (searchView != null) {
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+            queryTextListener = new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    adapter.getFilter().filter(newText);
+                    return false;
+                }
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    adapter.getFilter().filter(query);
+                    return false;
+                }
+            };
+            searchView.setOnQueryTextListener(queryTextListener);
+        }
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_filter_search:
+                // Not implemented here
+                return false;
+            default:
+                break;
+        }
+        searchView.setOnQueryTextListener(queryTextListener);
+        return super.onOptionsItemSelected(item);
+    }
+
     /**
      * fetching shopping item by making http call
      */
@@ -150,12 +199,10 @@ public class StoreFragment extends BaseFragment implements ItemAdapterListener {
 
     @Override
     public void onItemSelected(Product product) {
-        Toast.makeText(context, "Click on Product " + product.getName(), Toast.LENGTH_LONG).show();
 
         selectedProduct = product;
 
-     //   doChangeActivity(context, ProductDetailActivity.class);
-
+        doChangeActivity(context, ProductDetailActivity.class);
     }
 
     protected void makeToast(String message) {

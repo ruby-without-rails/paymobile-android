@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.codecode.paymobile.android.R;
@@ -81,6 +83,41 @@ public abstract class SimpleCardItemAdapter extends RecyclerView.Adapter<SimpleC
     @Override
     public int getItemCount() {
         return completeListFiltered.size();
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String charString = charSequence.toString();
+                if (charString.isEmpty()) {
+                    completeListFiltered = completeList;
+                } else {
+                    List<Product> filteredList = new ArrayList<>();
+                    for (Product row : completeList) {
+
+                        // name match condition. this might differ depending on your requirement
+                        // here we are looking for name or phone number match
+                        if (row.getName().toLowerCase().contains(charString.toLowerCase()) || row.getName().contains(charSequence)) {
+                            filteredList.add(row);
+                        }
+                    }
+
+                    completeListFiltered = filteredList;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = completeListFiltered;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                completeListFiltered = (ArrayList<Product>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
     /**

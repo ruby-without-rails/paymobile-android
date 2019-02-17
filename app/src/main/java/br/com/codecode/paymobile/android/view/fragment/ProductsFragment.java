@@ -26,7 +26,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,11 +36,11 @@ import br.com.codecode.paymobile.android.R;
 import br.com.codecode.paymobile.android.adapter.SimpleCardItemAdapter;
 import br.com.codecode.paymobile.android.listener.CardItemClickListener;
 import br.com.codecode.paymobile.android.listener.ItemAdapterListener;
-import br.com.codecode.paymobile.android.listener.SimpleItemSelectionListener;
 import br.com.codecode.paymobile.android.listener.RecyclerTouchListener;
+import br.com.codecode.paymobile.android.listener.SimpleItemSelectionListener;
+import br.com.codecode.paymobile.android.model.compatibility.Product;
 import br.com.codecode.paymobile.android.tasks.AsyncResponse;
 import br.com.codecode.paymobile.android.tasks.TaskDownloadProducts;
-import br.com.codecode.paymobile.android.model.compatibility.Product;
 import br.com.codecode.paymobile.android.view.activity.ProductDetailActivity;
 
 import static br.com.codecode.paymobile.android.MyApplication.getSessionToken;
@@ -53,8 +52,16 @@ public class ProductsFragment extends BaseFragment implements SimpleItemSelectio
     private RecyclerView recyclerView;
     private SimpleCardItemAdapter simpleCardItemAdapter;
     private int lastItemSelected;
+    private SearchView searchView = null;
+    private SearchView.OnQueryTextListener queryTextListener;
 
     public ProductsFragment() {
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -85,6 +92,48 @@ public class ProductsFragment extends BaseFragment implements SimpleItemSelectio
     @Override
     protected void doCreateListeners() {
 
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+
+        MenuItem searchItem = menu.findItem(R.id.action_filter_search);
+        if (searchItem != null) {
+            searchView = (SearchView) searchItem.getActionView();
+        }
+        if (searchView != null) {
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+            queryTextListener = new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    simpleCardItemAdapter.getFilter().filter(newText);
+                    return false;
+                }
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    simpleCardItemAdapter.getFilter().filter(query);
+                    return false;
+                }
+            };
+            searchView.setOnQueryTextListener(queryTextListener);
+        }
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_filter_search:
+                // Not implemented here
+                return false;
+            default:
+                break;
+        }
+        searchView.setOnQueryTextListener(queryTextListener);
+        return super.onOptionsItemSelected(item);
     }
 
     private void doLoadProducts(String sessionToken) {
@@ -128,26 +177,7 @@ public class ProductsFragment extends BaseFragment implements SimpleItemSelectio
     }
 
     protected void createAdapter(List<Product> productList) {
-        simpleCardItemAdapter = new SimpleCardItemAdapter(productList, getActivity(), this, this) {
-            public Filter getFilter() {
-                return new Filter() {
-                    @Override
-                    protected FilterResults performFiltering(CharSequence constraint) {
-                        makeToast("filter for " + constraint.toString());
-                        FilterResults filterResults = new FilterResults();
-                        filterResults.values = new ArrayList<>();
-                        return filterResults;
-                    }
-
-                    @Override
-                    protected void publishResults(CharSequence constraint, FilterResults results) {
-                        //  fileListFiltered = (ArrayList<JsonFile>) results.values;
-                        notifyDataSetChanged();
-                    }
-                };
-            }
-        };
-
+        simpleCardItemAdapter = new SimpleCardItemAdapter(productList, getActivity(), this, this) {};
     }
 
     protected void configureRecyclerView(final Context context, final SimpleCardItemAdapter simpleCardItemAdapter) {
