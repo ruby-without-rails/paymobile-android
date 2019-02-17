@@ -68,7 +68,7 @@
             android:name="br.com.codecode.paymobile.android.view.activity.shoppingCart.ResumeCheckoutActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name="br.com.codecode.paymobile.android.view.activity.CheckoutDetailActivity"
+            android:name="br.com.codecode.paymobile.android.view.activity.OrderDetailActivity"
             android:launchMode="singleTop" />
         <activity
             android:name="br.com.codecode.paymobile.android.view.activity.NewAddressActivity"

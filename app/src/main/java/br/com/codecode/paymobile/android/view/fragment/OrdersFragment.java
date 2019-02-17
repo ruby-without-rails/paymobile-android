@@ -25,15 +25,15 @@ import br.com.codecode.paymobile.android.R;
 import br.com.codecode.paymobile.android.model.compatibility.Order;
 import br.com.codecode.paymobile.android.tasks.AsyncResponse;
 import br.com.codecode.paymobile.android.tasks.TaskDownloadOrders;
-import br.com.codecode.paymobile.android.view.activity.CheckoutDetailActivity;
+import br.com.codecode.paymobile.android.view.activity.OrderDetailActivity;
 
-import static br.com.codecode.paymobile.android.model.IntentKeys.SELECTED_CHECKOUT_KEY;
+import static br.com.codecode.paymobile.android.model.IntentKeys.SELECTED_ORDER_KEY;
 
 public class OrdersFragment extends BaseFragment {
 
     private Order selectedOrder;
 
-    private ArrayList<Order> orders;
+    private List<Order> orders;
 
     private ListView listView;
 
@@ -72,7 +72,7 @@ public class OrdersFragment extends BaseFragment {
                         @Override
                         public void onSuccess(List<Order> output) {
 
-                            orders = (ArrayList<Order>) output;
+                            orders = output;
 
                             doFillData(orders);
                         }
@@ -110,8 +110,8 @@ public class OrdersFragment extends BaseFragment {
 
                 selectedOrder = (Order) itemValue;
 
-                startActivity(new Intent(context, CheckoutDetailActivity.class)
-                        .putExtra(SELECTED_CHECKOUT_KEY, selectedOrder));
+                startActivity(new Intent(context, OrderDetailActivity.class)
+                        .putExtra(SELECTED_ORDER_KEY, selectedOrder));
 
 
             }

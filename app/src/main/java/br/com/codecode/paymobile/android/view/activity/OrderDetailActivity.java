@@ -9,15 +9,15 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import br.com.codecode.paymobile.android.R;
-import br.com.codecode.paymobile.android.model.compatibility.Checkout;
+import br.com.codecode.paymobile.android.model.compatibility.Order;
 
-import static br.com.codecode.paymobile.android.model.IntentKeys.SELECTED_CHECKOUT_KEY;
+import static br.com.codecode.paymobile.android.model.IntentKeys.SELECTED_ORDER_KEY;
 
-public class CheckoutDetailActivity extends BaseActivity {
+public class OrderDetailActivity extends BaseActivity {
 
     private TextView textViewUUID, textViewDate, textViewStatus;
 
-    private Checkout checkout;
+    private Order order;
 
     @Override
     public void doCastComponents() {
@@ -48,15 +48,15 @@ public class CheckoutDetailActivity extends BaseActivity {
 
     private void doFillDate(Intent intent) {
 
-        checkout = (Checkout) intent.getSerializableExtra(SELECTED_CHECKOUT_KEY);
+        order = (Order) intent.getSerializableExtra(SELECTED_ORDER_KEY);
 
-        if (checkout != null) {
+        if (order != null) {
 
-            textViewUUID.setText(checkout.getUuid());
+            textViewUUID.setText(String.valueOf(order.id));
 
-            textViewDate.setText(String.valueOf(checkout.getPurchaseDate()));
+            textViewDate.setText(String.valueOf(order.createdAt));
 
-            textViewStatus.setText(checkout.getStatus().name());
+            textViewStatus.setText(String.valueOf(order.total));
 
         }
     }
@@ -66,7 +66,7 @@ public class CheckoutDetailActivity extends BaseActivity {
 
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_checkout_detail);
+        setContentView(R.layout.activity_order_detail);
 
         doCastComponents();
 
@@ -87,7 +87,7 @@ public class CheckoutDetailActivity extends BaseActivity {
     @Override
     public void onNetworkConnectionChanged(boolean isConnected) {
 
-        showSnack((CoordinatorLayout) findViewById(R.id.coordLayoutCheckDetail), isConnected);
+        showSnack((CoordinatorLayout) findViewById(R.id.coordLayoutOrderDetail), isConnected);
     }
 
     @Override

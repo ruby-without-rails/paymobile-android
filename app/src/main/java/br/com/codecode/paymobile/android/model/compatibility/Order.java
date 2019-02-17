@@ -60,6 +60,15 @@ public class Order implements Serializable {
         public int quantity;
 
     }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", discount=" + discount +
+                ", total=" + total +
+                '}';
+    }
 }
 
 
