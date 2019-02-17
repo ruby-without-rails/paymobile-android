@@ -9,6 +9,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -133,13 +134,17 @@ public class StoreFragment extends BaseFragment implements ItemAdapterListener {
             queryTextListener = new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextChange(String newText) {
-                    adapter.getFilter().filter(newText);
-                    return false;
+                    if (TextUtils.isEmpty(newText)) {
+                        adapter.getFilter().filter("");
+                    } else {
+                        adapter.getFilter().filter(newText);
+                    }
+                    return true;
                 }
                 @Override
                 public boolean onQueryTextSubmit(String query) {
                     adapter.getFilter().filter(query);
-                    return false;
+                    return true;
                 }
             };
             searchView.setOnQueryTextListener(queryTextListener);

@@ -30,8 +30,7 @@ import br.com.codecode.paymobile.android.model.compatibility.Product;
  */
 public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreItemViewHolder> implements Filterable {
     private Activity activity;
-    private List<Product> completeList;
-    private List<Product> completeListFiltered;
+    private List<Product> completeList, completeListFiltered;
     private ItemAdapterListener itemAdapterListener;
 
     public StoreAdapter(List<Product> completeList, Activity activity, ItemAdapterListener itemAdapterListener) {
@@ -59,14 +58,13 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreItemVie
 
     @Override
     public void onBindViewHolder(StoreItemViewHolder holder, final int position) {
-        final Product product = completeList.get(position);
+        final Product product = completeListFiltered.get(position);
         holder.name.setText(product.getName());
         holder.price.setText(String.valueOf(product.getPrice()));
 
         Glide.with(activity.getApplicationContext())
                 .load(product.getImage())
                 .into(holder.thumbnail);
-
     }
 
     @Override
@@ -98,12 +96,13 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreItemVie
 
                 FilterResults filterResults = new FilterResults();
                 filterResults.values = completeListFiltered;
+                filterResults.count = completeListFiltered.size();
                 return filterResults;
             }
 
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                completeListFiltered = (ArrayList<Product>) filterResults.values;
+                completeListFiltered = (List<Product>) filterResults.values;
                 notifyDataSetChanged();
             }
         };

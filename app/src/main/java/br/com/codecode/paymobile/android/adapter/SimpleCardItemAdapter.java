@@ -37,8 +37,7 @@ public abstract class SimpleCardItemAdapter extends RecyclerView.Adapter<SimpleC
     private SimpleItemSelectionListener simpleItemSelectionListener;
 
     private Activity activity;
-    private List<Product> completeList;
-    private List<Product> completeListFiltered;
+    private List<Product> completeList, completeListFiltered;
     private PopupMenu popup;
 
 
@@ -70,7 +69,7 @@ public abstract class SimpleCardItemAdapter extends RecyclerView.Adapter<SimpleC
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        final Product product = completeList.get(position);
+        final Product product = completeListFiltered.get(position);
 
         Glide.with(activity.getApplicationContext())
                 .load(product.getImage())

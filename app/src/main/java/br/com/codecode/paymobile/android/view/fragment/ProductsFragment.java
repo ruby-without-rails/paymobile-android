@@ -19,6 +19,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.ShareActionProvider;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -109,13 +110,18 @@ public class ProductsFragment extends BaseFragment implements SimpleItemSelectio
             queryTextListener = new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextChange(String newText) {
-                    simpleCardItemAdapter.getFilter().filter(newText);
-                    return false;
+                    if (TextUtils.isEmpty(newText)) {
+                        simpleCardItemAdapter.getFilter().filter("");
+                    } else {
+                        simpleCardItemAdapter.getFilter().filter(newText);
+                    }
+
+                    return true;
                 }
                 @Override
                 public boolean onQueryTextSubmit(String query) {
                     simpleCardItemAdapter.getFilter().filter(query);
-                    return false;
+                    return true;
                 }
             };
             searchView.setOnQueryTextListener(queryTextListener);
