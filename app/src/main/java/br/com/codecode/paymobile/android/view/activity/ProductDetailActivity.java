@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.text.method.ScrollingMovementMethod;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -83,10 +84,12 @@ public class ProductDetailActivity extends BaseActivity {
         textViewInnerTitle = findViewById(R.id.textViewTitle);
 
         textViewDescription = findViewById(R.id.textViewDescricaoVar);
+        textViewDescription.setMovementMethod(new ScrollingMovementMethod());
 
         textCategoryDescription = findViewById(R.id.textViewDurationVar);
 
         textViewObservation = findViewById(R.id.textViewObservationVar);
+        textViewObservation.setMovementMethod(new ScrollingMovementMethod());
 
         textViewPrice = findViewById(R.id.textViewPriceVar);
 

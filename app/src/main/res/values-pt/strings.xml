@@ -152,4 +152,5 @@
     <string name="search_hint">Localizar</string>
     <string name="user_or_password_incorrect">Usuário ou Senha incorretos</string>
     <string name="token_expired">Token expirado, tente entrar novamente</string>
+    <string name="next">AVANÇAR</string>
 </resources>
