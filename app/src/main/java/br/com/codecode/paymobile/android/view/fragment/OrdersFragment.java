@@ -64,7 +64,7 @@ public class OrdersFragment extends BaseFragment {
 
         if (orders == null) {
 
-            Log.d("INFO", "Load Checkouts from webservice");
+            Log.d("INFO", "Load Orders from webservice");
 
             TaskDownloadOrders taskDownloadOrders = new TaskDownloadOrders(context,
                     new AsyncResponse<List<Order>>() {

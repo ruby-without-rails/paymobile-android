@@ -41,6 +41,7 @@ import br.com.codecode.paymobile.android.listener.SimpleItemSelectionListener;
 import br.com.codecode.paymobile.android.model.compatibility.Product;
 import br.com.codecode.paymobile.android.tasks.AsyncResponse;
 import br.com.codecode.paymobile.android.tasks.TaskDownloadProducts;
+import br.com.codecode.paymobile.android.view.activity.MosaicActivity;
 import br.com.codecode.paymobile.android.view.activity.ProductDetailActivity;
 
 import static br.com.codecode.paymobile.android.MyApplication.getSessionToken;
@@ -243,6 +244,7 @@ public class ProductsFragment extends BaseFragment implements SimpleItemSelectio
     @Override
     public void onGallery(Product product) {
         makeToast("Click on Gallery Button : " + product.getName());
+        doChangeActivity(context, MosaicActivity.class);
     }
 
     protected void notifyData(SimpleCardItemAdapter simpleCardItemAdapter) {

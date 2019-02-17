@@ -84,6 +84,7 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             />
+        <activity android:name=".view.activity.MosaicActivity" />
 
         <meta-data
             android:name="com.google.android.gms.version"
