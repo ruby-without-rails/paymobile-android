@@ -30,7 +30,7 @@ import br.com.codecode.paymobile.android.view.fragment.SlideshowDialogFragment;
 public class MosaicActivity extends AppCompatActivity {
 
     private String TAG = MainActivity.class.getSimpleName();
-    private static final String endpoint = "https://api.androidhive.info/json/glide.json";
+    private String endpoint ;
     private ArrayList<Image> images;
     private ProgressDialog pDialog;
     private GalleryAdapter mAdapter;
@@ -40,6 +40,8 @@ public class MosaicActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mosaic);
+
+        endpoint = getApplicationContext().getResources().getString(R.string.server) + "/glide.json";
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -93,7 +95,7 @@ public class MosaicActivity extends AppCompatActivity {
                         for (int i = 0; i < response.length(); i++) {
                             try {
                                 JSONObject object = response.getJSONObject(i);
-                                Image image = new Image();
+                                Image image = new Image(getApplicationContext());
                                 image.setName(object.getString("name"));
 
                                 JSONObject url = object.getJSONObject("url");

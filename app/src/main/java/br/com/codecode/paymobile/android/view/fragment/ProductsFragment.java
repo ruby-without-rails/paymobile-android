@@ -243,8 +243,9 @@ public class ProductsFragment extends BaseFragment implements SimpleItemSelectio
 
     @Override
     public void onGallery(Product product) {
-        makeToast("Click on Gallery Button : " + product.getName());
-        doChangeActivity(context, MosaicActivity.class);
+        if(product.getCategory().getId() == 1){
+            doChangeActivity(context, MosaicActivity.class);
+        }
     }
 
     protected void notifyData(SimpleCardItemAdapter simpleCardItemAdapter) {

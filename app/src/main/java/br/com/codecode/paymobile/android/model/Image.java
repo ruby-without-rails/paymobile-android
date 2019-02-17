@@ -1,8 +1,15 @@
 package br.com.codecode.paymobile.android.model;
 
-import java.util.Date;
+import android.content.Context;
+
+import br.com.codecode.paymobile.android.R;
 
 public class Image {
+    private Image(){}
+    public Image(Context context){
+        this.context = context;
+    }
+    private Context context;
     private String small;
     private String medium;
     private String large;
@@ -10,7 +17,7 @@ public class Image {
     private String timestamp;
 
     public String getMedium() {
-        return medium;
+        return medium.replace("{{host}}", context.getResources().getString(R.string.server));
     }
 
     public void setMedium(String medium) {
@@ -18,7 +25,7 @@ public class Image {
     }
 
     public String getSmall() {
-        return small;
+        return small.replace("{{host}}", context.getResources().getString(R.string.server));
     }
 
     public void setSmall(String small) {
@@ -26,7 +33,7 @@ public class Image {
     }
 
     public String getLarge() {
-        return large;
+        return large.replace("{{host}}", context.getResources().getString(R.string.server));
     }
 
     public void setLarge(String large) {
