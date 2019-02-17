@@ -83,11 +83,15 @@ public class TaskSaveCustomer extends AsyncTask<JSONObject, String, Customer> {
             Log.d("DEBUG", jsonBody.toString());
 
             HashMap<String, String> headers = new HashMap<>();
-            headers.put("PayWithRuby-Auth-Token", MyApplication.getSessionToken().getKey());
+            if(MyApplication.getSessionToken() != null){
+                headers.put("PayWithRuby-Auth-Token", MyApplication.getSessionToken().getKey());
+            }
             headers.put("Content-type", "application/json; charset=utf-8");
 
             HashMap<String, String> parameters = new HashMap<>();
-            parameters.put("id", jsonBody.getString("id"));
+            if(jsonBody.has("id")){
+                parameters.put("id", jsonBody.getString("id"));
+            }
             parameters.put("cpf", jsonBody.getString("cpf"));
             parameters.put("name", jsonBody.getString("name"));
             parameters.put("fcm_id", jsonBody.getString("fcm_id"));

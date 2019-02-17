@@ -46,6 +46,7 @@ import br.com.codecode.paymobile.android.model.compatibility.Customer;
 import br.com.codecode.paymobile.android.tasks.TaskRequestCustomerData;
 import br.com.codecode.paymobile.android.util.ConnectivityReceiver;
 import br.com.codecode.paymobile.android.util.MyResources;
+import br.com.codecode.paymobile.android.view.activity.CustomerActivity;
 import br.com.codecode.paymobile.android.view.activity.MainActivity;
 import br.com.codecode.paymobile.android.view.activity.MyPattern;
 
@@ -202,7 +203,7 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
                                         }
 
                                     } else {
-
+                                        //Login Firebase OK
                                         new TaskLogin(context, new AsyncResponse<String>() {
                                             @Override
                                             public void onSuccess(String token) {
@@ -214,6 +215,9 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
                                                                 startActivity(new Intent(context, MainActivity.class)
                                                                         .putExtra(CUSTOMER_BUNDLE_KEY, customer));
 
+                                                                finish();
+                                                            }else{
+                                                                startActivity(new Intent(context, CustomerActivity.class));
                                                                 finish();
                                                             }
                                                         }
@@ -227,14 +231,15 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
 
                                                 } else {
 
-                                                    Toast.makeText(context, getString(R.string.could_not_authorize), Toast.LENGTH_LONG).show();
+                                                    Toast.makeText(context, getString(R.string.token_expired), Toast.LENGTH_LONG).show();
                                                 }
                                             }
 
                                             @Override
                                             public void onFails(Exception e) {
-                                                Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
-                                                Log.d("Error", e.toString());
+                                                // user logged in firebase but without customer in paymobile
+                                                startActivity(new Intent(context, CustomerActivity.class));
+                                                finish();
                                             }
                                         }).execute(auth.getCurrentUser().getUid());
                                     }
@@ -242,7 +247,7 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
                             }).addOnFailureListener(LoginActivity.this, new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(context, getString(R.string.could_not_authorize), Toast.LENGTH_LONG).show();
+                            Toast.makeText(context, getString(R.string.user_or_password_incorrect), Toast.LENGTH_LONG).show();
                         }
 
                     });
@@ -343,7 +348,7 @@ public class LoginActivity extends AppCompatActivity implements MyPattern,
         Log.e(TAG, "App title updated");
         Class<String> stringClass = String.class;
 
-        Snackbar.make(findViewById(R.id.coordinator_layout_login), "DB values changed", Snackbar.LENGTH_SHORT).show();
+        // Snackbar.make(findViewById(R.id.coordinator_layout_login), "DB values changed", Snackbar.LENGTH_SHORT).show();
 
         switch (dataSnapshot.getKey()) {
             case "app_title": {

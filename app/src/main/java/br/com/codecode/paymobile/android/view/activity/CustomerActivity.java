@@ -107,14 +107,20 @@ public class CustomerActivity extends BaseActivity {
                 if (submitForm()) {
 
                     HashMap<String, String> headers = new HashMap<>();
-                    headers.put("PayWithRuby-Auth-Token", MyApplication.getSessionToken().getKey());
+
+                    // existent customer
+                    if(MyApplication.getSessionToken() != null){
+                        headers.put("PayWithRuby-Auth-Token", MyApplication.getSessionToken().getKey());
+                    }
 
                     FirebaseAuth auth = FirebaseAuth.getInstance();
                     FirebaseUser firebaseUser = auth.getCurrentUser();
                     JSONObject payload = new JSONObject();
 
                     try {
-                        payload.put("id", customer.getId());
+                        if (customer.getId() != null){
+                            payload.put("id", customer.getId());
+                        }
                         payload.put("fcm_id", firebaseUser.getUid());
                         payload.put("email", firebaseUser.getEmail());
                         payload.put("name", customer.getName());
@@ -163,6 +169,8 @@ public class CustomerActivity extends BaseActivity {
             editTextMobilePhone.setText(String.valueOf(customer.getMobilePhone()));
 
         } else {
+
+            this.customer = new Customer();
 
             try {
 
@@ -354,54 +362,6 @@ public class CustomerActivity extends BaseActivity {
             }
         }
     }
-
-    public void createNewCustomer(){
-        final FirebaseAuth auth = FirebaseAuth.getInstance();
-
-        TaskSaveCustomer taskSaveCustomer = new TaskSaveCustomer(context, new AsyncResponse<Customer>() {
-            @Override
-            public void onSuccess(Customer output) {
-                if (output != null){
-                    startActivity(new Intent(context, MainActivity.class)
-                            .putExtra(CUSTOMER_BUNDLE_KEY, output));
-
-                    finish();
-                }else{
-                    Toast.makeText(context, "Authentication Failed", Toast.LENGTH_LONG).show();
-                }
-
-            }
-
-            @Override
-            public void onFails(Exception e) {
-                auth.getCurrentUser().delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Log.d("Success", "user was deleted");
-                    }
-                });
-                Toast.makeText(context, e.toString(),Toast.LENGTH_LONG).show();
-                Log.d("Error", e.toString());
-            }
-        });
-
-        FirebaseUser firebaseUser = auth.getCurrentUser();
-        JSONObject payload = new JSONObject();
-
-        try {
-            payload.put("fcm_id", firebaseUser.getUid());
-            payload.put("email", firebaseUser.getEmail());
-            payload.put("name", editTextName.getText());
-            payload.put("cpf", editTextCPF.getText());
-            payload.put("fcm_message_token", FirebaseInstanceId.getInstance().getToken());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        taskSaveCustomer.execute(payload);
-    }
-
-
 }
 
 

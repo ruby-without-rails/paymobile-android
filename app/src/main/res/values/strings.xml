@@ -175,6 +175,8 @@
     <string name="new_release_products">New Release Products</string>
     <string name="price_symbol">$</string>
     <string name="search_hint">Find</string>
+    <string name="user_or_password_incorrect">User or Password Incorrect</string>
+    <string name="token_expired">Token has Expired, try loggin again</string>
 </resources>
 
 

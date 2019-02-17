@@ -26,6 +26,7 @@ import br.com.codecode.paymobile.android.model.compatibility.Customer;
 import br.com.codecode.paymobile.android.tasks.AsyncResponse;
 import br.com.codecode.paymobile.android.tasks.TaskLogin;
 import br.com.codecode.paymobile.android.tasks.TaskRequestCustomerData;
+import br.com.codecode.paymobile.android.view.activity.CustomerActivity;
 import br.com.codecode.paymobile.android.view.activity.MainActivity;
 import br.com.codecode.paymobile.android.view.activity.login.LoginActivity;
 
@@ -81,6 +82,9 @@ public class MyApplication extends MultiDexApplication {
                                 if (customer != null) {
                                     startActivity(new Intent(context, MainActivity.class).setFlags(FLAG_ACTIVITY_NEW_TASK)
                                             .putExtra(CUSTOMER_BUNDLE_KEY, customer));
+                                }else{
+                                    //user was created on firebase but not in paymobile
+                                    startActivity(new Intent(context, CustomerActivity.class));
                                 }
                             }
 
@@ -89,6 +93,7 @@ public class MyApplication extends MultiDexApplication {
                                 Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
                                 Log.d("Error", e.toString());
                                 sessionToken = null;
+                                firebaseAuth.signOut();
                                 startActivity(new Intent(context, LoginActivity.class));
 
                             }
@@ -102,18 +107,10 @@ public class MyApplication extends MultiDexApplication {
 
                 @Override
                 public void onFails(Exception e) {
-                    //user was created on firebase but not in paymobile
-                    firebaseAuth.getCurrentUser().delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            Log.d("Success", "user was deleted");
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.d("Error", e.toString());
-                        }
-                    });
+                    sessionToken = null;
+                    firebaseAuth.signOut();
+                    startActivity(new Intent(context, LoginActivity.class));
+
                     Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
                     Log.d("Error", e.toString());
                 }

@@ -150,4 +150,6 @@
     <string name="new_release_products">Novidades</string>
     <string name="price_symbol">R$</string>
     <string name="search_hint">Localizar</string>
+    <string name="user_or_password_incorrect">Usuário ou Senha incorretos</string>
+    <string name="token_expired">Token expirado, tente entrar novamente</string>
 </resources>
