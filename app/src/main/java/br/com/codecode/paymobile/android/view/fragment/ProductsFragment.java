@@ -6,16 +6,24 @@
  */
 package br.com.codecode.paymobile.android.view.fragment;
 
+import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.ShareActionProvider;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
@@ -156,13 +164,11 @@ public class ProductsFragment extends BaseFragment implements SimpleItemSelectio
             public void onClick(View view, final int position) {
                 lastItemSelected = position;
                 //Values are passing to activity & to fragment as well
-                makeToast("Single Click on position :" + position);
             }
 
             @Override
             public void onLongClick(View view, int position) {
                 lastItemSelected = position;
-                makeToast("Long press on position :" + position);
             }
         }));
 
@@ -181,31 +187,32 @@ public class ProductsFragment extends BaseFragment implements SimpleItemSelectio
 
     @Override
     public void onItemSelected(Product product) {
-        Toast.makeText(context, "Selected: " + product.getName(), Toast.LENGTH_LONG).show();
-
         selectedProduct = product;
 
         doChangeActivity(context, ProductDetailActivity.class);
     }
 
     @Override
-    public void onDownload(Product product) {
-        makeToast("Click on Download Button : " + product.getName());
+    public void onDetails(Product product) {
+        selectedProduct = product;
+        doChangeActivity(context, ProductDetailActivity.class);
     }
 
     @Override
-    public void onShare(Product product) {
-        makeToast("Click on Share Button : " + product.getName());
+    public void onShare(Product product, MenuItem menuItem) {
+        ShareActionProvider myShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(menuItem);
+        Intent myShareIntent = new Intent(Intent.ACTION_SEND);
+        myShareIntent.setType("image/*");
+        myShareIntent.putExtra(Intent.EXTRA_STREAM, product.getImage());
+
+        if (myShareActionProvider != null) {
+            myShareActionProvider.setShareIntent(myShareIntent);
+        }
     }
 
     @Override
-    public void onRename(Product product) {
-        makeToast("Click on Rename Button : " + product.getName());
-    }
-
-    @Override
-    public void onDelete(Product product) {
-        makeToast("Click on Delete Button : " + product.getName());
+    public void onGallery(Product product) {
+        makeToast("Click on Gallery Button : " + product.getName());
     }
 
     protected void notifyData(SimpleCardItemAdapter simpleCardItemAdapter) {

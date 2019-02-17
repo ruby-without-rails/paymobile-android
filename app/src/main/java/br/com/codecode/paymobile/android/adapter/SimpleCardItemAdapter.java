@@ -5,7 +5,10 @@ package br.com.codecode.paymobile.android.adapter;
  */
 
 import android.app.Activity;
+import android.content.Intent;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.ShareActionProvider;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -118,19 +121,15 @@ public abstract class SimpleCardItemAdapter extends RecyclerView.Adapter<SimpleC
 
             // Handle the menu item selection
             if (id == R.id.action_details) {
-                simpleItemSelectionListener.onDownload(selectedProduct);
+                simpleItemSelectionListener.onDetails(selectedProduct);
                 this.onDismiss(popup);
                 return true;
             } else if (id == R.id.action_share) {
-                simpleItemSelectionListener.onShare(selectedProduct);
+                simpleItemSelectionListener.onShare(selectedProduct, item);
                 this.onDismiss(popup);
                 return true;
             } else if (id == R.id.action_photo_library) {
-                simpleItemSelectionListener.onRename(selectedProduct);
-                this.onDismiss(popup);
-                return true;
-            } else if (id == R.id.delete) {
-                simpleItemSelectionListener.onDelete(selectedProduct);
+                simpleItemSelectionListener.onGallery(selectedProduct);
                 this.onDismiss(popup);
                 return true;
             } else {

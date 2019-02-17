@@ -6,6 +6,7 @@
  */
 package br.com.codecode.paymobile.android.view.activity;
 
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -18,6 +19,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -37,6 +39,8 @@ import br.com.codecode.paymobile.android.model.compatibility.Address;
 import br.com.codecode.paymobile.android.model.compatibility.Customer;
 import br.com.codecode.paymobile.android.model.compatibility.Product;
 import br.com.codecode.paymobile.android.model.compatibility.Vehicle;
+import br.com.codecode.paymobile.android.tasks.AsyncResponse;
+import br.com.codecode.paymobile.android.tasks.TaskLogout;
 import br.com.codecode.paymobile.android.util.ConnectivityReceiver;
 import br.com.codecode.paymobile.android.view.activity.login.LoginActivity;
 
@@ -238,6 +242,23 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
             String versionName = pinfo.versionName;
 
             Toast.makeText(context, getString(R.string.version_of_app) + versionName, Toast.LENGTH_LONG).show();
+
+            return true;
+        }
+
+        if(id == R.id.action_logout) {
+            new TaskLogout(context, new AsyncResponse<String>() {
+                @Override
+                public void onSuccess(String output) {
+                    startActivity(new Intent(context, LoginActivity.class));
+                    finish();
+                }
+
+                @Override
+                public void onFails(Exception e) {
+                    Log.d("Error", e.getMessage());
+                }
+            }).execute(MyApplication.getInstance().getSessionToken().getKey());
 
             return true;
         }

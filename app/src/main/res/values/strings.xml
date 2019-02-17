@@ -169,6 +169,12 @@
     <string name="order_details">Order Details</string>
     <string name="delivery_address">Delivery Address</string>
     <string name="cart_items">Cart items</string>
+    <string name="header_token" translatable="false">PayWithRuby-Auth-Token</string>
+    <string name="header_version" translatable="false">1.0</string>
+    <string name="logout">Logout</string>
+    <string name="new_release_products">New Release Products</string>
+    <string name="price_symbol">$</string>
+    <string name="search_hint">Find</string>
 </resources>
 
 

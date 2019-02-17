@@ -5,17 +5,17 @@ package br.com.codecode.paymobile.android.listener;
  */
 
 
+import android.view.MenuItem;
+
 import br.com.codecode.paymobile.android.model.compatibility.Product;
 
 /**
  * Callback for Simple Item Selection
  */
 public interface SimpleItemSelectionListener {
-    void onDownload(Product product);
+    void onDetails(Product product);
 
-    void onShare(Product product);
+    void onShare(Product product, MenuItem menuItem);
 
-    void onRename(Product product);
-
-    void onDelete(Product product);
+    void onGallery(Product product);
 }

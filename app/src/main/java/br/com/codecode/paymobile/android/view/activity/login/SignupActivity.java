@@ -199,6 +199,12 @@ public class SignupActivity extends AppCompatActivity implements MyPattern,
 
                                             @Override
                                             public void onFails(Exception e) {
+                                                auth.getCurrentUser().delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        Log.d("Success", "user was deleted");
+                                                    }
+                                                });
                                                 Toast.makeText(context, e.toString(),Toast.LENGTH_LONG).show();
                                                 Log.d("Error", e.toString());
                                             }

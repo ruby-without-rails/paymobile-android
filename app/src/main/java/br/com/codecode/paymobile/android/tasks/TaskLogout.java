@@ -10,6 +10,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.android.volley.NetworkResponse;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -18,12 +19,17 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+
 import br.com.codecode.paymobile.android.MyApplication;
 import br.com.codecode.paymobile.android.R;
+import br.com.codecode.paymobile.android.dao.GsonGetRequest;
+import br.com.codecode.paymobile.android.dao.GsonPostRequest;
 import br.com.codecode.paymobile.android.model.RequestQueuer;
 import br.com.codecode.paymobile.android.model.Token;
+import br.com.codecode.paymobile.android.rest.dto.ProductDTO;
 
-public class TaskLogin extends AsyncTask<String, String, String> {
+public class TaskLogout extends AsyncTask<String, String, Void> {
     public AsyncResponse asyncResponse = null;
     protected String token;
     private ProgressDialog dialog;
@@ -31,25 +37,25 @@ public class TaskLogin extends AsyncTask<String, String, String> {
     private Context context;
     private RequestQueue requestQueue;
 
-    public TaskLogin(Context context, AsyncResponse<String> asyncResponse) {
+    public TaskLogout(Context context, AsyncResponse<String> asyncResponse) {
         this(context);
         this.asyncResponse = asyncResponse;
     }
 
-    private TaskLogin(Context context) {
+    private TaskLogout(Context context) {
         this();
         this.context = context;
     }
 
-    private TaskLogin() {
-        Log.d("DEBUG-TASK", "create TaskLogin");
+    private TaskLogout() {
+        Log.d("DEBUG-TASK", "create TaskLogout");
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
 
-        url = context.getResources().getString(R.string.server) + "/api/auth/login";
+        url = context.getResources().getString(R.string.server) + "/api/auth/logout";
 
         Log.d("DEBUG-TASK", "server config -> " + url);
 
@@ -61,7 +67,7 @@ public class TaskLogin extends AsyncTask<String, String, String> {
 
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
-        dialog.setMessage("Iniciando a Tarefa de Login");
+        dialog.setMessage("Iniciando a Tarefa de Logout");
 
         if (context.getClass() != MyApplication.class) {
             dialog.show();
@@ -73,43 +79,34 @@ public class TaskLogin extends AsyncTask<String, String, String> {
     }
 
     @Override
-    protected String doInBackground(String... params) {
+    protected Void doInBackground(String... params) {
 
-        JSONObject payload = new JSONObject();
+        publishProgress("Enviando Requisição para o Servidor");
 
-        try {
-            payload.put("fcm_id", params[0]);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        Log.d("DEBUG", "PAYLOAD");
-        Log.d("DEBUG", payload.toString());
-
-        JsonObjectRequest requestToken = new JsonObjectRequest(url, payload, new Response.Listener<JSONObject>() {
+        HashMap<String, String> headers = new HashMap<>();
+        headers.put("PayWithRuby-Auth-Token", params[0]);
+        HashMap<String, String> parameters = new HashMap<>();
+        GsonPostRequest<Object> requestlogout = new GsonPostRequest<>(url, Object.class, headers, parameters, new Response.Listener<Object>() {
             @Override
-            public void onResponse(JSONObject jsonObject) {
-                if (jsonObject.has("token")) {
-                    publishProgress("Token recebido !");
-                    MyApplication.getInstance().setSessionToken(new Token(jsonObject));
-                    asyncResponse.onSuccess(MyApplication.getInstance().getSessionToken().getKey());
-                }
+            public void onResponse(Object response) {
+                asyncResponse.onSuccess("Logout realizado com sucesso!");
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                publishProgress("Item não recebido !");
-                publishProgress("Ocorreu uma falha ao contactar o servidor !");
+                publishProgress("Falha ao Obter Resposta");
+                Log.e("Erro", error.toString());
 
-                Log.d("DEBUG", "ID Existente no Firebase");
-                Log.d("DEBUG", "Cliente Vazio");
+                publishProgress("Ocorreu uma falha ao contactar o servidor !");
+                NetworkResponse networkResponse = error.networkResponse;
                 asyncResponse.onFails(error);
+
             }
         });
 
         // Add the request to the RequestQueue.
-        requestQueue.add(requestToken);
-
-        return token;
+        requestQueue.add(requestlogout);
+        return null;
     }
 
     @Override
@@ -120,7 +117,7 @@ public class TaskLogin extends AsyncTask<String, String, String> {
     }
 
     @Override
-    protected void onPostExecute(String result) {
+    protected void onPostExecute(Void result) {
         dialog.setMessage(context.getString(R.string.process_finish));
         dialog.dismiss();
     }

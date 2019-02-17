@@ -8,10 +8,14 @@ package br.com.codecode.paymobile.android;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.multidex.MultiDexApplication;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -23,6 +27,7 @@ import br.com.codecode.paymobile.android.tasks.AsyncResponse;
 import br.com.codecode.paymobile.android.tasks.TaskLogin;
 import br.com.codecode.paymobile.android.tasks.TaskRequestCustomerData;
 import br.com.codecode.paymobile.android.view.activity.MainActivity;
+import br.com.codecode.paymobile.android.view.activity.login.LoginActivity;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static br.com.codecode.paymobile.android.model.IntentKeys.CUSTOMER_BUNDLE_KEY;
@@ -56,6 +61,8 @@ public class MyApplication extends MultiDexApplication {
         // get reference to 'users' node
         firebaseDatabase = firebaseInstance.getReference("white_label");
 
+        //sessionToken = new Token();
+
         // store app title to 'app_title' node
         // firebaseInstance.getReference("app_title").setValue("Pay Mobile");
         // firebaseInstance.getReference("primary_color").setValue("#673AB7");
@@ -81,6 +88,9 @@ public class MyApplication extends MultiDexApplication {
                             public void onFails(Exception e) {
                                 Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
                                 Log.d("Error", e.toString());
+                                sessionToken = null;
+                                startActivity(new Intent(context, LoginActivity.class));
+
                             }
                         }).execute(token);
 
@@ -92,6 +102,18 @@ public class MyApplication extends MultiDexApplication {
 
                 @Override
                 public void onFails(Exception e) {
+                    //user was created on firebase but not in paymobile
+                    firebaseAuth.getCurrentUser().delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Log.d("Success", "user was deleted");
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d("Error", e.toString());
+                        }
+                    });
                     Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
                     Log.d("Error", e.toString());
                 }
@@ -109,7 +131,7 @@ public class MyApplication extends MultiDexApplication {
     }
 
     public static synchronized Token getSessionToken() {
-        return sessionToken;
+        return MyApplication.sessionToken;
     }
 
     public FirebaseAuth getFirebaseAuth() {

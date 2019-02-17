@@ -126,7 +126,7 @@
     <string name="card_validity_label">Válido até</string>
     <string name="card_validity_sample">MM/AA</string>
     <string name="card_name_sample">DONO CARTAO</string>
-    <string name="card_holders_name">Nome do Dono do Cartão</string>
+    <string name="card_holders_name">Nome do dono do Cartão</string>
     <string name="card_number">Número do Cartão</string>
     <string name="card_validity">Validade</string>
     <string name="card_cvv">Número CVV</string>
@@ -146,4 +146,8 @@
     <string name="order_details">Detalhes do Pedido</string>
     <string name="delivery_address">Endereço de Entrega</string>
     <string name="cart_items">Itens no carrinho</string>
+    <string name="logout">Sair</string>
+    <string name="new_release_products">Novidades</string>
+    <string name="price_symbol">R$</string>
+    <string name="search_hint">Localizar</string>
 </resources>
