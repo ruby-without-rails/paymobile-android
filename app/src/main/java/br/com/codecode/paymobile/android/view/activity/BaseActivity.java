@@ -250,6 +250,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MyPatter
             new TaskLogout(context, new AsyncResponse<String>() {
                 @Override
                 public void onSuccess(String output) {
+                    firebaseAuth.signOut();
                     startActivity(new Intent(context, LoginActivity.class));
                     finish();
                 }

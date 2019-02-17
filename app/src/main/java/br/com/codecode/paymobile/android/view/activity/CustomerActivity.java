@@ -8,6 +8,7 @@ package br.com.codecode.paymobile.android.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -21,6 +22,8 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -350,6 +353,52 @@ public class CustomerActivity extends BaseActivity {
                     break;
             }
         }
+    }
+
+    public void createNewCustomer(){
+        final FirebaseAuth auth = FirebaseAuth.getInstance();
+
+        TaskSaveCustomer taskSaveCustomer = new TaskSaveCustomer(context, new AsyncResponse<Customer>() {
+            @Override
+            public void onSuccess(Customer output) {
+                if (output != null){
+                    startActivity(new Intent(context, MainActivity.class)
+                            .putExtra(CUSTOMER_BUNDLE_KEY, output));
+
+                    finish();
+                }else{
+                    Toast.makeText(context, "Authentication Failed", Toast.LENGTH_LONG).show();
+                }
+
+            }
+
+            @Override
+            public void onFails(Exception e) {
+                auth.getCurrentUser().delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Log.d("Success", "user was deleted");
+                    }
+                });
+                Toast.makeText(context, e.toString(),Toast.LENGTH_LONG).show();
+                Log.d("Error", e.toString());
+            }
+        });
+
+        FirebaseUser firebaseUser = auth.getCurrentUser();
+        JSONObject payload = new JSONObject();
+
+        try {
+            payload.put("fcm_id", firebaseUser.getUid());
+            payload.put("email", firebaseUser.getEmail());
+            payload.put("name", editTextName.getText());
+            payload.put("cpf", editTextCPF.getText());
+            payload.put("fcm_message_token", FirebaseInstanceId.getInstance().getToken());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        taskSaveCustomer.execute(payload);
     }
 
 

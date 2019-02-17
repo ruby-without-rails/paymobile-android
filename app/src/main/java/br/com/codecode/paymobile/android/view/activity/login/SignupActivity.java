@@ -183,47 +183,8 @@ public class SignupActivity extends AppCompatActivity implements MyPattern,
                                         Log.d("DEBUG-LOGIN", getString(R.string.auth_error) + task.getException().toString());
 
                                     } else {
-                                        TaskSaveCustomer taskSaveCustomer = new TaskSaveCustomer(context, new AsyncResponse<Customer>() {
-                                            @Override
-                                            public void onSuccess(Customer output) {
-                                                if (output != null){
-                                                    startActivity(new Intent(context, CustomerActivity.class)
-                                                            .putExtra(CUSTOMER_BUNDLE_KEY, output));
-
-                                                    finish();
-                                                }else{
-                                                    Toast.makeText(context, "Authentication Failed", Toast.LENGTH_LONG).show();
-                                                }
-
-                                            }
-
-                                            @Override
-                                            public void onFails(Exception e) {
-                                                auth.getCurrentUser().delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                        Log.d("Success", "user was deleted");
-                                                    }
-                                                });
-                                                Toast.makeText(context, e.toString(),Toast.LENGTH_LONG).show();
-                                                Log.d("Error", e.toString());
-                                            }
-                                        });
-
-                                        FirebaseUser firebaseUser = auth.getCurrentUser();
-                                        JSONObject payload = new JSONObject();
-
-                                        try {
-                                            payload.put("fcm_id", firebaseUser.getUid());
-                                            payload.put("email", firebaseUser.getEmail());
-                                            payload.put("name", "fcm-new-user");
-                                            payload.put("cpf", "cpf-new-user");
-                                            payload.put("fcm_message_token", FirebaseInstanceId.getInstance().getToken());
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-
-                                        taskSaveCustomer.execute(payload);
+                                        startActivity(new Intent(context, CustomerActivity.class));
+                                        finish();
                                     }
                                 }
                             }).addOnFailureListener(SignupActivity.this, new OnFailureListener() {
@@ -232,7 +193,7 @@ public class SignupActivity extends AppCompatActivity implements MyPattern,
                             Toast.makeText(context, getString(R.string.auth_error) + e.toString(),
                                     Toast.LENGTH_LONG).show();
 
-                            Log.d("DEBUG-LOGIN", getString(R.string.auth_error) + e.toString().toString());
+                            Log.d("DEBUG-LOGIN", getString(R.string.auth_error) + e.toString());
 
                         }
                     });
