@@ -15,7 +15,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
 import br.com.codecode.paymobile.android.R;
-import br.com.codecode.paymobile.checkoutflow.CheckOutActivity;
+import br.com.codecode.paymobile.checkoutflow.OrderActivity;
 import br.com.codecode.paymobile.checkoutflow.Utils.CreditCardEditText;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,7 +32,7 @@ public class CCSecureCodeFragment extends Fragment {
     CreditCardEditText et_cvv;
     TextView tv_cvv;
 
-    CheckOutActivity activity;
+    OrderActivity activity;
 
     public CCSecureCodeFragment() {
         // Required empty public constructor
@@ -47,7 +47,7 @@ public class CCSecureCodeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_ccsecure_code, container, false);
         ButterKnife.bind(this, view);
 
-        activity = (CheckOutActivity) getActivity();
+        activity = (OrderActivity) getActivity();
 
         et_cvv.addTextChangedListener(new TextWatcher() {
             @Override

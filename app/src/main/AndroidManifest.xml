@@ -75,7 +75,7 @@
             android:launchMode="singleTop" />
 
         <activity
-            android:name="br.com.codecode.paymobile.checkoutflow.CheckOutActivity"
+            android:name="br.com.codecode.paymobile.checkoutflow.OrderActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />

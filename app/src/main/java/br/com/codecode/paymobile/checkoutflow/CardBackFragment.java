@@ -25,7 +25,7 @@ public class CardBackFragment extends Fragment {
     @BindView(R.id.tv_cvv)TextView tv_cvv;
     FontTypeChange fontTypeChange;
 
-    CheckOutActivity activity;
+    OrderActivity activity;
     CCSecureCodeFragment securecode;
 
     public CardBackFragment() {
@@ -45,7 +45,7 @@ public class CardBackFragment extends Fragment {
         fontTypeChange=new FontTypeChange(getActivity());
         tv_cvv.setTypeface(fontTypeChange.get_fontface(1));
 
-        activity = (CheckOutActivity) getActivity();
+        activity = (OrderActivity) getActivity();
         securecode = activity.secureCodeFragment;
         securecode.setCvv(tv_cvv);
 

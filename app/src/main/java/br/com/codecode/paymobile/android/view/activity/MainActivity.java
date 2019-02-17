@@ -11,7 +11,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -42,7 +41,7 @@ import br.com.codecode.paymobile.android.model.compatibility.Product;
 import br.com.codecode.paymobile.android.model.compatibility.Vehicle;
 import br.com.codecode.paymobile.android.view.activity.shoppingCart.ShoppingCartActivity;
 import br.com.codecode.paymobile.android.view.fragment.AddressFragment;
-import br.com.codecode.paymobile.android.view.fragment.CheckoutsFragment;
+import br.com.codecode.paymobile.android.view.fragment.OrdersFragment;
 import br.com.codecode.paymobile.android.view.fragment.FragmentDrawer;
 import br.com.codecode.paymobile.android.view.fragment.ProductsFragment;
 import br.com.codecode.paymobile.android.view.fragment.StoreFragment;
@@ -269,7 +268,7 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
                 title = getString(R.string.title_products);
                 break;
             case 2:
-                fragment = new CheckoutsFragment();
+                fragment = new OrdersFragment();
                 title = getString(R.string.title_checkouts);
                 break;
             case 3:
@@ -316,7 +315,7 @@ public class MainActivity extends BaseActivity implements FragmentDrawer.Fragmen
                 break;
             case R.id.navigation_settings:
                 doChangeActivity(context, OptionsActivity.class);
-                // fragment = new CheckoutsFragment();
+                // fragment = new OrdersFragment();
                 // title = getString(R.string.title_checkouts);
                 break;
             case R.id.navigation_profile:

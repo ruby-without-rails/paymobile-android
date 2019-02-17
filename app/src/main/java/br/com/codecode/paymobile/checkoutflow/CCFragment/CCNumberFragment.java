@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import br.com.codecode.paymobile.android.R;
 import br.com.codecode.paymobile.checkoutflow.CardFrontFragment;
-import br.com.codecode.paymobile.checkoutflow.CheckOutActivity;
+import br.com.codecode.paymobile.checkoutflow.OrderActivity;
 import br.com.codecode.paymobile.checkoutflow.Utils.CreditCardEditText;
 import br.com.codecode.paymobile.checkoutflow.Utils.CreditCardFormattingTextWatcher;
 import butterknife.BindView;
@@ -30,7 +30,7 @@ public class CCNumberFragment extends Fragment {
     CreditCardEditText et_number;
     TextView tv_number;
 
-    CheckOutActivity activity;
+    OrderActivity activity;
     CardFrontFragment cardFrontFragment;
 
     public CCNumberFragment() {
@@ -45,7 +45,7 @@ public class CCNumberFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_ccnumber, container, false);
         ButterKnife.bind(this, view);
 
-        activity = (CheckOutActivity) getActivity();
+        activity = (OrderActivity) getActivity();
         cardFrontFragment = activity.cardFrontFragment;
 
         tv_number = cardFrontFragment.getNumber();

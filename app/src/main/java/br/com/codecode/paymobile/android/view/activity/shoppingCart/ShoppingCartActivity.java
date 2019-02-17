@@ -32,6 +32,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -42,10 +43,11 @@ import br.com.codecode.paymobile.android.helper.RecyclerItemTouchHelper;
 import br.com.codecode.paymobile.android.model.ShoppingItem;
 import br.com.codecode.paymobile.android.model.compatibility.Checkout;
 import br.com.codecode.paymobile.android.rest.dto.OrderDTO;
+import br.com.codecode.paymobile.android.rest.dto.OrderReceiptDTO;
 import br.com.codecode.paymobile.android.tasks.TaskCreateOrder;
 import br.com.codecode.paymobile.android.view.activity.BaseActivity;
 import br.com.codecode.paymobile.android.view.activity.MainActivity;
-import br.com.codecode.paymobile.checkoutflow.CheckOutActivity;
+import br.com.codecode.paymobile.checkoutflow.OrderActivity;
 
 import static br.com.codecode.paymobile.android.model.IntentKeys.ORDER_BUNDLE_KEY;
 
@@ -256,11 +258,11 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
             @Override
             public void onClick(View v) {
 
-                OrderDTO orderDTO = null;
+                OrderReceiptDTO orderDTO = null;
                 try {
                     orderDTO = new TaskCreateOrder(context).execute(shoppingCart).get();
                     if (orderDTO != null) {
-                        startActivity(new Intent(context, CheckOutActivity.class).putExtra(ORDER_BUNDLE_KEY, orderDTO.order));
+                        startActivity(new Intent(context, OrderActivity.class).putExtra(ORDER_BUNDLE_KEY, orderDTO.order));
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();

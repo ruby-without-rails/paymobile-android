@@ -34,7 +34,7 @@ import butterknife.ButterKnife;
 import static br.com.codecode.paymobile.android.model.IntentKeys.ORDER_BUNDLE_KEY;
 import static br.com.codecode.paymobile.android.model.IntentKeys.PAYMENT_STATUS_BUNDLE_KEY;
 
-public class CheckOutActivity extends FragmentActivity implements FragmentManager.OnBackStackChangedListener {
+public class OrderActivity extends FragmentActivity implements FragmentManager.OnBackStackChangedListener {
 
     @BindView(R.id.btnNext)
     protected Button btnNext;

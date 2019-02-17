@@ -56,6 +56,9 @@ public class Order implements Serializable {
         @SerializedName("total")
         public int total;
 
+        @SerializedName("quantity")
+        public int quantity;
+
     }
 }
 

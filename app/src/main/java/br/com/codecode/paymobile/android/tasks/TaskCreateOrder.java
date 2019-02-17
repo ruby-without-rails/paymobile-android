@@ -27,6 +27,7 @@ import br.com.codecode.paymobile.android.rest.dto.OrderDTO;
 import br.com.codecode.paymobile.android.model.RequestQueuer;
 import br.com.codecode.paymobile.android.model.ShoppingCart;
 import br.com.codecode.paymobile.android.model.compatibility.Order;
+import br.com.codecode.paymobile.android.rest.dto.OrderReceiptDTO;
 import br.com.codecode.paymobile.android.rest.payloads.OrderPayload;
 import retrofit2.Call;
 
@@ -34,13 +35,13 @@ import retrofit2.Call;
  * Created by felipe on 28/01/18.
  */
 
-public class TaskCreateOrder extends AsyncTask<ShoppingCart, String, OrderDTO> {
+public class TaskCreateOrder extends AsyncTask<ShoppingCart, String, OrderReceiptDTO> {
 
     private RestApiFactory restApiFactory;
     private RestApi restApi;
     private ProgressDialog dialog;
     private Context context;
-    private OrderDTO order;
+    private OrderReceiptDTO order;
 
     private TaskCreateOrder(){}
 
@@ -72,12 +73,12 @@ public class TaskCreateOrder extends AsyncTask<ShoppingCart, String, OrderDTO> {
     }
 
     @Override
-    protected OrderDTO doInBackground(ShoppingCart... shoppingCarts) {
+    protected OrderReceiptDTO doInBackground(ShoppingCart... shoppingCarts) {
 
         OrderPayload payload = prepareOrderPayload(shoppingCarts[0]);
 
-        Call<OrderDTO> responseBodyCall = restApi.createOrder(payload);
-        retrofit2.Response<OrderDTO> bodyResponse = null;
+        Call<OrderReceiptDTO> responseBodyCall = restApi.createOrder(payload);
+        retrofit2.Response<OrderReceiptDTO> bodyResponse = null;
 
         try {
             bodyResponse = responseBodyCall.execute();
@@ -98,7 +99,7 @@ public class TaskCreateOrder extends AsyncTask<ShoppingCart, String, OrderDTO> {
     }
 
     @Override
-    protected void onPostExecute(OrderDTO result) {
+    protected void onPostExecute(OrderReceiptDTO result) {
         dialog.setMessage("Tarefa Finalizada!");
 
         dialog.dismiss();

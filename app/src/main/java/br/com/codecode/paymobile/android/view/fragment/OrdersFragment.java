@@ -20,37 +20,37 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.codecode.paymobile.android.MyApplication;
 import br.com.codecode.paymobile.android.R;
+import br.com.codecode.paymobile.android.model.compatibility.Order;
 import br.com.codecode.paymobile.android.tasks.AsyncResponse;
-import br.com.codecode.paymobile.android.tasks.TaskDownloadCheckouts;
-import br.com.codecode.paymobile.android.model.compatibility.Checkout;
+import br.com.codecode.paymobile.android.tasks.TaskDownloadOrders;
 import br.com.codecode.paymobile.android.view.activity.CheckoutDetailActivity;
 
 import static br.com.codecode.paymobile.android.model.IntentKeys.SELECTED_CHECKOUT_KEY;
 
-public class CheckoutsFragment extends BaseFragment {
+public class OrdersFragment extends BaseFragment {
 
-    private Checkout selectedCheckout;
+    private Order selectedOrder;
 
-    private ArrayList<Checkout> checkouts;
+    private ArrayList<Order> orders;
 
     private ListView listView;
 
-    public CheckoutsFragment() {
+    public OrdersFragment() {
     }
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_checkouts, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_orders, container, false);
 
         doCastComponents(rootView);
 
         doCreateListeners();
 
-        doLoadCheckouts();
+        doLoadOrders();
 
         return rootView;
     }
@@ -60,39 +60,39 @@ public class CheckoutsFragment extends BaseFragment {
         listView = rootView.findViewById(R.id.listViewCheckouts);
     }
 
-    private void doLoadCheckouts() {
+    private void doLoadOrders() {
 
-        if (checkouts == null) {
+        if (orders == null) {
 
             Log.d("INFO", "Load Checkouts from webservice");
 
-            TaskDownloadCheckouts taskDownloadCheckouts = new TaskDownloadCheckouts(context,
-                    new AsyncResponse<ArrayList<Checkout>>() {
+            TaskDownloadOrders taskDownloadOrders = new TaskDownloadOrders(context,
+                    new AsyncResponse<List<Order>>() {
 
                         @Override
-                        public void onSuccess(ArrayList<Checkout> output) {
+                        public void onSuccess(List<Order> output) {
 
-                            checkouts = output;
+                            orders = (ArrayList<Order>) output;
 
-                            doFillData(checkouts);
+                            doFillData(orders);
                         }
 
                         @Override
                         public void onFails(Exception e) {
-                            Toast.makeText(context, e.toString(),Toast.LENGTH_LONG).show();
+                            Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show();
                             Log.d("Error", e.toString());
                         }
                     });
 
-            taskDownloadCheckouts.execute(customer);
+            taskDownloadOrders.execute(MyApplication.getInstance().getSessionToken().getKey());
         }
 
 
     }
 
-    private void doFillData(List<Checkout> checkouts) {
+    private void doFillData(List<Order> checkouts) {
 
-        ArrayAdapter<Checkout> adpItem = new ArrayAdapter<>(context,
+        ArrayAdapter<Order> adpItem = new ArrayAdapter<>(context,
                 android.R.layout.simple_list_item_1, checkouts);
 
         listView.setAdapter(adpItem);
@@ -108,10 +108,10 @@ public class CheckoutsFragment extends BaseFragment {
 
                 Object itemValue = listView.getItemAtPosition(position);
 
-                selectedCheckout = (Checkout) itemValue;
+                selectedOrder = (Order) itemValue;
 
                 startActivity(new Intent(context, CheckoutDetailActivity.class)
-                        .putExtra(SELECTED_CHECKOUT_KEY, selectedCheckout));
+                        .putExtra(SELECTED_CHECKOUT_KEY, selectedOrder));
 
 
             }
