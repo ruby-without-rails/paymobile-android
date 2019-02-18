@@ -139,6 +139,7 @@
             android:textStyle="bold" />
 
         <Button
+            android:enabled="false"
             android:id="@+id/remove_user_button"
             style="?android:textAppearanceSmall"
             android:layout_width="match_parent"

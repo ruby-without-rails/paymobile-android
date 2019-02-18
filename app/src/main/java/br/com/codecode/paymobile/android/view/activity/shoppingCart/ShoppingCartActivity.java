@@ -8,6 +8,7 @@ package br.com.codecode.paymobile.android.view.activity.shoppingCart;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -258,7 +259,7 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
             @Override
             public void onClick(View v) {
 
-                OrderReceiptDTO orderDTO = null;
+                OrderReceiptDTO orderDTO;
                 try {
                     orderDTO = new TaskCreateOrder(context).execute(shoppingCart).get();
                     if (orderDTO != null) {
@@ -328,6 +329,8 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
             // remove the item from recycler view
             mAdapter.removeItem(viewHolder.getAdapterPosition());
 
+            mAdapter.notifyDataSetChanged();
+
             // showing snack bar with Undo option
             Snackbar snackbar = Snackbar
                     .make(coordinatorLayout, name + getString(R.string.removed_from_cart), Snackbar.LENGTH_LONG);
@@ -340,12 +343,25 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
                     shoppingCart.add(deletedItem);
                     textViewBottomTotal.setText(String.valueOf(shoppingCart.getTotal()));
 
+                    mAdapter.notifyDataSetChanged();
+
                 }
             });
             snackbar.setActionTextColor(Color.YELLOW);
+            View snackbarView = snackbar.getView();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                snackbarView.setElevation(30);
+            }
             snackbar.show();
 
             shoppingCart.remove(deletedItem);
+
+            if(shoppingCart.isEmpty()){
+                buttonPayment.setEnabled(false);
+                cartList.clear();
+            }else{
+                buttonPayment.setEnabled(true);
+            }
 
             textViewBottomTotal.setText(String.valueOf(shoppingCart.getTotal()));
         }
