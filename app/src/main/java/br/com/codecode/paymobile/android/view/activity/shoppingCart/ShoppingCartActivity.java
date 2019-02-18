@@ -341,6 +341,7 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
                     // undo is selected, restore the deleted item
                     mAdapter.restoreItem(deletedItem, deletedIndex);
                     shoppingCart.add(deletedItem);
+                    cartList.add(deletedItem);
                     textViewBottomTotal.setText(String.valueOf(shoppingCart.getTotal()));
 
                     mAdapter.notifyDataSetChanged();
