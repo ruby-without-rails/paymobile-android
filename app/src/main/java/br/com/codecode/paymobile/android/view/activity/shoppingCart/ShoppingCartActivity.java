@@ -74,6 +74,8 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
     private List<ShoppingItem> cartList;
     private ListView listView;
 
+    private ArrayAdapter<ShoppingItem> adapter;
+
     private Button buttonPayment;
 
     @Override
@@ -142,7 +144,7 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
 
         mAdapter = new CartListAdapter(context, shoppingCart);
 
-        ArrayAdapter<ShoppingItem> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, cartList);
+        adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, cartList);
 
         listView.setAdapter(adapter);
 
@@ -330,6 +332,7 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
             mAdapter.removeItem(viewHolder.getAdapterPosition());
 
             mAdapter.notifyDataSetChanged();
+            adapter.notifyDataSetChanged();
 
             // showing snack bar with Undo option
             Snackbar snackbar = Snackbar
@@ -344,7 +347,15 @@ public class ShoppingCartActivity extends BaseActivity implements RecyclerItemTo
                     cartList.add(deletedItem);
                     textViewBottomTotal.setText(String.valueOf(shoppingCart.getTotal()));
 
+                    adapter.notifyDataSetChanged();
                     mAdapter.notifyDataSetChanged();
+
+                    if(shoppingCart.isEmpty()){
+                        buttonPayment.setEnabled(false);
+                        cartList.clear();
+                    }else{
+                        buttonPayment.setEnabled(true);
+                    }
 
                 }
             });
