@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import br.com.codecode.paymobile.android.R;
 import br.com.codecode.paymobile.android.model.IntentKeys;
@@ -35,7 +36,7 @@ public class FinishActivity extends AppCompatActivity {
         setContentView(R.layout.finish_activity);
         textViewTotal = findViewById(R.id.tv_total);
         textViewOrderId = findViewById(R.id.tv_order_id);
-        textViewTotal.setText(String.valueOf(paymentDTO.orderTotal));
+        textViewTotal.setText(String.format("%10.2f", paymentDTO.orderTotal.divideToIntegralValue(new BigDecimal(100))));
         textViewOrderId.setText(textViewOrderId.getText() + " " + paymentDTO.orderResult.orderReference);
         btnsub = findViewById(R.id.buttonsub);
         l1 = findViewById(R.id.l1);

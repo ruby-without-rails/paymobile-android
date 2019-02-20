@@ -178,6 +178,7 @@
     <string name="user_or_password_incorrect">User or Password Incorrect</string>
     <string name="token_expired">Token has Expired, try loggin again</string>
     <string name="next">NEXT</string>
+    <string name="submit">SUBMIT</string>
 </resources>
 
 

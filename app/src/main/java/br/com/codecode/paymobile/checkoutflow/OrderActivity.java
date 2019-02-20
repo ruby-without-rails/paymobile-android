@@ -102,9 +102,9 @@ public class OrderActivity extends FragmentActivity implements FragmentManager.O
             @Override
             public void onPageSelected(int position) {
                 if (position == total_item)
-                    btnNext.setText("SUBMIT");
+                    btnNext.setText(R.string.submit);
                 else
-                    btnNext.setText("NEXT");
+                    btnNext.setText(R.string.next);
 
                 Log.d("track", "onPageSelected: " + position);
 
